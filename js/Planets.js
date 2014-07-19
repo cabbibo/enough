@@ -11,6 +11,7 @@ planets.colorSchemes = [
     new THREE.Color( '#00a4ff' ),
     new THREE.Color( '#5e2dff' ),
     new THREE.Color( '#00fff0' ),
+    'halle',
     
   ],
 
@@ -22,6 +23,7 @@ planets.colorSchemes = [
     new THREE.Color( '#faef42' ),
     new THREE.Color( '#ff0000' ),
     new THREE.Color( '#ff7800' ),
+    'main'
   ],
 
   [
@@ -31,6 +33,7 @@ planets.colorSchemes = [
     new THREE.Color( '#61a2ff' ),
     new THREE.Color( '#52fff4' ),
     new THREE.Color( '#78ffc7' ),
+    'shuffle'
   ],
 
   [ 
@@ -40,12 +43,19 @@ planets.colorSchemes = [
     new THREE.Color( '#ee3700' ),
     new THREE.Color( '#fce05e' ),
     new THREE.Color( '#ff70cc' ),
+    'wood'
   ],
 
 ]
 
 planets.audio = {};
-planets.audio.test = planets.loadAudio( 'test' , 'audio/planets-test.mp3' );
+var f = 'audio/credits/';
+planets.audio.halle = planets.loadAudio( 'halle' , f + 'halle.mp3' );
+planets.audio.main = planets.loadAudio( 'main' , f + 'main.mp3' );
+planets.audio.water = planets.loadAudio( 'water' , f + 'water.mp3' );
+planets.audio.wood = planets.loadAudio( 'wood' , f + 'wood.mp3' );
+planets.audio.musik = planets.loadAudio( 'musik' , f + 'musik.mp3' );
+planets.audio.shuffle = planets.loadAudio( 'shuffle' , f + 'shuffle.mp3' );
 
 var f = 'pages/planets/';
 
@@ -102,9 +112,7 @@ planets.addToStartArray( function(){
     var col3 = new THREE.Vector3( c[4].r , c[4].g , c[4].b );
     var col4 = new THREE.Vector3( c[5].r , c[5].g , c[5].b );
 
-    console.log( this.audio.test );
-
-    var audio = this.audio.test;
+    var audio = this.audio[c[6]];
    // var file = '';
    // if( i == 0 ) file =  '../audio/you.mp3' 
     var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
@@ -119,7 +127,6 @@ planets.addToStartArray( function(){
 
   for( var i = 0; i < this.planets.length; i++ ){
 
-    console.log('assdsdds');
     this.planets[i].audio.play();
 
   }
