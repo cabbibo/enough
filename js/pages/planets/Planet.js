@@ -1,5 +1,6 @@
-function Planet( type ,audio , color1 , color2 , color3 , color4 ){
+function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
 
+  this.page     = page;
   this.type     = type;
 
   this.color1 = color1;
@@ -7,30 +8,21 @@ function Planet( type ,audio , color1 , color2 , color3 , color4 ){
   this.color3 = color3;
   this.color4 = color4;
 
-  this.audio  = new LoadedAudio( audioController, audio );
-
-  this.audio.onLoad = function(){
-
-    console.log('AHSDAB');
-    console.log( this );
-    //this.play();
-
-  }
-
- // console.log( shaders );
-  var tNormal = THREE.ImageUtils.loadTexture( '../img/normals/moss_normal_map.jpg' );
+  this.audio  = audio;
+ 
+  // TODO: Bring this to main load
+  var tNormal = THREE.ImageUtils.loadTexture( 'img/normals/moss_normal_map.jpg' );
   tNormal.wrapS = THREE.RepeatWrapping; 
   tNormal.wrapT = THREE.RepeatWrapping; 
-  console.log( 'TNOMAL');
-  console.log( tNormal );
   
   
   this.uniforms = {
 
-    lightPos: { type:"v3" , value: center.position },
+    time: G.timer,
+    
+    lightPos: { type:"v3" , value: G.camera.position },
     tNormal:{type:"t",value:tNormal},
-    time:timer,
-    t_audio:{ type:"t" , value: audioController.texture },
+    t_audio:{ type:"t" , value: this.audio.texture },
     color1:{ type:"v3" , value: color1 },
     color2:{ type:"v3" , value: color2 },
     color3:{ type:"v3" , value: color3 },
@@ -38,8 +30,8 @@ function Planet( type ,audio , color1 , color2 , color3 , color4 ){
 
   }
 
-  this.vertexShader   = shaders.vertexShaders.planet;
-  this.fragmentShader = shaders.fragmentShaders.planet;
+  this.vertexShader   = G.shaders.vs.planet;
+  this.fragmentShader = G.shaders.fs.planet;
 
   this.material = new THREE.ShaderMaterial({
 
@@ -60,12 +52,11 @@ function Planet( type ,audio , color1 , color2 , color3 , color4 ){
   this.position.y = ( Math.random() - .5 ) * 1000;
   this.position.z = ( Math.random() - .5 ) * 1000;
 
-  objectControls.add( this.mesh );
-  scene.add( this.mesh );
+  G.objectControls.add( this.mesh );
+  this.page.scene.add( this.mesh );
   
 
 }
-
 
 Planet.prototype.update = function(){
 

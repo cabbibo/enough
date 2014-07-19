@@ -1,5 +1,7 @@
 var planets = new Page( 'planets' );
 
+planets.planets = [];
+
 planets.colorSchemes = [
 
   [ 
@@ -42,9 +44,8 @@ planets.colorSchemes = [
 
 ]
 
-
-planets.loadAudio( 'test' , 'audio/planets-test.mp3' );
-
+planets.audio = {};
+planets.audio.test = planets.loadAudio( 'test' , 'audio/planets-test.mp3' );
 
 var f = 'pages/planets/';
 
@@ -76,10 +77,53 @@ planets.addToStartArray( function(){
 planets.addToStartArray( function(){
 
   this.center = new THREE.Mesh(
-    new THREE.IcosahedronGeometry( 3000 , 0 ),
+    new THREE.IcosahedronGeometry( 10 , 0 ),
     new THREE.MeshNormalMaterial({side:THREE.DoubleSide})
   );
 
   G.scene.add( this.center );
 
+
+  // TODO: MAKE THIS Part of Global
+  this.lineGeo = createLineGeo();
+
+  for( var i= 0; i< this.colorSchemes.length; i++ ){
+
+    var bait = this.center.clone();
+    bait.scale.multiplyScalar( 5.3 );
+    //scene.add( bait );
+
+    var c = this.colorSchemes[i];
+
+    var numOf = c[1]; //+ Math.floor( Math.random() * 10 );
+
+    var col1 = new THREE.Vector3( c[2].r , c[2].g , c[2].b );
+    var col2 = new THREE.Vector3( c[3].r , c[3].g , c[3].b );
+    var col3 = new THREE.Vector3( c[4].r , c[4].g , c[4].b );
+    var col4 = new THREE.Vector3( c[5].r , c[5].g , c[5].b );
+
+    console.log( this.audio.test );
+
+    var audio = this.audio.test;
+   // var file = '';
+   // if( i == 0 ) file =  '../audio/you.mp3' 
+    var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
+
+    this.planets.push( planet );
+
+  }
+
 }.bind( planets ));
+
+planets.addToStartArray( function(){
+
+  for( var i = 0; i < this.planets.length; i++ ){
+
+    console.log('assdsdds');
+    this.planets[i].audio.play();
+
+  }
+
+
+}.bind( planets ));
+

@@ -16,6 +16,7 @@ G.shaders = new ShaderLoader( 'shaders' );
 G.leap    = new Leap.Controller();
 G.gui     = new dat.GUI({});
 G.loader  = new Loader();
+G.stats   = new Stats();
 
 G.loader.onStart = function(){
 
@@ -59,6 +60,9 @@ G.paused  = false;
 
 G.renderer.setSize( G.w , G.h );
 G.container.appendChild( G.renderer.domElement );
+  
+G.stats.domElement.id = 'stats';
+document.body.appendChild( G.stats.domElement );
 
 G.leap.connect();
 G.gui.close();
@@ -150,7 +154,8 @@ G.animate = function(){
     }
 
   }
- 
+
+  this.stats.update();
   this.renderer.render( this.scene , this.camera );
   requestAnimationFrame( this.animate.bind( this ) );
   
