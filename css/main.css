@@ -1,0 +1,292 @@
+html{
+  color:#000;
+  background:#000;
+  font-family:"GeoSans";
+  background-repeat:no-repeat;
+ // cursor: url(cursorWhite.png), auto;
+ // cursor: vertical-text;
+
+}
+
+body{
+  color:#000;
+  background:#000;
+  margin: 0px;
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: "GeoSans";
+  src: url("GeosansLight.ttf");
+}
+a{
+
+  color: #fff;
+  text-decoration: none;
+  underline: none;
+
+}
+
+a:hover{
+
+  text-decoration: underline;
+
+}
+
+.scroll{
+  overflow:auto;
+}
+
+.fullHeight{
+  height:100%;
+}
+
+.absolute{
+  position:absolute;
+}
+#curtain{
+
+  position      : absolute;
+  z-index       : 999;
+  top           : 0px;
+  left          : 0px;
+  width         : 100%;
+  height        : 100%;
+  background    : #000;
+
+}
+
+#failureDialog{
+
+  z-index: 999;
+  width:100%;
+  height:100%;
+  overflow:auto;
+  position: absolute;
+  left:0px;
+  background: #000;
+  color:#fff;
+
+ text-align:center;
+
+}
+
+
+#failureList{
+
+  padding:0px;
+  margin:0px;
+  text-align: center;
+  list-style:none;
+
+  display:block-inline;
+}
+#failureImg{
+
+  width:10%;
+
+}
+
+
+#loadBar{
+
+  position      : absolute;
+  top           : 50%;
+  height        : 1px;
+  width         : 0px;
+  background    : #fff;
+
+}
+
+#loadingGif{
+
+  position      : absolute;
+  top           : 50%;
+  left          : 50%;
+  z-index       : -1;
+
+}
+
+#loadInfo{
+
+  position      : absolute;
+  top           : 50%;
+  font-size     : 20px;
+
+  height        : 50px;
+  width         : 100%;
+  margin-top    : 5px;
+  text-align    : center;
+  //background    : #fff;
+
+}
+
+#informationSection{
+
+display:none;
+
+  padding:20px;
+  position:absolute;
+  z-index:500px;
+  right:0px;
+  bottom:0px;
+  color:#fff;
+  background: #000;
+  opacity:.5;
+  //border: 1px solid white;
+
+}
+
+#informationSection h1{
+  font-size:20px;
+}
+#renderingContainer{
+
+  position    : absolute;
+  top         : 0px;
+  left        : 0px;
+  width       : 100%;
+  height      : 100%;
+  background  : #000;
+
+}
+
+#interface{
+
+  position        : absolute;
+  top             : 0px;
+  left            : 0px;
+  width           : 100%;
+  height          : 100%;
+  z-index         : 999;
+  pointer-events  : none;
+
+}
+
+
+#info{
+
+  position:absolute;
+  top:0px;
+  padding-left: 20px;
+
+}
+
+#title{
+
+  pointer-events  : auto;
+
+}
+
+#summary{
+
+  font-size:16px;
+
+}
+
+
+#social{
+
+  pointer-events  : auto;
+
+  position:absolute;
+  right:0px;
+  bottom:5px;
+
+  width:100%;
+
+}
+
+
+.social{
+
+  width:25px;
+  height:25px;
+  display: block;
+
+  opacity:.3;
+  padding:5px;
+  float:right;
+}
+.social:hover{
+
+  opacity: .7;
+
+}
+
+/*#facebook{
+
+  margin: 5px;
+  width:25px;
+  height:25px;
+  display: block;
+
+  opacity:.3;
+  background: url("../lib/img/icons/facebook_1.png");
+  background-size: 100%;
+
+}
+
+#facebook:hover{
+  opacity:1;
+}*/
+
+#titleEP{
+  position: absolute;
+  right: 5px;
+  font-size: 23px;
+  bottom: 35px;
+  opacity: .6;
+  color: #fff;
+}
+
+#GUI{
+
+  //position:absolute;
+  right           : 0px;
+  top             : 0px;
+  pointer-events  : auto;
+
+}
+
+
+
+#stats{
+
+  position:absolute;
+  left:0px;
+  bottom:0px;
+  z-index:999;
+
+}
+
+#startInfo{
+
+  width:300px;
+  height:300px;
+  color:#fff;
+  position:absolute;
+  left:50%;
+  top:50%;
+  margin-left:-150px;
+  margin-top:10px;
+  text-align:center;
+  display:none;
+
+}
+
+#startButton{
+
+  color:#fff;
+  position:absolute;
+  top:-80px;
+  height:80px;
+  background:#000;
+  width:100%;
+  margin-left:-150px;
+  font-size:75px;
+
+}
+#startButton:hover{
+//background:#f00;
+}

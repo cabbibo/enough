@@ -1,0 +1,292 @@
+/* 
+ 
+   For each page:
+
+   Order:
+    
+    1)  Init is called, setting up what needs to be loaded ( called by user )
+    
+    2)  After all items are loaded, 'onLoad' is called ( called by page )
+    
+    3)  At a designated time 'start' is called ( called by user )
+        this section will do all of the creation of objects, etc.
+    
+    4)  At this same time 'starting' is activated, and the 'starting'
+        array is called every frame. ( called by paged ) 
+    
+    5)  during the 'starting' update period, the page will check to see if it 
+        should be active. If it finds out that it is active, it will call 'activate'
+        ending the 'starting' period 
+
+    6)  Now the page will run and run and run calling the 'activeArray' updates
+        every frame.
+
+    7)  At some point in time, the user will 'deactivate' the page, which will
+        begin the 'ending' array being updated.
+
+    8)  The ending array will continue to be called until if finds out that the page
+        has ended, at which point it will call 'end'
+
+    9)  When end is called, a
+
+   Notes:
+
+    - need to add a end check to ending and activating check to starting
+
+   Questions:
+      
+    - How to space out the creation of all the assests, so we don't 'choke'
+      the page before when 'st
+
+  TODO:
+    
+    - Create PageLoader, which is basically loader, but cleaner and without the 
+      compatibility checks
+  
+*/
+
+
+function Page( params ){
+
+  this.initialized  = false;
+  this.loaded       = false;
+  this.started      = false;
+  this.starting     = false;
+  this.active       = false;
+  this.ending       = false;
+
+  this.initArray      = [];
+  
+  this.onLoadArray    = [];
+
+  this.startArray     = [];
+  this.startingArray  = [];
+ 
+  this.activateArray  = [];
+  this.activeArray    = [];
+  this.deactiveArray  = [];
+
+  this.endingArray    = [];
+  this.endArray       = [];
+  
+  this.loader         = new PageLoader();
+  this.loader.onStart = this.onLoad.bind( this );
+
+  // Audio
+  this.gain = audioController.ctx.createGain();
+  this.gain.connect( audioController.gain );
+
+  // THREE.JS
+  this.scene    = new THREE.Object3D();
+  this.position = this.scene.position;
+
+}
+
+Page.prototype.update = function(){
+
+  if( this.started ){
+
+  // Transition phase
+  if( this.starting ){
+
+    for( var i = 0; i < this.startingArray.length; i++ ){
+
+      this.startingArray[i]();
+
+    }
+
+  }
+
+  // While active
+  if( this.active ){
+
+    for( var i = 0; i < this.activeArray.length; i++ ){
+      this.activeArray[i]();
+    }
+
+  }
+
+
+  if( this.ending ){
+
+    for( var i = 0; i < this.endingArray.length; i++ ){
+      this.endingArray[i]();
+    }
+
+  }
+
+  }else{
+
+    console.log( 'This Page should not be updating' );
+
+  }
+
+
+}
+
+// Used to begin all the loading needed
+Page.prototype.init = function(){
+ 
+  this.initialized = true;
+
+  for( var i = 0; i < this.initArray; i++ ){
+    this.initArray[i]( this );
+  }
+
+}
+// Once everything has been loaded
+Page.prototype.onLoad = function(){
+
+  this.loaded = true;
+
+  for( var i = 0; i < this.onLoadArray; i++ ){
+
+    this.onLoadArray[i]( this );
+
+  }
+
+}
+
+Page.prototype.start = function(){
+
+  if( !this.loaded  ){
+    alert('PAGE NOT LOADED');
+  }
+
+  console.log( 'PAGE STARTED' );
+
+  this.started  = true;
+  this.starting = true;
+
+  for( var i = 0; i < this.startArray.length; i++ ){
+    this.startArray[i]();
+  }
+
+  scene.add( this.scene );
+
+}
+
+Page.prototype.activate = function(){
+
+  console.log( 'PAGE ACTIVATED' );
+
+  this.active   = true;
+  this.starting = false;
+
+  for( var i = 0; i < this.activateArray; i++ ){
+    this.activateArray[i]( this );
+  }
+
+}
+
+Page.prototype.deactivate = function(){
+
+  console.log( 'PAGE DEACTIVATED' );
+
+  this.active = false;
+  this.ending = true;
+  for( var i = 0; i < this.deactivateArray; i++ ){
+    this.deactivateArray[i]( this );
+  }
+
+}
+
+Page.prototype.end = function(){
+
+  console.log( 'PAGE ENDED' );
+  this.ending   = false;
+  this.started  = false;
+  this.ended    = true;
+
+  for( var i = 0; i < this.endArray.length; i++ ){
+    this.endArray[i]();
+  }
+
+  scene.remove( this.scene );
+
+}
+
+
+Page.prototype.addToAllUpdateArrays = function( callback ){
+
+  this.addToStartingArray(  callback );
+  this.addToActiveArray(    callback );
+  this.addToEndingArray(    callback );
+
+}
+
+Page.prototype.addToStartingArray = function( callback ){
+  this.startingArray.push( callback );
+}
+
+Page.prototype.addToEndingArray = function( callback ){
+  this.endingArray.push( callback );
+}
+
+Page.prototype.addToActiveArray = function( callback ){
+  this.activeArray.push( callback );
+}
+
+
+// Event Arrays
+
+Page.prototype.addToStartArray = function( callback ){
+  this.startArray.push( callback );
+}
+
+
+Page.prototype.addToActivateArray = function( callback ){
+  this.activateArray.push( callback );
+}
+
+Page.prototype.addToDeactivateArray = function( callback ){
+  this.deactivateArray.push( callback );
+}
+
+
+Page.prototype.addToEndArray = function( callback ){
+  this.endArray.push( callback );
+}
+
+// Load Functionality
+
+Page.prototype.loadAudio = function( name ,  file , params ){
+  
+  if( !AUDIO[ name ] ){
+    
+    this.loader.addLoad();
+
+    AUDIO[ name ]= new LoadedAudio( file , audioController , params );
+
+    AUDIO[ name ]AUDIO[ name ].onLoad = function(){
+
+      console.log('Loaded Audio');
+      console.log('name: ' + name );
+      console.log('audio:');
+      console.log( audio );
+
+      this.loader.onLoad();
+
+    }.bind( this );
+
+    return AUDIO[ name ];
+
+  }else{
+
+    return AUDIO[ name ];
+
+  }
+
+}
+
+Page.prototype.loadTexture = function( name , file , params ){
+
+  if( !TEXTURES[ name ] ){
+
+
+
+  }
+
+
+
+}
