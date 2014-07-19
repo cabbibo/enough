@@ -1,0 +1,95 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <style>
+ #container{ position:absolute; left:0px; top:0px; z-index:0; width:100%; height:100%; display:block; overflow:hidden}
+    </style>
+  </head>
+
+  <body>
+    <div id="container"></div>
+
+    <script src="lib/leap.js"></script>
+    <script src="lib/three.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/TrackballControls.js"></script>
+    <script src="lib/ShaderLoader.js"></script>
+    <script src="lib/dat.gui.min.js"></script>
+
+    <script src="lib/AudioController.js"></script>
+    <script src="lib/AudioTexture.js"></script>
+    <script src="lib/LoadedAudio.js"></script>
+    <script src="lib/UserAudio.js"></script>
+    <script src="lib/underscore.js"></script>
+
+    <script src="lib/TextParticles.js"></script>
+
+    <script src="lib/ObjectControls.js"></script>
+    <script src="lib/RiggedSkeleton.js"></script>
+
+    <script src="lib/ParticleUtils.js"></script>
+    <script src="lib/PhysicsRenderer.js"></script>
+    
+    <script src="lib/Loader.js"></script>
+    <script src="lib/PageLoader.js"></script>
+
+    <script src="lib/Page.js"></script>
+    
+    
+    
+    <script src="js/pages/planets/initTextParticles.js"></script>
+    <script src="js/pages/planets/initRiggedSkeleton.js"></script>
+    <script src="js/pages/planets/createLineGeo.js"></script>
+    <script src="js/pages/planets/FurryGroup.js"></script>
+    <script src="js/pages/planets/FurryTail.js"></script>
+    <script src="js/pages/planets/Cloth.js"></script>
+    <script src="js/pages/planets/Planet.js"></script>
+
+
+
+    <!-- THESE ALWAYS GOES LAST -->
+    <script src="js/Global.js"></script>
+
+    <!-- The Pages -->
+    <script src="js/Planets.js"></script>
+
+
+    <script>
+
+      // TODO: 
+      // Write shaders for hands
+
+      G.loader.addLoad();
+
+      G.shaders.load( 'global/vs-rHand' , 'rHand' , 'vertex'    );
+      G.shaders.load( 'global/fs-rHand' , 'rHand' , 'fragment'  );
+      G.shaders.load( 'global/vs-lHand' , 'lHand' , 'vertex'    );
+      G.shaders.load( 'global/fs-lHand' , 'lHand' , 'fragment'  );
+
+      G.shaders.shaderSetLoaded = function(){
+        G.loader.onLoad();
+      }
+
+
+
+      // We Only need to start once everything has inititialized
+      G.loader.addLoad();
+      G.pages.planets.init();
+      G.pages.planets.addToOnLoadArray( function(){
+
+        G.loader.onLoad();
+
+      }.bind( G ));
+
+      G.addToStartArray( function(){
+
+        this.pages.planets.start();
+
+      }.bind( G ) );
+
+    </script>
+
+  </body>
+</html>

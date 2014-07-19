@@ -17,7 +17,7 @@ function initTextParticles(){
 
   var vs  = shaders.vertexShaders.text;
   var fs  = shaders.fragmentShaders.text;
-  var sim = shaders.simulationShaders.textPhysics;
+  var sim = shaders.simulationShaders.textSim;
 
   var creator = new TextParticles({
     vertexShader:   vs,

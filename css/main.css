@@ -17,7 +17,7 @@ body{
 
 @font-face {
   font-family: "GeoSans";
-  src: url("GeosansLight.ttf");
+  src: url("../assests/GeosansLight.ttf");
 }
 a{
 
