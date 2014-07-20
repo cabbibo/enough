@@ -5,6 +5,7 @@
   function FurryTail( group , params ){
 
     this.group = group;
+    this.page = this.group.page;
 
     this.params = _.defaults( params || {} , {
 
@@ -12,13 +13,13 @@
       type:               'test',
       
       size:               32,
-      sim:                shaders.simulationShaders.tailSim,
+      sim:                G.shaders.ss.furryTailSim,
       simulationUniforms: {},
       leader:             new THREE.Object3D(),
       lineGeo:            lineGeo,
-      audio:              audioController,
+      audio:              this.group.audio,
 
-      particleSprite:     THREE.ImageUtils.loadTexture('../img/sprite/cabbibo.png'),
+      particleSprite:     THREE.ImageUtils.loadTexture('img/sprite/cabbibo.png'),
       color1:             new THREE.Vector3( 1 , 1 , 1 ),
       color2:             new THREE.Vector3( 1 , 1 , 1 ),
       color3:             new THREE.Vector3( 1 , 1 , 1 ),
@@ -32,7 +33,7 @@
       },
     
       particleSize: 4.,
-      iriLookup: THREE.ImageUtils.loadTexture('../img/iriLookup.png')
+      iriLookup: THREE.ImageUtils.loadTexture('img/iri/rainbow.png')
 
     });
 
@@ -103,12 +104,12 @@
     this.collisionForces = [];
 
 
-    this.renderer     = renderer; 
+    this.renderer     = G.renderer; 
 
     this.physicsRenderer = new PhysicsRenderer( 
       this.size,
       this.sim,
-      renderer 
+      G.renderer 
     );
    
     this.particleUniforms.t_sprite.value = this.particleSprite;
@@ -120,11 +121,13 @@
     if( this.lineUniforms.t_audio){
       this.lineUniforms.t_audio.value = this.audio.texture;
     }
-  
+ 
+    console.log( G.shaders.fs.spring );
+
     var mat = new THREE.ShaderMaterial({
       uniforms: this.particleUniforms,
-      vertexShader: shaders.vertexShaders.render,
-      fragmentShader: shaders.fragmentShaders.render,
+      vertexShader: G.shaders.vs.furryParticles,
+      fragmentShader: G.shaders.fs.furryParticles,
       transparent: true,
       depthWrite: false
     })
@@ -141,8 +144,8 @@
  
     var lineMat = new THREE.ShaderMaterial({
       uniforms: this.lineUniforms,
-      vertexShader: shaders.vertexShaders.lineRender,
-      fragmentShader: shaders.fragmentShaders.lineRender,    
+      vertexShader: G.shaders.vs.furryTail,
+      fragmentShader: G.shaders.fs.furryTail,    
     });
 
     this.line = new THREE.Line( this.lineGeo , lineMat );
@@ -159,14 +162,17 @@
     
     this.applyUniforms();
 
-    this.cloth = new Cloth( 
+    this.head = new FurryHead(
+      this.page,
       this.leader , 
+      this.group.audio,
       this.color1 , 
       this.color2 , 
       this.color3 , 
       this.color4  
     );
-    this.physicsRenderer.addBoundTexture( this.cloth.physicsRenderer , 't_column' , 'output' );
+
+    this.physicsRenderer.addBoundTexture( this.head.physicsRenderer , 't_column' , 'output' );
 
 
   }
@@ -181,10 +187,10 @@
 
   FurryTail.prototype.activate = function(){
 
-    scene.add( this.physicsParticles );
-    scene.add( this.line );
-    scene.add( this.leader );
-    scene.add( this.cloth.mesh );    
+    this.page.scene.add( this.physicsParticles );
+    this.page.scene.add( this.line );
+    this.page.scene.add( this.leader );
+    this.page.scene.add( this.head.mesh );    
 
     this.active = true;
 
@@ -192,10 +198,10 @@
 
   FurryTail.prototype.deactivate = function(){
 
-    scene.add( this.physicsParticles );
-    scene.add( this.line );
-    scene.add( this.leader );
-    scene.add( this.cloth.mesh );    
+    this.page.scene.add( this.physicsParticles );
+    this.page.scene.add( this.line );
+    this.page.scene.add( this.leader );
+    this.page.scene.add( this.head.mesh );    
 
     this.active = false;
 
@@ -289,9 +295,6 @@
     }
 
 
-
-
-
     var finalForce = this.force.multiplyScalar( pp.forceMultiplier );
     this.velocity.add( finalForce );
 
@@ -304,7 +307,7 @@
 
 
 
-    this.position.add( this.velocity.clone().multiplyScalar( dT.value * 80 ));
+    this.position.add( this.velocity.clone().multiplyScalar( G.dT.value * 80 ));
     this.velocity.multiplyScalar( pp.dampening ); // turn to vector dampening
 
     this.force.set( 0 , 0 , 0);
@@ -313,7 +316,7 @@
 
   FurryTail.prototype.updateTail = function(){
     this.physicsRenderer.update();
-    this.cloth.update();
+    this.head.update();
   }
 
 
@@ -342,7 +345,7 @@
       value: this.position
     });
 
-    this.physicsRenderer.setUniform( 'dT' , dT );
+    this.physicsRenderer.setUniform( 'dT' , G.dT );
 
   }
 
@@ -384,7 +387,6 @@
 
   FurryTail.prototype.addDistanceForce = function( pos , power ){
 
-    console.log('nanssss');
     this.distanceForces.push( [ pos , power ] );
 
   }

@@ -1,8 +1,17 @@
+PLOT:
+
+
+  Characters
+    Sol
+    Evlana
+
+
+
+
+
 TODO:
 
 - Figure best way to update loaded audio textures
-- Figure out best way to load textures in
-  - probably 'Global Texture set' which is loaded before 
-    anything goes with maybe 5 textures that are not too heavy ( moss, sand , etc )
+- Need a global 3D Mouse position, which also means a global Intersect plane!
+- every page should have text on it ( could be blank for transition pages? );
 
-- Remove from audio controller update array!

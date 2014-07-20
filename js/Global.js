@@ -2,14 +2,22 @@
 
 var G = {};
 
+G.texturesToLoad = [
+  ['iri_red'  , 'img/iri/red.png'],
+  ['iri_gold' , 'img/iri/gold.png'],
+  ['iri_blue' , 'img/iri/blue.png'],
+
+  ['norm_moss' , 'img/normals/moss_normal_map.jpg' ],
+]
+
 G.pages   = {};
 
 // Loaded objects that may be
 // Used across pages
-G.AUDIO   = {};
-G.TEXTURE = {};
-G.GEOS    = {};
-G.MATS    = {};
+G.AUDIO     = {};
+G.TEXTURES  = {};
+G.GEOS      = {};
+G.MATS      = {};
 
 G.audio   = new AudioController();
 G.shaders = new ShaderLoader( 'shaders' );
@@ -17,6 +25,7 @@ G.leap    = new Leap.Controller();
 G.gui     = new dat.GUI({});
 G.loader  = new Loader();
 G.stats   = new Stats();
+
 
 G.loader.onStart = function(){
 
@@ -74,7 +83,20 @@ G.startArray = [];
 
 
 G.init = function(){
+
+  /*
+   
+    Non Leap interaction
+
+  */
   
+  this.iPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry( 10000 , 10000 )
+  );
+  this.scene.add( this.iPlane );
+  this.iPlane.visible = false;
+
+  this.iPoint = new THREE.Vector3();
 
   /*
   
@@ -115,7 +137,20 @@ G.init = function(){
   this.lHand.addScaledMeshToAll( rHandMesh );
 
   this.lHand.addToScene( this.scene );
+ 
+
+  /*
   
+     Text
+
+  */
+
+  this.text = new TextParticles({
+    vertexShader:   this.shaders.vs.text,
+    fragmentShader: this.shaders.fs.text,
+    lineLength:     50
+  });
+
 
 
   /*
@@ -191,7 +226,34 @@ G.onKeyDown = function( e ){
 
 }
 
+G.loadTextures = function(){
 
+  for( var i = 0; i < G.texturesToLoad.length; i++ ){
+
+    var t = G.texturesToLoad[i];
+
+    this.loadTexture( t[0] , t[1] );
+
+  }
+
+}
+
+G.loadTexture = function( name , file ){
+
+  var cb = function(){
+    this.loader.onLoad(); 
+  }.bind( this );
+
+  var m = THREE.UVMapping;
+
+  var l = THREE.ImageUtils.loadTexture;
+
+  G.loader.addLoad();
+  G.TEXTURES[ name ] = l( file , m , cb );
+  G.TEXTURES[ name ].wrapS = THREE.RepeatWrapping;
+  G.TEXTURES[ name ].wrapT = THREE.RepeatWrapping;
+
+}
 
 // Some Event Listeners
 

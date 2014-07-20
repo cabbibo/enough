@@ -1,6 +1,23 @@
 var planets = new Page( 'planets' );
 
+
+planets.textChunk = [
+
+  "   The joy Shams felt could not be described with mortal words. There was not just one more of him. There were Hundreds. The Lonliness that he had felt earlier in his journey had vanished, and the only thing left was comfort. Ecstasy.",
+  "",
+  "",
+  "He watched the way they swam, following their iridescent wanderings. Although he had been to this place before, it somehow felt different. Each color a bit more defined, each star that much more bright.",
+  "",
+  "",
+  "He still did not know why he had risen. Where his new found friends were going to. The darkness surrounding them was still overbearing, and stars did not do enough to make him forget it. But there, in that moment. They swam together, and that was enough."
+
+
+].join("\n");
+
+
 planets.planets = [];
+planets.furryGroups = [];
+planets.furryTails = [];
 
 planets.colorSchemes = [
 
@@ -59,21 +76,17 @@ planets.audio.shuffle = planets.loadAudio( 'shuffle' , f + 'shuffle.mp3' );
 
 var f = 'pages/planets/';
 
-planets.loadShader( 'spring' , f + 'vs-spring' , 'vs' );
-planets.loadShader( 'spring' , f + 'vs-spring' , 'vs' );
-planets.loadShader( 'lineRender' , f + 'vs-lineRender' , 'vs' );
-planets.loadShader( 'lineRender' , f + 'fs-lineRender' , 'fs' );
-planets.loadShader( 'iri' , f + 'vs-iri' , 'vs' );
-planets.loadShader( 'iri' , f + 'fs-iri' , 'fs' );
-planets.loadShader( 'jelly' , f + 'vs-jelly' , 'vs' );
-planets.loadShader( 'jelly' , f + 'fs-jelly' , 'fs' );
+planets.loadShader( 'furryParticles' , f + 'vs-furryParticles' , 'vs' );
+planets.loadShader( 'furryParticles' , f + 'fs-furryParticles' , 'fs' );
+planets.loadShader( 'furryTail'      , f + 'vs-furryTail' , 'vs' );
+planets.loadShader( 'furryTail'      , f + 'fs-furryTail' , 'fs' );
+planets.loadShader( 'furryHead'      , f + 'vs-furryHead' , 'vs' );
+planets.loadShader( 'furryHead'      , f + 'fs-furryHead' , 'fs' );
+planets.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
+planets.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
+
 planets.loadShader( 'planet' , f + 'vs-planet' , 'vs' );
 planets.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
-planets.loadShader( 'text' , f + 'vs-text' , 'vs' );
-planets.loadShader( 'text' , f + 'fs-text' , 'fs' );
-planets.loadShader( 'tailSim'   , f + 'tailSim'   , 'ss' );
-planets.loadShader( 'jellySim'  , f + 'jellySim'  , 'ss' );
-planets.loadShader( 'textSim'  , f + 'textSim'  , 'ss' );
 
 
 planets.addToStartArray( function(){
@@ -84,6 +97,12 @@ planets.addToStartArray( function(){
 
 }.bind( planets ));
 
+
+/*
+
+   Creating Planets and Tails
+
+*/
 planets.addToStartArray( function(){
 
   this.center = new THREE.Mesh(
@@ -113,16 +132,61 @@ planets.addToStartArray( function(){
     var col4 = new THREE.Vector3( c[5].r , c[5].g , c[5].b );
 
     var audio = this.audio[c[6]];
-   // var file = '';
-   // if( i == 0 ) file =  '../audio/you.mp3' 
     var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
 
     this.planets.push( planet );
 
+    var f = new FurryGroup( this , c[0], audio , numOf, {
+            
+      center: this.center,
+      bait: bait,
+      color1: col1,
+      color2: col2,
+      color3: col3,
+      color4: col4,
+
+    });
+
+    this.furryGroups.push( f );
+
+  }
+
+
+  for( var i = 0; i < this.furryGroups.length; i++ ){
+
+    this.furryGroups[i].updateBrethren();
+
+  }
+
+  for( var i = 0; i < this.furryTails.length; i++ ){
+
+    var fT = this.furryTails[i];
+
+    for( var j = 0; j < this.planets.length; j++ ){
+
+      fT.addCollisionForce( this.planets[j].position , 100 );
+      if( fT.type == this.planets[j].type ){
+        fT.addDistanceForce( this.planets[j].position , .00004 );  
+      }else{
+        fT.addDistanceForce( this.planets[j].position , .00001 );
+
+      }
+
+    }
+  
   }
 
 }.bind( planets ));
 
+
+
+
+/*
+
+  Setting up audio
+  TODO: Make into looper
+
+*/
 planets.addToStartArray( function(){
 
   for( var i = 0; i < this.planets.length; i++ ){
@@ -133,4 +197,108 @@ planets.addToStartArray( function(){
 
 
 }.bind( planets ));
+
+
+/*
+ 
+   Text
+
+*/
+planets.addToStartArray( function(){
+
+  this.textParticles = G.text.createTextParticles( this.textChunk );
+
+
+  var s = this.textParticles.size;
+
+  var sim = G.shaders.ss.textSim;
+
+  var physics = new PhysicsRenderer( s , sim , G.renderer );
+  physics.setUniform( 't_to' , {
+    type:"t",
+    value:this.textParticles.material.uniforms.t_lookup.value
+  });
+ 
+
+  var repelPosArray = [];
+  for( var i =0; i < this.furryTails.length; i++ ){
+
+    repelPosArray.push( this.furryTails[i].position );
+
+  }
+
+  repelPosArray.push( G.rHand.hand.position );
+  repelPosArray.push( G.lHand.hand.position );
+  repelPosArray.push( G.iPoint );
+
+  for( var i = 0; i < this.planets.length; i++ ){
+
+    repelPosArray.push( this.planets[i].position );
+
+  }
+
+  console.log( 'REPEL POS LENGTH' );
+  console.log( repelPosArray.length );
+
+  var repelPos = {
+    type:"v3v",
+    value: repelPosArray
+  }
+
+  var speedUniform = { type:"v3" , value:new THREE.Vector3() }
+  var cameraMat = { type:"m4" , value:G.camera.matrixWorld}
+  var cameraPos = { type:"v3" , value:G.camera.position } 
+
+  var offsetPos = { type:"v3" , value: new THREE.Vector3( 0 , 150 , 0 ) }
+  var alive     = { type:"f" , value:1}
+
+  physics.setUniform( 'speed' , speedUniform );
+  physics.setUniform( 'timer' , G.dT );
+  physics.setUniform( 'cameraMat' , cameraMat );
+  physics.setUniform( 'cameraPos' , cameraPos );
+  physics.setUniform( 'repelPos'  , repelPos );
+  physics.setUniform( 'alive'     , alive    );
+
+  physics.addBoundTexture( this.textParticles , 't_lookup' , 'output' );
+
+
+  this.textParticles.physics = physics;
+
+  this.scene.add( this.textParticles );
+  
+
+
+
+
+
+
+}.bind( planets ));
+
+
+
+
+planets.addToAllUpdateArrays( function(){
+
+
+  for( var i = 0; i < this.furryTails.length; i++ ){
+
+    var furryTail = this.furryTails[i];
+    furryTail.updateTail();
+
+  }
+
+
+  for( var i = 0; i < this.furryTails.length; i++ ){
+
+    var furryTail = this.furryTails[i];
+    furryTail.updatePhysics();
+
+  }
+
+  this.textParticles.physics.update();
+
+
+}.bind( planets ) );
+
+
 

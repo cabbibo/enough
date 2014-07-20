@@ -1,6 +1,9 @@
 
-  function FurryGroup( title , numOf , params ){
+  function FurryGroup( page,  title, audio , numOf , params ){
 
+    this.page = page;
+
+    this.audio = audio;
 
     this.tails = [];
 
@@ -28,7 +31,7 @@
       color2: new THREE.Vector3( 255/255 , 190/255 , 30/255),    
       color3: new THREE.Vector3( 240/255 , 80/255 ,58/255 ),    
       color4: new THREE.Vector3( 37/255 , 1 , 178/255 ),
-      iriLookup: THREE.ImageUtils.loadTexture('../img/iriLookup.png'), 
+      iriLookup: THREE.ImageUtils.loadTexture('img/iri/rainbow.png'), 
       particleSize:5
 
     });
@@ -44,15 +47,19 @@
     this.position = this.bait.position;
     this.velocity = new THREE.Vector3();
 
-    var folder = gui.addFolder( title );
+    var folder = this.page.gui.addFolder( title );
 
-    /*var upperForces = folder.addFolder( 'Group Interaction' );
+    /*
+    
+    var upperForces = folder.addFolder( 'Group Interaction' );
 
     upperForces.add( this.physicsParams , 'repelRadius' , 0 , 100 );
     upperForces.add( this.physicsParams , 'dampening' , .8 , 1   );
     upperForces.add( this.physicsParams , 'attractPower' , .0 , .01   );
     upperForces.add( this.physicsParams , 'repelPower' , .0 , .01   );
-    upperForces.add( this.physicsParams , 'baitPower' , .0 , .01   );*/
+    upperForces.add( this.physicsParams , 'baitPower' , .0 , .01   );
+
+    */
 
     /*
 
@@ -62,19 +69,18 @@
     var p = this.params.physicsParams;    
     var physicsParams = p;
 
+    /*
 
-    /*var interactionParams = folder.addFolder( 'Interaction' );
 
-    var p = this.params.physicsParams;
+    var interactionParams = folder.addFolder( 'Interaction' );
 
-    var physicsParams = p;
- 
     interactionParams.add( p , 'repelRadius' , 0 , 1000 );
     interactionParams.add( p , 'dampening' , .7 , .99999 );
     interactionParams.add( p , 'attractPower' , 0 , .01 );
     interactionParams.add( p , 'repelPower' , 0 , .01 );
-    interactionParams.add( p , 'baitPower' , 0 , .01 );*/
+    interactionParams.add( p , 'baitPower' , 0 , .01 );
 
+    */
 
     /*
 
@@ -126,7 +132,7 @@
       force_subSubAttract   : f_sSA,
       dist_subSubRepel      : d_sSR,
       force_subSubRepel     : f_sSR,
-      dT                    : dT,
+      dT                    : G.dT,
       audioPower            : audioPower,
       audioAmount           : audioAmount,
 
@@ -256,7 +262,7 @@
         iriLookup:    this.iriLookup
       });
 
-      furryTails.push( furryTail );
+      this.page.furryTails.push( furryTail );
       this.tails.push( furryTail );
     
     }
@@ -274,7 +280,7 @@
 
   FurryGroup.prototype.updateBrethren = function(){
 
-    this.brethren = groups;
+    this.brethren = this.page.furryGroups;
 
   }
 
@@ -318,7 +324,7 @@
     mesh.select = select;
     mesh.deselect = deselect;
 
-    objectControls.add( mesh );
+    G.objectControls.add( mesh );
     return mesh;
 
   }

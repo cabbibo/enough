@@ -1,20 +1,21 @@
 
-  function Cloth( leader ,  color1 , color2 , color3 , color4 ){
+  function FurryHead( page , leader , audio ,  color1 , color2 , color3 , color4 ){
 
 
+    this.page = page;
     this.size = 32;
-    this.sim = shaders.simulationShaders.jellySim;
+    this.sim = G.shaders.ss.furryHeadSim;
     this.leader = leader;
 
     this.physicsRenderer = new PhysicsRenderer(
       this.size,
       this.sim,
-      renderer
+      G.renderer
     );
 
     this.physicsRenderer.setUniform( 't_audio' , {
       type:"t",
-      value:audioController.texture
+      value:audio.texture
     });
 
     this.physicsRenderer.setUniform( 't_column' , {
@@ -28,33 +29,36 @@
       value:this.leader.position
     });
 
-    this.physicsRenderer.setUniform( 'dT' , dT );
+    this.physicsRenderer.setUniform( 'dT' , G.dT );
 
-    this.physicsRenderer.setUniform( 'timer' , timer );
+    this.physicsRenderer.setUniform( 'timer' , G.timer );
 
 
 
-    var tNormal = THREE.ImageUtils.loadTexture( '../img/normals/moss_normal_map.jpg' );
-    
+    var tNormal = G.TEXTURES.norm_moss;
+    console.log( tNormal );
+    console.log('MOSS' );
+
+
     var uniforms = {
       
-      lightPos: { type:"v3" , value: center.position },
+      lightPos: { type:"v3" , value: this.page.position },
       tNormal:{type:"t",value:tNormal},
-      t_audio:{type:"t",value:audioController.texture},
+      t_audio:{type:"t",value: audio.texture},
       t_pos:{ type:"t" , value:null },
       color1:{ type:"v3" , value:color1 },
       color2:{ type:"v3" , value:color2 },
       color3:{ type:"v3" , value:color3 },
       color4:{ type:"v3" , value:color4 },
-      time:timer
+      time: G.timer
 
     }
 
     var material = new THREE.ShaderMaterial({
 
       uniforms: uniforms,
-      vertexShader: shaders.vertexShaders.iri,
-      fragmentShader: shaders.fragmentShaders.iri,
+      vertexShader: G.shaders.vs.furryHead,
+      fragmentShader: G.shaders.fs.furryHead,
       side: THREE.DoubleSide
 
     });
@@ -63,7 +67,6 @@
 
     var m = new THREE.MeshNormalMaterial();
     this.mesh = new THREE.Mesh( geo , material );
-    scene.add( this.mesh );
 
     var pR = this.physicsRenderer;
     
@@ -75,13 +78,13 @@
    
   }
 
-  Cloth.prototype.update = function(){
+  FurryHead.prototype.update = function(){
 
     this.physicsRenderer.update();
   }
 
 
-  Cloth.prototype.createGeo = function( size ){
+  FurryHead.prototype.createGeo = function( size ){
 
     var geo = new THREE.BufferGeometry();
 
@@ -242,7 +245,7 @@
   };
 
 
-  Cloth.prototype.createPosTexture = function( size ){
+  FurryHead.prototype.createPosTexture = function( size ){
 
 
     var data = new Float32Array( size * size * 4 );

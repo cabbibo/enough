@@ -45,7 +45,7 @@
     <script src="js/pages/planets/createLineGeo.js"></script>
     <script src="js/pages/planets/FurryGroup.js"></script>
     <script src="js/pages/planets/FurryTail.js"></script>
-    <script src="js/pages/planets/Cloth.js"></script>
+    <script src="js/pages/planets/FurryHead.js"></script>
     <script src="js/pages/planets/Planet.js"></script>
 
 
@@ -64,16 +64,24 @@
 
       G.loader.addLoad();
 
+      // For Hands
       G.shaders.load( 'global/vs-rHand' , 'rHand' , 'vertex'    );
       G.shaders.load( 'global/fs-rHand' , 'rHand' , 'fragment'  );
       G.shaders.load( 'global/vs-lHand' , 'lHand' , 'vertex'    );
       G.shaders.load( 'global/fs-lHand' , 'lHand' , 'fragment'  );
 
+      // For Tails
+
+      // For text
+      G.shaders.load( 'global/vs-text' , 'text' , 'vertex'    );
+      G.shaders.load( 'global/fs-text' , 'text' , 'fragment'  );
+      G.shaders.load( 'global/textSim' , 'textSim' , 'simulation'  );
+
       G.shaders.shaderSetLoaded = function(){
         G.loader.onLoad();
       }
 
-
+      G.loadTextures();
 
       // We Only need to start once everything has inititialized
       G.loader.addLoad();
