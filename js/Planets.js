@@ -11,7 +11,6 @@ planets.textChunk = [
   "",
   "He still did not know why he had risen. Where his new found friends were going to. The darkness surrounding them was still overbearing, and stars did not do enough to make him forget it. But there, in that moment. They swam together, and that was enough."
 
-
 ].join("\n");
 
 
@@ -88,7 +87,11 @@ planets.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
 planets.loadShader( 'planet' , f + 'vs-planet' , 'vs' );
 planets.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
 
+/*
 
+   Positioning Camera
+
+*/
 planets.addToStartArray( function(){
 
   var newPos = new THREE.Vector3( 0 , 0 , 1000 );
@@ -100,6 +103,20 @@ planets.addToStartArray( function(){
   G.camera.lookAt( this.scene.position );
 
 }.bind( planets ));
+
+/*
+ 
+   Setting up looper
+
+*/
+
+planets.addToStartArray( function(){
+
+
+
+
+}.bind( planets ));
+
 
 
 /*
@@ -189,14 +206,27 @@ planets.addToStartArray( function(){
 */
 planets.addToStartArray( function(){
 
-  for( var i = 0; i < this.planets.length; i++ ){
+  this.looper = new Looper( G.audio , G.timer , {
+  
+    beatsPerMinute: 122,
+    beatsPerMeasure: 4,
+    measuresPerLoop: 8
 
-    this.planets[i].audio.play();
+  });
 
-  }
+
+  this.looper.everyLoop( function(){
+    for( var i = 0; i < this.planets.length; i++ ){
+      this.planets[i].audio.play();
+    }
+  }.bind( this ) );
+
+  //this.looper.start();
 
 
 }.bind( planets ));
+
+planets.addToEndStartArray( function(){ this.looper.start() }.bind( planets ) );
 
 
 /*

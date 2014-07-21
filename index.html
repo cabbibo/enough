@@ -15,15 +15,17 @@
     <script src="lib/three.r68.js"></script>
     <script src="lib/jquery.min.js"></script>
     <script src="lib/stats.min.js"></script>
-    <script src="lib/TrackballControls.js"></script>
-    <script src="lib/ShaderLoader.js"></script>
     <script src="lib/dat.gui.min.js"></script>
+    <script src="lib/underscore.js"></script>
+    
+    <script src="lib/ShaderLoader.js"></script>
+    <script src="lib/TrackballControls.js"></script>
 
     <script src="lib/AudioController.js"></script>
     <script src="lib/AudioTexture.js"></script>
     <script src="lib/LoadedAudio.js"></script>
     <script src="lib/UserAudio.js"></script>
-    <script src="lib/underscore.js"></script>
+    <script src="lib/Looper.js"></script>
 
     <script src="lib/TextParticles.js"></script>
 
@@ -59,7 +61,7 @@
       // TODO: 
       // Write shaders for hands
 
-      G.audio.mute.gain.value = 0;
+      //G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -94,8 +96,7 @@
 
       G.addToStartArray( function(){
 
-        this.pages.planets.start();
-
+          this.pages.planets.start();
       }.bind( G ) );
 
     </script>
