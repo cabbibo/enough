@@ -10,7 +10,6 @@ uniform vec3 color2;
 uniform vec3 color3;
 uniform vec3 color4;
 
-varying vec4 vPos;
 varying vec3 vColor;
 
 varying vec2 vUv;
@@ -27,8 +26,6 @@ void main(){
   vec4 oPos   =  texture2D( t_oPos , position.xy );
   vec4 ooPos  =  texture2D( t_ooPos , position.xy );
 
-  vPos =  pos;
-  
   vec4 mvPos = modelViewMatrix * vec4( pos.xyz , 1.0 );
 
   float mIx = floor( (vUv.x + hSize ) / size );
@@ -45,7 +42,7 @@ void main(){
 
   vec3 vView = modelViewMatrix[3].xyz;
   
-  vec3 lightDir = normalize( lightPos -  (modelViewMatrix * vec4( vPos.xyz , 1.0 )).xyz );
+  vec3 lightDir = normalize( lightPos -  (modelViewMatrix * vec4( pos.xyz , 1.0 )).xyz );
 
 
   gl_PointSize =  particleSize * vUv.y * 2. * 1000. / length( mvPos.xyz );

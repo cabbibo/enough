@@ -3,7 +3,6 @@ uniform sampler2D t_audio;
 uniform sampler2D t_sprite;
 
 varying vec2 vUv;
-varying vec4 vPos;
 varying vec3 vColor;
 
 

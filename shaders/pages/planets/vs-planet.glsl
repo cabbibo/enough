@@ -4,15 +4,12 @@ uniform float time;
 
 
 varying vec3 vPos;
-varying vec2 vUv;
 varying vec3 vNorm;
 varying vec3 vView;
 
 varying mat3 vNormalMat;
 varying vec3 vLightDir;
 varying float vDisplacement;
-
-varying vec3 vMVPos;
 
 $simplex
 
@@ -52,7 +49,6 @@ void main(){
 
   vPos  = position;
   vNorm = normal;
-  vUv   = uv;
 
   vView = modelViewMatrix[3].xyz;
 
@@ -88,8 +84,6 @@ void main(){
 
   vDisplacement = snoise( normalize(vPos) * 2. + offset );
   vPos *= 1. + vDisplacement *.1;
-  
-  vMVPos = (modelViewMatrix * vec4( vPos , 1.0 )).xyz;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4( vPos , 1.0 );
 

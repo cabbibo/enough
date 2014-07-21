@@ -10,16 +10,11 @@ uniform vec3 color4;
 
 attribute vec3 color;
 
-varying vec3 vPos;
-varying vec3 vVel;
 varying vec3 vColor;
 varying vec3 vNorm;
 
 varying vec3 vView;
 varying vec3 vLightDir;
-
-
-varying float vC;
 
 const vec3 lightPos = vec3( 1.0 , 1.0 , 1.0 );
 
@@ -36,11 +31,6 @@ void main(){
   vec3 aveDir = (oDir1 - oDir2) /2.;
   vNorm = -normalize(aveDir);
 
-  vec3 vel = pos.xyz - oPos.xyz;
-  vVel = vel;
-  vPos = pos.xyz;
-
-
   if( color.g < .1 ){
   
     vColor = color1;//color1.xyz;
@@ -52,15 +42,14 @@ void main(){
   }else if( color.g < 3.1 ){
     vColor = color4;
   }  
-  vC = position.z;
 
   vView = modelViewMatrix[3].xyz;
 
-  vec3 lightDir = normalize( lightPos -  (modelViewMatrix * vec4( vPos , 1.0 )).xyz );
+  vec3 lightDir = normalize( lightPos - (modelViewMatrix * vec4( pos.xyz , 1.0 )).xyz );
   vLightDir = lightDir;
 
   //vPos = position;
-  vec4 mvPos = modelViewMatrix * vec4( vPos , 1.0 );
+  vec4 mvPos = modelViewMatrix * vec4( pos.xyz , 1.0 );
   gl_Position = projectionMatrix * mvPos;
   
 

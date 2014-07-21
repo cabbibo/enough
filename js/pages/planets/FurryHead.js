@@ -35,22 +35,19 @@
 
 
 
-    var tNormal = G.TEXTURES.norm_moss;
-    console.log( tNormal );
-    console.log('MOSS' );
+    var t_normal = G.TEXTURES.norm_moss;
 
 
     var uniforms = {
       
+      t_normal: { type:"t"  , value: t_normal           },
+      t_audio:  { type:"t"  , value: audio.texture      },
+      t_pos:    { type:"t"  , value: null               },
       lightPos: { type:"v3" , value: this.page.position },
-      tNormal:{type:"t",value:tNormal},
-      t_audio:{type:"t",value: audio.texture},
-      t_pos:{ type:"t" , value:null },
-      color1:{ type:"v3" , value:color1 },
-      color2:{ type:"v3" , value:color2 },
-      color3:{ type:"v3" , value:color3 },
-      color4:{ type:"v3" , value:color4 },
-      time: G.timer
+      color1:   { type:"v3" , value: color1             },
+      color2:   { type:"v3" , value: color2             },
+      color3:   { type:"v3" , value: color3             },
+      color4:   { type:"v3" , value: color4             },
 
     }
 
@@ -72,7 +69,7 @@
     
     pR.addBoundTexture( this.mesh , 't_pos' , 'output' );
 
-    var mesh = new THREE.Mesh( new THREE.CubeGeometry( 5 , 5 , 5) );
+    var mesh = new THREE.Mesh( new THREE.BoxGeometry( 5 , 5 , 5) );
     var pTexture = this.createPosTexture( this.size );
     this.physicsRenderer.reset( pTexture );
    
@@ -92,6 +89,7 @@
 
     var posA = new THREE.BufferAttribute( new Float32Array( subSize * 6 * 3 ), 3 );
     var normA = new THREE.BufferAttribute( new Float32Array( subSize * 6 * 3 ), 3 );
+
     geo.addAttribute( 'position', posA ); 
     geo.addAttribute( 'normal', normA ); 
   

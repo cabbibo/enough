@@ -1,10 +1,6 @@
 
   uniform vec3 lightPos;
-  uniform sampler2D tNormal;
-  uniform float time;
-
   uniform sampler2D t_pos;
-  
 
   varying vec3 vView;
   varying vec3 vNormal;
@@ -12,7 +8,6 @@
 
   varying mat3 vNormalMat;
   varying vec3 vLightDir;
-  varying float vDisplacement;
 
   const float size = 1. / 32.;
   const float hSize = size / 2.;

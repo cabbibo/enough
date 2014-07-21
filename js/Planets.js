@@ -94,8 +94,6 @@ planets.addToStartArray( function(){
   var newPos = new THREE.Vector3( 0 , 0 , 1000 );
   G.camera.position = this.scene.position.clone();
   
-  console.log( 'HELLO WHATS GOING ON' );
-  console.log( G.camera.position );
   G.camera.position.add( newPos );
 
   console.log( G.camera.position );
@@ -118,9 +116,6 @@ planets.addToStartArray( function(){
 
   G.scene.add( this.center );
 
-
-  // TODO: MAKE THIS Part of Global
-  this.lineGeo = createLineGeo();
 
   for( var i= 0; i< this.colorSchemes.length; i++ ){
 
@@ -175,7 +170,6 @@ planets.addToStartArray( function(){
         fT.addDistanceForce( this.planets[j].position , .00004 );  
       }else{
         fT.addDistanceForce( this.planets[j].position , .00001 );
-
       }
 
     }
@@ -229,8 +223,6 @@ planets.addToStartArray( function(){
   var repelPosArray = [];
   for( var i =0; i < this.furryTails.length; i++ ){
 
-    console.log( 'FURRY TAIL' );
-    console.log( this.furryTails[i].position );
     repelPosArray.push( this.furryTails[i].position );
 
   }
@@ -241,14 +233,10 @@ planets.addToStartArray( function(){
 
   for( var i = 0; i < this.planets.length; i++ ){
 
-    console.log( 'PLANET' );
-    console.log( this.planets[i].position );
     repelPosArray.push( this.planets[i].position );
 
   }
 
-  console.log( 'REPEL POS LENGTH' );
-  console.log( repelPosArray.length );
 
   for( var i = repelPosArray.length; i < 20; i++ ){
 
@@ -256,9 +244,6 @@ planets.addToStartArray( function(){
     repelPosArray.push( new THREE.Vector3( l , l , l )); 
 
   }
-  console.log( repelPosArray.length );
-
-  console.log( repelPosArray );
 
   var repelPos = {
     type:"v3v",

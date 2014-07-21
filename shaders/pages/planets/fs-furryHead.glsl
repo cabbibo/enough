@@ -1,8 +1,7 @@
   
-  uniform sampler2D   tIri;
-  uniform sampler2D   tNoise;
-  uniform sampler2D tNormal;
+  uniform sampler2D t_normal;
   uniform sampler2D t_audio;
+  
   uniform vec3 lightPos;
   
   uniform vec3 color1;
@@ -10,15 +9,11 @@
   uniform vec3 color3;
   uniform vec3 color4;
  
-  uniform float time;
-
   varying vec3 vNormal;
   varying vec3 vView;
   varying vec2 vUv;
-  varying float vDisplacement;
 
   varying vec3 vLightDir;
-  varying vec3 vLightPos;
   varying mat3 vNormalMat;
 
   const float noise_strength = .2;
@@ -43,7 +38,7 @@
   void main(void)  {
 
 
-    vec3 tNorm = texture2D( tNormal , vUv ).xyz;
+    vec3 tNorm = texture2D( t_normal , vUv ).xyz;
     tNorm = normalize( tNorm  ) * 1.;
     
     vec3 newNormal = normalize( vNormal + tNorm );
@@ -78,8 +73,8 @@
 
     vec3 audioColor = texture2D( t_audio , vec2(  inverse_dot_view * facingRatio , 0. ) ).xyz;
 
-    vec3 halfv = normalize( vLightDir + nView ); 
-    float specDot = max( 0. , dot( nNormal , halfv ));
+    vec3 halfv        = normalize( vLightDir + nView ); 
+    float specDot     = max( 0. , dot( nNormal , halfv ));
     float specularity = pow( specDot , 50. );
 
     vec3 sC = vec3( 1. , 1. , 1. ) * specularity;

@@ -11,17 +11,15 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
   this.audio  = audio;
  
   // TODO: Bring this to main load
-  var tNormal = THREE.ImageUtils.loadTexture( 'img/normals/moss_normal_map.jpg' );
-  tNormal.wrapS = THREE.RepeatWrapping; 
-  tNormal.wrapT = THREE.RepeatWrapping; 
+  var t_normal = THREE.ImageUtils.loadTexture( 'img/normals/moss_normal_map.jpg' );
+  t_normal.wrapS = THREE.RepeatWrapping; 
+  t_normal.wrapT = THREE.RepeatWrapping; 
   
   
   this.uniforms = {
 
-    time: G.timer,
-    
     lightPos: { type:"v3" , value: G.camera.position },
-    tNormal:{type:"t",value:tNormal},
+    t_normal:{type:"t",value:t_normal},
     t_audio:{ type:"t" , value: this.audio.texture },
     color1:{ type:"v3" , value: color1 },
     color2:{ type:"v3" , value: color2 },
