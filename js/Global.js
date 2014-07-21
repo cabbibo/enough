@@ -96,7 +96,8 @@ G.init = function(){
   this.scene.add( this.iPlane );
   this.iPlane.visible = false;
 
-  this.iPoint = new THREE.Vector3();
+  var l = 1000000000;
+  this.iPoint = new THREE.Vector3( l , l , l );
 
   /*
   

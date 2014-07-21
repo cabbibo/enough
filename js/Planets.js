@@ -92,7 +92,13 @@ planets.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
 planets.addToStartArray( function(){
 
   var newPos = new THREE.Vector3( 0 , 0 , 1000 );
-  G.camera.position = this.scene.position.clone().add( newPos );
+  G.camera.position = this.scene.position.clone();
+  
+  console.log( 'HELLO WHATS GOING ON' );
+  console.log( G.camera.position );
+  G.camera.position.add( newPos );
+
+  console.log( G.camera.position );
   G.camera.lookAt( this.scene.position );
 
 }.bind( planets ));
@@ -223,6 +229,8 @@ planets.addToStartArray( function(){
   var repelPosArray = [];
   for( var i =0; i < this.furryTails.length; i++ ){
 
+    console.log( 'FURRY TAIL' );
+    console.log( this.furryTails[i].position );
     repelPosArray.push( this.furryTails[i].position );
 
   }
@@ -233,12 +241,24 @@ planets.addToStartArray( function(){
 
   for( var i = 0; i < this.planets.length; i++ ){
 
+    console.log( 'PLANET' );
+    console.log( this.planets[i].position );
     repelPosArray.push( this.planets[i].position );
 
   }
 
   console.log( 'REPEL POS LENGTH' );
   console.log( repelPosArray.length );
+
+  for( var i = repelPosArray.length; i < 20; i++ ){
+
+    var l = 1000000000;
+    repelPosArray.push( new THREE.Vector3( l , l , l )); 
+
+  }
+  console.log( repelPosArray.length );
+
+  console.log( repelPosArray );
 
   var repelPos = {
     type:"v3v",
@@ -252,12 +272,18 @@ planets.addToStartArray( function(){
   var offsetPos = { type:"v3" , value: new THREE.Vector3( 0 , 150 , 0 ) }
   var alive     = { type:"f" , value:1}
 
-  physics.setUniform( 'speed' , speedUniform );
-  physics.setUniform( 'timer' , G.dT );
-  physics.setUniform( 'cameraMat' , cameraMat );
-  physics.setUniform( 'cameraPos' , cameraPos );
-  physics.setUniform( 'repelPos'  , repelPos );
-  physics.setUniform( 'alive'     , alive    );
+  var distToCam = { type:"f" , value: 1000} 
+  var repelForce = { type:"f" , value: 100000} 
+
+  physics.setUniform( 'speed'     , speedUniform  );
+  physics.setUniform( 'timer'     , G.dT          );
+  physics.setUniform( 'cameraMat' , cameraMat     );
+  physics.setUniform( 'cameraPos' , cameraPos     );
+  physics.setUniform( 'repelPos'  , repelPos      );
+  physics.setUniform( 'alive'     , alive         );
+  physics.setUniform( 'offsetPos' , offsetPos     );
+  physics.setUniform( 'distToCam' , distToCam     );
+  physics.setUniform( 'repelForce' , repelForce     );
 
   physics.addBoundTexture( this.textParticles , 't_lookup' , 'output' );
 

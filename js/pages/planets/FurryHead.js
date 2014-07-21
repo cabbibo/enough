@@ -89,8 +89,11 @@
     var geo = new THREE.BufferGeometry();
 
     var subSize = (size) * (size-1);
-    geo.addAttribute( 'position', new Float32Array( subSize * 6 * 3 ), 3 ); 
-    geo.addAttribute( 'normal', new Float32Array( subSize * 6 * 3 ), 3 ); 
+
+    var posA = new THREE.BufferAttribute( new Float32Array( subSize * 6 * 3 ), 3 );
+    var normA = new THREE.BufferAttribute( new Float32Array( subSize * 6 * 3 ), 3 );
+    geo.addAttribute( 'position', posA ); 
+    geo.addAttribute( 'normal', normA ); 
   
     var positions = geo.getAttribute( 'position' ).array;
     var normals = geo.getAttribute( 'normal' ).array;

@@ -122,8 +122,6 @@
       this.lineUniforms.t_audio.value = this.audio.texture;
     }
  
-    console.log( G.shaders.fs.spring );
-
     var mat = new THREE.ShaderMaterial({
       uniforms: this.particleUniforms,
       vertexShader: G.shaders.vs.furryParticles,
@@ -134,7 +132,7 @@
 
     var geo = ParticleUtils.createLookupGeometry( this.size );
 
-    this.physicsParticles  = new THREE.ParticleSystem( geo , mat );
+    this.physicsParticles  = new THREE.PointCloud( geo , mat );
 
     var pR = this.physicsRenderer;
     

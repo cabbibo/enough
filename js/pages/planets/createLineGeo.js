@@ -2,11 +2,18 @@
   function createLineGeo(){
 
     var lineGeo = new THREE.BufferGeometry();
-    lineGeo.addAttribute( 'position', new Float32Array( 32 * 32 * 2 * 3 ), 3 );
-    lineGeo.addAttribute( 'color'   , new Float32Array( 32 * 32 * 2 * 3 ), 3 );
+
+    var posBuffer = new THREE.BufferAttribute(  new Float32Array( 32 * 32 * 2 * 3 ) , 3 );
+    var colBuffer = new THREE.BufferAttribute(  new Float32Array( 32 * 32 * 2 * 3 ) , 3 );
+     
+    console.log( posBuffer );
+    lineGeo.addAttribute( 'position', posBuffer );
+    lineGeo.addAttribute( 'color'   , colBuffer );
+    
     var positions = lineGeo.getAttribute( 'position' ).array;
     var colors = lineGeo.getAttribute( 'color' ).array;
-
+    console.log('POSOITIS');
+    console.log( positions );
     var size = 1 / 32;
     var hSize = size / 2;
 
