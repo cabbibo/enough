@@ -27,6 +27,7 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
     color4:{ type:"v3" , value: color4 },
     selected:{ type:"f" , value: 0 },
     hovered:{ type:"f" , value: 0 },
+    time:G.timer
 
   }
 
