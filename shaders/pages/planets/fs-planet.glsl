@@ -4,6 +4,9 @@ uniform float time;
 uniform sampler2D t_normal;
 uniform sampler2D t_audio;
 
+uniform float selected;
+uniform float hovered;
+
 uniform vec3 color1;
 uniform vec3 color2;
 uniform vec3 color3;
@@ -106,7 +109,11 @@ void main(){
 
   vec3 aColor = texture2D( t_audio , vec2( idv * facingRatio,0. )).xyz;
 
-  gl_FragColor = vec4( lookup_table_color * aColor * (vDisplacement*.3+.7)  , 1.0 );
+  vec3 ltc = lookup_table_color;
+  vec3 mC = ltc * aColor * (vDisplacement*.3+.7) + ltc* .3;
+  vec3 sC = ltc * selected;
+  vec3 hC = ltc * hovered *(vDisplacement*.8+.2);
+  gl_FragColor = vec4( mC + sC + hC  , 1.0 );
 
 }
 

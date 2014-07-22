@@ -95,12 +95,15 @@ planets.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
 planets.addToStartArray( function(){
 
   var newPos = new THREE.Vector3( 0 , 0 , 1000 );
+  G.iPlaneDistance = 1000;
+
   G.camera.position = this.scene.position.clone();
   
   G.camera.position.add( newPos );
 
   console.log( G.camera.position );
   G.camera.lookAt( this.scene.position );
+
 
 }.bind( planets ));
 
@@ -125,6 +128,7 @@ planets.addToStartArray( function(){
 
 */
 planets.addToStartArray( function(){
+
 
   this.center = new THREE.Mesh(
     new THREE.IcosahedronGeometry( 10 , 0 ),
@@ -151,6 +155,11 @@ planets.addToStartArray( function(){
 
     var audio = this.audio[c[6]];
     var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
+
+    planet.position.x = (Math.random() - .5 ) * 1000;
+    planet.position.y = (Math.random() - .5 ) * 1000;
+    planet.position.z = 0;//G.iPlaneDis//(Math.random() - .5 ) * 1000;
+
 
     this.planets.push( planet );
 
@@ -226,7 +235,16 @@ planets.addToStartArray( function(){
 
 }.bind( planets ));
 
-planets.addToEndStartArray( function(){ this.looper.start() }.bind( planets ) );
+// Only start playing once everything is on the screen
+planets.addToEndStartArray( function(){
+  
+   for( var i = 0; i < this.planets.length; i++ ){
+    this.planets[i].updateAudio();
+   }
+
+  this.looper.start() 
+
+}.bind( planets ) );
 
 
 /*

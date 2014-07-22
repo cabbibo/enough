@@ -25,6 +25,8 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
     color2:{ type:"v3" , value: color2 },
     color3:{ type:"v3" , value: color3 },
     color4:{ type:"v3" , value: color4 },
+    selected:{ type:"f" , value: 0 },
+    hovered:{ type:"f" , value: 0 },
 
   }
 
@@ -42,21 +44,51 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
   this.geometry = new THREE.IcosahedronGeometry( 100 , 5 );
 
   this.mesh = new THREE.Mesh( this.geometry, this.material );
+  this.mesh.selected = false;
 
   this.position = this.mesh.position;
   this.velocity = new THREE.Vector3();
 
-  this.position.x = ( Math.random() - .5 ) * 1000;
+/*  this.position.x = ( Math.random() - .5 ) * 1000;
   this.position.y = ( Math.random() - .5 ) * 1000;
-  this.position.z = ( Math.random() - .5 ) * 1000;
+  this.position.z = ( Math.random() - .5 ) * 1000;*/
+
+  this.mesh.hoverOver = function(){
+    this.uniforms.hovered.value = 1;
+  }.bind( this );
+
+  this.mesh.hoverOut = function(){
+    this.uniforms.hovered.value = 0;
+  }.bind( this );
+
+  this.mesh.select = function(){
+    this.uniforms.selected.value = 1;
+  }.bind( this );
+  
+  this.mesh.deselect = function(){
+    this.uniforms.selected.value = 0;
+  }.bind( this );
+
+  this.mesh.update = function(){
+
+    this.position.copy( G.iPoint );
+    this.updateAudio();
+
+  }.bind( this );
+
+  this.mesh.update();
 
   G.objectControls.add( this.mesh );
+
   this.page.scene.add( this.mesh );
   
 
 }
 
-Planet.prototype.update = function(){
+Planet.prototype.updateAudio = function(){
+
+    var d = this.page.position.clone().sub( this.position ).length();
+    this.audio.gain.gain.value = Math.min( 1. , 50000 / (d*d));
 
 
 

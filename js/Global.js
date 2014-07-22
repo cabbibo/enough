@@ -27,6 +27,7 @@ G.loader  = new Loader();
 G.stats   = new Stats();
 
 
+
 G.loader.onStart = function(){
 
   this.onResize();
@@ -43,8 +44,6 @@ G.loader.onStart = function(){
 
 G.w             = window.innerWidth;
 G.h             = window.innerHeight;
-
-console.log( G.w , G.h );
 
 G.camera        = new THREE.PerspectiveCamera( 65 , G.w / G.h , 1 , 200000 );
 G.scene         = new THREE.Scene();
@@ -91,13 +90,28 @@ G.init = function(){
   */
   
   this.iPlane = new THREE.Mesh(
-    new THREE.PlaneGeometry( 10000 , 10000 )
+    new THREE.PlaneGeometry( 100000 , 100000 )
   );
   this.scene.add( this.iPlane );
   this.iPlane.visible = false;
 
   var l = 1000000000;
-  this.iPoint = new THREE.Vector3( l , l , l );
+
+  this.iObj = new THREE.Object3D();
+  this.iObj.position.set( l , l , l );
+
+  this.iPointMarker = new THREE.Mesh(
+    new THREE.BoxGeometry( 1 , 1 , 100 ),
+    new THREE.MeshBasicMaterial({color:0xffffff})
+  );
+
+  this.iObj.add( this.iPointMarker );
+  this.scene.add( this.iObj );
+
+  this.iPoint = this.iObj.position;
+  this.iDir   = new THREE.Vector3( 0 , 0 , -1 );
+  this.iPlaneDistance = 600;
+
 
   /*
   
@@ -167,16 +181,51 @@ G.init = function(){
     this.leap  
   );
 
+  this.mouse = this.objectControls.mouse;
+  this.raycaster = this.objectControls.raycaster;
+  this.mouse = this.objectControls.mouse;
+
 
 
 }
+G.updateIntersection = function(){
 
+  this.iPlane.position.copy( this.camera.position );
+  var vector = new THREE.Vector3( 0 , 0 , -this.iPlaneDistance );
+  vector.applyQuaternion( this.camera.quaternion );
+  this.iPlane.position.add( vector );
+  this.iPlane.lookAt( this.camera.position );
+
+
+  var dir = this.mouse.clone();
+  dir.sub( this.camera.position );
+  dir.normalize();
+
+  this.raycaster.set( this.camera.position , dir);
+
+    var intersects = this.raycaster.intersectObject( this.iPlane );
+
+  if( intersects.length > 0 ){
+  
+    this.iPoint.copy( intersects[0].point ); 
+    this.iDir = dir;
+   
+   // bait.position.copy( intersects[0].point );
+  }else{
+    console.log('NOT HITTING IPLANE!');
+  }
+
+
+}
 G.animate = function(){
 
   if( !this.paused ){
 
     this.dT.value = this.clock.getDelta();
     this.timer.value += G.dT.value;
+
+    this.objectControls.update();
+    this.updateIntersection();
 
     this.audio.update();
 
@@ -204,6 +253,7 @@ G.addToStartArray = function( callback ){
   this.startArray.push( callback );
 
 }
+
 G.onResize = function(){
 
   this.w = window.innerWidth;
