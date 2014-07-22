@@ -133,7 +133,7 @@
     var geo = ParticleUtils.createLookupGeometry( this.size );
 
     this.physicsParticles  = new THREE.PointCloud( geo , mat );
-
+    this.physicsParticles.frustumCulled = false;
     var pR = this.physicsRenderer;
     
     pR.addBoundTexture( this.physicsParticles , 't_pos' , 'output' );
@@ -146,10 +146,10 @@
       fragmentShader: G.shaders.fs.furryTail,    
     });
 
-    console.log('LINEGOE');
-    console.log( this.lineGeo );
     this.line = new THREE.Line( this.lineGeo , lineMat );
     this.line.type = THREE.LinePieces;
+
+    this.line.frustumCulled = false;
     
     pR.addBoundTexture( this.line , 't_pos' , 'output' );
     pR.addBoundTexture( this.line , 't_oPos' , 'oOutput' );
@@ -571,14 +571,11 @@
     var posBuffer = new THREE.BufferAttribute(  new Float32Array( 32 * 32 * 2 * 3 ) , 3 );
     var colBuffer = new THREE.BufferAttribute(  new Float32Array( 32 * 32 * 2 * 3 ) , 3 );
      
-    console.log( posBuffer );
     lineGeo.addAttribute( 'position', posBuffer );
     lineGeo.addAttribute( 'color'   , colBuffer );
     
     var positions = lineGeo.getAttribute( 'position' ).array;
     var colors = lineGeo.getAttribute( 'color' ).array;
-    console.log('POSOITIS');
-    console.log( positions );
     var size = 1 / 32;
     var hSize = size / 2;
 

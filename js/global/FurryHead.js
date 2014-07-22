@@ -65,6 +65,8 @@
     var m = new THREE.MeshNormalMaterial();
     this.mesh = new THREE.Mesh( geo , material );
 
+    this.mesh.frustumCulled = false;
+
     var pR = this.physicsRenderer;
     
     pR.addBoundTexture( this.mesh , 't_pos' , 'output' );

@@ -92,20 +92,6 @@ planets.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
    Positioning Camera
 
 */
-planets.addToStartArray( function(){
-
-  var newPos = new THREE.Vector3( 0 , 0 , 1000 );
-  G.iPlaneDistance = 1000;
-
-  G.camera.position = this.scene.position.clone();
-  
-  G.camera.position.add( newPos );
-
-  console.log( G.camera.position );
-  G.camera.lookAt( this.scene.position );
-
-
-}.bind( planets ));
 
 /*
  
@@ -154,6 +140,8 @@ planets.addToStartArray( function(){
     var col4 = new THREE.Vector3( c[5].r , c[5].g , c[5].b );
 
     var audio = this.audio[c[6]];
+    audio.reconnect( this.gain );
+
     var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
 
     planet.position.x = (Math.random() - .5 ) * 1000;
@@ -230,13 +218,18 @@ planets.addToStartArray( function(){
     }
   }.bind( this ) );
 
-  //this.looper.start();
+  this.looper.start();
+   
+  for( var i = 0; i < this.planets.length; i++ ){
+    this.planets[i].updateAudio();
+   }
+
 
 
 }.bind( planets ));
 
 // Only start playing once everything is on the screen
-planets.addToEndStartArray( function(){
+/*planets.addToActivateArray( function(){
   
    for( var i = 0; i < this.planets.length; i++ ){
     this.planets[i].updateAudio();
@@ -244,7 +237,7 @@ planets.addToEndStartArray( function(){
 
   this.looper.start() 
 
-}.bind( planets ) );
+}.bind( planets ) );*/
 
 
 /*
@@ -320,8 +313,10 @@ planets.addToStartArray( function(){
 
   physics.addBoundTexture( this.textParticles , 't_lookup' , 'output' );
 
+  distToCam.value = 1000;
 
   this.textParticles.physics = physics;
+  this.textParticles.distToCam = distToCam;
 
   this.scene.add( this.textParticles );
   
@@ -334,6 +329,56 @@ planets.addToStartArray( function(){
 }.bind( planets ));
 
 
+planets.addToStartArray( function(){
+
+  var newPos = new THREE.Vector3( 0 , 0 , 4000 );
+  //G.iPlaneDistance = 4000;
+
+  G.camera.position = this.position.clone();
+  
+  G.camera.position.add( newPos );
+
+  console.log( G.camera.position );
+  G.camera.lookAt( this.position );
+
+
+
+  var startDist = {
+    d: 4000,
+  }
+
+  var endDist = {
+    d:1000
+  }
+
+  this.d = 4000;
+  var tween = new G.tween.Tween(startDist ).to(endDist, 3000 );
+
+  this.startDist = startDist;
+
+  tween.easing( G.tween.Easing.Quartic.In )
+
+  tween.onUpdate( function( t ){
+
+    var d = this.startDist.d;
+    console.log( d );
+    G.camera.position.copy( this.position );
+    console.log( G.camera.position );
+    G.camera.position.z += d;//;// = new THREE.Vector3( 0 , 0 , d );
+    G.iPlaneDistance = d;
+    this.textParticles.distToCam.value = 2 * (d-600);
+    this.gain.gain.value = t;
+
+  }.bind( this ));
+
+  tween.onComplete( function(){
+    this.activate();
+  }.bind( this ));
+
+  tween.start();
+
+
+}.bind( planets ));
 
 
 planets.addToAllUpdateArrays( function(){
@@ -360,4 +405,98 @@ planets.addToAllUpdateArrays( function(){
 }.bind( planets ) );
 
 
+/*
+
+   END BUTTON
+
+*/
+
+planets.addToActivateArray( function(){
+
+  var mesh = new THREE.Mesh(
+
+    new THREE.IcosahedronGeometry( 40 , 1 ),
+    new THREE.MeshNormalMaterial()
+
+  );
+
+  this.scene.add( mesh );
+
+  mesh.position.x = 400;
+  mesh.position.y = -300;
+
+  mesh.hO = new THREE.MeshBasicMaterial();
+
+  mesh.hoverOver = function(){
+
+    this.endMesh.material = this.endMesh.hO;
+    this.endMesh.materialNeedsUpdate = true;
+
+  }.bind( this );
+
+
+  mesh.select = function(){
+
+    this.deactivate();
+
+  }.bind( this );
+
+  G.objectControls.add( mesh );
+
+  this.endMesh = mesh;
+
+}.bind( planets ));
+
+planets.addToDeactivateArray( function(){
+
+
+  console.log( 'THSIASD');
+  console.log( this );
+
+  var startRot = {
+    d: 0,
+  }
+
+  var endRot = {
+    d: Math.PI / 2
+  }
+
+  this.d = 4000;
+  var tween = new G.tween.Tween(startRot ).to(endRot, 3000 );
+
+  this.startRot = startRot;
+
+  tween.easing( G.tween.Easing.Quartic.In )
+
+  tween.onUpdate( function( t ){
+
+    var r = this.startRot.d;
+    console.log( r );
+    G.camera.rotation.y =  r; //.copy( this.position );
+    //console.log( G.camera.position );
+    //G.camera.position.z += d;//;// = new THREE.Vector3( 0 , 0 , d );
+    //G.iPlaneDistance = d;
+
+    console.log( t );
+    console.log( this.gain.gain.value );
+    this.gain.gain.value = 1 - t;
+
+  }.bind( this ));
+
+  tween.onComplete( function(){
+    this.end();
+  }.bind( this ));
+
+  tween.start();
+
+
+
+}.bind( planets ));
+
+
+planets.addToEndArray( function(){
+
+  console.log( 'END' );
+
+});
 

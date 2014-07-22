@@ -45,7 +45,7 @@ G.loader.onStart = function(){
 G.w             = window.innerWidth;
 G.h             = window.innerHeight;
 
-G.camera        = new THREE.PerspectiveCamera( 65 , G.w / G.h , 1 , 200000 );
+G.camera        = new THREE.PerspectiveCamera( 45 , G.w / G.h , 1 , 200000 );
 G.scene         = new THREE.Scene();
 G.renderer      = new THREE.WebGLRenderer(); //autoclear:false
 
@@ -76,6 +76,8 @@ G.leap.connect();
 G.gui.close();
 G.scene.add( G.camera );
 //G.onResize();
+
+G.tween = TWEEN;
 
 // Need something to call when started
 G.startArray = [];
@@ -219,10 +221,15 @@ G.updateIntersection = function(){
 }
 G.animate = function(){
 
+  this.dT.value = this.clock.getDelta();  
+  this.timer.value += G.dT.value;
+
   if( !this.paused ){
 
-    this.dT.value = this.clock.getDelta();
-    this.timer.value += G.dT.value;
+    /*this.dT.value = this.clock.getDelta();
+    this.timer.value += G.dT.value;*/
+
+    this.tween.update();
 
     this.objectControls.update();
     this.updateIntersection();
@@ -305,6 +312,8 @@ G.loadTexture = function( name , file ){
   G.TEXTURES[ name ].wrapT = THREE.RepeatWrapping;
 
 }
+
+//G.createNextPage
 
 // Some Event Listeners
 
