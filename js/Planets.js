@@ -305,7 +305,7 @@ planets.addToStartArray( function(){
   var offsetPos = { type:"v3" , value: new THREE.Vector3( 0 , 150 , 0 ) }
   var alive     = { type:"f" , value:1}
 
-  var distToCam = { type:"f" , value: 1000} 
+  var distToCam = { type:"f" , value: 600} 
   var repelForce = { type:"f" , value: 100000} 
 
   physics.setUniform( 'speed'     , speedUniform  );
