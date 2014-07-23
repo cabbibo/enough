@@ -72,7 +72,8 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
 
   this.mesh.update = function(){
 
-    this.position.copy( G.iPoint );
+    var newPos = G.iPoint.clone().sub( this.page.position ) 
+    this.position.copy( newPos );
     this.updateAudio();
 
   }.bind( this );
@@ -88,9 +89,7 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
 
 Planet.prototype.updateAudio = function(){
 
-    var d = this.page.position.clone().sub( this.position ).length();
+    var d = this.position.length();
     this.audio.gain.gain.value = Math.min( 1. , 50000 / (d*d));
-
-
 
 }

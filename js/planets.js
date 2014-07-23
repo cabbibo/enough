@@ -13,6 +13,8 @@ planets.textChunk = [
 
 ].join("\n");
 
+planets.position.set(  0 , 1000 , 1000 );
+planets.cameraPos.set( 0 , 1000 , 2000 );
 
 planets.planets = [];
 planets.furryGroups = [];
@@ -65,27 +67,34 @@ planets.colorSchemes = [
 ]
 
 planets.audio = {};
-var f = 'audio/credits/';
-planets.audio.halle = planets.loadAudio( 'halle' , f + 'halle.mp3' );
-planets.audio.main = planets.loadAudio( 'main' , f + 'main.mp3' );
-planets.audio.water = planets.loadAudio( 'water' , f + 'water.mp3' );
-planets.audio.wood = planets.loadAudio( 'wood' , f + 'wood.mp3' );
-planets.audio.musik = planets.loadAudio( 'musik' , f + 'musik.mp3' );
-planets.audio.shuffle = planets.loadAudio( 'shuffle' , f + 'shuffle.mp3' );
 
-var f = 'pages/planets/';
+planets.addToInitArray( function(){
+  
+  var f = 'audio/pages/planets/';
+  this.audio.halle   = this.loadAudio( 'halle' , f + 'halle.mp3' );
+  this.audio.main    = this.loadAudio( 'main' , f + 'main.mp3' );
+  this.audio.water   = this.loadAudio( 'water' , f + 'water.mp3' );
+  this.audio.wood    = this.loadAudio( 'wood' , f + 'wood.mp3' );
+  this.audio.musik   = this.loadAudio( 'musik' , f + 'musik.mp3' );
+  this.audio.shuffle = this.loadAudio( 'shuffle' , f + 'shuffle.mp3' );
 
-planets.loadShader( 'furryParticles' , f + 'vs-furryParticles' , 'vs' );
-planets.loadShader( 'furryParticles' , f + 'fs-furryParticles' , 'fs' );
-planets.loadShader( 'furryTail'      , f + 'vs-furryTail' , 'vs' );
-planets.loadShader( 'furryTail'      , f + 'fs-furryTail' , 'fs' );
-planets.loadShader( 'furryHead'      , f + 'vs-furryHead' , 'vs' );
-planets.loadShader( 'furryHead'      , f + 'fs-furryHead' , 'fs' );
-planets.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
-planets.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
+  var f = 'global/';
 
-planets.loadShader( 'planet' , f + 'vs-planet' , 'vs' );
-planets.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
+  this.loadShader( 'furryParticles' , f + 'vs-furryParticles' , 'vs' );
+  this.loadShader( 'furryParticles' , f + 'fs-furryParticles' , 'fs' );
+  this.loadShader( 'furryTail'      , f + 'vs-furryTail' , 'vs' );
+  this.loadShader( 'furryTail'      , f + 'fs-furryTail' , 'fs' );
+  this.loadShader( 'furryHead'      , f + 'vs-furryHead' , 'vs' );
+  this.loadShader( 'furryHead'      , f + 'fs-furryHead' , 'fs' );
+  this.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
+  this.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
+
+  var f = 'pages/planets/';
+  
+  this.loadShader( 'planet' , f + 'vs-planet' , 'vs' );
+  this.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
+
+}.bind( planets) );
 
 /*
 
@@ -121,7 +130,7 @@ planets.addToStartArray( function(){
     new THREE.MeshNormalMaterial({side:THREE.DoubleSide})
   );
 
-  G.scene.add( this.center );
+  this.scene.add( this.center );
 
 
   for( var i= 0; i< this.colorSchemes.length; i++ ){
@@ -250,6 +259,11 @@ planets.addToStartArray( function(){
   this.textParticles = G.text.createTextParticles( this.textChunk );
 
 
+  console.log('TEXT PARTICLES' );
+  console.log( this.textParticles );
+
+  this.textUniforms = this.textParticles.material.uniforms;
+
   var s = this.textParticles.size;
 
   var sim = G.shaders.ss.textSim;
@@ -290,26 +304,42 @@ planets.addToStartArray( function(){
     type:"v3v",
     value: repelPosArray
   }
+  
+  var gRepelPosArray = [];
 
-  var speedUniform = { type:"v3" , value:new THREE.Vector3() }
-  var cameraMat = { type:"m4" , value:G.camera.matrixWorld}
-  var cameraPos = { type:"v3" , value:G.camera.position } 
+  gRepelPosArray.push( G.rHand.hand.position );
+  gRepelPosArray.push( G.lHand.hand.position );
+  gRepelPosArray.push( G.iPoint );
 
-  var offsetPos = { type:"v3" , value: new THREE.Vector3( 0 , 150 , 0 ) }
-  var alive     = { type:"f" , value:1}
 
-  var distToCam = { type:"f" , value: 600} 
-  var repelForce = { type:"f" , value: 100000} 
+  var gRepelPos = {
+    type:"v3v",
+    value: gRepelPosArray
+  }
 
-  physics.setUniform( 'speed'     , speedUniform  );
-  physics.setUniform( 'timer'     , G.dT          );
-  physics.setUniform( 'cameraMat' , cameraMat     );
-  physics.setUniform( 'cameraPos' , cameraPos     );
-  physics.setUniform( 'repelPos'  , repelPos      );
-  physics.setUniform( 'alive'     , alive         );
-  physics.setUniform( 'offsetPos' , offsetPos     );
-  physics.setUniform( 'distToCam' , distToCam     );
-  physics.setUniform( 'repelForce' , repelForce     );
+
+  var speedUniform  = { type:"v3" , value:new THREE.Vector3() }
+  var cameraMat     = { type:"m4" , value:G.camera.matrixWorld}
+  var cameraPos     = { type:"v3" , value:G.camera.position } 
+
+  var offsetPos     = { type:"v3" , value: new THREE.Vector3( 0 , 150 , 0 ) }
+  var alive         = { type:"f"  , value:1}
+
+  var distToCam     = { type:"f"  , value: 600} 
+  var repelForce    = { type:"f"  , value: 200000}
+  var pagePos       = { type:"v3" , value: this.position }
+
+  physics.setUniform( 'speed'       , speedUniform  );
+  physics.setUniform( 'timer'       , G.dT          );
+  physics.setUniform( 'cameraMat'   , cameraMat     );
+  physics.setUniform( 'cameraPos'   , cameraPos     );
+  physics.setUniform( 'repelPos'    , repelPos      );
+  physics.setUniform( 'gRepelPos'   , gRepelPos     );
+  physics.setUniform( 'pagePos'     , pagePos       );
+  physics.setUniform( 'alive'       , alive         );
+  physics.setUniform( 'offsetPos'   , offsetPos     );
+  physics.setUniform( 'distToCam'   , distToCam     );
+  physics.setUniform( 'repelForce'  , repelForce    );
 
   physics.addBoundTexture( this.textParticles , 't_lookup' , 'output' );
 
@@ -318,9 +348,10 @@ planets.addToStartArray( function(){
   this.textParticles.physics = physics;
   this.textParticles.distToCam = distToCam;
 
-  this.scene.add( this.textParticles );
+  G.scene.add( this.textParticles );
   
 
+  //this.textParticles.position.copy( this.position );
 
 
 
@@ -334,7 +365,7 @@ planets.addToStartArray( function(){
   var newPos = new THREE.Vector3( 0 , 0 , 4000 );
   //G.iPlaneDistance = 4000;
 
-  G.camera.position = this.position.clone();
+  G.camera.position.copy( this.position );
   
   G.camera.position.add( newPos );
 
@@ -363,16 +394,24 @@ planets.addToStartArray( function(){
     var d = this.startDist.d;
     console.log( d );
     G.camera.position.copy( this.position );
-    console.log( G.camera.position );
+    console.log( this.position );
     G.camera.position.z += d;//;// = new THREE.Vector3( 0 , 0 , d );
     G.iPlaneDistance = d;
-    this.textParticles.distToCam.value = 2 * (d-600);
+    this.textParticles.distToCam.value = 2 * (d-500);
+
     this.gain.gain.value = t;
+    
+    //G.camera.lookAt( this.position );
+
+
+    
 
   }.bind( this ));
 
   tween.onComplete( function(){
     this.activate();
+    console.log( this.position );
+  //  G.camera.lookAt( this.position );
   }.bind( this ));
 
   tween.start();
@@ -453,6 +492,8 @@ planets.addToDeactivateArray( function(){
   console.log( 'THSIASD');
   console.log( this );
 
+  this.textParticles.physics.simulationUniforms.alive.value = 0;
+
   var startRot = {
     d: 0,
   }
@@ -480,6 +521,7 @@ planets.addToDeactivateArray( function(){
     console.log( t );
     console.log( this.gain.gain.value );
     this.gain.gain.value = 1 - t;
+    this.textUniforms.opacity.value = 1 - t;
 
   }.bind( this ));
 
@@ -498,5 +540,7 @@ planets.addToEndArray( function(){
 
   console.log( 'END' );
 
-});
+  G.scene.remove( this.textParticles );
+
+}.bind( planets ));
 

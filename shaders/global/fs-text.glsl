@@ -1,5 +1,6 @@
 uniform vec3 color;
 uniform sampler2D t_text;
+uniform float opacity; 
 
 varying vec4 vTextCoord;
 varying vec4 vLookup;
@@ -21,6 +22,6 @@ void main(){
 
   float simplex = abs(vLookup.w);
   float mult = .7+ simplex * .5;
-  gl_FragColor = vec4( vec3( 1. , 1. , 1. )*mult, alpha );
+  gl_FragColor = vec4( vec3( 1. , 1. , 1. )*mult, alpha * opacity );
 
 }

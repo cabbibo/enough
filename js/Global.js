@@ -190,6 +190,8 @@ G.init = function(){
 
 
 }
+
+
 G.updateIntersection = function(){
 
   this.iPlane.position.copy( this.camera.position );
@@ -211,7 +213,6 @@ G.updateIntersection = function(){
   
     this.iPoint.copy( intersects[0].point ); 
     this.iDir = dir;
-   
    // bait.position.copy( intersects[0].point );
   }else{
     console.log('NOT HITTING IPLANE!');
@@ -219,6 +220,7 @@ G.updateIntersection = function(){
 
 
 }
+
 G.animate = function(){
 
   this.dT.value = this.clock.getDelta();  
