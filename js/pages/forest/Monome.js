@@ -6,7 +6,9 @@ var MONOME_INTERSECTED;
 
 var MONOME_MAT;
 
-function Monome( whichHit , whichNote , mesh ){
+function Monome( forest , whichHit , whichNote , mesh ){
+
+  this.forest = forest;
 
   this.active = false;
   this.selected = false;
