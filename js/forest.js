@@ -15,8 +15,8 @@ forest.textChunk = [
 ].join("\n" );
 
 
-forest.position.set(  0 , 0 , 0 );
-forest.cameraPos.set( 0 , 0 , 1000 );
+forest.position.set(  0 , 0 , 1000 );
+forest.cameraPos.set( 0 , 0 , 2000 );
 
 
 forest.audioArray = [
@@ -44,12 +44,7 @@ forest.audioArray = [
 forest.audio = {};
 forest.audio.array = [];
 
-
-forest.shaderArray = [
-
-
-
-]
+forest.monomeMeshes = [];
 
 forest.addToInitArray( function(){
   
@@ -59,7 +54,9 @@ forest.addToInitArray( function(){
     
     var name = this.audioArray[i];
 
-    this.audio[ name ] = this.loadedAudio( name , f + '.mp3' );
+    this.audio[ name ] = this.loadAudio( name , f + name + '.mp3' );
+  
+    this.audio.array.push( this.audio[ name ] );
 
   }
 
@@ -74,7 +71,7 @@ forest.addToInitArray( function(){
     this.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
     this.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
 
-  var f = 'pages/forest';
+  var f = 'pages/forest/';
 
   this.loadShader( 'forest' , f + 'ss-forest' , 'simulation' );
 
@@ -92,8 +89,33 @@ forest.addToInitArray( function(){
 
 forest.addToStartArray( function(){
 
+  G.camera.position.copy( this.cameraPos );
+  G.camera.lookAt( this.position );//= 1000;
+
+}.bind( forest ));
+
+forest.addToStartArray( function(){
+
+
+  
+  var repelObjects    = [];
+  var repelPositions  = [];
+  var repelVelocities = [];
+  var repelRadii      = [];
+      
+  for( var i = 0; i < 10; i++ ){
+
+    var l = 10000000;
+    repelPositions.push( new THREE.Vector3( l, l , l ) );
+    repelVelocities.push( new THREE.Vector3( 0 , 0 , 0 ) );
+    repelRadii.push( 0 );
+
+  }
+
+
+
   this.forest = new Forest(
-  page
+  this,
   {
     position:new THREE.Vector3(),
     repelPositions: repelPositions,
@@ -121,8 +143,27 @@ forest.addToStartArray( function(){
 
   });
 
+  this.looper.forest = this.forest;
+  this.looper.onNewMeasure = function(){
+    this.forest.updateBases( this.relativeMeasure );
+  }
+
+
+  this.forest.activate();
 
 
 }.bind( forest ) );
+
+forest.addToActivateArray( function(){
+
+  this.looper.start();
+
+}.bind( forest ));
+
+forest.addToAllUpdateArrays( function(){
+
+  this.forest.update();
+
+}.bind( forest ));
 
 

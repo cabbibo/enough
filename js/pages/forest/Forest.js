@@ -55,8 +55,6 @@
       dampening:.96,
       baseGeo: new THREE.BoxGeometry( 200 , 200 , 200 ),
       baseMat: new THREE.MeshNormalMaterial()
-      
-
     });
 
     this.position         = this.params.position;
@@ -69,7 +67,9 @@
 
     this.size = 64;
 
-    this.sim = shaders.simulationShaders.tendrilSim;
+    this.sim = G.shaders.simulationShaders.forest;
+    console.log( 'SIM' );
+    console.log( this.sim );
 
     this.flow = new THREE.Vector3();
 
@@ -82,21 +82,18 @@
     this.physicsRenderer = new PhysicsRenderer(
       this.size,
       this.sim,
-      renderer
+      G.renderer
     );
 
 
-    var physicsGui = gui.addFolder('Tendril Sim' );
+    var physicsGui = this.page.gui.addFolder('Forest Sim' );
     
     this.physicsRenderer.setUniform( 't_active' ,{
       type:"t",
       value:this.activeTexture
     } );
 
-    this.physicsRenderer.setUniform( 't_audio' ,{
-      type:"t",
-      value:t_audio
-    } );
+    this.physicsRenderer.setUniform( 't_audio' , G.t_audio );
 
 
 
@@ -161,8 +158,8 @@
 
 
 
-    this.physicsRenderer.setUniform( 'dT'     , dT    );
-    this.physicsRenderer.setUniform( 'timer'  , timer );
+    this.physicsRenderer.setUniform( 'dT'     , G.dT    );
+    this.physicsRenderer.setUniform( 'timer'  , G.timer );
 
 
     this.normalTexture = THREE.ImageUtils.loadTexture('../img/normals/sand.png');
@@ -176,7 +173,7 @@
     var headMultiplier = {type:"f" ,value: this.params.headMultiplier}
 
 
-    var renderGui = gui.addFolder( 'Tendril Render');
+    var renderGui = this.page.gui.addFolder( 'Forest Render');
 
     renderGui.add( girth , 'value' ).name( 'Girth' );
     renderGui.add( headMultiplier , 'value' ).name( 'Head Multiplier' );
@@ -238,8 +235,8 @@
     var uniforms = {
       t_pos:{type:"t",value:null},
       t_iri:{type:"t",value:t_iri},
-      t_audio:{type:"t",value:t_audio},
-      lightPos:{type:"v3",value:INTERSECT_PLANE_INTERSECT },
+      t_audio:G.t_audio,
+      lightPos:{type:"v3",value:G.iPoint.relative },
       t_active:{type:"t",value:this.activeTexture},
      // texScale:texScale,
      // normalScale:normalScale,
@@ -256,8 +253,8 @@
     var materialLine = new THREE.ShaderMaterial({
 
       uniforms:uniforms,
-      vertexShader: shaders.vertexShaders.tendrilLine,
-      fragmentShader: shaders.fragmentShaders.tendrilLine,
+      vertexShader: G.shaders.vertexShaders.trunk,
+      fragmentShader: G.shaders.fragmentShaders.trunk,
       blending:THREE.AdditiveBlending,
       transparent:true,
       opacity:.3
@@ -268,8 +265,8 @@
     var material = new THREE.ShaderMaterial({
 
       uniforms:uniforms,
-      vertexShader: shaders.vertexShaders.tendril,
-      fragmentShader: shaders.fragmentShaders.tendril,
+      vertexShader: G.shaders.vertexShaders.forest,
+      fragmentShader: G.shaders.fragmentShaders.forest,
       //blending:THREE.AdditiveBlending,
      // transparent:true,
       side: THREE.BackSide
@@ -558,12 +555,9 @@
         this.params.baseMat
       );
 
+      console.log('HELASS');
+      console.log( this.width );
 
-      var position = new THREE.Vector3(
-        (Math.random() - .5) * this.width,
-        (Math.random() - .5) * this.height,
-        0
-      );
 
       var position = new THREE.Vector3(
         ((x-7.5)/16)*this.width,
@@ -571,7 +565,7 @@
         0
       );
 
-      mesh.position = position;
+      mesh.position.copy( position );
      
       //mesh.rotation.x = Math.random();
       //mesh.rotation.y = Math.random();
@@ -648,7 +642,7 @@
 
     var data = new Float32Array( this.size * this.size * 4 );
 
-    var startingPos = []
+    /*var startingPos = []
     for( var i = 0; i < this.size * 4; i++ ){
 
       startingPos.push( [
@@ -656,7 +650,7 @@
         (Math.random() - .5) * this.height,
       ]);
 
-    }
+    }*/
     for( var i = 0; i < this.size; i++ ) {
 
       for( var j = 0; j < this.size; j++ ){
@@ -671,17 +665,17 @@
         tendrilIndex = i + (y * this.size);
 
 
-        y -= (preX - x );
+       /* y -= (preX - x );
         x /= 4;
 
         y = (4-y)-.875;
-        x = x;
+        x = x;*/
 
         z = slice;
 
        // z *= 50;
-        x *= 300/4;
-        y *= 300/4;
+       /* x *= 300/4;
+        y *= 300/4;*/
 
         var index = ( i + (j * this.size)) * 4;
 

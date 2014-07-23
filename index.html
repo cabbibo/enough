@@ -48,6 +48,9 @@
     <script src="js/global/FurryHead.js"></script>
     
     <script src="js/pages/planets/Planet.js"></script>
+    
+    <script src="js/pages/forest/Forest.js"></script>
+    <script src="js/pages/forest/Monome.js"></script>
 
 
 
@@ -56,6 +59,7 @@
 
     <!-- The Pages -->
     <script src="js/planets.js"></script>
+    <script src="js/forest.js"></script>
 
 
     <script>
@@ -75,6 +79,17 @@
       G.shaders.load( 'global/fs-lHand' , 'lHand' , 'fragment'  );
 
       // For Tails
+    /*    var f = 'global/';
+
+    this.loadShader( 'furryParticles' , f + 'vs-furryParticles' , 'vs' );
+    this.loadShader( 'furryParticles' , f + 'fs-furryParticles' , 'fs' );
+    this.loadShader( 'furryTail'      , f + 'vs-furryTail' , 'vs' );
+    this.loadShader( 'furryTail'      , f + 'fs-furryTail' , 'fs' );
+    this.loadShader( 'furryHead'      , f + 'vs-furryHead' , 'vs' );
+    this.loadShader( 'furryHead'      , f + 'fs-furryHead' , 'fs' );
+    this.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
+    this.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );*/
+
 
       // For text
       G.shaders.load( 'global/vs-text' , 'text' , 'vertex'    );
@@ -89,7 +104,7 @@
 
       // We Only need to start once everything has inititialized
       G.loader.addLoad();
-      G.pages.planets.init();
+     /* G.pages.planets.init();
       G.pages.planets.addToOnLoadArray( function(){
 
         G.loader.onLoad();
@@ -98,7 +113,25 @@
 
       G.addToStartArray( function(){
 
-          this.pages.planets.start();
+        this.pages.planets.start();
+
+
+      }.bind( G ) );*/
+
+
+      G.pages.forest.init();
+      G.pages.forest.addToOnLoadArray( function(){
+
+        G.loader.onLoad();
+
+      }.bind( G ));
+
+      G.addToStartArray( function(){
+
+        this.pages.forest.start();
+        this.pages.forest.activate();
+
+
       }.bind( G ) );
 
     </script>

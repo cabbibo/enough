@@ -62,7 +62,7 @@ G.t_audio = { type:"t" , value: G.audio.texture }
 
 G.paused  = false;
 
-
+G.currentScenePos = new THREE.Vector3();
 
 // Get all the fun stuff started
 
@@ -111,6 +111,9 @@ G.init = function(){
   this.scene.add( this.iObj );
 
   this.iPoint = this.iObj.position;
+  this.iPoint.relative = new THREE.Vector3();
+  this.iPoint.relative.copy( this.iPoint );
+
   this.iDir   = new THREE.Vector3( 0 , 0 , -1 );
   this.iPlaneDistance = 600;
 
@@ -187,6 +190,48 @@ G.init = function(){
   this.raycaster = this.objectControls.raycaster;
   this.mouse = this.objectControls.mouse;
 
+  /*var c = [
+    new THREE.Color( '#1157ff' ),
+    new THREE.Color( '#00a4ff' ),
+    new THREE.Color( '#5e2dff' ),
+    new THREE.Color( '#00fff0' ),
+  ];
+
+  var col1 = new THREE.Vector3( c[0].r , c[0].g , c[0].b );
+  var col2 = new THREE.Vector3( c[1].r , c[1].g , c[1].b );
+  var col3 = new THREE.Vector3( c[2].r , c[2].g , c[2].b );
+  var col4 = new THREE.Vector3( c[3].r , c[3].g , c[3].b );
+
+    
+  this.furryTails = [];
+
+
+   var center = new THREE.Mesh(
+    new THREE.IcosahedronGeometry( 10 , 0 ),
+    new THREE.MeshNormalMaterial({side:THREE.DoubleSide})
+  );
+
+   var bait = center.clone();
+
+
+  this.maniGroup = new FurryGroup( this ,  'mani' , G.audio , 1 ,{
+    center:center,
+    bait: bait,
+    color1: col1,
+    color2: col2,
+    color3: col3,
+    color4: col4,
+
+  });
+
+
+  console.log( 'FURRY TAIL' );
+  console.log( this.furryTails );
+  
+  this.mani =  this.furryTails[0];*/
+
+  //this.mani.activate();
+
 
 
 }
@@ -211,7 +256,9 @@ G.updateIntersection = function(){
 
   if( intersects.length > 0 ){
   
-    this.iPoint.copy( intersects[0].point ); 
+    this.iPoint.copy( intersects[0].point );
+    this.iPoint.relative.copy( this.iPoint );
+    this.iPoint.relative.sub( this.currentScenePos );
     this.iDir = dir;
    // bait.position.copy( intersects[0].point );
   }else{
@@ -240,6 +287,9 @@ G.animate = function(){
 
     this.rHand.update( 0 );
     this.lHand.update( 1 );
+
+    //this.mani.updateTail();
+    //this.mani.updatePhysics();
 
     for( var propt  in this.pages ){
 
