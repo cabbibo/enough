@@ -13,8 +13,8 @@ planets.textChunk = [
 
 ].join("\n");
 
-planets.position.set(  0 , 1000 , 1000 );
-planets.cameraPos.set( 0 , 1000 , 2000 );
+planets.position.set(  0 , 2000 , 2000 );
+planets.cameraPos.set( 0 , 2000 , 3000 );
 
 planets.planets = [];
 planets.furryGroups = [];

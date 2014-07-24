@@ -188,7 +188,7 @@
   FurryTail.prototype.activate = function(){
 
     console.log( this.page.scene );
-
+    console.log( this.leader );
     this.page.scene.add( this.leader );
     this.page.scene.add( this.physicsParticles );
     this.page.scene.add( this.line );

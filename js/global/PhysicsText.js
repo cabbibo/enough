@@ -8,7 +8,7 @@ function PhysicsText( string , params ){
     repelPositions: [],
     gRepelPositions: [],
     offset: new THREE.Vector3( 0 , 150 , 0 ),
-    distToCam: 600,
+    distToCam: 1000,
     repelForce: 200000
 
   });
@@ -24,7 +24,7 @@ function PhysicsText( string , params ){
   this.physics = new PhysicsRenderer( this.size , this.sim , G.renderer );
 
   this.physics.setUniform( 't_to' , {
-    value:"t",
+    type:"t",
     value:this.uniforms.t_lookup.value
   });
 
@@ -79,7 +79,7 @@ function PhysicsText( string , params ){
 
 
   this.physics.setUniform( 'speed'       , speedUniform      );
-  this.physics.setUniform( 'timer'       , G.dT              );
+  this.physics.setUniform( 'timer'       , G.timer          );
   this.physics.setUniform( 'cameraMat'   , cameraMat         );
   this.physics.setUniform( 'cameraPos'   , cameraPos         );
   this.physics.setUniform( 'repelPos'    , uRepelPos         );
@@ -95,10 +95,15 @@ function PhysicsText( string , params ){
 
 }
 
-PhysicsText.prototype.addToScene = function( whichScene ){
+PhysicsText.prototype.activate = function(){
 
-  whichScene.add( this.particles );
+  G.scene.add( this.particles );
 
+}
+
+PhysicsText.prototype.deactivate = function(){
+
+  G.scene.remove( this.particles );
 
 }
 

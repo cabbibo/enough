@@ -54,7 +54,7 @@ void main(){
   vec3 vNorm = vNormal;
 
   // FROM @thespite
-  /*vec3 n = normalize( vNorm.xyz );
+  vec3 n = normalize( vNorm.xyz );
   vec3 blend_weights = abs( n );
   blend_weights = ( blend_weights - 0.2 ) * 7.;  
   blend_weights = max( blend_weights, 0. );
@@ -84,7 +84,7 @@ void main(){
   normalTex.y *= -1.;
   normalTex = normalize( normalTex );
   mat3 tsb = mat3( normalize( blended_tangent ), normalize( cross( vNorm, blended_tangent ) ), normalize( vNorm ) );
-  vec3 finalNormal = tsb * normalTex;*/
+  vec3 finalNormal = tsb * normalTex;
 
  /* vec3 vU = normalize( vMVPos );
   vec3 r = reflect( normalize( vU ), normalize( finalNormal ) );
@@ -136,7 +136,8 @@ void main(){
 
   //vec3 test =  ( vTest * vAmount);
 
-  vec3 finalNormal = vNormal;// + 1. *  texture2D( tNormal , abs(vec2(sin(vNormal.y * 100.) , cos( vNormal.z * 10. )))).xyz;
+ // vec3 finalNormal = vNormal;
+  // + 1. *  texture2D( tNormal , abs(vec2(sin(vNormal.y * 100.) , cos( vNormal.z * 10. )))).xyz;
 
  // vec3 c = finalNormal;
   

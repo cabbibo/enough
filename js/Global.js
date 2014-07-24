@@ -218,7 +218,7 @@ G.init = function(){
 
 
   var center = new THREE.Mesh(
-    new THREE.IcosahedronGeometry( 10 , 0 ),
+    new THREE.IcosahedronGeometry( 100 , 0 ),
     new THREE.MeshNormalMaterial({side:THREE.DoubleSide})
   );
 
@@ -237,7 +237,8 @@ G.init = function(){
 
   console.log( 'FURRY TAIL' );
   console.log( this.furryTails );
-  
+
+
   this.mani =  this.furryTails[0];
   this.mani.position.relative = new THREE.Vector3();
 
@@ -255,6 +256,8 @@ G.updateIntersection = function(){
   vector.applyQuaternion( this.camera.quaternion );
   this.iPlane.position.add( vector );
   this.iPlane.lookAt( this.camera.position );
+
+  this.iObj.lookAt( this.camera.position );
 
 
   var dir = this.mouse.clone();

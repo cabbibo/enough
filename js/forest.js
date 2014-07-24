@@ -15,8 +15,9 @@ forest.textChunk = [
 
 
 
-forest.position.set(  0 , 0 , 1000 );
-forest.cameraPos.set( 0 , 0 , 2500 );
+forest.position.set(  2000 , 2000 , 0 );
+forest.cameraPos.set( 2000 , 2000 , 1500 );
+
 
 
 forest.audioArray = [
@@ -176,7 +177,7 @@ forest.addToStartArray( function(){
 
 
   this.text = new PhysicsText( this.textChunk );
-  this.text.addToScene( this.scene );
+  this.text.activate();
   
   this.forest.activate();
 
@@ -216,8 +217,8 @@ forest.addToAllUpdateArrays( function(){
 
   var d = G.mani.position.clone().sub( G.iPoint ).length();
 
-  if( d < 5 ){
 
+  if( d < 5 ){
 
     var randVec = new THREE.Vector3();
     randVec.x = (Math.random() - .5 ) * 10000;

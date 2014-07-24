@@ -41,7 +41,8 @@ void main(){
   vec3 newDir = (cameraMat * vec4( 0. , 0. , 1. , 0. )).xyz;
 
   normalize( newDir );
-  vec3 newTo = to.xyz + (cameraPos+offsetPos) - newDir * distToCam; 
+  vec3 newTo1 = ( cameraMat * vec4( to.xyz , 0. )  ).xyz;
+  vec3 newTo = newTo1 + (cameraPos+offsetPos) - newDir * distToCam; 
  /* vec3 newP = cameraPos - offsetPos;
   newTo = -(normalize(cameraPos.xyz) * distToCam ) + (cameraMat * vec4( to.xyz + newP , 1. )).xyz;*/
 
