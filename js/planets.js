@@ -13,7 +13,7 @@ planets.textChunk = [
 
 ].join("\n");
 
-planets.position.set(  -2000 ,  0 ,  0 );
+planets.position.set(  -1000 ,  0 ,  0 );
 planets.cameraPos.set( 0 , 0 , 0 );
 planets.iPlaneDistance = 2000;
 
@@ -266,9 +266,9 @@ planets.addToStartArray( function(){
     furryTail.position.y = ( Math.random() - .5 ) * 1000;
     furryTail.position.z = ( Math.random() - .5 ) * 1000;
     
-    furryTail.velocity.x = ( Math.random() - .5 ) * 100;
-    furryTail.velocity.y = ( Math.random() - .5 ) * 100;
-    furryTail.velocity.z = ( Math.random() - .5 ) * 100;
+    furryTail.velocity.x = ( Math.random() - .5 ) * 1000;
+    furryTail.velocity.y = ( Math.random() - .5 ) * 1000;
+    furryTail.velocity.z = ( Math.random() - .5 ) * 1000;
 
     furryTail.activate();
 
@@ -310,6 +310,16 @@ planets.addToAllUpdateArrays( function(){
 planets.addToActivateArray( function(){
 
   this.text.activate();
+  
+  for( var i = 0; i < this.furryTails.length; i++ ){
+
+    var furryTail = this.furryTails[i];
+
+    furryTail.velocity.x = ( Math.random() - .5 ) * 1000;
+    furryTail.velocity.y = ( Math.random() - .5 ) * 1000;
+    furryTail.velocity.z = ( Math.random() - .5 ) * 1000;
+
+  }
 
 }.bind( planets ));
 
