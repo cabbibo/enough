@@ -128,7 +128,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   
   tween2.onUpdate( function( t ){
 
-    G.iPlaneDist = this.distStart.d;
+    G.iPlaneDistance = this.distStart.d;
 
   }.bind( this ));
 

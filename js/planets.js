@@ -15,7 +15,7 @@ planets.textChunk = [
 
 planets.position.set(  -1000 ,  0 ,  0 );
 planets.cameraPos.set( 0 , 0 , 0 );
-planets.iPlaneDistance = 2000;
+planets.iPlaneDistance = 1000;
 
 planets.planets = [];
 planets.furryGroups = [];
@@ -244,12 +244,10 @@ planets.addToStartArray( function(){
 
   }
 
-  console.log( repelPosArray );
-
 
   this.text = new PhysicsText( this.textChunk , {
     repelPositions:repelPosArray,
-    distToCam: 1000
+    distToCam: this.iPlaneDist 
   });
 
 }.bind( planets ));
@@ -311,16 +309,7 @@ planets.addToActivateArray( function(){
 
   this.text.activate();
   
-  for( var i = 0; i < this.furryTails.length; i++ ){
-
-    var furryTail = this.furryTails[i];
-
-    furryTail.velocity.x = ( Math.random() - .5 ) * 1000;
-    furryTail.velocity.y = ( Math.random() - .5 ) * 1000;
-    furryTail.velocity.z = ( Math.random() - .5 ) * 1000;
-
-  }
-
+ 
 }.bind( planets ));
 
 planets.addToDeactivateArray( function(){
