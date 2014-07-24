@@ -13,11 +13,11 @@ function PageTurner( pages ){
 PageTurner.prototype.nextPage = function( page ,  length  ){
 
   
-  this.prevPage = page;
-  this.nextPage = page.nextPage;
+  this.fromPage = page;
+  this.toPage = page.nextPage;
   this.length = length
 
-  if( !this.nextPage ){
+  if( !this.toPage ){
 
     console.log( 'NO NEW PAGE' );
 
@@ -32,9 +32,9 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
      times out again and again to check if it is loaded
 
   */
-  if(this.nextPage ){
+  if(this.toPage ){
 
-    if( this.nextPage.loaded === false ){
+    if( this.toPage.loaded === false ){
 
       if( this.pageLoaded === true ){
         
@@ -45,7 +45,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
       
       window.setTimeout( function(){
 
-        this.nextPage( this.prevPage, this.length ); 
+        this.nextPage( this.fromPage, this.length ); 
 
       }.bind( this ), 1000);
       
@@ -60,7 +60,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
       }
 
-      this.nextPage.start();
+      this.toPage.start();
 
     }
 
@@ -93,8 +93,8 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   tween.onUpdate( function( t ){
 
     G.camera.position.copy( this.camStartPos );
-    this.prevPage.gain.gain.value = 1-t;
-    this.nextPage.gain.gain.value = t;
+    this.fromPage.gain.gain.value = 1-t;
+    this.toPage.gain.gain.value = t;
 
     G.objectControls.unprojectMouse();
 
@@ -171,9 +171,11 @@ PageTurner.prototype.removeLoading = function(){
 
 }
 
-PageTurner.prototype.createMarker = function( page , offset ){
+PageTurner.prototype.createMarker = function( page , offset , length ){
 
   offset = offset || new THREE.Vector3( 200 , -300 , 0 );
+  length = length || 30;
+
   var mesh = new THREE.Mesh(
     this.markerGeo,
     this.neutralMaterial 
@@ -181,7 +183,7 @@ PageTurner.prototype.createMarker = function( page , offset ){
 
   mesh.select = function(){
 
-   this.nextPage( page ,  10 );
+   this.nextPage( page ,  length  );
 
   }.bind( this );
 

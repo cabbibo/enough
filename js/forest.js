@@ -63,14 +63,14 @@ forest.addToInitArray( function(){
 
   var f = 'global/';
 
-    this.loadShader( 'furryParticles' , f + 'vs-furryParticles' , 'vs' );
-    this.loadShader( 'furryParticles' , f + 'fs-furryParticles' , 'fs' );
-    this.loadShader( 'furryTail'      , f + 'vs-furryTail' , 'vs' );
-    this.loadShader( 'furryTail'      , f + 'fs-furryTail' , 'fs' );
-    this.loadShader( 'furryHead'      , f + 'vs-furryHead' , 'vs' );
-    this.loadShader( 'furryHead'      , f + 'fs-furryHead' , 'fs' );
-    this.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
-    this.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
+  this.loadShader( 'furryParticles' , f + 'vs-furryParticles' , 'vs' );
+  this.loadShader( 'furryParticles' , f + 'fs-furryParticles' , 'fs' );
+  this.loadShader( 'furryTail'      , f + 'vs-furryTail' , 'vs' );
+  this.loadShader( 'furryTail'      , f + 'fs-furryTail' , 'fs' );
+  this.loadShader( 'furryHead'      , f + 'vs-furryHead' , 'vs' );
+  this.loadShader( 'furryHead'      , f + 'fs-furryHead' , 'fs' );
+  this.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
+  this.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
 
   var f = 'pages/forest/';
 
@@ -172,12 +172,12 @@ forest.addToStartArray( function(){
 
   });
 
-  this.attractor = new THREE.Vector3();
+ /* this.attractor = new THREE.Vector3();
 
   this.attracting = false;
   this.attractionTimer = 0;
  
-  G.mani.addDistanceSquaredForce( this.attractor , 100 );
+  G.mani.addDistanceSquaredForce( this.attractor , 100 );*/
 
 
   this.looper.forest = this.forest;
@@ -213,7 +213,7 @@ forest.addToAllUpdateArrays( function(){
 
   this.text.update();
 
-  if( this.attracting === true ){
+  /*if( this.attracting === true ){
 
     this.attractor.copy( G.iPoint );
 
@@ -233,14 +233,14 @@ forest.addToAllUpdateArrays( function(){
     var randVec = new THREE.Vector3();
     randVec.x = (Math.random() - .5 ) * 10000;
     randVec.y = (Math.random() - .5 ) * 10000;
-    randVec.z = 10000;
+    randVec.z = (Math.random() - .5 ) * 10000;
     this.attractor.copy( this.position );
     this.attractor.add( randVec );
 
     this.attracting = false;
     this.attractionTimer = G.timer.value
 
-  }
+  }*/
 
 
 
@@ -251,7 +251,7 @@ forest.addToDeactivateArray( function(){
 
   this.text.kill();
 
-  G.mani.removeAllForces();
+  //G.mani.removeAllForces();
 
 }.bind( forest) );
 

@@ -126,7 +126,16 @@ G.init = function(){
   this.iDir   = new THREE.Vector3( 0 , 0 , -1 );
   this.iPlaneDistance = 600;
 
+  /*
 
+     For Mani
+
+  */
+  this.attractor = new THREE.Vector3();
+
+  this.attracting = false;
+  this.attractionTimer = 0;
+ 
   /*
   
      Leap Hands!
@@ -249,6 +258,8 @@ G.init = function(){
 
   this.mani.activate();
 
+  this.mani.addDistanceSquaredForce( this.attractor , 100 );
+  
 
 
 }
@@ -327,6 +338,8 @@ G.animate = function(){
     this.mani.position.relative.copy( this.mani.position );
     this.mani.position.relative.sub( this.position );
 
+    this.updateAttractor();
+
     for( var propt  in this.pages ){
 
       this.pages[ propt ].update();
@@ -342,12 +355,47 @@ G.animate = function(){
 
 }
 
+G.updateAttractor = function(){
+
+   if( this.attracting === true ){
+
+    this.attractor.copy( G.iPoint );
+
+  }
+
+  if( (G.timer.value - this.attractionTimer ) > 2.5 ){
+  
+    this.attracting = true;
+
+  }
+
+  var d = this.mani.position.clone().sub( this.iPoint ).length();
+
+
+  if( d < 5 ){
+
+    var randVec = new THREE.Vector3();
+    randVec.x = (Math.random() - .5 ) * 10000;
+    randVec.y = (Math.random() - .5 ) * 10000;
+    randVec.z = (Math.random() - .5 ) * 10000;
+    
+    this.attractor.copy( this.position );
+    this.attractor.add( randVec );
+
+    this.attracting = false;
+    this.attractionTimer = G.timer.value
+
+  }
+
+}
+
 
 G.addToStartArray = function( callback ){
 
   this.startArray.push( callback );
 
 }
+
 
 G.onResize = function(){
 
