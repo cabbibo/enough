@@ -93,9 +93,10 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   tween.onUpdate( function( t ){
 
     G.camera.position.copy( this.camStartPos );
-    this.prevPage.gain.gain.value = .5-t;
-    console.log( this.prevPage.gain.gain.value );
+    this.prevPage.gain.gain.value = 1-t;
     this.nextPage.gain.gain.value = t;
+
+    G.objectControls.unprojectMouse();
 
 
   }.bind( this ));
@@ -128,7 +129,6 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   tween2.onUpdate( function( t ){
 
     G.iPlaneDist = this.distStart.d;
-
 
   }.bind( this ));
 

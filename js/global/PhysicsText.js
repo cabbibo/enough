@@ -31,7 +31,7 @@ function PhysicsText( string , params ){
 
   var repelPos = [];
 
-  for( var i = 0; i< this.params.repelPositions; i++ ){
+  for( var i = 0; i< this.params.repelPositions.length; i++ ){
 
     repelPos.push( this.params.repelPositions[i] );
 

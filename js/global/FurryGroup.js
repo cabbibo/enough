@@ -254,7 +254,7 @@
         simulationUniforms:allUniforms,
         physicsParams: physicsParams,
         particleSize: this.particleSize,
-        leader:       nMesh,
+        leader:       this.leader,//nMesh,
         color1:       this.color1,
         color2:       this.color2,
         color3:       this.color3,

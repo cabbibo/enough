@@ -73,7 +73,7 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
   this.mesh.update = function(){
 
     var newPos = G.iPoint.clone().sub( this.page.position ) 
-    this.position.copy( newPos );
+    this.position.copy( G.iPoint.relative  );
     this.updateAudio();
 
   }.bind( this );

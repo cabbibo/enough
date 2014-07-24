@@ -112,8 +112,8 @@ G.init = function(){
   this.iObj.position.set( l , l , l );
 
   this.iPointMarker = new THREE.Mesh(
-    new THREE.BoxGeometry( 1 , 1 , 100 ),
-    new THREE.MeshBasicMaterial({color:0xffffff})
+    new THREE.BoxGeometry( 5 , 5 , 100 ),
+    new THREE.MeshBasicMaterial({color:0xffff00})
   );
 
   this.iObj.add( this.iPointMarker );
@@ -203,9 +203,8 @@ G.init = function(){
     this.leap  
   );
 
-  this.mouse = this.objectControls.mouse;
+  this.mouse = this.objectControls.unprojectedMouse;
   this.raycaster = this.objectControls.raycaster;
-  this.mouse = this.objectControls.mouse;
 
   var c = [
     new THREE.Color( '#1157ff' ),
@@ -317,6 +316,9 @@ G.animate = function(){
     this.lHand.relative.copy( this.lHand.hand.position );
     this.lHand.relative.sub( this.position );
 
+    this.iPoint.relative.copy( this.iPoint );
+    this.iPoint.relative.sub( this.position );
+   
     this.camera.position.relative.copy( this.camera.position );
     this.camera.position.relative.sub( this.position );
 

@@ -13,9 +13,9 @@ planets.textChunk = [
 
 ].join("\n");
 
-planets.position.set(  -1000 ,  0 ,  0 );
+planets.position.set(  -2000 ,  0 ,  0 );
 planets.cameraPos.set( 0 , 0 , 0 );
-planets.iPlaneDistance = 1000;
+planets.iPlaneDistance = 2000;
 
 planets.planets = [];
 planets.furryGroups = [];
@@ -97,27 +97,6 @@ planets.addToInitArray( function(){
 
 }.bind( planets) );
 
-/*
-
-   Positioning Camera
-
-*/
-
-/*
- 
-   Setting up looper
-
-*/
-
-planets.addToStartArray( function(){
-
-
-  console.log('STARTRS');
-
-
-}.bind( planets ));
-
-
 
 /*
 
@@ -134,7 +113,6 @@ planets.addToStartArray( function(){
 
 
   this.scene.add( this.center );
-
 
   for( var i= 0; i< this.colorSchemes.length; i++ ){
 
@@ -237,6 +215,8 @@ planets.addToStartArray( function(){
     this.planets[i].updateAudio();
    }
 
+  this.looper.start();
+  
 
 
 }.bind( planets ));
@@ -263,6 +243,8 @@ planets.addToStartArray( function(){
     repelPosArray.push( this.planets[i].position );
 
   }
+
+  console.log( repelPosArray );
 
 
   this.text = new PhysicsText( this.textChunk , {
@@ -327,9 +309,7 @@ planets.addToAllUpdateArrays( function(){
 
 planets.addToActivateArray( function(){
 
-
   this.text.activate();
-  this.looper.start();
 
 }.bind( planets ));
 

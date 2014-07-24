@@ -11,6 +11,8 @@ PLOT:
 
 TODO:
 
+- Focus and not on focus problem
+
 - Figure best way to update loaded audio textures
 // - Need a global 3D Mouse position, which also means a global Intersect plane!
 - every page should have text on it ( could be blank for transition pages? );
@@ -26,7 +28,6 @@ TODO:
 
 - Clean up shaders for Forest!
 
-- Looper bug when moved away
-
+- Looper Still not working properly
 
 

@@ -240,7 +240,6 @@ forest.addToAllUpdateArrays( function(){
     this.attracting = false;
     this.attractionTimer = G.timer.value
 
-
   }
 
 
