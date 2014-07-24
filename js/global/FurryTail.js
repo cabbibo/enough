@@ -187,6 +187,7 @@
 
   FurryTail.prototype.activate = function(){
 
+    console.log('ACTIVATS' );
     console.log( this.page.scene );
     console.log( this.leader );
     this.page.scene.add( this.leader );
@@ -382,9 +383,27 @@
     }
   }
   
+
+
+
   FurryTail.prototype.updateBrethren = function(){
 
     this.brethren = this.group.tails;
+
+  }
+
+
+
+  FurryTail.prototype.removeAllForces  = function(){
+
+    this.distanceForces                 = [];
+    this.distanceInverseForces          = [];
+    this.distanceInverseSquaredForces   = [];  
+    this.distanceSquaredForces          = [];
+    this.normalForces                   = [];
+    this.springForces                   = [];
+    this.collisionForces                = [];
+    this.steeringForces                 = [];
 
   }
 

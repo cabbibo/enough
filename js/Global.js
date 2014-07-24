@@ -47,13 +47,19 @@ G.h             = window.innerHeight;
 
 G.camera        = new THREE.PerspectiveCamera( 45 , G.w / G.h , 1 , 200000 );
 G.scene         = new THREE.Scene();
-G.renderer      = new THREE.WebGLRenderer(); //autoclear:false
-
+G.renderer      = new THREE.WebGLRenderer(); //autoclear:false\
 G.clock         = new THREE.Clock();
 
 G.pageTurner    = new PageTurner();
 G.position      = new THREE.Vector3();
+G.pageMarker    = new THREE.Mesh(
+  new THREE.IcosahedronGeometry( 40,2 ),
+  new THREE.MeshBasicMaterial({color:0xffffff})
+);
 
+G.scene.add( G.pageMarker );
+
+G.camera.position.relative = new THREE.Vector3().copy( G.camera.position );
 
 G.container     = document.getElementById('container' );
 
@@ -287,7 +293,10 @@ G.animate = function(){
   this.dT.value = this.clock.getDelta();  
   this.timer.value += G.dT.value;
 
+
+  this.pageMarker.position.copy( this.position );
   if( !this.paused ){
+
 
     /*this.dT.value = this.clock.getDelta();
     this.timer.value += G.dT.value;*/
@@ -307,6 +316,9 @@ G.animate = function(){
     
     this.lHand.relative.copy( this.lHand.hand.position );
     this.lHand.relative.sub( this.position );
+
+    this.camera.position.relative.copy( this.camera.position );
+    this.camera.position.relative.sub( this.position );
 
     this.mani.updateTail();
     this.mani.updatePhysics();

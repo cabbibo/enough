@@ -15,9 +15,9 @@ forest.textChunk = [
 
 
 
-forest.position.set(  2000 , 2000 , 0 );
-forest.cameraPos.set( 2000 , 2000 , 1500 );
-
+forest.position.set(  0 , 0 , -1600 );
+forest.cameraPos.set( 0 , 0 , 0 );
+forest.iPlaneDistance = 1200
 
 
 forest.audioArray = [
@@ -95,12 +95,21 @@ forest.addToStartArray( function(){
   G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = 1200;
+
 }.bind( forest ));
 
 forest.addToStartArray( function(){
 
+  for( var i = 0; i < this.audio.array.length; i++ ){
 
-  
+    var audio = this.audio.array[i];
+    audio.reconnect( this.gain );
+
+  }
+
+}.bind( forest) );
+forest.addToStartArray( function(){
+
   var repelObjects    = [];
   var repelPositions  = [];
   var repelVelocities = [];
@@ -167,6 +176,7 @@ forest.addToStartArray( function(){
 
   this.attracting = false;
   this.attractionTimer = 0;
+ 
   G.mani.addDistanceSquaredForce( this.attractor , 100 );
 
 
@@ -177,7 +187,6 @@ forest.addToStartArray( function(){
 
 
   this.text = new PhysicsText( this.textChunk );
-  this.text.activate();
   
   this.forest.activate();
 
@@ -188,6 +197,7 @@ forest.addToStartArray( function(){
 forest.addToActivateArray( function(){
 
   this.looper.start();
+  this.text.activate();
 
 }.bind( forest ));
 
@@ -237,4 +247,18 @@ forest.addToAllUpdateArrays( function(){
 
 }.bind( forest ));
 
+
+forest.addToDeactivateArray( function(){
+
+  this.text.kill();
+
+  G.mani.removeAllForces();
+
+}.bind( forest) );
+
+forest.addToEndArray( function(){
+
+  this.looper.end();
+
+}.bind( forest ));
 

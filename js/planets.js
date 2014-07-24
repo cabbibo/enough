@@ -13,8 +13,9 @@ planets.textChunk = [
 
 ].join("\n");
 
-planets.position.set(  0 , 2000 , 2000 );
-planets.cameraPos.set( 0 , 2000 , 3000 );
+planets.position.set(  -1000 ,  0 ,  0 );
+planets.cameraPos.set( 0 , 0 , 0 );
+planets.iPlaneDistance = 1000;
 
 planets.planets = [];
 planets.furryGroups = [];
@@ -111,6 +112,7 @@ planets.addToInitArray( function(){
 planets.addToStartArray( function(){
 
 
+  console.log('STARTRS');
 
 
 }.bind( planets ));
@@ -129,6 +131,7 @@ planets.addToStartArray( function(){
     new THREE.IcosahedronGeometry( 10 , 0 ),
     new THREE.MeshNormalMaterial({side:THREE.DoubleSide})
   );
+
 
   this.scene.add( this.center );
 
@@ -153,9 +156,9 @@ planets.addToStartArray( function(){
 
     var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
 
-    planet.position.x = (Math.random() - .5 ) * 1000;
+    planet.position.z = (Math.random() - .5 ) * 1000;
     planet.position.y = (Math.random() - .5 ) * 1000;
-    planet.position.z = 0;//G.iPlaneDis//(Math.random() - .5 ) * 1000;
+    planet.position.x = 0;//G.iPlaneDis//(Math.random() - .5 ) * 1000;
 
 
     this.planets.push( planet );
@@ -172,6 +175,8 @@ planets.addToStartArray( function(){
     });
 
     this.furryGroups.push( f );
+
+    this.center.visible = false;
 
   }
 
@@ -227,7 +232,6 @@ planets.addToStartArray( function(){
     }
   }.bind( this ) );
 
-  this.looper.start();
    
   for( var i = 0; i < this.planets.length; i++ ){
     this.planets[i].updateAudio();
@@ -237,17 +241,6 @@ planets.addToStartArray( function(){
 
 }.bind( planets ));
 
-// Only start playing once everything is on the screen
-/*planets.addToActivateArray( function(){
-  
-   for( var i = 0; i < this.planets.length; i++ ){
-    this.planets[i].updateAudio();
-   }
-
-  this.looper.start() 
-
-}.bind( planets ) );*/
-
 
 /*
  
@@ -256,35 +249,14 @@ planets.addToStartArray( function(){
 */
 planets.addToStartArray( function(){
 
-  this.textParticles = G.text.createTextParticles( this.textChunk );
-
-
-  console.log('TEXT PARTICLES' );
-  console.log( this.textParticles );
-
-  this.textUniforms = this.textParticles.material.uniforms;
-
-  var s = this.textParticles.size;
-
-  var sim = G.shaders.ss.textSim;
-
-  var physics = new PhysicsRenderer( s , sim , G.renderer );
-  physics.setUniform( 't_to' , {
-    type:"t",
-    value:this.textParticles.material.uniforms.t_lookup.value
-  });
- 
-
+  
   var repelPosArray = [];
+  
   for( var i =0; i < this.furryTails.length; i++ ){
 
     repelPosArray.push( this.furryTails[i].position );
 
   }
-
-  repelPosArray.push( G.rHand.hand.position );
-  repelPosArray.push( G.lHand.hand.position );
-  repelPosArray.push( G.iPoint );
 
   for( var i = 0; i < this.planets.length; i++ ){
 
@@ -293,135 +265,40 @@ planets.addToStartArray( function(){
   }
 
 
-  for( var i = repelPosArray.length; i < 20; i++ ){
-
-    var l = 1000000000;
-    repelPosArray.push( new THREE.Vector3( l , l , l )); 
-
-  }
-
-  var repelPos = {
-    type:"v3v",
-    value: repelPosArray
-  }
-  
-  var gRepelPosArray = [];
-
-  gRepelPosArray.push( G.rHand.hand.position );
-  gRepelPosArray.push( G.lHand.hand.position );
-  gRepelPosArray.push( G.iPoint );
-
-
-  var gRepelPos = {
-    type:"v3v",
-    value: gRepelPosArray
-  }
-
-
-  var speedUniform  = { type:"v3" , value:new THREE.Vector3() }
-  var cameraMat     = { type:"m4" , value:G.camera.matrixWorld}
-  var cameraPos     = { type:"v3" , value:G.camera.position } 
-
-  var offsetPos     = { type:"v3" , value: new THREE.Vector3( 0 , 150 , 0 ) }
-  var alive         = { type:"f"  , value:1}
-
-  var distToCam     = { type:"f"  , value: 600} 
-  var repelForce    = { type:"f"  , value: 200000}
-  var pagePos       = { type:"v3" , value: this.position }
-
-  physics.setUniform( 'speed'       , speedUniform  );
-  physics.setUniform( 'timer'       , G.dT          );
-  physics.setUniform( 'cameraMat'   , cameraMat     );
-  physics.setUniform( 'cameraPos'   , cameraPos     );
-  physics.setUniform( 'repelPos'    , repelPos      );
-  physics.setUniform( 'gRepelPos'   , gRepelPos     );
-  physics.setUniform( 'pagePos'     , pagePos       );
-  physics.setUniform( 'alive'       , alive         );
-  physics.setUniform( 'offsetPos'   , offsetPos     );
-  physics.setUniform( 'distToCam'   , distToCam     );
-  physics.setUniform( 'repelForce'  , repelForce    );
-
-  physics.addBoundTexture( this.textParticles , 't_lookup' , 'output' );
-
-  distToCam.value = 1000;
-
-  this.textParticles.physics = physics;
-  this.textParticles.distToCam = distToCam;
-
-  G.scene.add( this.textParticles );
-  
-
-  //this.textParticles.position.copy( this.position );
-
-
-
-
+  this.text = new PhysicsText( this.textChunk , {
+    repelPositions:repelPosArray,
+    distToCam: 1000
+  });
 
 }.bind( planets ));
 
 
 planets.addToStartArray( function(){
 
-  var newPos = new THREE.Vector3( 0 , 0 , 4000 );
-  //G.iPlaneDistance = 4000;
 
-  G.camera.position.copy( this.position );
-  
-  G.camera.position.add( newPos );
+  for( var i = 0; i < this.furryTails.length; i++ ){
 
-  console.log( G.camera.position );
-  G.camera.lookAt( this.position );
+    var furryTail = this.furryTails[i];
 
-
-
-  var startDist = {
-    d: 4000,
-  }
-
-  var endDist = {
-    d:1000
-  }
-
-  this.d = 4000;
-  var tween = new G.tween.Tween(startDist ).to(endDist, 3000 );
-
-  this.startDist = startDist;
-
-  tween.easing( G.tween.Easing.Quartic.In )
-
-  tween.onUpdate( function( t ){
-
-    var d = this.startDist.d;
-    console.log( d );
-    G.camera.position.copy( this.position );
-    console.log( this.position );
-    G.camera.position.z += d;//;// = new THREE.Vector3( 0 , 0 , d );
-    G.iPlaneDistance = d;
-    this.textParticles.distToCam.value = 2 * (d-500);
-
-    this.gain.gain.value = t;
+    furryTail.position.x = ( Math.random() - .5 ) * 1000;
+    furryTail.position.y = ( Math.random() - .5 ) * 1000;
+    furryTail.position.z = ( Math.random() - .5 ) * 1000;
     
-    //G.camera.lookAt( this.position );
+    furryTail.velocity.x = ( Math.random() - .5 ) * 100;
+    furryTail.velocity.y = ( Math.random() - .5 ) * 100;
+    furryTail.velocity.z = ( Math.random() - .5 ) * 100;
 
+    furryTail.activate();
 
-    
-
-  }.bind( this ));
-
-  tween.onComplete( function(){
-    this.activate();
-    console.log( this.position );
-  //  G.camera.lookAt( this.position );
-  }.bind( this ));
-
-  tween.start();
-
+  }
 
 }.bind( planets ));
 
 
 planets.addToAllUpdateArrays( function(){
 
+
+  this.text.update();
 
   for( var i = 0; i < this.furryTails.length; i++ ){
 
@@ -438,8 +315,6 @@ planets.addToAllUpdateArrays( function(){
 
   }
 
-  this.textParticles.physics.update();
-
 
 }.bind( planets ) );
 
@@ -452,85 +327,13 @@ planets.addToAllUpdateArrays( function(){
 
 planets.addToActivateArray( function(){
 
-  var mesh = new THREE.Mesh(
 
-    new THREE.IcosahedronGeometry( 40 , 1 ),
-    new THREE.MeshNormalMaterial()
-
-  );
-
-  this.scene.add( mesh );
-
-  mesh.position.x = 400;
-  mesh.position.y = -300;
-
-  mesh.hO = new THREE.MeshBasicMaterial();
-
-  mesh.hoverOver = function(){
-
-    this.endMesh.material = this.endMesh.hO;
-    this.endMesh.materialNeedsUpdate = true;
-
-  }.bind( this );
-
-
-  mesh.select = function(){
-
-    this.deactivate();
-
-  }.bind( this );
-
-  G.objectControls.add( mesh );
-
-  this.endMesh = mesh;
+  this.text.activate();
+  this.looper.start();
 
 }.bind( planets ));
 
 planets.addToDeactivateArray( function(){
-
-
-  console.log( 'THSIASD');
-  console.log( this );
-
-  this.textParticles.physics.simulationUniforms.alive.value = 0;
-
-  var startRot = {
-    d: 0,
-  }
-
-  var endRot = {
-    d: Math.PI / 2
-  }
-
-  this.d = 4000;
-  var tween = new G.tween.Tween(startRot ).to(endRot, 3000 );
-
-  this.startRot = startRot;
-
-  tween.easing( G.tween.Easing.Quartic.In )
-
-  tween.onUpdate( function( t ){
-
-    var r = this.startRot.d;
-    console.log( r );
-    G.camera.rotation.y =  r; //.copy( this.position );
-    //console.log( G.camera.position );
-    //G.camera.position.z += d;//;// = new THREE.Vector3( 0 , 0 , d );
-    //G.iPlaneDistance = d;
-
-    console.log( t );
-    console.log( this.gain.gain.value );
-    this.gain.gain.value = 1 - t;
-    this.textUniforms.opacity.value = 1 - t;
-
-  }.bind( this ));
-
-  tween.onComplete( function(){
-    this.end();
-  }.bind( this ));
-
-  tween.start();
-
 
 
 }.bind( planets ));
@@ -538,9 +341,6 @@ planets.addToDeactivateArray( function(){
 
 planets.addToEndArray( function(){
 
-  console.log( 'END' );
-
-  G.scene.remove( this.textParticles );
 
 }.bind( planets ));
 

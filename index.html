@@ -37,9 +37,11 @@
     <script src="lib/PhysicsRenderer.js"></script>
     
     <script src="lib/Loader.js"></script>
-    <script src="lib/PageLoader.js"></script>
-    <script src="lib/PageTurner.js"></script>
-    <script src="lib/Page.js"></script>
+    
+    
+    <script src="js/PageLoader.js"></script>
+    <script src="js/PageTurner.js"></script>
+    <script src="js/Page.js"></script>
     
     
      
@@ -104,8 +106,7 @@
       G.loadTextures();
 
       G.pages.planets.prevPage = G.pages.forest;
-      G.pages.forest.nextPage = G.pages.forest;
-
+      G.pages.forest.nextPage = G.pages.planets;
 
       // We Only need to start once everything has inititialized
       //G.loader.addLoad();
@@ -131,10 +132,14 @@
         G.pages.forest.addToOnLoadArray( function(){
 
           this.pages.forest.start();
+         // this.pages.forest.activate();
+
+       }.bind( G ));
+
+       window.setTimeout( function(){
           this.pages.forest.activate();
 
-        }.bind( G ));
-
+       }.bind( G ), 500 );
 
       }.bind( G ) );
 

@@ -71,7 +71,7 @@ function PhysicsText( string , params ){
   var cameraPos     = { type:"v3" , value:G.camera.position } 
 
   this.offsetPos     = { type:"v3" , value: this.params.offset }
-  this.alive         = { type:"f"  , value:1}
+  this.alive         = { type:"f"  , value:0}
 
   this.distToCam     = { type:"f"  , value: this.params.distToCam } 
   this.repelForce    = { type:"f"  , value: this.params.repelForce }
@@ -95,8 +95,18 @@ function PhysicsText( string , params ){
 
 }
 
+PhysicsText.prototype.kill = function(){
+
+  this.alive.value = 0;
+
+
+
+}
+
+
 PhysicsText.prototype.activate = function(){
 
+  this.alive.value = 1;
   G.scene.add( this.particles );
 
 }
