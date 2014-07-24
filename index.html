@@ -70,7 +70,7 @@
       // TODO: 
       // Write shaders for hands
 
-      //G.audio.mute.gain.value = 0;
+      G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -82,16 +82,16 @@
       G.shaders.load( 'global/fs-lHand' , 'lHand' , 'fragment'  );
 
       // For Tails
-        var f = 'global/';
+      var f = 'global/';
 
-    G.shaders.load(  f + 'vs-furryParticles' , 'furryParticles' , 'vs' );
-    G.shaders.load(  f + 'fs-furryParticles' , 'furryParticles' , 'fs' );
-    G.shaders.load(  f + 'vs-furryTail'      , 'furryTail'      , 'vs' );
-    G.shaders.load(  f + 'fs-furryTail'      , 'furryTail'      , 'fs' );
-    G.shaders.load(  f + 'vs-furryHead'      , 'furryHead'      , 'vs' );
-    G.shaders.load(  f + 'fs-furryHead'      , 'furryHead'      , 'fs' );
-    G.shaders.load(  f + 'furryTailSim'      , 'furryTailSim'   , 'ss' );
-    G.shaders.load(  f + 'furryHeadSim'      , 'furryHeadSim'   , 'ss' );
+      G.shaders.load(  f + 'vs-furryParticles' , 'furryParticles' , 'vs' );
+      G.shaders.load(  f + 'fs-furryParticles' , 'furryParticles' , 'fs' );
+      G.shaders.load(  f + 'vs-furryTail'      , 'furryTail'      , 'vs' );
+      G.shaders.load(  f + 'fs-furryTail'      , 'furryTail'      , 'fs' );
+      G.shaders.load(  f + 'vs-furryHead'      , 'furryHead'      , 'vs' );
+      G.shaders.load(  f + 'fs-furryHead'      , 'furryHead'      , 'fs' );
+      G.shaders.load(  f + 'furryTailSim'      , 'furryTailSim'   , 'ss' );
+      G.shaders.load(  f + 'furryHeadSim'      , 'furryHeadSim'   , 'ss' );
 
 
       // For text
