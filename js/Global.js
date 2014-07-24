@@ -51,6 +51,10 @@ G.renderer      = new THREE.WebGLRenderer(); //autoclear:false
 
 G.clock         = new THREE.Clock();
 
+G.pageTurner    = new PageTurner();
+G.position      = new THREE.Vector3();
+
+
 G.container     = document.getElementById('container' );
 
 
@@ -62,7 +66,6 @@ G.t_audio = { type:"t" , value: G.audio.texture }
 
 G.paused  = false;
 
-G.currentScenePos = new THREE.Vector3();
 
 // Get all the fun stuff started
 
@@ -140,6 +143,11 @@ G.init = function(){
   this.rHand.addScaledMeshToAll( rHandMesh );
 
   this.rHand.addToScene( this.scene );
+
+  this.rHand.relative = new THREE.Vector3();
+
+  console.log('RHAND' );
+  console.log( this.rHand );
     
 
   var lHandMesh = new THREE.Mesh( 
@@ -157,6 +165,9 @@ G.init = function(){
   this.lHand.addScaledMeshToAll( rHandMesh );
 
   this.lHand.addToScene( this.scene );
+
+  this.lHand.relative = new THREE.Vector3();
+
  
 
   /*
@@ -190,7 +201,7 @@ G.init = function(){
   this.raycaster = this.objectControls.raycaster;
   this.mouse = this.objectControls.mouse;
 
-  /*var c = [
+  var c = [
     new THREE.Color( '#1157ff' ),
     new THREE.Color( '#00a4ff' ),
     new THREE.Color( '#5e2dff' ),
@@ -206,7 +217,7 @@ G.init = function(){
   this.furryTails = [];
 
 
-   var center = new THREE.Mesh(
+  var center = new THREE.Mesh(
     new THREE.IcosahedronGeometry( 10 , 0 ),
     new THREE.MeshNormalMaterial({side:THREE.DoubleSide})
   );
@@ -221,16 +232,16 @@ G.init = function(){
     color2: col2,
     color3: col3,
     color4: col4,
-
   });
 
 
   console.log( 'FURRY TAIL' );
   console.log( this.furryTails );
   
-  this.mani =  this.furryTails[0];*/
+  this.mani =  this.furryTails[0];
+  this.mani.position.relative = new THREE.Vector3();
 
-  //this.mani.activate();
+  this.mani.activate();
 
 
 
@@ -258,7 +269,7 @@ G.updateIntersection = function(){
   
     this.iPoint.copy( intersects[0].point );
     this.iPoint.relative.copy( this.iPoint );
-    this.iPoint.relative.sub( this.currentScenePos );
+    this.iPoint.relative.sub( this.position );
     this.iDir = dir;
    // bait.position.copy( intersects[0].point );
   }else{
@@ -288,8 +299,16 @@ G.animate = function(){
     this.rHand.update( 0 );
     this.lHand.update( 1 );
 
-    //this.mani.updateTail();
-    //this.mani.updatePhysics();
+    this.rHand.relative.copy( this.rHand.hand.position );
+    this.rHand.relative.sub( this.position );
+    
+    this.lHand.relative.copy( this.lHand.hand.position );
+    this.lHand.relative.sub( this.position );
+
+    this.mani.updateTail();
+    this.mani.updatePhysics();
+    this.mani.position.relative.copy( this.mani.position );
+    this.mani.position.relative.sub( this.position );
 
     for( var propt  in this.pages ){
 

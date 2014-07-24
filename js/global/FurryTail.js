@@ -74,7 +74,7 @@
     this.velocity   = new THREE.Vector3();  
     this.force      = new THREE.Vector3();  
 
-
+/*
     this.position.set(
 
         (Math.random() - .5 ) * 100,
@@ -89,7 +89,7 @@
         (Math.random() - .5 ) * 4,
         (Math.random() - .5 ) * 4
 
-    );
+    );*/
 
     this.velocity.normalize();
     this.velocity.multiplyScalar( this.physicsParams.maxVel );
@@ -187,6 +187,9 @@
 
   FurryTail.prototype.activate = function(){
 
+    console.log( this.page.scene );
+
+    this.page.scene.add( this.leader );
     this.page.scene.add( this.physicsParticles );
     this.page.scene.add( this.line );
     this.page.scene.add( this.leader );

@@ -38,14 +38,15 @@
     
     <script src="lib/Loader.js"></script>
     <script src="lib/PageLoader.js"></script>
-
+    <script src="lib/PageTurner.js"></script>
     <script src="lib/Page.js"></script>
     
     
-    
+     
     <script src="js/global/FurryGroup.js"></script>
     <script src="js/global/FurryTail.js"></script>
     <script src="js/global/FurryHead.js"></script>
+    <script src="js/global/PhysicsText.js"></script>
     
     <script src="js/pages/planets/Planet.js"></script>
     
@@ -102,8 +103,12 @@
 
       G.loadTextures();
 
+      G.pages.planets.prevPage = G.pages.forest;
+      G.pages.forest.nextPage = G.pages.forest;
+
+
       // We Only need to start once everything has inititialized
-      G.loader.addLoad();
+      //G.loader.addLoad();
      /* G.pages.planets.init();
       G.pages.planets.addToOnLoadArray( function(){
 
@@ -119,17 +124,16 @@
       }.bind( G ) );*/
 
 
-      G.pages.forest.init();
-      G.pages.forest.addToOnLoadArray( function(){
-
-        G.loader.onLoad();
-
-      }.bind( G ));
-
+     
       G.addToStartArray( function(){
 
-        this.pages.forest.start();
-        this.pages.forest.activate();
+        G.pages.forest.init();
+        G.pages.forest.addToOnLoadArray( function(){
+
+          this.pages.forest.start();
+          this.pages.forest.activate();
+
+        }.bind( G ));
 
 
       }.bind( G ) );

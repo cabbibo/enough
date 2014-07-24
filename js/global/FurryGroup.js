@@ -271,7 +271,7 @@
       this.tails[i].updateBrethren();
     }
 
-    this.addToScene();
+    //this.addToScene();
 
 
 

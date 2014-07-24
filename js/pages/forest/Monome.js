@@ -11,8 +11,6 @@ function Monome( forest , whichHit , whichNote , mesh ){
   this.forest = forest;
   this.page   = this.forest.page;
 
-  console.log( whichHit , whichNote );
-
   this.active = false;
   this.selected = false;
   this.hovered = false;

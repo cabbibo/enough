@@ -68,8 +68,6 @@
     this.size = 64;
 
     this.sim = G.shaders.simulationShaders.forest;
-    console.log( 'SIM' );
-    console.log( this.sim );
 
     this.flow = new THREE.Vector3();
 
@@ -275,7 +273,6 @@
 
 
 
-    console.log('BEGIN GEO CREATE');
     var geoLine = this.createLineGeo( this.size );
     var geo = this.createMeshGeo( this.size );
 
@@ -360,7 +357,8 @@
 
     var geo = new THREE.BufferGeometry();
 
-    geo.addAttribute( 'position', new Float32Array( 3840 * 2 * 3 ) , 3); 
+    var posA = new THREE.BufferAttribute( new Float32Array( 3840 * 2 * 3 ) , 3 );
+    geo.addAttribute( 'position', posA ); 
 
     var positions = geo.getAttribute( 'position' ).array;
 
@@ -415,7 +413,6 @@
 
 
 
-    console.log( TOTAL );
     return geo;
 
   }
@@ -424,8 +421,8 @@
 
     
     var geo = new THREE.BufferGeometry();
-
-    geo.addAttribute( 'position', new Float32Array(197120   * 6 * 3 ) , 3); 
+    var posA = new THREE.BufferAttribute( new Float32Array(197120   * 6 * 3 ) , 3);
+    geo.addAttribute( 'position', posA ); 
 
    
     var positions = geo.getAttribute( 'position' ).array;
@@ -446,7 +443,6 @@
       for( var i = 0; i < size; i++ ){
 
 
-        console.log('NEW TENDRIL')
 
         var tendrilIndex = i + ( j * size );
 
@@ -526,7 +522,6 @@
   
     }
 
-    console.log( TOTAL );
 
     return geo;
 
@@ -554,10 +549,6 @@
         this.params.baseGeo,
         this.params.baseMat
       );
-
-      console.log('HELASS');
-      console.log( this.width );
-
 
       var position = new THREE.Vector3(
         ((x-7.5)/16)*this.width,
@@ -614,8 +605,6 @@
     activeTexture.generateMipmaps = false;
     activeTexture.needsUpdate = true;
 
-    console.log( 'ACTIVE TEXTURE' );
-    console.log( activeTexture );
     return activeTexture;
 
   }

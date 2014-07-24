@@ -11,12 +11,12 @@ forest.textChunk = [
   " But first he had to wait, and bide his time.",
 
 
-
 ].join("\n" );
 
 
+
 forest.position.set(  0 , 0 , 1000 );
-forest.cameraPos.set( 0 , 0 , 2000 );
+forest.cameraPos.set( 0 , 0 , 2500 );
 
 
 forest.audioArray = [
@@ -89,9 +89,11 @@ forest.addToInitArray( function(){
 
 forest.addToStartArray( function(){
 
+  G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
   G.camera.lookAt( this.position );//= 1000;
 
+  G.iPlaneDistance = 1200;
 }.bind( forest ));
 
 forest.addToStartArray( function(){
@@ -103,7 +105,7 @@ forest.addToStartArray( function(){
   var repelVelocities = [];
   var repelRadii      = [];
       
-  for( var i = 0; i < 10; i++ ){
+  for( var i = 0; i < 6; i++ ){
 
     var l = 10000000;
     repelPositions.push( new THREE.Vector3( l, l , l ) );
@@ -112,6 +114,23 @@ forest.addToStartArray( function(){
 
   }
 
+  repelPositions.push( G.mani.position.relative );
+  repelVelocities.push( G.mani.velocity );
+  repelRadii.push( 300 );
+
+
+  repelPositions.push( G.iPoint.relative );
+  repelVelocities.push( new THREE.Vector3() );
+  repelRadii.push( 200 );
+
+
+  repelPositions.push( G.lHand.relative );
+  repelVelocities.push( new THREE.Vector3()  );
+  repelRadii.push( 200 );
+
+  repelPositions.push( G.rHand.relative  );
+  repelVelocities.push( new THREE.Vector3()  );
+  repelRadii.push( 200 );
 
 
   this.forest = new Forest(
@@ -143,13 +162,24 @@ forest.addToStartArray( function(){
 
   });
 
+  this.attractor = new THREE.Vector3();
+
+  this.attracting = false;
+  this.attractionTimer = 0;
+  G.mani.addDistanceSquaredForce( this.attractor , 100 );
+
+
   this.looper.forest = this.forest;
   this.looper.onNewMeasure = function(){
     this.forest.updateBases( this.relativeMeasure );
   }
 
 
+  this.text = new PhysicsText( this.textChunk );
+  this.text.addToScene( this.scene );
+  
   this.forest.activate();
+
 
 
 }.bind( forest ) );
@@ -163,6 +193,46 @@ forest.addToActivateArray( function(){
 forest.addToAllUpdateArrays( function(){
 
   this.forest.update();
+
+}.bind( forest ));
+
+
+forest.addToAllUpdateArrays( function(){
+
+
+  this.text.update();
+
+  if( this.attracting === true ){
+
+    this.attractor.copy( G.iPoint );
+
+  }
+
+  if( (G.timer.value - this.attractionTimer ) > 2.5 ){
+  
+    this.attracting = true;
+
+  }
+
+  var d = G.mani.position.clone().sub( G.iPoint ).length();
+
+  if( d < 5 ){
+
+
+    var randVec = new THREE.Vector3();
+    randVec.x = (Math.random() - .5 ) * 10000;
+    randVec.y = (Math.random() - .5 ) * 10000;
+    randVec.z = 10000;
+    this.attractor.copy( this.position );
+    this.attractor.add( randVec );
+
+    this.attracting = false;
+    this.attractionTimer = G.timer.value
+
+
+  }
+
+
 
 }.bind( forest ));
 

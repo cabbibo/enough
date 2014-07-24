@@ -14,7 +14,7 @@ uniform float distToCam;
 
 uniform vec3 pagePos;
 
-uniform vec3 gRepelPos[ 3 ];
+uniform vec3 gRepelPos[ 4 ];
 uniform vec3 repelPos[ 20 ];
 
 varying vec2 vUv;
@@ -69,7 +69,7 @@ void main(){
     //}
   }
 
-  for( int i = 0; i < 3; i++ ){
+  for( int i = 0; i < 4; i++ ){
     //if( repelPos[i] != vec3( 0. , 0. , 0. )){
       vec3 toFriend = gRepelPos[i] - pos.xyz;
       vel -= normalize(toFriend) * repelForce / (length( toFriend * toFriend));
