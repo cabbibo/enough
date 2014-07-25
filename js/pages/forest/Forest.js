@@ -160,7 +160,7 @@
     this.physicsRenderer.setUniform( 'timer'  , G.timer );
 
 
-    this.normalTexture = THREE.ImageUtils.loadTexture('../img/normals/sand.png');
+    this.normalTexture = THREE.ImageUtils.loadTexture('img/normals/sand.png');
 
     this.normalTexture.wrapS = THREE.RepeatWrapping;
     this.normalTexture.wrapT = THREE.RepeatWrapping;
@@ -227,7 +227,7 @@
     }.bind( this ));*/
 
 
-    var t_iri = THREE.ImageUtils.loadTexture( '../img/iri/comboWet.png' );
+    var t_iri = THREE.ImageUtils.loadTexture( 'img/iri/comboWet.png' );
 
 
     var uniforms = {
