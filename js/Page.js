@@ -55,6 +55,9 @@ function Page( name , params ){
   this.active       = false;
   this.ending       = false;
 
+  this.finishedStartArray = false;
+  this.addingStartArray = false;
+
   this.initArray      = [];
   
   this.onLoadArray    = [];
@@ -96,46 +99,75 @@ Page.prototype.update = function(){
 
     this.frame ++;
 
-    // Transition phase
-    if( this.starting ){
+    if( this.addingStartArray === true ){
 
-      for( var i = 0; i < this.startingArray.length; i++ ){
 
-        this.startingArray[i]();
+      var dif = this.frame - this.startFrame - 1;
+
+      console.log( dif );
+     
+      console.log( this.startArray.length );
+      
+      if( dif === this.startArray.length ){
+
+        console.log( 'finish' );
+        this.finishedStartArray = true;
+        this.addingStartArray = false;
+
+        // If we need to call something at the end of it all
+        for( var i = 0; i < this.endStartArray.length; i++ ){
+          this.endStartArray[i]();
+        }
+
+
+      }else{
+
+        this.startArray[ dif ]();
+
+      }
+
+
+    }
+    if( this.finishedStartArray === true ){
+      
+      // Transition phase
+      if( this.starting ){
+
+        for( var i = 0; i < this.startingArray.length; i++ ){
+
+          this.startingArray[i]();
+
+        }
+
+      }
+
+      // While active
+      if( this.active ){
+
+        if( (this.frame - this.startFrame) <= this.startingArray.length ){
+    
+          console.log('WRONG WRONG WRONG');
+
+        }
+
+        for( var i = 0; i < this.activeArray.length; i++ ){
+          this.activeArray[i]();
+        }
+
+      }
+
+      // Transition phase
+      if( this.ending ){
+
+        for( var i = 0; i < this.endingArray.length; i++ ){
+          this.endingArray[i]();
+        }
 
       }
 
     }
 
-    // While active
-    if( this.active ){
-
-      for( var i = 0; i < this.activeArray.length; i++ ){
-        this.activeArray[i]();
-      }
-
-    }
-
-    // Transition phase
-    if( this.ending ){
-
-      for( var i = 0; i < this.endingArray.length; i++ ){
-        this.endingArray[i]();
-      }
-
-    }
-
-    // Only call end start array once 
-    // we have the second frame 
-    // AKA G.renderer.render has been called once
-    if( this.frame === 2 ){
-
-      for( var i = 0; i < this.endStartArray.length; i++ ){
-        this.endStartArray[i]();
-      }
-
-    }
-
+    
   }else{
 
     //console.log( 'This Page should not be updating' );
@@ -197,10 +229,15 @@ Page.prototype.start = function(){
   this.started  = true;
   this.starting = true;
 
+  this.startFrame = this.frame;
+
+  this.addingStartArray = true;
+  /*
+
   for( var i = 0; i < this.startArray.length; i++ ){
     this.startArray[i]();
   }
-
+*/
 
 
   G.scene.add( this.scene );
@@ -223,7 +260,6 @@ Page.prototype.activate = function(){
   //TODO: 
   // Per page?!?!?
   this.endMesh = G.pageTurner.createMarker( this );
-
   this.scene.add( this.endMesh );
 
 }

@@ -148,7 +148,7 @@ G.init = function(){
     new THREE.MeshBasicMaterial( 0xff0000 )
   );
  
-  this.rHand = new RiggedSkeleton( this.leap , {
+  this.rHand = new RiggedSkeleton( this.leap , this.camera , {
   
     movementSize: 1000,
     handSize:     100,
@@ -170,7 +170,7 @@ G.init = function(){
     new THREE.MeshBasicMaterial( 0xff0000 )
   );
  
-  this.lHand = new RiggedSkeleton( this.leap , {
+  this.lHand = new RiggedSkeleton( this.leap , this.camera ,  {
   
     movementSize: 1000,
     handSize:     100,
@@ -277,9 +277,18 @@ G.updateIntersection = function(){
 
 
   var dir = this.mouse.clone();
+
+  if( this.objectControls.leap === true ){
+
+    console.log('YRP');
+    dir = this.rHand.hand.position.clone();
+ 
+  }
+  
   dir.sub( this.camera.position );
   dir.normalize();
 
+  
   this.raycaster.set( this.camera.position , dir);
 
     var intersects = this.raycaster.intersectObject( this.iPlane );
