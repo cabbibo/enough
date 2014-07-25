@@ -104,13 +104,12 @@ Page.prototype.update = function(){
 
       var dif = this.frame - this.startFrame - 1;
 
-      console.log( dif );
-     
-      console.log( this.startArray.length );
+     // console.log( dif );
+     // console.log( this.startArray.length );
       
       if( dif === this.startArray.length ){
 
-        console.log( 'finish' );
+        //console.log( 'finish' );
         this.finishedStartArray = true;
         this.addingStartArray = false;
 
@@ -180,7 +179,7 @@ Page.prototype.update = function(){
 // Used to begin all the loading needed
 Page.prototype.init = function(){
 
-  console.log( 'PAGE INITILIZED  ' + this.name );
+  //console.log( 'PAGE INITILIZED  ' + this.name );
   this.initialized = true;
 
   for( var i = 0; i < this.initArray.length; i++ ){
@@ -193,7 +192,7 @@ Page.prototype.init = function(){
 // Once everything has been loaded
 Page.prototype.onLoad = function(){
 
-  console.log( 'PAGE LOADED  ' + this.name  );
+  //console.log( 'PAGE LOADED  ' + this.name  );
   this.loaded = true;
 
   for( var i = 0; i < this.onLoadArray.length; i++ ){
@@ -210,19 +209,19 @@ Page.prototype.start = function(){
     alert('PAGE NOT LOADED ' + this.name);
   }
 
-  console.log( 'PAGE STARTED ' + this.name );
+ // console.log( 'PAGE STARTED ' + this.name );
 
   if( this.nextPage ){
 
-    console.log('THERES NEXT PAGE ' + this.name );
+    //console.log('THERES NEXT PAGE ' + this.name );
     if( !this.nextPage.initialized ){
       this.nextPage.init();
-      console.log( 'INITIALIZING ' + this.name + ' ' + this.nextPage.name );
+      //console.log( 'INITIALIZING ' + this.name + ' ' + this.nextPage.name );
     }
 
   }else{
   
-    console.log( 'NO NEXT PAGE ' + this.name );
+   // console.log( 'NO NEXT PAGE ' + this.name );
 
   }
 
@@ -247,7 +246,7 @@ Page.prototype.start = function(){
 
 Page.prototype.activate = function(){
 
-  console.log( 'PAGE ACTIVATED ' + this.name );
+ // console.log( 'PAGE ACTIVATED ' + this.name );
 
   this.active   = true;
   this.starting = false;
@@ -266,7 +265,7 @@ Page.prototype.activate = function(){
 
 Page.prototype.deactivate = function(){
 
-  console.log( 'PAGE DEACTIVATED ' + this.name );
+  //console.log( 'PAGE DEACTIVATED ' + this.name );
 
   this.active = false;
   this.ending = true;
@@ -278,7 +277,8 @@ Page.prototype.deactivate = function(){
 
 Page.prototype.end = function(){
 
-  console.log( 'PAGE ENDED ' + this.name  );
+ // console.log( 'PAGE ENDED ' + this.name  );
+  
   this.ending   = false;
   this.started  = false;
   this.ended    = true;
@@ -435,7 +435,7 @@ Page.prototype.loadShader = function( name , file , type ){
 
   }else{
 
-    console.log( 'ALREADY LOADED:  ' + type + '   ' + name + ' ' + this.name );
+   // console.log( 'ALREADY LOADED:  ' + type + '   ' + name + ' ' + this.name );
     return G.shaders[t][ name ]; 
 
   }

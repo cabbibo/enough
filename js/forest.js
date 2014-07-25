@@ -31,15 +31,21 @@ forest.audioArray = [
   'wait4',
   
   'drumz1',
-  'drumz2',
-  'drumz3',
+  //'drumz2',
+  //'drumz3',
   'drumz4',
-  'drumz5',
-  'drumz6',
-  'drumz7',
-  'drumz8',
+  //'drumz5',
+  //'drumz6',
+  //'drumz7',
+  //'drumz8',
   'drumz9',
   'drumz10',
+  'synth1',
+  'synth2',
+  'synth3',
+  'synth4',
+  'synth5'
+  //'weStand5',
 ]
 
 forest.audio = {};

@@ -45,7 +45,7 @@ G.loader.onStart = function(){
 G.w             = window.innerWidth;
 G.h             = window.innerHeight;
 
-G.camera        = new THREE.PerspectiveCamera( 45 , G.w / G.h , 1 , 200000 );
+G.camera        = new THREE.PerspectiveCamera( 45 , G.w / G.h , 10 , 100000 );
 G.scene         = new THREE.Scene();
 G.renderer      = new THREE.WebGLRenderer(); //autoclear:false\
 G.clock         = new THREE.Clock();
@@ -161,9 +161,6 @@ G.init = function(){
 
   this.rHand.relative = new THREE.Vector3();
 
-  console.log('RHAND' );
-  console.log( this.rHand );
-    
 
   var lHandMesh = new THREE.Mesh( 
     new THREE.BoxGeometry( 10 , 10, 100 ),
@@ -249,9 +246,6 @@ G.init = function(){
   });
 
 
-  console.log( 'FURRY TAIL' );
-  console.log( this.furryTails );
-
 
   this.mani =  this.furryTails[0];
   this.mani.position.relative = new THREE.Vector3();
@@ -301,7 +295,7 @@ G.updateIntersection = function(){
     this.iDir = dir;
    // bait.position.copy( intersects[0].point );
   }else{
-    console.log('NOT HITTING IPLANE!');
+    //console.log('NOT HITTING IPLANE!');
   }
 
 

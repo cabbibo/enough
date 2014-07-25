@@ -82,10 +82,10 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   this.distStart = { d: G.iPlaneDistance }
   this.distEnd   = { d: page.nextPage.iPlaneDistance }
 
-  console.log( page.nextPage )
+  //console.log( page.nextPage )
 
-  console.log( this.camStartPos );
-  console.log( this.camEndPos );
+  //console.log( this.camStartPos );
+  //console.log( this.camEndPos );
 
   var l = length * 1000;
   var tween = new G.tween.Tween( this.camStartPos ).to( this.camEndPos , l );
@@ -174,7 +174,7 @@ PageTurner.prototype.removeLoading = function(){
 PageTurner.prototype.createMarker = function( page , offset , length ){
 
   offset = offset || new THREE.Vector3( 200 , -300 , 0 );
-  length = length || 30;
+  length = length || 50;
 
   var mesh = new THREE.Mesh(
     this.markerGeo,
@@ -208,7 +208,7 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
   forward.normalize();
   forward.multiplyScalar( G.iPlaneDistance );
 
-  console.log( G.iPlaneDistance );
+  //console.log( G.iPlaneDistance );
   mesh.position.add( forward );
 
   mesh.position.add( offset );

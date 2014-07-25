@@ -61,9 +61,9 @@ function PhysicsText( string , params ){
     value: gRepelPos
   }
 
-  console.log('UG');
-  console.log( uGRepelPos );
-  console.log( uRepelPos );
+  //console.log('UG');
+  //console.log( uGRepelPos );
+  //console.log( uRepelPos );
 
 
   var speedUniform  = { type:"v3" , value:new THREE.Vector3() }
