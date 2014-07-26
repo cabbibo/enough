@@ -325,6 +325,8 @@ G.animate = function(){
     this.rHand.update( 0 );
     this.lHand.update( 1 );
 
+    console.log( this.mani.position );
+
     this.rHand.relative.copy( this.rHand.hand.position );
     this.rHand.relative.sub( this.position );
     

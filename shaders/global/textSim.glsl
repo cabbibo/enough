@@ -58,10 +58,10 @@ void main(){
 
   vel += dif * .2 ;
 
-  vec3 toHand = pos.xyz-handPos;
+ /* vec3 toHand = pos.xyz-handPos;
   float distToHand = length( toHand );
 
-  vel += normalize(toHand) * 1000. / (distToHand);
+  vel += normalize(toHand) * 1000. / (distToHand);*/
   
   for( int i = 0; i < 20; i++ ){
     //if( repelPos[i] != vec3( 0. , 0. , 0. )){
@@ -85,8 +85,9 @@ void main(){
 
 
   vec3 newPos = vec3(1.);
+  
   if( alive > .5 ){
-   newPos = pos.xyz + vel * (( displace *displace+ 2.)/10.);
+    newPos = pos.xyz + vel * (( displace *displace+ 2.)/10.);
   }else{
     newPos = pos.xyz - vel * .1 *(( displace *displace+ 2.)/10.);
   }
