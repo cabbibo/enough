@@ -16,6 +16,8 @@ alone.textChunk = [
 ].join("\n" );
 
 
+
+
 alone.position.set(  0 , 0 , 0 );
 alone.cameraPos.set( 0 , 0 , 1000 );
 alone.iPlaneDistance = 1000
