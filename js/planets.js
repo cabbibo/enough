@@ -3,7 +3,7 @@ var planets = new Page( 'planets' );
 
 planets.textChunk = [
 
-  "   The joy Shams felt could not be described with mortal words. There was not just one more of him. There were Hundreds. The Lonliness that he had felt earlier in his journey had vanished, and the only thing left was comfort. Ecstasy.",
+  "   The joy Mani felt could not be described with mortal words. There was not just one more of him. There were Hundreds. The Lonliness that he had felt earlier in his journey had vanished, and the only thing left was comfort. Ecstasy.",
   "",
   "",
   "He watched the way they swam, following their iridescent wanderings. Although he had been to this place before, it somehow felt different. Each color a bit more defined, each star that much more bright.",
@@ -13,18 +13,6 @@ planets.textChunk = [
 
 ].join("\n");
 
-
-planets.textChunk = [
-
-  "In the end though, the Noble Nicole found that there were literally other fish in the sea.",
-  "",
-  "",
-  "And she swam with them, infinitely happy to be there with her friends, where she belong.",
-  "",
-  "",
-  "Who knew that such beauty could exist"
-
-].join("\n");
 
 planets.position.set(  -1000 ,  2000 ,  -1000 );
 planets.cameraPos.set( -1000 , 1000 , 0 );

@@ -2,28 +2,20 @@ var forest = new Page( 'forest' );
 
 forest.textChunk = [
 
-  "Once upon a time, many moons ago, a small new creature names 'WebGL' was born.",
+  "The next land Mani journeyed to was even more marvelous than the one before",
   "",
   "",
-  "WebGL was a tenacious beast and grew quickly. Although he was at first tender and weak, he knew not what he was truly capable of.",
+  "Here he found a land so soft tendrils, a lucious forest to explore.",
   "",
   "",
-  " But first he had to wait, and bide his time.",
+  "He stayed there for a while, admiring the delicate metallic stalks that surrounded him, and the ethereal music they produced.",
+  "",
+  "",
+  "Before long though, the sinking feeling of lonliness returned, and he continued his hopeless exploration into the unknown."
 
 
 ].join("\n" );
 
-
-forest.textChunk = [
-
- "Noble Nicole now had time to be alone, to play with the new forest that she found",
- "",
- "",
- "She knew that she would feel lonley sometimes, and would even crave the craven every full moon",
- "",
- "",
- "But she also knew that now was the time for her to be with the music she heard, the art she made, and the people she loved"
-].join("\n");
 
 
 

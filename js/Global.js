@@ -57,7 +57,7 @@ G.pageMarker    = new THREE.Mesh(
   new THREE.MeshBasicMaterial({color:0xffffff})
 );
 
-G.scene.add( G.pageMarker );
+//G.scene.add( G.pageMarker );
 
 G.camera.position.relative = new THREE.Vector3().copy( G.camera.position );
 
@@ -308,6 +308,7 @@ G.animate = function(){
 
 
   this.pageMarker.position.copy( this.position );
+  
   if( !this.paused ){
 
 

@@ -11,24 +11,9 @@ crystals.textChunk = [
   "The feeling did not last long though, and he began to wonder again the purpose of all this. Why had he awoken? Where was he? Was there anybody else out there?",
   "",
   "",
-  "These were the questions he could not forget, so after the aching inside of him overcame the shimmer steeples, he continued onwards"
-
-
+  "These were the questions he could not forget, so after the aching inside of him overcame the shimmer steeples, he continued onwards."
 
 ].join("\n" );
-
-crystals.textChunk = [
-
-  "Noble Nicole was alone for the first time in a long time.",
-  "",
-  "",
-  "Or at least it felt that way",
-  "",
-  "",
-  "Strangely enough, though, it made her see the beauty around her. The nuanced sounds and glistening crystals that she hadn't even recognized but a month ago."
-
-].join("\n");
-
 
 
 crystals.position.set(  500 , -2000 , 5400 );
