@@ -14,6 +14,18 @@ forest.textChunk = [
 ].join("\n" );
 
 
+forest.textChunk = [
+
+ "Noble Nicole now had time to be alone, to play with the new forest that she found",
+ "",
+ "",
+ "She knew that she would feel lonley sometimes, and would even crave the craven every full moon",
+ "",
+ "",
+ "But she also knew that now was the time for her to be with the music she heard, the art she made, and the people she loved"
+].join("\n");
+
+
 
 forest.position.set(  0 , 0 , -1600 );
 forest.cameraPos.set( 0 , 0 , 0 );

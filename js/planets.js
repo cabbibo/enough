@@ -13,6 +13,19 @@ planets.textChunk = [
 
 ].join("\n");
 
+
+planets.textChunk = [
+
+  "In the end though, the Noble Nicole found that there were literally other fish in the sea.",
+  "",
+  "",
+  "And she swam with them, infinitely happy to be there with her friends, where she belong.",
+  "",
+  "",
+  "Who knew that such beauty could exist"
+
+].join("\n");
+
 planets.position.set(  -1000 ,  2000 ,  -1000 );
 planets.cameraPos.set( -1000 , 1000 , 0 );
 planets.iPlaneDistance = Math.sqrt( 2000000 );

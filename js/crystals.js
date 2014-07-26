@@ -17,8 +17,19 @@ crystals.textChunk = [
 
 ].join("\n" );
 
+crystals.textChunk = [
 
-88
+  "Noble Nicole was alone for the first time in a long time.",
+  "",
+  "",
+  "Or at least it felt that way",
+  "",
+  "",
+  "Strangely enough, though, it made her see the beauty around her. The nuanced sounds and glistening crystals that she hadn't even recognized but a month ago."
+
+].join("\n");
+
+
 
 crystals.position.set(  500 , -2000 , 5400 );
 crystals.cameraPos.set( 500 , -1000 , 7000 );
