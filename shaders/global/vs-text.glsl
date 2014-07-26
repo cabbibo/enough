@@ -31,7 +31,7 @@ void main(){
  
   float size = ( letterWidth * 2. * dpr);// length( mvPos );
 
-  gl_PointSize = size * 500. * ( 1. / length( mvPos.xyz ) );
+  gl_PointSize = size * 1000. * ( 1. / length( mvPos.xyz ) );
 
 //vec4 mvPos = modelViewMatrix * vec4( position , 1.0 );
 
