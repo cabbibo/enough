@@ -129,7 +129,7 @@ G.init = function(){
     new THREE.MeshBasicMaterial({color:0xffff00})
   );
 
-  this.iObj.add( this.iPointMarker );
+  //this.iObj.add( this.iPointMarker );
   this.scene.add( this.iObj );
 
   this.iPoint = this.iObj.position;

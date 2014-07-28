@@ -17,7 +17,7 @@ crystals.textChunk = [
 
 
 crystals.position.set(  500 , -2000 , 1400 );
-crystals.cameraPos.set( 500 , -1400 , 3200 );
+crystals.cameraPos.set( 500 , -1000 , 3200 );
 crystals.iPlaneDistance = 1200
 
 
@@ -34,21 +34,21 @@ crystals.crystalParams = [
   {
   
     note:'heavyBeat',
-    height:200
+    height:150
 
   },
 
   {
   
     note:'shuffleClick',
-    height:200
+    height:100
 
   },
 
   {
   
     note:'sniperDetail1',
-    height:200
+    height:150
 
   },
 
@@ -62,7 +62,7 @@ crystals.crystalParams = [
    {
   
     note:'sniperGlory1',
-    height:400
+    height:250
 
   },
 
@@ -76,21 +76,21 @@ crystals.crystalParams = [
   {
   
     note:'sniperShivers',
-    height:400
+    height:350
 
   },
 
   {
   
     note:'sniperSnare',
-    height:200
+    height:300
 
   },
 
   {
   
     note:'sniperSnare',
-    height:200
+    height:250
 
   },
 
@@ -192,12 +192,27 @@ crystals.addToStartArray( function(){
 
 crystals.addToStartArray( function(){
 
+  G.tmpV3.set( -500 , 400 , 0 );
+
+  var globalLightPos = this.position.clone().add( G.tmpV3 );
+
+ /* var lightMesh = new THREE.Mesh(
+    new THREE.IcosahedronGeometry( 50 , 0 ),
+    new THREE.MeshNormalMaterial()
+  );
+
+  lightMesh.position.copy( globalLightPos );
+  
+  G.scene.add( lightMesh );*/
+
+
   for( var i = 0; i < 10; i++ ){
 
     var uniforms = {
 
+      t_normal:{ type:"t" , value : G.TEXTURES.norm_moss },
       t_audio:G.t_audio,
-      lightPos:{ type: "v3" , value : G.iPoint }, 
+      lightPos:{ type: "v3" , value : globalLightPos }, 
       cameraPos:{ type:"v3" , value : G.camera.position },
       hovered:{ type:"f" , value:0},
       playing:{ type:"f" , value:0},
@@ -237,7 +252,9 @@ crystals.addToStartArray( function(){
   var uniforms = {
 
     t_audio:G.t_audio,
-    lightPos:{ type: "v3" , value : G.iPoint }, 
+    t_normal:{ type:"t" , value : G.TEXTURES.norm_moss },
+
+    lightPos:{ type: "v3" , value :globalLightPos  }, 
     cameraPos:{ type:"v3" , value : G.camera.position },
     hovered:{ type:"f" , value:0},
     playing:{ type:"f" , value:0},

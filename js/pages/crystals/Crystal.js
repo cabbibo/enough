@@ -174,10 +174,15 @@ Crystal.prototype.stop = function(){
 Crystal.prototype.createMaterial = function(){
 
 
+   G.tmpV3.set( -500 , 400 , 0 );
+
+  var globalLightPos = this.page.position.clone().add( G.tmpV3 );
   var uniforms = {
 
+    t_normal:{ type:"t" , value : G.TEXTURES.norm_moss },
+
     t_audio:this.t_audio,
-    lightPos:{ type: "v3" , value : G.iPoint }, 
+    lightPos:{ type: "v3" , value : globalLightPos }, 
     cameraPos:{ type:"v3" , value : G.camera.position },
     hovered:{ type:"f" , value:0},
     playing:{ type:"f" , value:0},
