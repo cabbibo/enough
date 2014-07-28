@@ -39,7 +39,6 @@ function PhysicsText( string , params ){
 
   for( var i = repelPos.length; i < 20; i++ ){
 
-    console.log(i);
     var l = 1000000000;
     repelPos.push( new THREE.Vector3( l , l , l )); 
 
