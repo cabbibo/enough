@@ -3,7 +3,7 @@ function PhysicsText( string , params ){
   this.string = string;
   this.params = _.defaults( params || {} , {
 
-    sim: G.shaders.ss.textSim,
+    sim: G.shaders.ss.text,
 
     repelPositions: [],
     gRepelPositions: [],
@@ -76,19 +76,23 @@ function PhysicsText( string , params ){
   this.distToCam     = { type:"f"  , value: this.params.distToCam } 
   this.repelForce    = { type:"f"  , value: this.params.repelForce }
   this.pagePos       = { type:"v3" , value: G.position }
+  
+  var noiseSize = .002 + (Math.random() -.5)*.003;
 
+  this.noiseSize     = { type:"f"  , value: noiseSize };
 
-  this.physics.setUniform( 'speed'       , speedUniform      );
-  this.physics.setUniform( 'timer'       , G.timer          );
-  this.physics.setUniform( 'cameraMat'   , cameraMat         );
-  this.physics.setUniform( 'cameraPos'   , cameraPos         );
-  this.physics.setUniform( 'repelPos'    , uRepelPos         );
-  this.physics.setUniform( 'gRepelPos'   , uGRepelPos        );
-  this.physics.setUniform( 'pagePos'     , this.pagePos      );
-  this.physics.setUniform( 'alive'       , this.alive        );
-  this.physics.setUniform( 'offsetPos'   , this.offsetPos    );
-  this.physics.setUniform( 'distToCam'   , this.distToCam    );
-  this.physics.setUniform( 'repelForce'  , this.repelForce   );
+  this.physics.setUniform( 'speed'       , speedUniform       );
+  this.physics.setUniform( 'timer'       , G.timer            );
+  this.physics.setUniform( 'cameraMat'   , cameraMat          );
+  this.physics.setUniform( 'cameraPos'   , cameraPos          );
+  this.physics.setUniform( 'repelPos'    , uRepelPos          );
+  this.physics.setUniform( 'gRepelPos'   , uGRepelPos         );
+  this.physics.setUniform( 'pagePos'     , this.pagePos       );
+  this.physics.setUniform( 'alive'       , this.alive         );
+  this.physics.setUniform( 'offsetPos'   , this.offsetPos     );
+  this.physics.setUniform( 'distToCam'   , this.distToCam     );
+  this.physics.setUniform( 'repelForce'  , this.repelForce    );
+  this.physics.setUniform( 'noiseSize'   , this.noiseSize     );
 
   this.physics.addBoundTexture( this.particles , 't_lookup' , 'output' );
   
@@ -100,6 +104,18 @@ PhysicsText.prototype.kill = function(){
   this.alive.value = 0;
 
 
+
+}
+
+PhysicsText.prototype.instant = function(){
+
+  this.alive.value = 2;
+
+  this.physics.update();
+  this.physics.update();
+  this.physics.update();
+
+  this.alive.value = 1;
 
 }
 

@@ -29,9 +29,9 @@ void main(){
   vec3 pos =vLookup.xyz;
   vec4 mvPos = modelViewMatrix * vec4( pos , 1.0 );
  
-  float size = ( letterWidth * 2. * dpr);// length( mvPos );
+  float size = ( letterWidth * 1. * dpr);// length( mvPos );
 
-  gl_PointSize = size * 1000. * ( 1. / length( mvPos.xyz ) );
+  gl_PointSize = size * windowSize.x / length( mvPos.xyz ) ;
 
 //vec4 mvPos = modelViewMatrix * vec4( position , 1.0 );
 

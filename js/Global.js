@@ -3,11 +3,18 @@
 var G = {};
 
 G.texturesToLoad = [
-  ['iri_red'  , 'img/iri/red.png'],
-  ['iri_gold' , 'img/iri/gold.png'],
-  ['iri_blue' , 'img/iri/blue.png'],
+ 
+  ['ubuntuMono' , 'img/extras/ubuntuMono.png'],
+  
+  ['iri_red'    , 'img/iri/red.png'],
+  ['iri_gold'   , 'img/iri/gold.png'],
+  ['iri_blue'   , 'img/iri/blue.png'],
 
-  ['norm_moss' , 'img/normals/moss_normal_map.jpg' ],
+  ['norm_moss'  , 'img/normals/moss_normal_map.jpg' ],
+
+  ['sprite_flare'   , 'img/sprite/flare.png'],
+
+
 ]
 
 G.pages   = {};
@@ -25,6 +32,9 @@ G.leap    = new Leap.Controller();
 G.gui     = new dat.GUI({});
 G.loader  = new Loader();
 G.stats   = new Stats();
+
+G.tmpV3   = new THREE.Vector3();
+G.tmpV2   = new THREE.Vector2();
 
 
 
@@ -44,8 +54,9 @@ G.loader.onStart = function(){
 
 G.w             = window.innerWidth;
 G.h             = window.innerHeight;
-
-G.camera        = new THREE.PerspectiveCamera( 45 , G.w / G.h , 10 , 100000 );
+G.windowSize    = new THREE.Vector2( G.w , G.h );
+G.ratio         = G.w / G.h * G.ratio 
+G.camera        = new THREE.PerspectiveCamera( 45 * G.ratio  , G.ratio , 10 , 100000 );
 G.scene         = new THREE.Scene();
 G.renderer      = new THREE.WebGLRenderer(); //autoclear:false\
 G.clock         = new THREE.Clock();
@@ -101,10 +112,12 @@ G.init = function(){
   */
   
   this.iPlane = new THREE.Mesh(
-    new THREE.PlaneGeometry( 100000 , 100000 )
+    new THREE.PlaneGeometry( 100000 , 100000 ),
+    new THREE.MeshNormalMaterial()
   );
   this.scene.add( this.iPlane );
   this.iPlane.visible = false;
+  this.iPlane.faceCamera = true;
 
   var l = 1000000000;
 
@@ -191,7 +204,7 @@ G.init = function(){
   this.text = new TextParticles({
     vertexShader:   this.shaders.vs.text,
     fragmentShader: this.shaders.fs.text,
-    lineLength:     50,
+    lineLength:     60,
     //letterWidth:    40,
     //lineHeight:     40
   });
@@ -263,13 +276,26 @@ G.init = function(){
 
 G.updateIntersection = function(){
 
-  this.iPlane.position.copy( this.camera.position );
-  var vector = new THREE.Vector3( 0 , 0 , -this.iPlaneDistance );
-  vector.applyQuaternion( this.camera.quaternion );
-  this.iPlane.position.add( vector );
-  this.iPlane.lookAt( this.camera.position );
+  if( this.iPlane.faceCamera == true ){
+    
+    this.iPlane.position.copy( this.camera.position );
+    var vector = new THREE.Vector3( 0 , 0 , -this.iPlaneDistance );
+    vector.applyQuaternion( this.camera.quaternion );
+    this.iPlane.position.add( vector );
+    this.iPlane.lookAt( this.camera.position );
 
-  this.iObj.lookAt( this.camera.position );
+    this.iObj.lookAt( this.camera.position );
+
+  }else{
+
+    G.tmpV3.set( 0 , 0 , 1 );
+    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
+
+    var lookat =this.iObj.position.clone().add( G.tmpV3 );
+
+    this.iObj.lookAt( lookat ); 
+
+  }
 
 
   var dir = this.mouse.clone();
@@ -381,13 +407,30 @@ G.updateAttractor = function(){
 
   if( d < 5 ){
 
-    var randVec = new THREE.Vector3();
-    randVec.x = (Math.random() - .5 ) * 10000;
-    randVec.y = (Math.random() - .5 ) * 10000;
-    randVec.z = (Math.random() - .5 ) * 10000;
+    this.attractor.copy( this.iPoint );
+
+    G.tmpV3.set( 0 , 0 , 1 );
+
+    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
+    G.tmpV3.multiplyScalar( Math.random() * 500 );
     
-    this.attractor.copy( this.position );
-    this.attractor.add( randVec );
+    this.attractor.add( G.tmpV3 );
+
+    G.tmpV3.set( 0 , 1 , 0 );
+
+    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
+    G.tmpV3.multiplyScalar( (Math.random()-.5) * 1000 );
+    
+    this.attractor.add( G.tmpV3 );
+
+    G.tmpV3.set( 1 , 0 , 0 );
+
+    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
+    G.tmpV3.multiplyScalar( (Math.random()-.5) * 1000 );
+    
+    this.attractor.add( G.tmpV3 );
+
+
 
     this.attracting = false;
     this.attractionTimer = G.timer.value
@@ -406,10 +449,19 @@ G.addToStartArray = function( callback ){
 
 G.onResize = function(){
 
+  
   this.w = window.innerWidth;
   this.h = window.innerHeight;
+
+  this.windowSize.x = this.w;
+  this.windowSize.y = this.h;
+
+  this.ratio = this.w / this.h;
+
  
-  this.camera.aspect = this.w / this.h ;
+  // To try and keep everything neccesary on screen
+  this.camera.aspect = this.ratio;
+  this.camera.fov    = 60 / Math.pow(this.ratio,.7);   
   this.camera.updateProjectionMatrix();
   this.renderer.setSize( this.w , this.h );
 

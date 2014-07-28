@@ -11,6 +11,7 @@ function Crystal( page , params ){
     width:30,
     numOf:100,
     note:'sniperGlory1',
+    extraHeight: 10
 
   });
 
@@ -27,13 +28,18 @@ function Crystal( page , params ){
   this.preparingToStop  = false;
   this.playing          = false;
 
-  this.neutralColor           = this.getRandomColor(); 
-  this.hoveredColor           = this.getRandomColor();
-  this.selectedColor          = this.getRandomColor();
-  this.selectedHoveredColor   = this.getRandomColor();
-
+  
   this.scene    = new THREE.Object3D();
-  //this.position = this.scene.position;
+  //this.position = this.scene.position;  
+ 
+  this.note = this.page.audio[ this.params.note ];
+  this.looper.everyLoop( this.note.play.bind( this.note ) );
+  
+  this.gain = this.note.gain.gain;
+  this.gain.value = 0;
+
+
+  this.t_audio = { type:"t" , value:this.note.texture}
 
   var h = p.height *( 1 + ( Math.random() -.5 ) * .4 );
   var w = p.width *( 1 + ( Math.random() -.5 ) * .4 );
@@ -43,25 +49,10 @@ function Crystal( page , params ){
   this.width = w;
   this.size = n;
 
-  this.geometry = CrystalGeo( h , w , n ); 
 
-  this.baseData = this.geometry.baseData; 
-
-  this.material = new THREE.MeshLambertMaterial();
-  this.material.color = this.neutralColor;
-
-
-  this.note = this.page.audio[ this.params.note ];
+  this.geometry = CrystalGeo( h , w , n  , this.params.extraHeight ); 
+  this.material = this.createMaterial();
  
-  console.log( this.looper );
-  this.looper.everyLoop( this.note.play.bind( this.note ) );
-  
-  this.t_audio = { type:"t" , value:this.note.texture}
-
-  this.gain = this.note.gain.gain;
-
-  this.gain.value = 0;
-
   this.mesh = new THREE.Mesh( this.geometry , this.material );
   this.mesh.rotation.x = Math.PI/2;
 
@@ -72,7 +63,8 @@ function Crystal( page , params ){
   this.scene.add( this.mesh );
 
   G.objectControls.add( this.mesh );
-
+  
+  this.baseData = this.geometry.baseData; 
 
   this.halo = new CrystalHalo( this.height, this.baseData , this.t_audio );
 
@@ -103,13 +95,8 @@ Crystal.prototype.update = function(){
 
 Crystal.prototype.hoverOver = function(){
 
-  if( !this.selected ){
-    this.mesh.material.color = this.hoveredColor;
-  }else{
-    this.mesh.material.color = this.selectedHoveredColor;
 
-  }
-  
+  this.material.uniforms.hovered.value = 1;
   this.hovered = true;
 
 
@@ -117,12 +104,7 @@ Crystal.prototype.hoverOver = function(){
 
 Crystal.prototype.hoverOut = function(){
 
-  if( !this.selected ){
-    this.mesh.material.color = this.neutralColor;
-  }else{
-    this.mesh.material.color = this.selectedColor;
-  }
-
+  this.material.uniforms.hovered.value = 0;
   this.hovered = true;
 
 
@@ -149,6 +131,7 @@ Crystal.prototype.select = function(){
 
 Crystal.prototype.prepareToPlay = function(){
 
+  this.material.uniforms.selected.value = 1;
   this.preparingToPlay = true;
   this.mesh.material.color = this.selectedColor;
   this.looper.onNextMeasure( this.play.bind( this ) );
@@ -157,7 +140,9 @@ Crystal.prototype.prepareToPlay = function(){
 }
 
 Crystal.prototype.play = function(){
-  
+ 
+  this.material.uniforms.playing.value = 1;
+
   this.preparingToPlay = false;
   this.playing = true;
    
@@ -166,6 +151,8 @@ Crystal.prototype.play = function(){
 }
 
 Crystal.prototype.prepareToStop = function(){
+  
+  this.material.uniforms.selected.value = 0;
 
   this.preparingToStop = true;
   this.mesh.material.color = this.hoveredColor;
@@ -174,6 +161,8 @@ Crystal.prototype.prepareToStop = function(){
 }
 
 Crystal.prototype.stop = function(){
+
+  this.material.uniforms.playing.value = 0;
   
   this.preparingToStop = false;
   this.playing = false;
@@ -182,7 +171,40 @@ Crystal.prototype.stop = function(){
 
 }
 
+Crystal.prototype.createMaterial = function(){
 
+
+  var uniforms = {
+
+    t_audio:this.t_audio,
+    lightPos:{ type: "v3" , value : G.iPoint }, 
+    cameraPos:{ type:"v3" , value : G.camera.position },
+    hovered:{ type:"f" , value:0},
+    playing:{ type:"f" , value:0},
+    selected:{ type:"f" , value:0}
+      
+  }
+
+ 
+  var attributes = {
+
+    id:{ type:"f" , value:null },
+
+  }
+
+  var material = new THREE.ShaderMaterial({
+
+    uniforms: uniforms,
+    attributes: attributes,
+    vertexShader: G.shaders.vs.crystal,
+    fragmentShader: G.shaders.fs.crystal
+
+  });
+
+  return material;
+
+
+}
 
 Crystal.prototype.getRandomColor = function(){
 

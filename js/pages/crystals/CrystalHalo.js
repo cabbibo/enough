@@ -26,6 +26,7 @@ CrystalHalo.prototype.createMaterial = function(){
     uniforms: this.uniforms,
     vertexShader: G.shaders.vertexShaders.crystalHalo,
     fragmentShader: G.shaders.fragmentShaders.crystalHalo,
+    linewidth: 3
 
   });
 
@@ -59,9 +60,9 @@ CrystalHalo.prototype.createGeometry = function( height , baseData ){
   for( var i = 0; i < numOfMain; i++ ){
 
     var newH =  -height - (20 * i ) 
-    var loc = new THREE.Vector3( 0 , 0 ,  newH );
+    var loc = new THREE.Vector3( 0 , 0 ,  newH * 1.5 );
 
-    var points = this.createCircle( loc ,  (1000 * ( numOfMain - i )) / newH , vertsPerCircle );
+    var points = this.createCircle( loc ,  (3000 * ( numOfMain - i )) / newH  , vertsPerCircle );
 
     var circle = i / totalCircles;
     var circleN = (i+1)/totalCircles;
@@ -108,9 +109,9 @@ CrystalHalo.prototype.createGeometry = function( height , baseData ){
     var bd = baseData[i+1];
     var h = bd[1];
 
-    var loc = new THREE.Vector3( bd[0][0] , bd[0][1] ,  h - 20  );
+    var loc = new THREE.Vector3( bd[0][0] , bd[0][1] ,  h - 80  );
 
-    var points = this.createCircle( loc ,  1000 / h , vertsPerCircle );
+    var points = this.createCircle( loc ,  2000 / h , vertsPerCircle );
 
     var circle = (i+numOfMain) / totalCircles;
     var circleN = (i+1+numOfMain) / totalCircles;

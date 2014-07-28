@@ -16,8 +16,8 @@ crystals.textChunk = [
 ].join("\n" );
 
 
-crystals.position.set(  500 , -2000 , 5400 );
-crystals.cameraPos.set( 500 , -1000 , 7000 );
+crystals.position.set(  500 , -2000 , 1400 );
+crystals.cameraPos.set( 500 , -1400 , 3200 );
 crystals.iPlaneDistance = 1200
 
 
@@ -62,21 +62,21 @@ crystals.crystalParams = [
    {
   
     note:'sniperGlory1',
-    height:200
+    height:400
 
   },
 
   {
   
     note:'sniperGlory2',
-    height:200
+    height:300
 
   },
 
   {
   
     note:'sniperShivers',
-    height:200
+    height:400
 
   },
 
@@ -123,10 +123,12 @@ crystals.addToInitArray( function(){
   
   this.loadShader( 'crystalParticles' , f + 'vs-crystalParticles' , 'vertex' ); 
   this.loadShader( 'crystalParticles' , f + 'fs-crystalParticles' , 'fragment' ); 
-
+  
   this.loadShader( 'crystalHalo'  , f + 'vs-crystalHalo'  , 'vertex' ); 
   this.loadShader( 'crystalHalo'  , f + 'fs-crystalHalo'  , 'fragment' );
-
+  
+  this.loadShader( 'crystal' , f + 'vs-crystal' , 'vertex' ); 
+  this.loadShader( 'crystal' , f + 'fs-crystal' , 'fragment' ); 
 
 }.bind( crystals ) );
 
@@ -138,6 +140,16 @@ crystals.addToStartArray( function(){
   G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = 1200;
+
+  G.iPlane.faceCamera = false;
+  
+  G.tmpV3.set( 0 , 450 , 0 );
+
+  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+  G.tmpV3.set( 0 , 451 , 0 )
+  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
+
+  //G.iPlane.visible = true;
 
 }.bind( crystals ));
 
@@ -182,15 +194,34 @@ crystals.addToStartArray( function(){
 
   for( var i = 0; i < 10; i++ ){
 
-      var color = new THREE.Color();
-  color.r = Math.random();
-  color.g = Math.random();
-  color.b = Math.random();
-  var mat = new THREE.MeshLambertMaterial();
-    mat.color = color;
+    var uniforms = {
+
+      t_audio:G.t_audio,
+      lightPos:{ type: "v3" , value : G.iPoint }, 
+      cameraPos:{ type:"v3" , value : G.camera.position },
+      hovered:{ type:"f" , value:0},
+      playing:{ type:"f" , value:0},
+      selected:{ type:"f" , value:0}
+        
+    }
+
+    var attributes = {
+
+      id:{ type:"f" , value:null },
+
+    }
+
+    var mat = new THREE.ShaderMaterial({
+
+      uniforms:uniforms,
+      attributes: attributes,
+      vertexShader: G.shaders.vs.crystal,
+      fragmentShader: G.shaders.fs.crystal,
+
+    });
 
 
-    var geo = new CrystalGeo( 30 , 400 , 120 );
+    var geo = new CrystalGeo( 30 , 400 , 120, 20 );
   
     var mesh = new THREE.Mesh( geo , mat );
 
@@ -202,23 +233,39 @@ crystals.addToStartArray( function(){
 
   }
 
-    var color = new THREE.Color();
-  color.r = Math.random();
-  color.g = Math.random();
-  color.b = Math.random();
 
+  var uniforms = {
 
-   var geo = new CrystalGeo( 120 , 1000 , 3 );
-    var mat = new THREE.MeshLambertMaterial();
-    mat.color = color;
+    t_audio:G.t_audio,
+    lightPos:{ type: "v3" , value : G.iPoint }, 
+    cameraPos:{ type:"v3" , value : G.camera.position },
+    hovered:{ type:"f" , value:0},
+    playing:{ type:"f" , value:0},
+    selected:{ type:"f" , value:0}
+      
+  }
+  var attributes = {
 
-    var mesh = new THREE.Mesh( geo , mat );
+    id:{ type:"f" , value:null },
 
-    mesh.position.x = -500;// (Math.random() - .5 ) * 2000;
-    mesh.position.z = 0//(Math.random() - .5 ) * 2000;
-    mesh.rotation.x = Math.PI / 2;
+  }
+  var mat = new THREE.ShaderMaterial({
 
-    this.scene.add( mesh );
+    uniforms:uniforms,
+    attributes: attributes,
+    vertexShader: G.shaders.vs.crystal,
+    fragmentShader: G.shaders.fs.crystal,
+
+  }); 
+
+  var geo = new CrystalGeo( 120 , 1000 , 3 , 0 );
+  var mesh = new THREE.Mesh( geo , mat );
+
+  mesh.position.x = -500;// (Math.random() - .5 ) * 2000;
+  mesh.position.z = 0//(Math.random() - .5 ) * 2000;
+  mesh.rotation.x = Math.PI / 2;
+
+  this.scene.add( mesh );
 
 
 }.bind( crystals ));
@@ -237,6 +284,7 @@ crystals.addToStartArray( function(){
 
   this.looper.crystals = this.crystals;
 
+  //  this.looper.start();
 
 }.bind( crystals ) );
 
@@ -270,6 +318,8 @@ crystals.addToStartArray( function(){
     this.crystals.push( crystal );
   
   }
+
+  this.crystals[0].select();
 
 }.bind( crystals ) );
 
@@ -323,6 +373,7 @@ crystals.addToAllUpdateArrays( function(){
 
 crystals.addToDeactivateArray( function(){
 
+  G.iPlane.faceCamera = true;
   this.text.kill();
 
 }.bind( crystals) );

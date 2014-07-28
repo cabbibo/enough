@@ -53,15 +53,16 @@ CrystalParticles.prototype.update = function(){
 
 CrystalParticles.prototype.createParticleMaterial = function(){
 
+  console.log( G.TEXTURES );
     this.uniforms = {
 
       position:{ type:"t" , value: this.position },
       t_pos:{type:"t", value:null },
       t_audio:this.t_audio,
       
-      map:{ type:"t" , value:null},
+      map:{ type:"t" , value:null },
       size:{ type:"f" , value:this.size},
-      sprite:{type:"t" , value:null },
+      sprite:{type:"t" , value:G.TEXTURES.sprite_flare },
       //audio:{type:"t" , value:audioController.texture },
       time: G.timer,
       timeSpeed:{type:"f"  , value:2},

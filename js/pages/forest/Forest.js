@@ -305,7 +305,7 @@
   Forest.prototype.activate = function(){
 
     this.page.scene.add( this.mesh );
-    this.page.scene.add( this.line );
+    //this.page.scene.add( this.line );
 
     for( var i = 0; i < this.bases.length; i++ ){
 
@@ -320,7 +320,7 @@
   Forest.prototype.deactivate = function(){
 
     this.page.scene.remove( this.mesh );
-    this.page.scene.remove( this.line );
+    //this.page.scene.remove( this.line );
 
     for( var i = 0; i < this.bases.length; i++ ){
 

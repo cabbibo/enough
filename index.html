@@ -102,7 +102,7 @@
       // For text
       G.shaders.load( 'global/vs-text' , 'text' , 'vertex'    );
       G.shaders.load( 'global/fs-text' , 'text' , 'fragment'  );
-      G.shaders.load( 'global/textSim' , 'textSim' , 'simulation'  );
+      G.shaders.load( 'global/ss-text' , 'text' , 'simulation'  );
 
       G.shaders.shaderSetLoaded = function(){
         G.loader.onLoad();
@@ -141,16 +141,16 @@
      
       G.addToStartArray( function(){
 
-        G.pages.alone.init();
-        G.pages.alone.addToOnLoadArray( function(){
+        G.pages.crystals.init();
+        G.pages.crystals.addToOnLoadArray( function(){
 
-          this.pages.alone.start();
+          this.pages.crystals.start();
          // this.pages.forest.activate();
 
 
           window.setTimeout( function(){
             
-            this.pages.alone.activate();
+            this.pages.crystals.activate();
 
           }.bind( G ), 1000 );
 
