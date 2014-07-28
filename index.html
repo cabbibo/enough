@@ -141,18 +141,18 @@
      
       G.addToStartArray( function(){
 
-        G.pages.crystals.init();
-        G.pages.crystals.addToOnLoadArray( function(){
+        G.pages.alone.init();
+        G.pages.alone.addToOnLoadArray( function(){
 
-          this.pages.crystals.start();
+          this.pages.alone.start();
          // this.pages.forest.activate();
 
 
           window.setTimeout( function(){
             
-            this.pages.crystals.activate();
+            this.pages.alone.activate();
 
-          }.bind( G ), 500 );
+          }.bind( G ), 2000 );
 
 
         }.bind( G ));

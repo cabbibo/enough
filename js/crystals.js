@@ -48,21 +48,21 @@ crystals.crystalParams = [
   {
   
     note:'sniperDetail1',
-    height:150
+    height:100
 
   },
 
   {
   
     note:'sniperDetail2',
-    height:200
+    height:150
 
   },
 
    {
   
     note:'sniperGlory1',
-    height:250
+    height:200
 
   },
 
@@ -301,7 +301,7 @@ crystals.addToStartArray( function(){
 
   this.looper.crystals = this.crystals;
 
-  //  this.looper.start();
+  this.looper.start();
 
 }.bind( crystals ) );
 
@@ -366,7 +366,7 @@ crystals.addToStartArray( function(){
 
 crystals.addToActivateArray( function(){
 
-  this.looper.start();
+  //this.looper.start();
   this.text.activate();
 
 }.bind( crystals ));
