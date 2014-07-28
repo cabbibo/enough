@@ -182,7 +182,7 @@ Crystal.prototype.createMaterial = function(){
     t_normal:{ type:"t" , value : G.TEXTURES.norm_moss },
 
     t_audio:this.t_audio,
-    lightPos:{ type: "v3" , value : globalLightPos }, 
+    lightPos:{ type: "v3" , value :  G.iPoint }, 
     cameraPos:{ type:"v3" , value : G.camera.position },
     hovered:{ type:"f" , value:0},
     playing:{ type:"f" , value:0},

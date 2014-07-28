@@ -15,9 +15,10 @@ varying float vID;
 const float shininess = 80.;
 
 
-const float normalScale = .5;
-const float texScale = .0001;
+const float normalScale = .1;
+const float texScale = .001;
 
+//const vec3 lightPos = vec3( 500 , -2000 , 1400 );
 
 void main(){
 
@@ -68,7 +69,21 @@ void main(){
   vec3 cX = .5 * normalize( aX + fNorm*.4 ) * vNorm.x * ( .5 * hovered + .5) ; 
   vec3 cY = .5 *normalize( aY + fNorm*.4 )* vNorm.y * ( .5 * playing + .5); 
   vec3 cZ = .5 * normalize( aZ + fNorm*.4 ) * vNorm.z * ( .5 * selected + .5); 
-  gl_FragColor = vec4( vNorm , 1. );
+  
+  vec3 lightRay = vPos - lightPos;
+  vec3 lightDir = normalize( lightRay );
+
+  //vec3 lightRefl = reflect( -lightDir , 
+
+  float facing = dot( fNorm , -lightDir );
+
+  float l = 100000. /  (length( lightRay ) * length( lightRay ) );
+ 
+  vec3 diffuse = vec3( .6 , .4 , 1. ) * facing;
+
+
+
+  gl_FragColor = vec4( diffuse , 1. );
 
 
 
