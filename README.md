@@ -41,5 +41,11 @@ TODO:
 - Make it so that there can be an initial move to a page, that can happen by default
   - either a function in global that lets
 
+- Furry tails should have an 'up vector' uniform that allows you to change which direciton the up vector will be in.
+  in the land of crystals, for example, the up vector should be in x or z, not in y. While in forest, the up vector being in z is great ( or at least I think those are the proper directions
 
 
+- Need to have the relative positions based on the page position, not the transitioning Global position. This is important for things like draging the planets, as well as mani moving through the forest
+
+
+- Object controls should work with both hands!

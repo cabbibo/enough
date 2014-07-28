@@ -53,7 +53,6 @@ CrystalParticles.prototype.update = function(){
 
 CrystalParticles.prototype.createParticleMaterial = function(){
 
-  console.log( G.TEXTURES );
     this.uniforms = {
 
       position:{ type:"t" , value: this.position },

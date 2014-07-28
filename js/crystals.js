@@ -290,7 +290,7 @@ crystals.addToStartArray( function(){
 
 crystals.addToStartArray( function(){
 
-   this.looper = new Looper( G.audio , G.timer , {
+  this.looper = new Looper( G.audio , G.timer , {
 
     beatsPerMinute: 88,
     beatsPerMeasure: 4,
@@ -301,7 +301,6 @@ crystals.addToStartArray( function(){
 
   this.looper.crystals = this.crystals;
 
-  this.looper.start();
 
 }.bind( crystals ) );
 
@@ -344,10 +343,11 @@ crystals.addToStartArray( function(){
 
   for( var i = 0; i < this.crystals.length; i++ ){
 
-    console.log( 'CRS');
+    //console.log( 'CRS');
     this.crystals[i].activate();
 
   }
+  this.looper.start();
 
 }.bind( crystals ) );
 

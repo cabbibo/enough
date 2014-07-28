@@ -75,7 +75,7 @@
       // TODO: 
       // Write shaders for hands
 
-     // G.audio.mute.gain.value = 0;
+      G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -141,18 +141,21 @@
      
       G.addToStartArray( function(){
 
-        G.pages.alone.init();
-        G.pages.alone.addToOnLoadArray( function(){
+        G.pages.crystals.init();
+        G.pages.crystals.addToOnLoadArray( function(){
 
-          this.pages.alone.start();
+          this.pages.crystals.start();
          // this.pages.forest.activate();
 
+         this.pages.crystals.addToStartArray(function(){
 
-          window.setTimeout( function(){
+          //window.setTimeout( function(){
             
-            this.pages.alone.activate();
+            this.activate();
 
-          }.bind( G ), 2000 );
+          }.bind( this.pages.crystals ));
+
+          //}.bind( G ), 100 );
 
 
         }.bind( G ));

@@ -68,7 +68,7 @@ void main(){
   vec3 cX = .5 * normalize( aX + fNorm*.4 ) * vNorm.x * ( .5 * hovered + .5) ; 
   vec3 cY = .5 *normalize( aY + fNorm*.4 )* vNorm.y * ( .5 * playing + .5); 
   vec3 cZ = .5 * normalize( aZ + fNorm*.4 ) * vNorm.z * ( .5 * selected + .5); 
-  gl_FragColor = vec4( (aX*aX*aX + aY * aY*aY + aZ*aZ*aZ) * ( .5 * hovered + .5) , 1. );
+  gl_FragColor = vec4( vNorm , 1. );
 
 
 
