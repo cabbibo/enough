@@ -85,9 +85,9 @@ function Crystal( page , params ){
 }
 
 
-Crystal.prototype.activate = function(){
+Crystal.prototype.activate = function( scene ){
 
-  this.page.scene.add( this.scene );
+  scene.add( this.scene );
   this.active = true;
 
 }
@@ -213,6 +213,8 @@ Crystal.prototype.createMaterial = function(){
   var attributes = {
 
     id:{ type:"f" , value:null },
+    edge:{ type:"f" , value:null },
+    uv:{ type:"v2" , value:null },
 
   }
 

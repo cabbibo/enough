@@ -21,9 +21,13 @@ uniform float normalScale;
 uniform float texScale;
 uniform float extra;
 
+varying float vLength;
 varying vec3 vPos;
 varying vec3 vNorm;
 varying float vID;
+
+varying vec2 vUv;
+varying float vEdge;
 
 const float shininess = 30.;
 
@@ -34,52 +38,13 @@ const float shininess = 30.;
 void main(){
 
 
-  // FROM @thespite
-  vec3 n = normalize( vNorm.xyz );
-  vec3 blend_weights = abs( n );
-  blend_weights = ( blend_weights - 0.2 ) * 7.;  
-  blend_weights = max( blend_weights, 0. );
-  blend_weights /= ( blend_weights.x + blend_weights.y + blend_weights.z );
-
-  vec2 coord1 = vPos.yz * texScale;
-  vec2 coord2 = vPos.zx * texScale;
-  vec2 coord3 = vPos.xy * texScale;
-
-  vec3 bump1 = texture2D( t_normal , coord1  ).rgb;  
-  vec3 bump2 = texture2D( t_normal , coord2  ).rgb;  
-  vec3 bump3 = texture2D( t_normal , coord3  ).rgb; 
-
-  vec3 blended_bump = bump1 * blend_weights.xxx +  
-                      bump2 * blend_weights.yyy +  
-                      bump3 * blend_weights.zzz;
-
-  vec3 tanX = vec3( vNorm.x, -vNorm.z, vNorm.y);
-  vec3 tanY = vec3( vNorm.z, vNorm.y, -vNorm.x);
-  vec3 tanZ = vec3(-vNorm.y, vNorm.x, vNorm.z);
-  vec3 blended_tangent = tanX * blend_weights.xxx +  
-                         tanY * blend_weights.yyy +  
-                         tanZ * blend_weights.zzz; 
-
-  vec3 normalTex = blended_bump * 2.0 - 1.0;
-  normalTex.xy *= normalScale;
-  normalTex.y *= -1.;
-  normalTex = normalize( normalTex );
-  mat3 tsb = mat3( normalize( blended_tangent ), normalize( cross( vNorm, blended_tangent ) ), normalize( vNorm ) );
-  vec3 finalNormal = tsb * normalTex;
-
-  float fr = dot( finalNormal , normalize(vPos - cameraPos) );
-
-  vec3 fNorm = finalNormal;
-  vec3 aX = texture2D( t_audio , vec2( abs(fNorm.x  ) , 0.) ).xyz;
-  vec3 aY = texture2D( t_audio , vec2( abs(fNorm.y  ) , 0.) ).xyz;
-  vec3 aZ = texture2D( t_audio , vec2( abs(fNorm.z  ) , 0.) ).xyz;
-
+  vec3 fNorm = vNorm;
 
   vec3 w = vec3( 1.);
 
-  vec3 cX = .5 * normalize( aX + fNorm*.4 ) * vNorm.x * ( .5 * hovered + .5) ; 
-  vec3 cY = .5 *normalize( aY + fNorm*.4 )* vNorm.y * ( .5 * playing + .5); 
-  vec3 cZ = .5 * normalize( aZ + fNorm*.4 ) * vNorm.z * ( .5 * selected + .5); 
+  vec3 cX = .5 * vec3( 1. , 0. , 0. )  * vNorm.x * ( .5 * hovered + .5) ; 
+  vec3 cY = .5 * vec3( 1. , 0. , 0. )  *vNorm.y * ( .5 * playing + .5); 
+  vec3 cZ = .5  * vec3( 1. , 0. , 0. )  *vNorm.z * ( .5 * selected + .5); 
   
 
   vec3 lightv = normalize( lightPos - vPos );
@@ -96,7 +61,7 @@ void main(){
   float d =  pow( (distanceCutoff / length( lightPos - vPos )) , distancePow );
 
 
-  //vec4 aD = pow( d , .5 ) * texture2D( t_audio , vec2( abs( cos( d * 1.) ), 0. ) );
+  vec4 aD = d * texture2D( t_audio , vec2( abs( cos( d * 1.) ), 0. ) );
   //vec4 aFR = FR * texture2D( t_audio , vec2( FR , 0. ) );
   vec4 aRefl = texture2D( t_audio , vec2( abs(cos( reflFR * 1. )) , 0. ) );
 
@@ -112,7 +77,7 @@ void main(){
   fColor.r *= .7;
   fColor.g *= .9;
 
-  vec3 base = fColor * ( 1. - special );
+ // vec3 base = pow( d , .2 ) * FR *  (fColor+aC) * ( 1. - special ) * baseMultiplier;
 
   vec3 hColor = vec3( .3 , .3 , .3 ) * hovered;
   vec3 sColor = vec3( .1 , .5 , .3 ) * selected;
@@ -124,9 +89,41 @@ void main(){
 
   fColor += f + vec3( .1 , .4 , .5 ) * FR  + aRefl.xyz; //aFR.xyz ;
 
-  vec3 ring = fColor * special; 
 
-  gl_FragColor = vec4( base + ring , .1 );
+  float unspecial = ( 1. - special );
+  float lMult = min( 1.0 , (5000. * 1. * extra * unspecial + 80.) / vLength);
+  vec4 aID = texture2D( t_audio , vec2( vID+.1 , 0.  ) );
+  vec4 aL = texture2D( t_audio , vec2( lMult , 0.  ) );
+  //vec4 aEdge = texture2D( t_audio , vec2( vEdge , 0.  ) );
+  vec4 aUV = texture2D( t_audio , vec2( vUv.y , 0.  ) );
+  vec4 aEdge = texture2D( t_audio , vec2( vEdge , 0.  ) );
+
+  float side = 0.;
+  if( vEdge > .9  ){
+    
+    side = 1.;
+
+  }
+
+  vec3 top = aEdge.xyz *( 1. - side)*FR*lMult; 
+  vec3 column = aUV.xyz * side * FR*lMult;
+
+  vec3 base = (top * vec3( .4 , .5+vID*.5 , .5 )+ column * vec3( .4 , .3 , .3 + .7 *vID)) * unspecial ;
+
+
+  vec3 none = vec3( .1 , .5 , .4 ) * lMult * lMult * (1.-playing) ;
+  vec3 played = vec3( .3 , .2 , .6 ) * lMult * lMult * (playing) ;
+  vec3 hover = vec3( .1 , .4 , .5 ) *  hovered * lMult *lMult ;
+  vec3 selectedNonPlay = vec3( .4 , .1 , .7 ) *  selected * ( 1.-playing) * lMult *lMult ;
+
+  vec3 playNonSelect = vec3( .6 , .1 , .4 ) * ( 1. - selected ) * playing * lMult *lMult ;
+
+
+  vec3 ring =  (played+ none+selectedNonPlay+playNonSelect + hover + top + column)  *  special; 
+
+
+  gl_FragColor = vec4( base + ring, .1 );
+
 
 
 

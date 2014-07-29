@@ -5,19 +5,25 @@ function CrystalGeo( height , width , numOf , extraHeight ){
 
   var geometry = new THREE.BufferGeometry();
 
-  var totalNum = (numOf+1) * 6 * 6 * 3 ;
+  var totalNum = (numOf+1) * 6 * 6 ;
  
-  var aPos  = new THREE.BufferAttribute(new Float32Array( totalNum ), 3);
-  var aNorm = new THREE.BufferAttribute(new Float32Array( totalNum ), 3);
-  var aID   = new THREE.BufferAttribute(new Float32Array( totalNum /3), 1);
+  var aPos  = new THREE.BufferAttribute(new Float32Array( totalNum * 3 ), 3);
+  var aNorm = new THREE.BufferAttribute(new Float32Array( totalNum * 3 ), 3);
+  var aUV   = new THREE.BufferAttribute(new Float32Array( totalNum * 2 ), 2);
+  var aID   = new THREE.BufferAttribute(new Float32Array( totalNum * 1 ), 1);
+  var aEdge = new THREE.BufferAttribute(new Float32Array( totalNum * 1 ), 1);
  
   geometry.addAttribute( 'position', aNorm ); 
   geometry.addAttribute( 'normal', aPos );
+  geometry.addAttribute( 'uv', aUV );
   geometry.addAttribute( 'id', aID );
+  geometry.addAttribute( 'edge', aEdge );
 
   var positions = geometry.getAttribute( 'position' ).array;
   var normals   = geometry.getAttribute( 'normal' ).array;
+  var uvs       = geometry.getAttribute( 'uv' ).array;
   var ids       = geometry.getAttribute( 'id' ).array;
+  var edges     = geometry.getAttribute( 'edge' ).array;
 
   var directionPower = [0,0,0,0,0,0];
 
@@ -71,13 +77,22 @@ function CrystalGeo( height , width , numOf , extraHeight ){
     var p1 = new THREE.Vector3();
     var p2 = new THREE.Vector3();
     var p3 = new THREE.Vector3();
+
+    var a_p = [ p1 , p2 , p3 ];
   
   
+    var uv1 = new THREE.Vector2();
+    var uv2 = new THREE.Vector2();
+    var uv3 = new THREE.Vector2();
+
+    var a_uv = [ uv1 , uv2 , uv3 ];
+
+    var a_e = [ 0 , 0 , 0 ];
 
     for( var j = 0; j < 6; j++ ){
 
       
-      var id =   j/6; 
+      var id =   i/(numOf+1); 
       //var newHeight = height * Math.random();
 
       var subPosXY1 = Math.toCart( width  / (2*sqr) , (j/6) * 2 * Math.PI );
@@ -95,6 +110,19 @@ function CrystalGeo( height , width , numOf , extraHeight ){
       var h2 = -newHeight;
 
 
+      var t = (( j + 0 )  / 6) * Math.PI * 10
+      var uvX1 = Math.abs( Math.cos( t ) );
+      
+      var t = (( j + 1 )  / 6) * Math.PI * 10
+      var uvX2 = Math.abs( Math.cos( t ) );
+
+      var t = (( j + .5 )  / 6) * Math.PI * 10
+      var uvXC = Math.abs( Math.cos( t ) );
+
+     // var uvX1 = (( j+ 0) %6)/6;
+     // var uvX2 = (( j+ 1) %6)/6;
+     //  var uvXC = (( j+ .5) %6)/6;
+       
 
       //Bottom
       
@@ -102,8 +130,16 @@ function CrystalGeo( height , width , numOf , extraHeight ){
       p2.set( fPosX2   ,  fPosY2  , h1 );
       p3.set( posXY[0] , posXY[1] , h1 );
 
+     
+      var x1 = (( j + 1 ) % 6 / 6)
 
-      assignAttributes( finalIndex , p1 , p2 , p3  , id );
+      uv1.set( uvX1 , 0 );
+      uv2.set( uvX2 , 0 );
+      uv3.set( uvXC , 0 );
+
+      a_e = [ 1 , 1 , 0 ];
+
+      assignAttributes( finalIndex , a_p , a_uv , a_e , id);
 
 
       // Middle
@@ -111,15 +147,26 @@ function CrystalGeo( height , width , numOf , extraHeight ){
       p1.set( fPosX1 ,  fPosY1  , h1 );
       p2.set( fPosX2 ,  fPosY2  , h2 );
       p3.set( fPosX2 ,  fPosY2  , h1 );
+     
+      uv1.set( uvX1 , 0  );
+      uv2.set( uvX2 , .9 );
+      uv3.set( uvX2 , 0  );
 
+      a_e = [ 1 , 1 , 1 ]
 
-      assignAttributes( finalIndex + 9 , p1 , p2 , p3, id  );
+      assignAttributes( finalIndex + 9 , a_p , a_uv , a_e , id);
 
       p1.set( fPosX1   ,  fPosY1  , h2 );
       p2.set( fPosX2   ,  fPosY2  , h2 );
       p3.set( fPosX1   ,  fPosY1  , h1 );
 
-      assignAttributes( finalIndex + 18 , p1 , p2 , p3, id  );
+      uv1.set( uvX1 , .9 );
+      uv2.set( uvX2 , .9 );
+      uv3.set( uvX1 , 0  );
+
+      a_e = [ 1 , 1 , 1 ]
+
+      assignAttributes( finalIndex + 18 , a_p , a_uv , a_e , id );
 
 
 
@@ -130,57 +177,80 @@ function CrystalGeo( height , width , numOf , extraHeight ){
       p2.set( fPosX1   ,  fPosY1   , h2 );
       p3.set( posXY[0] ,  posXY[1] , h2 - extraHeight );
 
+      uv1.set( uvX2 , .9 );
+      uv2.set( uvX1 , .9 );
+      uv3.set( uvXC , 1  );
 
-      assignAttributes( finalIndex + 27 , p1 , p2 , p3, id );
+      a_e = [ 1 , 1 , 0 ]
+
+
+      assignAttributes( finalIndex + 27 , a_p , a_uv , a_e , id );
 
 
     }
 
 
-    function assignAttributes( index , p1 , p2 , p3  , id ){
+    function assignAttributes( index , a_p , a_uv , a_e , id ){
 
       var indexID = index / 3;
 
       ids[ indexID + 0 ] = id;
       ids[ indexID + 1 ] = id;
       ids[ indexID + 2 ] = id;
+      
+      edges[ indexID + 0 ] = a_e[0];
+      edges[ indexID + 1 ] = a_e[1];
+      edges[ indexID + 2 ] = a_e[2];
+
+      var indexUV = ( index / 3 ) * 2;
+
+      uvs[ indexUV + 0 ] = a_uv[0].x;
+      uvs[ indexUV + 1 ] = a_uv[0].y;
+      
+      uvs[ indexUV + 2 ] = a_uv[1].x;
+      uvs[ indexUV + 3 ] = a_uv[1].y;
+      
+      uvs[ indexUV + 4 ] = a_uv[2].x;
+      uvs[ indexUV + 5 ] = a_uv[2].y;
+
+
       //ids[ indexID + 0 ] = Math.random();
       //ids[ indexID + 1 ] = Math.random();
       //ids[ indexID + 2 ] = Math.random();
 
-      positions[ index + 0  ] = p1.x  
-      positions[ index + 1  ] = p1.y 
-      positions[ index + 2  ] = p1.z 
+      positions[ index + 0  ] = a_p[0].x  
+      positions[ index + 1  ] = a_p[0].y 
+      positions[ index + 2  ] = a_p[0].z 
       
-      positions[ index + 3  ] = p2.x 
-      positions[ index + 4  ] = p2.y 
-      positions[ index + 5  ] = p2.z 
+      positions[ index + 3  ] = a_p[1].x 
+      positions[ index + 4  ] = a_p[1].y 
+      positions[ index + 5  ] = a_p[1].z 
 
-      positions[ index + 6  ] = p3.x 
-      positions[ index + 7  ] = p3.y 
-      positions[ index + 8  ] = p3.z 
+      positions[ index + 6  ] = a_p[2].x 
+      positions[ index + 7  ] = a_p[2].y 
+      positions[ index + 8  ] = a_p[2].z 
 
 
-      p2.sub( p1 );
-      p3.sub( p1 );
+      a_p[1].sub( a_p[0] );
+      a_p[2].sub( a_p[0] );
 
-      p1.crossVectors( p2 , p3 );
-      p1.normalize();
+      a_p[0].crossVectors( a_p[1] , a_p[2] );
+      a_p[0].normalize();
 
 
       //console.log( p2 );
 
-      normals[ index + 0  ] = p1.x; 
-      normals[ index + 1  ] = p1.y;
-      normals[ index + 2  ] = p1.z;
+      normals[ index + 0  ] = a_p[0].x; 
+      normals[ index + 1  ] = a_p[0].y;
+      normals[ index + 2  ] = a_p[0].z;
       
-      normals[ index + 3  ] = p1.x;
-      normals[ index + 4  ] = p1.y;
-      normals[ index + 5  ] = p1.z;
+      normals[ index + 3  ] = a_p[0].x;
+      normals[ index + 4  ] = a_p[0].y;
+      normals[ index + 5  ] = a_p[0].z;
 
-      normals[ index + 6  ] = p1.x;
-      normals[ index + 7  ] = p1.y; 
-      normals[ index + 8  ] = p1.z; 
+      normals[ index + 6  ] = a_p[0].x;
+      normals[ index + 7  ] = a_p[0].y; 
+      normals[ index + 8  ] = a_p[0].z; 
 
     }
 
