@@ -430,6 +430,8 @@ crystals.addToStartArray( function(){
     //crystal.select();
 
   }
+  
+  
   for( var i = 3; i < this.crystalParams.length; i++ ){
 
     var s = 1 / (this.crystalParams.length-3);
@@ -458,9 +460,11 @@ crystals.addToStartArray( function(){
 
     crystal.activate( this.scene );
  
-    crystal.select();
+    //crystal.select();
 
   }
+
+  this.crystals[10].select();
 
  
 }.bind( crystals ) );
