@@ -182,13 +182,6 @@ forest.addToStartArray( function(){
 
   });
 
- /* this.attractor = new THREE.Vector3();
-
-  this.attracting = false;
-  this.attractionTimer = 0;
- 
-  G.mani.addDistanceSquaredForce( this.attractor , 100 );*/
-
 
   this.looper.forest = this.forest;
   this.looper.onNewMeasure = function(){
@@ -196,8 +189,15 @@ forest.addToStartArray( function(){
   }
 
 
+  this.looper.start();
+
   this.text = new PhysicsText( this.textChunk );
+
   
+  this.forest.bases[32].select();
+  this.forest.bases[57].select();
+  this.forest.bases[76].select();
+
   this.forest.activate();
 
 
@@ -206,7 +206,6 @@ forest.addToStartArray( function(){
 
 forest.addToActivateArray( function(){
 
-  this.looper.start();
   this.text.activate();
 
 }.bind( forest ));
@@ -223,34 +222,6 @@ forest.addToAllUpdateArrays( function(){
 
   this.text.update();
 
-  /*if( this.attracting === true ){
-
-    this.attractor.copy( G.iPoint );
-
-  }
-
-  if( (G.timer.value - this.attractionTimer ) > 2.5 ){
-  
-    this.attracting = true;
-
-  }
-
-  var d = G.mani.position.clone().sub( G.iPoint ).length();
-
-
-  if( d < 5 ){
-
-    var randVec = new THREE.Vector3();
-    randVec.x = (Math.random() - .5 ) * 10000;
-    randVec.y = (Math.random() - .5 ) * 10000;
-    randVec.z = (Math.random() - .5 ) * 10000;
-    this.attractor.copy( this.position );
-    this.attractor.add( randVec );
-
-    this.attracting = false;
-    this.attractionTimer = G.timer.value
-
-  }*/
 
 
 

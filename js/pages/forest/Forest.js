@@ -177,56 +177,6 @@
     renderGui.add( headMultiplier , 'value' ).name( 'Head Multiplier' );
 
 
-    /*this.color1 = {type:"v3",value:new THREE.Vector3( 1 , 0 , 0 ) }
-    this.color2 = {type:"v3",value:new THREE.Vector3( 0 , 0 , 1 ) }
-    this.color3 = {type:"v3",value:new THREE.Vector3( 1 , 1 , 0 ) }
-    this.color4 = {type:"v3",value:new THREE.Vector3( 0 , 1 , 1 ) }
-
-    var texScale    = { type:"f",value:.01}
-    var normalScale = { type:"f",value:.5}
-
-
-    renderGui.add( texScale , 'value' ).name( 'Texture Scale' );
-    renderGui.add( normalScale , 'value' ).name( 'Normal Scale' );
-    
-    var c ={ 
-      c1: '#ff0000',
-      c2:   '#eeaa00',
-      c3:'#0000ff',
-      c4:'#999999' 
-    }
-
-    renderGui.addColor( c , 'c1' ).name('Color 1').onChange( function( value ){
-      var col = new THREE.Color( value );
-      this.color1.value.x = col.r;
-      this.color1.value.y = col.g;
-      this.color1.value.z = col.b;
-    }.bind( this ));
-
-    renderGui.addColor( c , 'c2' ).name('Color 2').onChange( function( value ){
-      var col = new THREE.Color( value );
-      this.color2.value.x = col.r;
-      this.color2.value.y = col.g;
-      this.color2.value.z = col.b;
-    }.bind( this ));
-
-
-    renderGui.addColor( c , 'c3' ).name('Color 3').onChange( function( value ){
-      var col = new THREE.Color( value );
-      this.color3.value.x = col.r;
-      this.color3.value.y = col.g;
-      this.color3.value.z = col.b;
-    }.bind( this ));
-
-
-    renderGui.addColor( c , 'c4' ).name('Color 4').onChange( function( value ){
-      var col = new THREE.Color( value );
-      this.color4.value.x = col.r;
-      this.color4.value.y = col.g;
-      this.color4.value.z = col.b;
-    }.bind( this ));*/
-
-
     var t_iri = THREE.ImageUtils.loadTexture( 'img/iri/comboWet.png' );
 
 
@@ -236,13 +186,6 @@
       t_audio:G.t_audio,
       lightPos:{type:"v3",value:G.iPoint.relative },
       t_active:{type:"t",value:this.activeTexture},
-     // texScale:texScale,
-     // normalScale:normalScale,
-     // tNormal:{type:"t",value:this.normalTexture},
-      //color1:this.color1,
-      //color2:this.color2,
-      //color3:this.color3,
-      //color4:this.color4,
       girth:girth,
       headMultiplier:headMultiplier
     }

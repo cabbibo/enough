@@ -30,6 +30,11 @@ function Crystal( page , params ){
 
   
   this.scene    = new THREE.Object3D();
+
+  this.camera = new THREE.CubeCamera(1, 1000, 64); 
+  this.camera.renderTarget.minFilter = THREE.LinearMipMapLinearFilter; 
+  this.scene.add(this.camera);
+
   //this.position = this.scene.position;  
  
   this.note = this.page.audio[ this.params.note ];
@@ -74,6 +79,9 @@ function Crystal( page , params ){
   this.particles = new CrystalParticles( this.scene ,  this.height , this.t_audio );
   this.scene.add( this.particles.particles );
 
+  
+
+
 }
 
 
@@ -88,6 +96,9 @@ Crystal.prototype.update = function(){
 
   if( !this.active ) return;
 
+  /*this.scene.visible = false;
+  this.camera.updateCubeMap( G.renderer, G.scene);
+  this.scene.visible = true;*/
   this.particles.update();
   this.note.update();
 
@@ -174,19 +185,27 @@ Crystal.prototype.stop = function(){
 Crystal.prototype.createMaterial = function(){
 
 
-   G.tmpV3.set( -500 , 400 , 0 );
-
-  var globalLightPos = this.page.position.clone().add( G.tmpV3 );
   var uniforms = {
 
     t_normal:{ type:"t" , value : G.TEXTURES.norm_moss },
 
     t_audio:this.t_audio,
-    lightPos:{ type: "v3" , value :  G.iPoint }, 
     cameraPos:{ type:"v3" , value : G.camera.position },
     hovered:{ type:"f" , value:0},
     playing:{ type:"f" , value:0},
-    selected:{ type:"f" , value:0}
+    selected:{ type:"f" , value:0},
+    special:{ type:"f" , value:1},
+
+    lightPos:       this.page.uniforms.lightPos,
+
+    baseMultiplier: this.page.uniforms.baseMultiplier,
+    ringMultiplier: this.page.uniforms.ringMultiplier,
+    reflMultiplier: this.page.uniforms.reflMultiplier, 
+    distanceCutoff: this.page.uniforms.distanceCutoff,
+    distancePow:    this.page.uniforms.distancePow,
+    texScale:       this.page.uniforms.texScale,
+    normalScale:    this.page.uniforms.normalScale,
+    extra:          this.page.uniforms.extra 
       
   }
 

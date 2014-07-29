@@ -143,13 +143,54 @@ crystals.addToStartArray( function(){
 
   G.iPlane.faceCamera = false;
   
-  G.tmpV3.set( 0 , 450 , 0 );
+  G.tmpV3.set( 0 , 150 , 0 );
 
   G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
   G.tmpV3.set( 0 , 451 , 0 )
   G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
 
   //G.iPlane.visible = true;
+
+}.bind( crystals ));
+
+// Setting up uniforms gui
+crystals.addToStartArray( function(){
+
+  G.tmpV3.set( -500 , 400 , 0 );
+
+
+  var globalLightPos = this.position.clone().add( G.tmpV3 );
+
+
+  this.uniforms = {
+
+    lightPos:{ type:"v3" , value:globalLightPos },
+
+
+    baseMultiplier: { type:"f" , value : .6 },
+    ringMultiplier: { type:"f" , value : 10.3 },
+    reflMultiplier: { type:"f" , value : 1 },
+    distanceCutoff: { type:"f" , value: 360 },
+    distancePow:{ type:"f" , value: 4 },
+    texScale:{ type:"f" , value:.000034 },
+    normalScale:{ type:"f" , value:.6 },
+    extra:{ type:"f" , value:1 }
+
+  }
+
+  // Crystal Params
+  var cp = this.gui.addFolder( "Crystal Params" );
+
+  var u = this.uniforms;
+  cp.add( u.baseMultiplier , 'value' ).name( 'Base' );
+  cp.add( u.ringMultiplier , 'value' ).name( 'Ring' );
+  cp.add( u.reflMultiplier , 'value' ).name( 'Reflection' );
+  cp.add( u.distanceCutoff , 'value' ).name( 'Distance Cutoff' );
+  cp.add( u.distancePow , 'value' ).name( 'Distance Power' );
+  cp.add( u.texScale , 'value' ).name( 'Texture Scale' );
+  cp.add( u.normalScale , 'value' ).name( 'Normal Scale' );
+  cp.add( u.extra , 'value' ).name( 'Extra' );
+
 
 }.bind( crystals ));
 
@@ -166,26 +207,25 @@ crystals.addToStartArray( function(){
 
 crystals.addToStartArray( function(){
   
-  var light = new THREE.DirectionalLight(0xff0000);
-  light.position.set( 0 , 0 , 1 );
+  var light = new THREE.PointLight(0x66aa99);
+  light.position.copy( this.position );
+  G.tmpV3.set( -500 , -1000 , 0 );
+  light.position.add( G.tmpV3 );
   G.scene.add( light );
 
-  var light = new THREE.DirectionalLight(0x00ff00);
-  light.position.set( 0 , 1 , 1 );
-  G.scene.add( light );
+   var light = new THREE.PointLight(0x6688aa);
+  //light.position.copy( this.position );
+  G.tmpV3.set( 0 , 00 , 0 );
 
-  var light = new THREE.DirectionalLight(0xa0cca0);
-  light.position.set( -1 , 0 , -1 );
-  G.scene.add( light );
+  light.position.add( G.tmpV3 );
+  G.iObj.add( light );
 
-  var light = new THREE.DirectionalLight(0xa0a0cc);
-  light.position.set( 1 , 0 , -1 );
-  G.scene.add( light );
+  //light.position.copy( this.position );
+  //G.tmpV3.set( -500 , 400 , 0 );
 
+  //light.position.add( G.tmpV3 );
+  //G.mani.leader.add( light  );
 
-  var light = new THREE.DirectionalLight(0xa0a0cc);
-  light.position.set( 1 , 0 , -1 );
-  G.scene.add( light );
   
 }.bind( crystals) );
 
@@ -196,70 +236,29 @@ crystals.addToStartArray( function(){
 
   var globalLightPos = this.position.clone().add( G.tmpV3 );
 
- /* var lightMesh = new THREE.Mesh(
-    new THREE.IcosahedronGeometry( 50 , 0 ),
-    new THREE.MeshNormalMaterial()
-  );
-
-  lightMesh.position.copy( globalLightPos );
-  
-  G.scene.add( lightMesh );*/
-
-
-  for( var i = 0; i < 10; i++ ){
-
-    var uniforms = {
-
-      t_normal:{ type:"t" , value : G.TEXTURES.norm_moss },
-      t_audio:G.t_audio,
-      lightPos:{ type: "v3" , value : G.iPoint }, 
-      cameraPos:{ type:"v3" , value : G.camera.position },
-      hovered:{ type:"f" , value:0},
-      playing:{ type:"f" , value:0},
-      selected:{ type:"f" , value:0}
-        
-    }
-
-    var attributes = {
-
-      id:{ type:"f" , value:null },
-
-    }
-
-    var mat = new THREE.ShaderMaterial({
-
-      uniforms:uniforms,
-      attributes: attributes,
-      vertexShader: G.shaders.vs.crystal,
-      fragmentShader: G.shaders.fs.crystal,
-
-    });
-
-
-    var geo = new CrystalGeo( 30 , 400 , 120, 20 );
-  
-    var mesh = new THREE.Mesh( geo , mat );
-
-    mesh.position.x = (Math.random() - .5 ) * 2000;
-    mesh.position.z = (Math.random() - .5 ) * 2000;
-    mesh.rotation.x = Math.PI / 2;
-
-    this.scene.add( mesh );
-
-  }
-
-
   var uniforms = {
 
     t_audio:G.t_audio,
     t_normal:{ type:"t" , value : G.TEXTURES.norm_moss },
 
-    lightPos:{ type: "v3" , value : G.iPoint  }, 
     cameraPos:{ type:"v3" , value : G.camera.position },
     hovered:{ type:"f" , value:0},
     playing:{ type:"f" , value:0},
-    selected:{ type:"f" , value:0}
-      
+    selected:{ type:"f" , value:0},
+    special:{ type:"f" , value: 0 },
+     
+    lightPos: this.uniforms.lightPos,
+
+    baseMultiplier: this.uniforms.baseMultiplier,
+    ringMultiplier: this.uniforms.ringMultiplier,
+    reflMultiplier: this.uniforms.reflMultiplier, 
+    distanceCutoff: this.uniforms.distanceCutoff,
+    distancePow:    this.uniforms.distancePow,
+    texScale:       this.uniforms.texScale,
+    normalScale:    this.uniforms.normalScale,
+    extra:          this.uniforms.extra 
+
+
   }
   var attributes = {
 
@@ -275,7 +274,30 @@ crystals.addToStartArray( function(){
 
   }); 
 
-  var geo = new CrystalGeo( 120 , 1000 , 3 , 0 );
+  var mat = new THREE.MeshPhongMaterial({
+   
+    diffuse: 0x000000,
+    specular: 0x88ffee,   
+    shininess: 80
+  });
+
+  for( var i = 0; i < 10; i++ ){
+
+
+    var geo = new CrystalGeo( 30 , 400 , 120, 20 );
+  
+    var mesh = new THREE.Mesh( geo , mat );
+
+    mesh.position.x = (Math.random() - .5 ) * 2000;
+    mesh.position.z = (Math.random() - .5 ) * 2000;
+    mesh.rotation.x = Math.PI / 2;
+
+    this.scene.add( mesh );
+
+  }
+
+
+  var geo = new CrystalGeo( 120 , 1000 , 3 , 20 );
   var mesh = new THREE.Mesh( geo , mat );
 
   mesh.position.x = -500;// (Math.random() - .5 ) * 2000;
@@ -284,6 +306,7 @@ crystals.addToStartArray( function(){
 
   this.scene.add( mesh );
 
+  
 
 }.bind( crystals ));
 
@@ -332,21 +355,22 @@ crystals.addToStartArray( function(){
     crystal.scene.position.y = 100;
 
     this.crystals.push( crystal );
-  
+ 
+    crystal.select();
   }
 
-  this.crystals[0].select();
-
+ 
 }.bind( crystals ) );
 
 crystals.addToStartArray( function(){
+  
+  this.text = new PhysicsText( this.textChunk );
 
   for( var i = 0; i < this.crystals.length; i++ ){
-
     //console.log( 'CRS');
     this.crystals[i].activate();
-
   }
+
   this.looper.start();
 
 }.bind( crystals ) );
@@ -355,11 +379,6 @@ crystals.addToStartArray( function(){
 
 
 crystals.addToStartArray( function(){
-
-
-  this.text = new PhysicsText( this.textChunk );
-  
-  //this.crystals.activate();
 
 
 }.bind( crystals ) );
@@ -376,17 +395,10 @@ crystals.addToAllUpdateArrays( function(){
   for( var i = 0; i < this.crystals.length; i++ ){
     this.crystals[i].update();
   }
-
-}.bind( crystals ));
-
-
-crystals.addToAllUpdateArrays( function(){
-
-
+  
   this.text.update();
 
 }.bind( crystals ));
-
 
 crystals.addToDeactivateArray( function(){
 

@@ -35,6 +35,8 @@ function Monome( forest , whichHit , whichNote , mesh ){
 
 
   G.objectControls.add( this.mesh );
+
+  this.id = this.page.monomeMeshes.length;
   this.page.monomeMeshes.push( mesh );
 
 }
@@ -144,12 +146,14 @@ Monome.prototype.hoverOut = function(){
 
 }
 
+//
 Monome.prototype.select = function(){
 
 
 //  this.note.play();
 
 
+  console.log( this.id );
   if( this.selected === false ){
 
   if( this.active == true ){

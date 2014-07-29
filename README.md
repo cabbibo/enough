@@ -30,6 +30,8 @@ TODO:
     - sets dT equal to 0 for a moment
     - calls update, to kill extra velocity
 
+  - Mani should also have certain behavoirs, such as 'when hit cursor, move away' , or 'when near cursor, circle cursor
+
 - Clean up shaders for Forest!
 
 - Looper Still not working properly
@@ -49,3 +51,8 @@ TODO:
 
 
 - Object controls should work with both hands!
+
+- Global star system with pretty ambient audio
+
+
+
