@@ -3,10 +3,21 @@ function PageTurner( pages ){
   this.pageLoaded = true;
 
   
-  this.markerGeo =  new THREE.IcosahedronGeometry( 40 , 1 );
+  this.markerGeometry =  new THREE.PlaneGeometry( 80 , 80 );
 
-  this.neutralMaterial = new THREE.MeshNormalMaterial();
-  this.hoverMaterial = new THREE.MeshBasicMaterial({ color:0xff0000 });
+  this.neutralColor = new THREE.Color( .5 , .5 , .5 );
+  this.hoverColor   = new THREE.Color( .9 , .9 , .9 );
+
+  this.markerMaterial = new THREE.MeshBasicMaterial({
+    
+    map: G.TEXTURES['logo'],
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    color: this.neutralColor
+  });
+
+ // this.hoverMaterial = new THREE.MeshBasicMaterial({ color:0xff0000 });
 
 }
 
@@ -35,6 +46,8 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   if(this.toPage ){
 
     if( this.toPage.loaded === false ){
+
+      console.log( 'PAGE NART LOADS' );
 
       if( this.pageLoaded === true ){
         
@@ -173,12 +186,12 @@ PageTurner.prototype.removeLoading = function(){
 
 PageTurner.prototype.createMarker = function( page , offset , length ){
 
-  offset = offset || new THREE.Vector3( 200 , -300 , 0 );
+  offset = offset || new THREE.Vector3( 300 , -300 , 0 );
   length = length || 50;
 
   var mesh = new THREE.Mesh(
-    this.markerGeo,
-    this.neutralMaterial 
+    this.markerGeometry,
+    this.markerMaterial 
   );
 
   mesh.select = function(){
@@ -189,15 +202,13 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
 
   mesh.hoverOver = function(){
 
-    this.pageTurner.material = this.hoverMaterial;
-    this.pageTurner.materialNeedsUpdate = true;
+    this.pageTurner.material.color = this.hoverColor;
 
   }.bind( this );
 
   mesh.hoverOut = function(){
 
-    this.pageTurner.material = this.neutralMaterial;
-    this.pageTurner.materialNeedsUpdate = true;
+    this.pageTurner.material.color = this.neutralColor;
 
   }.bind( this );
 
@@ -212,6 +223,9 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
   mesh.position.add( forward );
 
   mesh.position.add( offset );
+
+  G.tmpV3.copy( mesh.position );
+  mesh.lookAt( G.tmpV3.sub( forward ) );
 
   mesh.neutralMaterial = this.neutralMaterial
   mesh.hoverMaterial = this.hoveMaterial

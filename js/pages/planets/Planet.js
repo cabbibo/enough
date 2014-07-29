@@ -47,6 +47,8 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
   this.mesh = new THREE.Mesh( this.geometry, this.material );
   this.mesh.selected = false;
 
+  this.mesh.rotation.y = Math.PI / 2;
+
   this.position = this.mesh.position;
   this.velocity = new THREE.Vector3();
 

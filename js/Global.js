@@ -14,6 +14,7 @@ G.texturesToLoad = [
 
   ['sprite_flare'   , 'img/sprite/flare.png'],
 
+  ['logo'       , 'img/icons/cabbibo.png' ],
 
 ]
 
@@ -62,7 +63,6 @@ G.scene         = new THREE.Scene();
 G.renderer      = new THREE.WebGLRenderer(); //autoclear:false\
 G.clock         = new THREE.Clock();
 
-G.pageTurner    = new PageTurner();
 G.position      = new THREE.Vector3();
 G.pageMarker    = new THREE.Mesh(
   new THREE.IcosahedronGeometry( 40,2 ),
@@ -106,6 +106,8 @@ G.startArray = [];
 
 G.init = function(){
 
+  this.pageTurner    = new PageTurner();
+  
   /*
    
     Non Leap interaction
