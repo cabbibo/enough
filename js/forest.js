@@ -95,6 +95,9 @@ forest.addToInitArray( function(){
   this.loadShader( 'monome' , f + 'vs-monome' , 'vertex' );
   this.loadShader( 'monome' , f + 'fs-monome' , 'fragment' );
 
+
+  this.loadTexture( 'iri_comboWet' , 'img/iri/comboWet.png' );
+
 }.bind( forest ) );
 
 

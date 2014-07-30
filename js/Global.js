@@ -39,6 +39,10 @@ G.tmpV2   = new THREE.Vector2();
 
 
 
+// Just something to make things flow
+G.flow = new THREE.Vector3();
+
+
 G.loader.onStart = function(){
 
   this.onResize();
@@ -142,6 +146,10 @@ G.init = function(){
   this.iDir   = new THREE.Vector3( 0 , 0 , -1 );
   this.iPlaneDistance = 600;
 
+
+  G.GEOS[ 'icosahedron' ]  = new THREE.IcosahedronGeometry( 1 , 2 );
+  G.MATS[ 'normal'      ]  = new THREE.MeshNormalMaterial();
+
   /*
 
      For Mani
@@ -151,6 +159,19 @@ G.init = function(){
 
   this.attracting = false;
   this.attractionTimer = 0;
+
+  this.solAttractor = new THREE.Vector3();
+  this.solVelocity  = new THREE.Vector3();
+
+
+  /*var g = G.GEOS[ 'icosahedron' ];
+  var m = G.MATS[ 'normal'      ];
+
+  this.attractorMesh    = new THREE.Mesh( g , m );
+  this.solAttractorMesh = new THREE.Mesh( g , m );
+
+  this.scene.add( this.attractorMesh );
+  this.scene.add( this.solAttractorMesh );*/
  
   /*
   
@@ -251,7 +272,7 @@ G.init = function(){
     new THREE.MeshNormalMaterial({side:THREE.DoubleSide})
   );
 
-   var bait = center.clone();
+  var bait = center.clone();
 
 
   this.maniGroup = new FurryGroup( this ,  'mani' , G.audio , 1 ,{
@@ -270,7 +291,31 @@ G.init = function(){
 
   this.mani.activate();
 
+
   this.mani.addDistanceSquaredForce( this.attractor , 100 );
+
+  var col1 = new THREE.Vector3( c[0].r , c[0].g , c[0].b );
+  var col2 = new THREE.Vector3( c[1].r , c[1].g , c[1].b );
+  var col3 = new THREE.Vector3( c[2].r , c[2].g , c[2].b );
+  var col4 = new THREE.Vector3( c[3].r , c[3].g , c[3].b );
+
+  this.solGroup = new FurryGroup( this ,  'sol' , G.audio , 1 ,{
+    center:center,
+    bait: bait,
+    color1: col1,
+    color2: col2,
+    color3: col3,
+    color4: col4,
+  });
+
+
+
+  this.sol =  this.furryTails[1];
+  this.sol.position.relative = new THREE.Vector3();
+
+  //this.mani.activate();
+
+  this.sol.addDistanceSquaredForce( this.solAttractor , 100 );
   
 
 
@@ -366,10 +411,21 @@ G.animate = function(){
     this.camera.position.relative.copy( this.camera.position );
     this.camera.position.relative.sub( this.position );
 
-    this.mani.updateTail();
-    this.mani.updatePhysics();
-    this.mani.position.relative.copy( this.mani.position );
-    this.mani.position.relative.sub( this.position );
+    if( this.mani.active == true ){
+      this.mani.updateTail();
+      this.mani.updatePhysics();
+      this.mani.position.relative.copy( this.mani.position );
+      this.mani.position.relative.sub( this.position );
+    }
+
+
+    if( this.sol.active == true ){
+      this.sol.updateTail();
+      this.sol.updatePhysics();
+      this.sol.position.relative.copy( this.sol.position );
+      this.sol.position.relative.sub( this.position );
+    }
+
 
     this.updateAttractor();
 
@@ -437,6 +493,26 @@ G.updateAttractor = function(){
     this.attractionTimer = G.timer.value
 
   }
+
+
+  G.tmpV3.copy( this.attractor );
+
+  G.tmpV3.sub( this.solAttractor );
+
+ // G.tmpV3.normalize();
+
+  this.solVelocity.add( G.tmpV3 );
+
+  G.tmpV3.copy( this.solVelocity );
+  G.tmpV3.normalize();
+  G.tmpV3.multiplyScalar( 2.4 );
+  this.solAttractor.add( G.tmpV3 );
+
+  this.solVelocity.multiplyScalar( .995 );
+
+ // this.attractorMesh.position.copy( this.attractor );
+ // this.solAttractorMesh.position.copy( this.solAttractor );
+
 
 }
 

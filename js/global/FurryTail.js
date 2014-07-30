@@ -111,6 +111,8 @@
       this.sim,
       G.renderer 
     );
+
+    this.physicsRenderer.apply
    
     this.particleUniforms.t_sprite.value = this.particleSprite;
 
@@ -199,25 +201,17 @@
 
   FurryTail.prototype.deactivate = function(){
 
-    this.page.scene.add( this.physicsParticles );
-    this.page.scene.add( this.line );
-    this.page.scene.add( this.leader );
-    this.page.scene.add( this.head.mesh );    
+    console.log('HELLO');
+    this.page.scene.remove( this.physicsParticles );
+    this.page.scene.remove( this.line );
+    this.page.scene.remove( this.leader );
+    this.page.scene.remove( this.head.mesh );    
 
     this.active = false;
 
   }
 
-  FurryTail.prototype.deactivate = function(){
 
-
-  }
-
-  FurryTail.prototype.updatePhysics = function(){
-
-
-
-  }
 
   FurryTail.prototype.updatePhysics = function(){
 
@@ -346,6 +340,7 @@
       value: this.position
     });
 
+    this.physicsRenderer.setUniform( 'flow' , { type:"v3" , value: G.flow } );
     this.physicsRenderer.setUniform( 'dT' , G.dT );
 
   }

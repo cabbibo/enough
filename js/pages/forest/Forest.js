@@ -177,7 +177,7 @@
     renderGui.add( headMultiplier , 'value' ).name( 'Head Multiplier' );
 
 
-    var t_iri = THREE.ImageUtils.loadTexture( 'img/iri/comboWet.png' );
+    var t_iri = G.TEXTURES['iri_comboWet'];
 
 
     var uniforms = {

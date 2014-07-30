@@ -383,12 +383,33 @@ Page.prototype.loadAudio = function( name ,  file , params ){
 
 }
 
+
 Page.prototype.loadTexture = function( name , file , params ){
 
-  if( !G.TEXTURES[ name ] ){
-    this.loader.addLoad();
+  params = params || {};
 
-    //TODO:
+  if( G.TEXTURES[name] ){
+
+    return G.TEXTURES[name] 
+
+  }else{
+   
+    var cb = function(){
+      this.loader.onLoad(); 
+    }.bind( this );
+
+    var m = params.mapping || THREE.UVMapping;
+
+    var l = THREE.ImageUtils.loadTexture;
+
+    this.loader.addLoad();
+    
+    G.TEXTURES[ name ] = l( file , m , cb );
+    G.TEXTURES[ name ].wrapS = params.wrapping || THREE.RepeatWrapping;
+    G.TEXTURES[ name ].wrapT = params.wrapping || THREE.RepeatWrapping;
+
+    return G.TEXTURES[name];
+
   }
 
 }
