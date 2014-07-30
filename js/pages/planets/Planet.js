@@ -9,6 +9,8 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
   this.color4 = color4;
 
   this.audio  = audio;
+  this.audio.updateAnalyser = true;
+  this.audio.updateTexture = true;
  
   // TODO: Bring this to main load
   var t_normal = THREE.ImageUtils.loadTexture( 'img/normals/moss_normal_map.jpg' );

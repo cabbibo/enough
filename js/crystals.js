@@ -17,7 +17,7 @@ crystals.textChunk = [
 
 
 crystals.position.set(  500 , -2000 , 1400 );
-crystals.cameraPos.set( 500 , -1000 , 3200 );
+crystals.cameraPos.set( 500 , -1000 , 3600 );
 crystals.iPlaneDistance = 1200
 
 
@@ -106,6 +106,15 @@ crystals.crystalParams = [
     height:300
 
   },
+
+  {
+  
+    note:'tooth',
+    height:300
+
+  },
+
+
 
 
 
@@ -218,30 +227,6 @@ crystals.addToStartArray( function(){
 
   }
 
-}.bind( crystals) );
-
-crystals.addToStartArray( function(){
-  
-  var light = new THREE.PointLight(0x66aa99);
-  light.position.copy( this.position );
-  G.tmpV3.set( -500 , -1000 , 0 );
-  light.position.add( G.tmpV3 );
-  G.scene.add( light );
-
-   var light = new THREE.PointLight(0x6688aa);
-  //light.position.copy( this.position );
-  G.tmpV3.set( 0 , 00 , 0 );
-
-  light.position.add( G.tmpV3 );
-  G.iObj.add( light );
-
-  //light.position.copy( this.position );
-  //G.tmpV3.set( -500 , 400 , 0 );
-
-  //light.position.add( G.tmpV3 );
-  //G.mani.leader.add( light  );
-
-  
 }.bind( crystals) );
 
 
@@ -435,7 +420,7 @@ crystals.addToStartArray( function(){
   for( var i = 3; i < this.crystalParams.length; i++ ){
 
     var s = 1 / (this.crystalParams.length-3);
-    var x = (i -4) * s;
+    var x = (i -3) * s;
 
     var shift = Math.floor( x * 2 );
 

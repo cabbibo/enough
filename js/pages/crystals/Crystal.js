@@ -38,6 +38,10 @@ function Crystal( page , params ){
   //this.position = this.scene.position;  
  
   this.note = this.page.audio[ this.params.note ];
+
+  this.note.updateAnalyser = true;
+  this.note.updateTexture= true;
+
   this.looper.everyLoop( this.note.play.bind( this.note ) );
   
   this.gain = this.note.gain.gain;

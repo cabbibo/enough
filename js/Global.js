@@ -342,9 +342,7 @@ G.animate = function(){
   if( !this.paused ){
 
 
-    /*this.dT.value = this.clock.getDelta();
-    this.timer.value += G.dT.value;*/
-
+ 
     this.tween.update();
 
     this.objectControls.update();
@@ -385,6 +383,7 @@ G.animate = function(){
 
   this.stats.update();
   this.renderer.render( this.scene , this.camera );
+
   requestAnimationFrame( this.animate.bind( this ) );
   
 
