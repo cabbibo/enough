@@ -1,7 +1,10 @@
 
 uniform sampler2D t_oPos;
 uniform sampler2D t_pos;
-uniform sampler2D t_audio; 
+uniform sampler2D t_audio;
+
+uniform vec3 flow;
+
 uniform float dT;
 
 uniform float audioPower;
@@ -126,6 +129,8 @@ void main(){
       vec3 attract = springForce( otherPos.xyz , pos.xyz , f_dist_spineAttract );
       force += attract * force_spineAttract;
 
+      force += flow * ( 1. -  vUv.y);
+
     }
 
 
@@ -240,7 +245,8 @@ void main(){
   /*vec3 dampeningForce = vel * -.1;
   
   force += dampeningForce;*/
-  
+ 
+
   vel += force * dT;
 
   if( length( vel ) > maxVel ){

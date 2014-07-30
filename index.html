@@ -55,6 +55,8 @@
     
     <script src="js/pages/planets/Planet.js"></script>
     
+    <script src="js/pages/tree/Tree.js"></script>
+    
     <script src="js/pages/forest/Forest.js"></script>
     <script src="js/pages/forest/Monome.js"></script>
 
@@ -68,6 +70,8 @@
     <script src="js/forest.js"></script>
     <script src="js/crystals.js"></script>
     <script src="js/alone.js"></script>
+    <script src="js/together.js"></script>
+    <script src="js/tree.js"></script>
 
 
     <script>
@@ -112,12 +116,18 @@
 
 
       G.pages.alone.nextPage = G.pages.crystals;
+      
       G.pages.crystals.prevPage = G.pages.alone;
       G.pages.crystals.nextPage = G.pages.forest;
-      G.pages.planets.prevPage = G.pages.forest;
-      G.pages.forest.nextPage = G.pages.planets;
       G.pages.forest.prevPage = G.pages.crystal;
-
+      G.pages.forest.nextPage = G.pages.tree;
+      G.pages.tree.prevPage   = G.pages.forest;
+      G.pages.tree.nextPage   = G.pages.together;
+      G.pages.together.prevPage = G.pages.tree;
+      G.pages.together.nextPage = G.pages.planets;
+     
+      G.pages.planets.prevPage   = G.pages.together;
+      
       console.log( G.pages.alone.nextPage );
 
 
@@ -141,19 +151,19 @@
      
       G.addToStartArray( function(){
 
-        G.pages.crystals.init();
-        G.pages.crystals.addToOnLoadArray( function(){
+        G.pages.tree.init();
+        G.pages.tree.addToOnLoadArray( function(){
 
-          this.pages.crystals.start();
+        this.pages.tree.start();
          // this.pages.forest.activate();
 
-         this.pages.crystals.addToStartArray(function(){
+         this.pages.tree.addToStartArray(function(){
 
           //window.setTimeout( function(){
             
             this.activate();
 
-          }.bind( this.pages.crystals ));
+          }.bind( this.pages.tree ));
 
           //}.bind( G ), 100 );
 
