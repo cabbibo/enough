@@ -196,7 +196,10 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
 
   mesh.select = function(){
 
-   this.nextPage( page ,  length  );
+    
+    this.pageTurner.parent.remove( this.pageTurner );
+    G.objectControls.remove( this.pageTurner );
+    this.nextPage( page ,  length  );
 
   }.bind( this );
 

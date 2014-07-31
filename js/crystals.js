@@ -176,6 +176,7 @@ crystals.addToStartArray( function(){
 
   G.tmpV3.set( -500 , 400 , 0 );
 
+  console.log('CRYSTALS STARTED' );
 
   var globalLightPos = this.position.clone().add( G.tmpV3 );
 
