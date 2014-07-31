@@ -8,9 +8,20 @@ tree.textChunk = [
 
 ].join("\n" );
 
+tree.textChunk2 = [
+
+  "As he approached the haunting tree in front of him, Mani felt ready to resign. What was the purpose of all of this, if there was no purpose at all.",
+  "","",
+  "Than, suddenly, out of the corner of his eye, he spotted an orange glow. He wondered what the glow could be, and as he moved forward, he began to understand that the impossible occured"
+
+].join("\n" );
+
+
 
 tree.position.set(  0 , 0 , 0 );
-tree.cameraPos.set( 0 , 3500 , 4000 );
+tree.cameraPos.set( 1000 , 1000 , 3000 );
+tree.cameraPos2 = new THREE.Vector3( 0 , 200 , 2000 );
+
 tree.iPlaneDistance = 1000
 
 
@@ -262,6 +273,8 @@ tree.addToStartArray( function(){
 
   this.text = new PhysicsText( this.textChunk );
 
+  this.text2 = new PhysicsText( this.textChunk2 );
+
 }.bind( tree ) );
 
 
@@ -391,8 +404,6 @@ tree.addToStartArray( function(){
 
   var tree = new Tree( this.params );
 
-  console.log( 'TREE' );
-  console.log( tree );
 
   tree.position.y = -500;
 
@@ -405,6 +416,87 @@ tree.addToStartArray( function(){
 tree.addToActivateArray( function(){
 
   this.text.activate();
+
+
+  var mesh = new THREE.Mesh(
+    G.pageTurner.markerGeometry,
+    G.pageTurner.markerMaterial
+  );
+
+  mesh.hoverOver = function(){
+
+    this.transitionMesh.material.color = G.pageTurner.hoverColor;
+
+  }.bind( tree );
+
+   
+  mesh.hoverOut = function(){
+
+    this.transitionMesh.material.color = G.pageTurner.neutralColor;
+
+  }.bind( tree );
+
+
+  mesh.select = function(){
+
+    this.position
+
+    var l = 10000;
+    var tween = new G.tween.Tween( this.cameraPos ).to( this.cameraPos2, l );
+   
+    this.text.kill();
+
+    tween.onUpdate( function( t ){
+
+      G.camera.position.copy( this.cameraPos );
+      G.objectControls.unprojectMouse();
+
+      G.camera.lookAt( G.position );
+
+    }.bind( this ));
+
+
+    tween.onComplete( function(){
+
+      console.log('complete');
+
+      G.sol.activate();
+      this.text2.activate();
+
+      this.scene.add( this.endMesh );
+
+    }.bind( tree ) );
+
+
+    tween.start();
+
+  }.bind( tree );
+  
+  mesh.position.copy( G.camera.position.relative );
+  
+  var forward  = new THREE.Vector3( 0 , 0 , -1 );
+  forward.applyQuaternion( G.camera.quaternion );
+  forward.normalize();
+  forward.multiplyScalar( G.iPlaneDistance );
+
+  //console.log( G.iPlaneDistance );
+  mesh.position.add( forward );
+
+  G.tmpV3.set( 150 , -150 , 0 );
+  mesh.position.add(  G.tmpV3 );
+
+  G.tmpV3.copy( mesh.position );
+  mesh.lookAt( G.tmpV3.sub( forward ) );
+
+  G.objectControls.add( mesh );
+
+  console.log('MEHS');
+  console.log( mesh );
+  this.scene.add( mesh );
+
+  this.transitionMesh = mesh;
+
+
 
 }.bind( tree ));
 
@@ -428,13 +520,14 @@ tree.addToAllUpdateArrays( function(){
   }
 
   this.text.update();
+  this.text2.update();
 
 }.bind( tree ));
 
 
 tree.addToDeactivateArray( function(){
 
-  this.text.kill();
+  this.text2.kill();
 
 }.bind( tree) );
 

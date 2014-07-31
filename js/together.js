@@ -21,8 +21,8 @@ together.iPlaneDistance = 1000
 // Need to load at least 1 thing
 together.addToInitArray( function(){
   
-  var f = 'pages/together/';
-
+  var f = 'pages/crystals/';
+  this.loadShader( 'crystalParticles' , f + 'ss-crystalParticles' , 'simulation' );
 
 }.bind( together ) );
 

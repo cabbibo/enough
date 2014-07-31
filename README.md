@@ -38,7 +38,9 @@ TODO:
 
 - Something strange going on with text.distToCam vs G.position vs G.iPoint / G.iPlaneDist
 
-- Fix text!
+- Fix text! 
+    - text.kill needs to ACTUALLY kill text. right now they continue updating forever...
+      should have a tween for opacity, and on tween complete deactivate
 
 - Make it so that there can be an initial move to a page, that can happen by default
   - either a function in global that lets
@@ -53,6 +55,7 @@ TODO:
 - Object controls should work with both hands!
 
 - Global star system with pretty ambient audio
+
 
 
 

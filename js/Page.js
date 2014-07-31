@@ -259,7 +259,8 @@ Page.prototype.activate = function(){
   //TODO: 
   // Per page?!?!?
   this.endMesh = G.pageTurner.createMarker( this );
-  this.scene.add( this.endMesh );
+  //this.scene.add( this.endMesh );
+
 
 }
 

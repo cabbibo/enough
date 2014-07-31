@@ -212,25 +212,28 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
 
   }.bind( this );
 
-  mesh.position.copy( G.camera.position.relative );
-  
-  var forward  = new THREE.Vector3( 0 , 0 , -1 );
-  forward.applyQuaternion( G.camera.quaternion );
-  forward.normalize();
-  forward.multiplyScalar( G.iPlaneDistance );
+  mesh.add = function( page , offset ){
+    
+    mesh.position.copy( G.camera.position.relative );
+    
+    var forward  = new THREE.Vector3( 0 , 0 , -1 );
+    forward.applyQuaternion( G.camera.quaternion );
+    forward.normalize();
+    forward.multiplyScalar( G.iPlaneDistance );
 
-  //console.log( G.iPlaneDistance );
-  mesh.position.add( forward );
+    //console.log( G.iPlaneDistance );
+    mesh.position.add( forward );
 
-  mesh.position.add( offset );
+    mesh.position.add( offset );
 
-  G.tmpV3.copy( mesh.position );
-  mesh.lookAt( G.tmpV3.sub( forward ) );
+    G.tmpV3.copy( mesh.position );
+    mesh.lookAt( G.tmpV3.sub( forward ) );
 
-  mesh.neutralMaterial = this.neutralMaterial
-  mesh.hoverMaterial = this.hoveMaterial
+    G.objectControls.add( mesh );
 
-  G.objectControls.add( mesh );
+    scene.add( mesh );
+
+  }
   this.pageTurner = mesh;
 
   return mesh;
