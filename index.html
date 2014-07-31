@@ -119,10 +119,13 @@
       
       G.pages.crystals.prevPage = G.pages.alone;
       G.pages.crystals.nextPage = G.pages.forest;
+
       G.pages.forest.prevPage = G.pages.crystal;
       G.pages.forest.nextPage = G.pages.tree;
+
       G.pages.tree.prevPage   = G.pages.forest;
       G.pages.tree.nextPage   = G.pages.together;
+
       G.pages.together.prevPage = G.pages.tree;
       G.pages.together.nextPage = G.pages.planets;
      
@@ -151,19 +154,19 @@
      
       G.addToStartArray( function(){
 
-        G.pages.tree.init();
-        G.pages.tree.addToOnLoadArray( function(){
+        G.pages.alone.init();
+        G.pages.alone.addToOnLoadArray( function(){
 
-        this.pages.tree.start();
+        this.pages.alone.start();
          // this.pages.forest.activate();
 
-         this.pages.tree.addToStartArray(function(){
+         this.pages.alone.addToStartArray(function(){
 
           //window.setTimeout( function(){
             
             this.activate();
 
-          }.bind( this.pages.tree ));
+          }.bind( this.pages.alone ));
 
           //}.bind( G ), 100 );
 

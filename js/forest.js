@@ -209,6 +209,7 @@ forest.addToStartArray( function(){
 
 forest.addToActivateArray( function(){
 
+  this.endMesh.add( this );
   this.text.activate();
 
 }.bind( forest ));

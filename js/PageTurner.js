@@ -213,7 +213,9 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
   }.bind( this );
 
   mesh.add = function( page , offset ){
-    
+   
+    offset = offset || new THREE.Vector3( 150 , -150 , 0 );
+
     mesh.position.copy( G.camera.position.relative );
     
     var forward  = new THREE.Vector3( 0 , 0 , -1 );

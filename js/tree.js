@@ -140,6 +140,9 @@ tree.treeRenderParams = {
 // Need to load at least 1 thing
 tree.addToInitArray( function(){
   
+  console.log('TREE INIT' );
+
+
   var f = 'pages/tree/';
 
   this.loadShader( 'tree' , f + 'fs-tree' , 'fragment' );
@@ -162,6 +165,8 @@ tree.addToInitArray( function(){
 
 tree.addToStartArray( function(){
 
+  console.log('TREE START' );
+  
   G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
   G.camera.lookAt( this.position );//= 1000;
@@ -575,7 +580,6 @@ tree.addToAllUpdateArrays( function(){
     G.tmpV3.copy( G.mani.position.relative );
     var d = G.tmpV3.sub( this.maniAttractionLight.position ).length();
 
-    console.log( d );
    // d = 1000;
     if( d < 10 ){
 
@@ -609,6 +613,12 @@ tree.addToDeactivateArray( function(){
   this.text2.kill();
 
 }.bind( tree) );
+
+tree.addToEndArray( function(){
+
+  this.looper.end();
+
+}.bind( trees) );
 
 
 

@@ -248,19 +248,14 @@ Page.prototype.activate = function(){
 
  // console.log( 'PAGE ACTIVATED ' + this.name );
 
+  this.endMesh = G.pageTurner.createMarker( this );
+
   this.active   = true;
   this.starting = false;
 
   for( var i = 0; i < this.activateArray.length; i++ ){
     this.activateArray[i]( this );
   }
-
-
-  //TODO: 
-  // Per page?!?!?
-  this.endMesh = G.pageTurner.createMarker( this );
-  //this.scene.add( this.endMesh );
-
 
 }
 

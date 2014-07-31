@@ -165,13 +165,7 @@ crystals.addToStartArray( function(){
 
   G.iPlaneDistance = 1200;
 
-  G.iPlane.faceCamera = false;
-  
-  G.tmpV3.set( 0 , 450 , 0 );
 
-  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
-  G.tmpV3.set( 0 , 451 , 0 )
-  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
 
   //G.iPlane.visible = true;
 
@@ -472,8 +466,19 @@ crystals.addToStartArray( function(){
 
 crystals.addToActivateArray( function(){
 
+    
+  G.iPlane.faceCamera = false;
+  
+  G.tmpV3.set( 0 , 450 , 0 );
+
+  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+  G.tmpV3.set( 0 , 451 , 0 )
+  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
+
   //this.looper.start();
   this.text.activate();
+
+  this.endMesh.add( this );
 
 }.bind( crystals ));
 

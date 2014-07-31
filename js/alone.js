@@ -55,6 +55,8 @@ alone.addToActivateArray( function(){
 
   this.text.activate();
 
+  this.endMesh.add( this );
+
 }.bind( alone ));
 
 

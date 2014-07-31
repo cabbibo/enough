@@ -21,8 +21,8 @@ together.iPlaneDistance = 1000
 // Need to load at least 1 thing
 together.addToInitArray( function(){
   
-  var f = 'pages/crystals/';
-  this.loadShader( 'crystalParticles' , f + 'ss-crystalParticles' , 'simulation' );
+  var f = 'img/iri/';
+  this.loadTexture( 'wetwetwet' , f + 'comboWet.png');
 
 }.bind( together ) );
 
@@ -34,8 +34,6 @@ together.addToStartArray( function(){
   G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = this.iPlaneDistance;
-
-  G.sol.activate();
 
 }.bind( together ));
 
@@ -49,6 +47,7 @@ together.addToStartArray( function(){
 
 together.addToActivateArray( function(){
 
+  this.endMesh.add( this );
   this.text.activate();
 
 }.bind( together ));
