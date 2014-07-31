@@ -618,7 +618,7 @@ tree.addToEndArray( function(){
 
   this.looper.end();
 
-}.bind( trees) );
+}.bind( tree) );
 
 
 

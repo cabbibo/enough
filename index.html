@@ -59,6 +59,8 @@
     
     <script src="js/pages/forest/Forest.js"></script>
     <script src="js/pages/forest/Monome.js"></script>
+    
+    <script src="js/pages/sparkles/Sparkles.js"></script>
 
 
 
@@ -72,6 +74,7 @@
     <script src="js/alone.js"></script>
     <script src="js/together.js"></script>
     <script src="js/tree.js"></script>
+    <script src="js/sparkles.js"></script>
 
 
     <script>
@@ -79,7 +82,7 @@
       // TODO: 
       // Write shaders for hands
 
-      //G.audio.mute.gain.value = 0;
+     // G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -154,19 +157,19 @@
      
       G.addToStartArray( function(){
 
-        G.pages.alone.init();
-        G.pages.alone.addToOnLoadArray( function(){
+        G.pages.sparkles.init();
+        G.pages.sparkles.addToOnLoadArray( function(){
 
-        this.pages.alone.start();
+        this.pages.sparkles.start();
          // this.pages.forest.activate();
 
-         this.pages.alone.addToStartArray(function(){
+         this.pages.sparkles.addToStartArray(function(){
 
           //window.setTimeout( function(){
             
             this.activate();
 
-          }.bind( this.pages.alone ));
+          }.bind( this.pages.sparkles ));
 
           //}.bind( G ), 100 );
 
