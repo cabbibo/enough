@@ -500,7 +500,7 @@ G.updateAttractor = function(){
 
   if( this.sol.maniAttracting === true ){
     
-    G.tmpV3.copy( this.attractor );
+    G.tmpV3.copy( this.mani.position );
 
     G.tmpV3.sub( this.solAttractor );
 

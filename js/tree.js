@@ -322,6 +322,9 @@ tree.addToStartArray( function(){
     light.audio = G.AUDIO[ params.audio ];
     light.audio.reconnect( this.gain );
 
+    
+    light.audio.gain.gain.value = 0;
+
     light.texture = light.audio.texture;
 
     light.color = params.color;
