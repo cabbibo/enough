@@ -69,7 +69,7 @@ tree.lightParamArray = [
   },
 
   { 
-    audio:"daWay",
+    audio:"startingOver",
     color: new THREE.Vector3( 1. , 1. , 0 ),
     position: new THREE.Vector3(),
     early: true
