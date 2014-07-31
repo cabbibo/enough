@@ -18,9 +18,9 @@ tree.textChunk2 = [
 
 
 
-tree.position.set(  0 , 0 , 0 );
-tree.cameraPos.set( 1000 , 1000 , 3000 );
-tree.cameraPos2 = new THREE.Vector3( 0 , 200 , 2000 );
+tree.position.set(  0 , -3000 , 0 );
+tree.cameraPos.set( 1000 , -2000 , 3000 );
+tree.cameraPos2 = new THREE.Vector3( 0 , -2200 , 2000 );
 
 tree.iPlaneDistance = 1000
 
@@ -57,7 +57,7 @@ tree.lightParamArray = [
     audio:"game",
     color: new THREE.Vector3( 1. , 1. , 0 ),
     position: new THREE.Vector3(),
-    early: true
+    early: false
 
   },
 
@@ -65,21 +65,21 @@ tree.lightParamArray = [
     audio:"allRight",
     color: new THREE.Vector3( .3 , 1. , 1 ),
     position: new THREE.Vector3(),
-    early: false
+    early: true
   },
 
   { 
     audio:"daWay",
     color: new THREE.Vector3( 1. , 1. , 0 ),
     position: new THREE.Vector3(),
-    early: false
+    early: true
   },
 
   { 
     audio:"tongue",
     color: new THREE.Vector3( 1. , 1. , 1 ),
     position: new THREE.Vector3(),
-    early: false
+    early: true 
   },
 
 ]
@@ -257,6 +257,17 @@ tree.addToStartArray( function(){
   var g = treeRenderGui.add( tP.texScale     , 'value' ).name( 'texSize' );
 
 
+  /*
+  
+     lightParams
+
+  */
+  var lightGui = this.gui.addFolder( 'Light Params' );
+
+  var g = lightGui.add( this.lightParams.cutoff , 'value' ).name( 'cutoff' );
+  var g = lightGui.add( this.lightParams.power  , 'value' ).name( 'power' );
+    
+
 }.bind( tree ) );
 
 
@@ -314,6 +325,17 @@ tree.addToStartArray( function(){
     light.texture = light.audio.texture;
 
     light.color = params.color;
+    light.early = params.early;
+
+
+    //light.id = i;
+    light.hoverOver = function(){
+
+      console.log( this );
+      G.mani.iPlaneAttracting = false;
+      G.pages.tree.maniAttractionLight = this;
+
+    }.bind( light  );
 
     this.looper.everyLoop( function(){ this.audio.play() }.bind( light ) );
 
@@ -324,7 +346,9 @@ tree.addToStartArray( function(){
     this.lightParams.positions.value.push( light.position );
     this.lightParams.colors.value.push( light.color );
 
-   
+  
+    G.objectControls.add( light );
+
     this.scene.add( light );
 
     this.lights.push( light );
@@ -444,7 +468,7 @@ tree.addToActivateArray( function(){
     var l = 10000;
     var tween = new G.tween.Tween( this.cameraPos ).to( this.cameraPos2, l );
    
-    this.text.kill();
+    this.text.kill( 3000 );
 
     tween.onUpdate( function( t ){
 
@@ -463,7 +487,9 @@ tree.addToActivateArray( function(){
       G.sol.activate();
       this.text2.activate();
 
-      this.scene.add( this.endMesh );
+
+      G.tmpV3.set( 50 , - 150 , 0 );
+      this.endMesh.add( this , G.tmpV3 );
 
     }.bind( tree ) );
 
@@ -505,20 +531,61 @@ tree.addToAllUpdateArrays( function(){
 
   for( var i =0 ; i < this.lights.length; i++ ){
 
-    var l = this.lights[i];
 
-    l.theta += .001 + i * .001;
-    l.position.x = l.radius * Math.cos( l.theta );
-    l.position.z = l.radius * Math.sin( l.theta );
-    l.position.y = l.height + Math.cos( (l.theta  )) * 500;
+      var l = this.lights[i];
+
+    if( l.early === true ){
+
+      l.theta += .001 + i * .001;
+      l.position.x = l.radius * Math.cos( l.theta );
+      l.position.z = l.radius * Math.sin( l.theta );
+      l.position.y = l.height + Math.cos( (l.theta  )) * 500;
+
+
+
+    }else{
+
+      l.position.copy( G.sol.position.relative );
+
+    }
 
     G.tmpV3.copy( l.position );
+    G.tmpV3.sub( G.mani.position.relative );
 
-    G.tmpV3.sub( G.camera.position );
-    
+    var d = G.tmpV3.length();
+
+    var g = Math.min(Math.max( Math.pow((500/d), 3 ), 0), 1);
+    l.audio.gain.gain.value = Math.max( 0. , g );
 
   }
 
+
+  if( this.maniAttractionLight ){
+
+
+    G.tmpV3.copy( this.position );
+
+    G.tmpV3.add( this.maniAttractionLight.position );
+
+    G.attractor.copy( G.tmpV3 );
+
+    G.tmpV3.copy( G.mani.position.relative );
+    var d = G.tmpV3.sub( this.maniAttractionLight.position ).length();
+
+    console.log( d );
+   // d = 1000;
+    if( d < 10 ){
+
+      console.log('HIT HIT HIT HIT' );
+
+      this.maniAttractionLight = undefined;
+
+      G.mani.iPlaneAttracting = true;
+
+
+    }
+
+  }
   this.text.update();
   this.text2.update();
 
@@ -527,6 +594,15 @@ tree.addToAllUpdateArrays( function(){
 
 tree.addToDeactivateArray( function(){
 
+  G.mani.iPlaneAttracting = true;
+  this.maniAttractionLight = undefined;
+
+
+  for( var i =0; i < this.lights.length; i++ ){
+
+    G.objectControls.remove( this.lights[i] );
+
+  }
   this.text2.kill();
 
 }.bind( tree) );

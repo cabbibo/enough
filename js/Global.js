@@ -291,8 +291,17 @@ G.init = function(){
 
   this.mani.activate();
 
+  this.mani.iPlaneAttracting = true;
 
   this.mani.addDistanceSquaredForce( this.attractor , 100 );
+
+  var c = [
+    new THREE.Color( '#ed0000' ),
+    new THREE.Color( '#fff000' ),
+    new THREE.Color( '#ff8700' ),
+    new THREE.Color( '#e82626' ),
+  ];
+
 
   var col1 = new THREE.Vector3( c[0].r , c[0].g , c[0].b );
   var col2 = new THREE.Vector3( c[1].r , c[1].g , c[1].b );
@@ -312,6 +321,7 @@ G.init = function(){
 
   this.sol =  this.furryTails[1];
   this.sol.position.relative = new THREE.Vector3();
+  this.sol.maniAttracting = true;
 
   //this.mani.activate();
 
@@ -459,56 +469,53 @@ G.updateAttractor = function(){
 
   }
 
-  var d = this.mani.position.clone().sub( this.iPoint ).length();
+  if( this.mani.iPlaneAttracting === true ){
+
+    var d = this.mani.position.clone().sub( this.iPoint ).length();
 
 
-  if( d < 5 ){
+    if( d < 5 ){
 
-    this.attractor.copy( this.iPoint );
+      this.attractor.copy( this.iPoint );
 
-    G.tmpV3.set( 0 , 0 , 1 );
+      G.tmpV3.set( 
+        (Math.random()-.5) * 1000  , 
+        (Math.random()-.5) * 1000  ,
+        Math.random() * 500
+      );
 
-    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
-    G.tmpV3.multiplyScalar( Math.random() * 500 );
-    
-    this.attractor.add( G.tmpV3 );
-
-    G.tmpV3.set( 0 , 1 , 0 );
-
-    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
-    G.tmpV3.multiplyScalar( (Math.random()-.5) * 1000 );
-    
-    this.attractor.add( G.tmpV3 );
-
-    G.tmpV3.set( 1 , 0 , 0 );
-
-    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
-    G.tmpV3.multiplyScalar( (Math.random()-.5) * 1000 );
-    
-    this.attractor.add( G.tmpV3 );
+      G.tmpV3.applyQuaternion( this.iPlane.quaternion );
+     // G.tmpV3.multiplyScalar( Math.random() * 500 );
+      
+      this.attractor.add( G.tmpV3 );
 
 
+      this.attracting = false;
+      this.attractionTimer = G.timer.value
 
-    this.attracting = false;
-    this.attractionTimer = G.timer.value
+    }
 
   }
 
 
-  G.tmpV3.copy( this.attractor );
+  if( this.sol.maniAttracting === true ){
+    
+    G.tmpV3.copy( this.attractor );
 
-  G.tmpV3.sub( this.solAttractor );
+    G.tmpV3.sub( this.solAttractor );
 
- // G.tmpV3.normalize();
+   // G.tmpV3.normalize();
 
-  this.solVelocity.add( G.tmpV3 );
+    this.solVelocity.add( G.tmpV3 );
 
-  G.tmpV3.copy( this.solVelocity );
-  G.tmpV3.normalize();
-  G.tmpV3.multiplyScalar( 2.4 );
-  this.solAttractor.add( G.tmpV3 );
+    G.tmpV3.copy( this.solVelocity );
+    G.tmpV3.normalize();
+    G.tmpV3.multiplyScalar( 2.4 );
+    this.solAttractor.add( G.tmpV3 );
 
-  this.solVelocity.multiplyScalar( .995 );
+    this.solVelocity.multiplyScalar( .995 );
+
+  }
 
  // this.attractorMesh.position.copy( this.attractor );
  // this.solAttractorMesh.position.copy( this.solAttractor );

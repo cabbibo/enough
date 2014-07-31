@@ -99,10 +99,40 @@ function PhysicsText( string , params ){
 
 }
 
-PhysicsText.prototype.kill = function(){
+PhysicsText.prototype.kill = function(length){
 
   this.alive.value = 0;
 
+  var l = length || 10000;
+
+  console.log('HESSADDSASD');
+  console.log( this );
+  
+
+  var newOpacity = { type:"f" , value: 0 }
+
+  this.opacityTweener = { value: this.uniforms.opacity.value };
+
+  var toTween = { value: 0 }
+
+
+  var tween = new G.tween.Tween( this.opacityTweener ).to( toTween , l );
+
+  tween.onUpdate( function( t ){
+
+    this.uniforms.opacity.value = this.opacityTweener.value
+
+  }.bind( this ));
+
+
+  tween.onComplete( function(){
+
+     this.deactivate()
+  
+  }.bind( this ) );
+
+
+  tween.start();
 
 
 }

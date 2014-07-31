@@ -231,7 +231,7 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
 
     G.objectControls.add( mesh );
 
-    scene.add( mesh );
+    page.scene.add( mesh );
 
   }
   this.pageTurner = mesh;
