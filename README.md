@@ -11,6 +11,20 @@ PLOT:
 
 TODO:
 
+
+
+FOR SIGGRAPH:
+
+  - Object controls should work with both hands!
+  - Practice at least 10 times
+  - Text
+  - pages positions properly
+  - audio for alone and together
+
+
+
+
+
 - Focus and not on focus problem
   includes:
     - Looper
@@ -38,10 +52,6 @@ TODO:
 
 - Something strange going on with text.distToCam vs G.position vs G.iPoint / G.iPlaneDist
 
-- Fix text! 
-    - text.kill needs to ACTUALLY kill text. right now they continue updating forever...
-      should have a tween for opacity, and on tween complete deactivate
-
 - Make it so that there can be an initial move to a page, that can happen by default
   - either a function in global that lets
 
@@ -52,10 +62,9 @@ TODO:
 - Need to have the relative positions based on the page position, not the transitioning Global position. This is important for things like draging the planets, as well as mani moving through the forest
 
 
-- Object controls should work with both hands!
-
 - Global star system with pretty ambient audio
 
+- Test to see if mani and creatures look better with 1 directional spring rather than 2D
 
 
 

@@ -31,14 +31,14 @@ tree.lightParamArray = [
     
   {
     audio:"lup",
-    color: new THREE.Vector3( 1.  , 0. , 0. ),
+    color: new THREE.Vector3( .2  , 0. , .9 ),
     position: new THREE.Vector3(),
     early: true
   },
 
   { 
     audio:"snare",
-    color: new THREE.Vector3( 0. , 1. , 0 ),
+    color: new THREE.Vector3( 0. , .4 , .8 ),
     position: new THREE.Vector3(),
     early: true
 
@@ -46,40 +46,42 @@ tree.lightParamArray = [
 
   { 
     audio:"glo",
-    color: new THREE.Vector3( 0. , 1. , 1. ),
+    color: new THREE.Vector3( .2 , .3 , .9 ),
     position: new THREE.Vector3(),
     early: true
 
   },
 
 
-  { 
-    audio:"game",
-    color: new THREE.Vector3( 1. , 1. , 0 ),
-    position: new THREE.Vector3(),
-    early: false
 
-  },
 
   { 
     audio:"allRight",
-    color: new THREE.Vector3( .3 , 1. , 1 ),
+    color: new THREE.Vector3( .3 , .5 , 1 ),
     position: new THREE.Vector3(),
     early: true
   },
 
   { 
     audio:"startingOver",
-    color: new THREE.Vector3( 1. , 1. , 0 ),
+    color: new THREE.Vector3( 0 , .2 , .5 ),
     position: new THREE.Vector3(),
     early: true
   },
 
   { 
     audio:"tongue",
-    color: new THREE.Vector3( 1. , 1. , 1 ),
+    color: new THREE.Vector3( .1 , .4 , .9  ),
     position: new THREE.Vector3(),
     early: true 
+  },
+
+   { 
+    audio:"game",
+    color: new THREE.Vector3( 1. , .4 , .1 ),
+    position: new THREE.Vector3(),
+    early: false
+
   },
 
 ]
@@ -115,6 +117,9 @@ tree.lightParams = {
   positions: { type:"v3v" , value:[] },
   textures:{   type:"tv" , value:[] },
   colors: { type:"v3v" , value:[] },
+  normalScale:{ type:"f" , value:.5 } ,
+  texScale: { type:"f" , value:1.5 } ,
+
 
 }
 
@@ -149,6 +154,9 @@ tree.addToInitArray( function(){
   this.loadShader( 'tree' , f + 'vs-tree' , 'vertex' );
   this.loadShader( 'treeFloor' , f + 'fs-treeFloor' , 'fragment' );
   this.loadShader( 'treeFloor' , f + 'vs-treeFloor' , 'vertex' );
+
+  this.loadShader( 'treeLight' , f + 'vs-treeLight' , 'vertex'    );
+  this.loadShader( 'treeLight' , f + 'fs-treeLight' , 'fragment'    );
 
   var f = 'audio/pages/tree/'
   for( var i = 0; i < this.lightParamArray.length; i++ ){
@@ -269,9 +277,14 @@ tree.addToStartArray( function(){
   */
   var lightGui = this.gui.addFolder( 'Light Params' );
 
-  var g = lightGui.add( this.lightParams.cutoff , 'value' ).name( 'cutoff' );
-  var g = lightGui.add( this.lightParams.power  , 'value' ).name( 'power' );
-    
+  var lp = this.lightParams;
+
+  var g = lightGui.add( lp.cutoff , 'value' ).name( 'cutoff' );
+  var g = lightGui.add( lp.power  , 'value' ).name( 'power' );
+   
+  var g = lightGui.add( lp.normalScale , 'value' ).name( 'normalScale' );
+  var g = lightGui.add( lp.texScale  , 'value' ).name( 'texScale' );
+
 
 }.bind( tree ) );
 
@@ -297,10 +310,8 @@ tree.addToStartArray( function(){
 tree.addToStartArray( function(){
 
 
-
-  var lightGeo =  new THREE.IcosahedronGeometry( 30 , 2 );
-  var lightMat = new THREE.MeshNormalMaterial();  
-
+  var lightGeo =  new THREE.IcosahedronGeometry( 50 , 2 );
+  
   for( var i = 0; i < this.lightParamArray.length; i++ ){
 
     var params = this.lightParamArray[i];
@@ -314,54 +325,31 @@ tree.addToStartArray( function(){
     var x = r * Math.cos( t );
     var z = r * Math.cos( t );
 
-    var light = new THREE.Mesh( lightGeo, lightMat );
+    params.position = new THREE.Vector3( x , height , z );
 
-    light.position.x =  x;
-    light.position.z =  z;
-    light.position.y = height;
+    if( params.early === false ){
 
-    light.radius = r;
-    light.height = height;
-    light.theta  = t;
+      params.position.x = 1000000000;
 
-    light.audio = G.AUDIO[ params.audio ];
-    light.audio.reconnect( this.gain );
+    }
 
-    
-    light.audio.gain.gain.value = 0;
+    params.id = i;
 
-    light.texture = light.audio.texture;
+    params.geo = lightGeo;
+    params.loadedAudio = G.AUDIO[ params.audio ];  
+    params.loadedAudio.reconnect( this.gain );
 
-    light.color = params.color;
-    light.early = params.early;
+    params.radius = r;
+    params.height = height;
+    params.theta  = t;
 
+    params.audio = G.AUDIO[ params.audio ];
+    params.audio.reconnect( this.gain );
 
-    //light.id = i;
-    light.hoverOver = function(){
-
-      console.log( this );
-      G.mani.iPlaneAttracting = false;
-      G.pages.tree.maniAttractionLight = this;
-
-    }.bind( light  );
-
-    this.looper.everyLoop( function(){ this.audio.play() }.bind( light ) );
-
-    light.audio.updateAnalyser = true;
-    light.audio.updateTexture = true;
-
-    this.lightParams.textures.value.push( light.texture );
-    this.lightParams.positions.value.push( light.position );
-    this.lightParams.colors.value.push( light.color );
-
-  
-    G.objectControls.add( light );
-
-    this.scene.add( light );
-
-    this.lights.push( light );
+    new TreeLight( this , params );
 
   }
+
 
 }.bind( tree ) );
 
@@ -476,7 +464,7 @@ tree.addToActivateArray( function(){
     var l = 10000;
     var tween = new G.tween.Tween( this.cameraPos ).to( this.cameraPos2, l );
    
-    this.text.kill( 3000 );
+    this.text.kill( 10000 );
 
     tween.onUpdate( function( t ){
 
@@ -539,31 +527,7 @@ tree.addToAllUpdateArrays( function(){
 
   for( var i =0 ; i < this.lights.length; i++ ){
 
-
-      var l = this.lights[i];
-
-    if( l.early === true ){
-
-      l.theta += .001 + i * .001;
-      l.position.x = l.radius * Math.cos( l.theta );
-      l.position.z = l.radius * Math.sin( l.theta );
-      l.position.y = l.height + Math.cos( (l.theta  )) * 500;
-
-
-
-    }else{
-
-      l.position.copy( G.sol.position.relative );
-
-    }
-
-    G.tmpV3.copy( l.position );
-    G.tmpV3.sub( G.mani.position.relative );
-
-    var d = G.tmpV3.length();
-
-    var g = Math.min(Math.max( Math.pow((500/d), 3 ), 0), 1);
-    l.audio.gain.gain.value = Math.max( 0. , g );
+    this.lights[i].update();
 
   }
 

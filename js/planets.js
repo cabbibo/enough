@@ -99,11 +99,23 @@ planets.addToInitArray( function(){
 }.bind( planets) );
 
 
+planets.addToStartArray( function(){
+
+  
+  G.position.copy( this.position );
+  G.camera.position.copy( this.cameraPos );
+  G.camera.lookAt( this.position );//= 1000;
+
+  G.iPlaneDistance = this.iPlaneDistance;
+
+}.bind( planets ));
+
 /*
 
    Creating Planets and Tails
 
 */
+
 planets.addToStartArray( function(){
 
 
@@ -308,18 +320,22 @@ planets.addToAllUpdateArrays( function(){
 planets.addToActivateArray( function(){
 
   this.text.activate();
-  
+ 
+  this.endMesh.add( this );
  
 }.bind( planets ));
 
 planets.addToDeactivateArray( function(){
 
+  this.text.kill();
 
 }.bind( planets ));
 
 
 planets.addToEndArray( function(){
 
+
+  this.looper.end();
 
 }.bind( planets ));
 

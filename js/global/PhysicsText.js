@@ -105,9 +105,6 @@ PhysicsText.prototype.kill = function(length){
 
   var l = length || 10000;
 
-  console.log('HESSADDSASD');
-  console.log( this );
-  
 
   var newOpacity = { type:"f" , value: 0 }
 

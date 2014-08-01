@@ -99,15 +99,14 @@ function Sparkles( page , size ){
   this.physics.addBoundTexture( this.particles , 't_lookup' , 'output' );
 
 
-  var geo = new THREE.CubeGeometry( 1000 , 1000 , 1000 , 50 , 50 , 50 )
+  var geo = new THREE.BoxGeometry( 1000 , 1000 , 1000 , 1 ,1 ,1 )
   var mesh = new THREE.Mesh( geo );
 
-  mesh.position.x = 1000;
+  mesh.position.x = 2000;
 
   var t = ParticleUtils.createPositionsTexture( this.size ,  mesh );
 
   this.physics.reset( t );
-
 
 
 }
@@ -127,10 +126,10 @@ Sparkles.prototype.activate = function(){
 
 Sparkles.prototype.update = function(){
 
- // if( this.active ){
+  if( this.active ){
 
     this.physics.update();
-//  }
+ }
 
 }
 
