@@ -139,47 +139,28 @@
       console.log( G.pages.alone.nextPage );
 
 
-      // We Only need to start once everything has inititialized
-      //G.loader.addLoad();
-     /* G.pages.planets.init();
-      G.pages.planets.addToOnLoadArray( function(){
-
-        G.loader.onLoad();
-
-      }.bind( G ));
 
       G.addToStartArray( function(){
 
-        this.pages.planets.start();
+        var s = G.pages.crystals;
 
+        s.init();
+        s.addToOnLoadArray( function(){
 
-      }.bind( G ) );*/
+          this.addToStartArray(function(){
 
-
-     
-      G.addToStartArray( function(){
-
-        G.pages.alone.init();
-        G.pages.alone.addToOnLoadArray( function(){
-
-        this.pages.alone.start();
-         // this.pages.forest.activate();
-
-         this.pages.alone.addToStartArray(function(){
-
-          //window.setTimeout( function(){
-            
             this.activate();
 
-          }.bind( this.pages.alone));
+          }.bind( this));
 
-          //}.bind( G ), 100 );
+          this.start();
 
-
-        }.bind( G ));
+        }.bind( s ));
 
       
       }.bind( G ) );
+
+
 
     </script>
 

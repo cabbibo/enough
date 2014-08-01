@@ -1,45 +1,49 @@
 var crystals = new Page( 'crystals' );
 
-crystals.textChunk = [
 
-  "Mani could not believe his eyes.",
-  "",
-  "",
-  "Infront of him grew a forest of crystals, each more glorious than the next. They spouted glistening particles as they shown in the darkness. And for a moment Mani forgot his worries from earlier.",
-  "",
-  "",
-  "The feeling did not last long though, and he began to wonder again the purpose of all this. Why had he awoken? Where was he? Was there anybody else out there?",
-  "",
-  "",
-  "These were the questions he could not forget, so after the aching inside of him overcame the shimmer steeples, he continued onwards."
+crystals.addToInitArray( function(){
+
+this.textChunk = [
+
+  "After traveling for what seemed like an eternity Webby came upon a land of sparkling crystals. Although it told him nothing more about where he came from, it was certainly pretty, so he took a moment to play with the crystals."
 
 ].join("\n" );
 
 
-crystals.position.set(  500 , -2000 , 1400 );
-crystals.cameraPos.set( 500 , -1000 , 3600 );
-crystals.iPlaneDistance = 1200
+this.textChunk2 = [
+
+"As he got closer to the crystals, he suddenly remembered something of very distant past. A long time ago somebody name ‘Vladimir’ had done experiments that had made his existence possible. ",
+  "","",
+  "But this memory was not enough, so Webby moved again into the unknown, yearning for more answers to what made him be."
+
+].join("\n");
+
+this.position.set(  500 , -2000 , 1400 );
+this.cameraPos.set( 1000 , -1000 , 3600 );
+this.iPlaneDistance = 1200;
+
+this.cameraPos2 = new THREE.Vector3( -1000 , -1000 , 2000 );
 
 
-crystals.crystalParams = [
+this.crystalParams = [
  
  {
   
-    note:'YES1',
+    note:'heavyBeat',
     height:150
 
   },
 
   {
   
-    note:'YES2',
+    note:'tooth',
     height:200
 
   },
 
   {
   
-    note:'YES3',
+    note:'sniperShivers',
     height:150
 
   },
@@ -51,10 +55,17 @@ crystals.crystalParams = [
 
   },
 
-  {
+ /* {
   
     note:'heavyBeat',
     height:150
+
+  },*/
+
+  {
+  
+    note:'sniperGlory1',
+    height:100
 
   },
 
@@ -67,24 +78,17 @@ crystals.crystalParams = [
 
   {
   
-    note:'sniperDetail1',
-    height:100
-
-  },
-
-  {
-  
     note:'sniperDetail2',
     height:150
 
   },
 
-   {
+  /* {
   
     note:'sniperGlory1',
     height:200
 
-  },
+  },*/
 
   {
   
@@ -95,7 +99,7 @@ crystals.crystalParams = [
 
   {
   
-    note:'sniperShivers',
+    note:'sniperDetail1',
     height:350
 
   },
@@ -107,12 +111,12 @@ crystals.crystalParams = [
 
   },
 
-  {
+  /*{
   
     note:'tooth',
     height:300
 
-  },
+  },*/
 
 
 
@@ -122,10 +126,13 @@ crystals.crystalParams = [
 ]
  
 
-crystals.audio = {};
-crystals.audio.array = [];
+this.audio = {};
+this.audio.array = [];
 
-crystals.crystals = [];
+this.crystals = [];
+
+
+}.bind( crystals ));
 
 crystals.addToInitArray( function(){
   
@@ -444,7 +451,7 @@ crystals.addToStartArray( function(){
 
   }
 
-  this.crystals[10].select();
+  this.crystals[5].select();
 
  
 }.bind( crystals ) );
@@ -453,7 +460,7 @@ crystals.addToStartArray( function(){
   
   this.text = new PhysicsText( this.textChunk );
 
-    this.looper.start();
+  this.looper.start();
 
 }.bind( crystals ) );
 
@@ -462,6 +469,7 @@ crystals.addToStartArray( function(){
 
 crystals.addToStartArray( function(){
 
+  this.text2 = new PhysicsText( this.textChunk2 );
 
 }.bind( crystals ) );
 
@@ -479,7 +487,49 @@ crystals.addToActivateArray( function(){
   //this.looper.start();
   this.text.activate();
 
-  this.endMesh.add( this );
+
+  var offset = new THREE.Vector3( 450 , -150 , 0 );
+    
+  var percentTilEnd = 1 - this.looper.percentOfMeasure;
+    
+  var timeTilEnd = percentTilEnd * this.looper.measureLength;
+
+
+  var callback = function(){
+
+    this.text.kill( 5000 );
+
+    this.tweenCamera( this.cameraPos2 , (timeTilEnd-.1) * 1000 , function(){
+
+      this.text2.activate();
+
+      G.tmpV3.set( 450 , -150 , 0 );
+      this.endMesh.add( this , G.tmpV3 );
+
+      for( var i = 0; i < this.crystals.length; i++ ){
+
+        var c = this.crystals[i];
+        if( i === 2 ){
+          
+          if( !c.selected ) c.select();
+
+        }else{
+
+          //if( c.selected ) c.select();
+          
+        }
+
+      }
+
+    }.bind( this ) );
+
+
+  }.bind( this );
+
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
+  this.scene.add( this.transitionMesh1 );
+
+ // this.endMesh.add( this );
 
 }.bind( crystals ));
 
@@ -490,13 +540,14 @@ crystals.addToAllUpdateArrays( function(){
   }
   
   this.text.update();
+  this.text2.update();
 
 }.bind( crystals ));
 
 crystals.addToDeactivateArray( function(){
 
   G.iPlane.faceCamera = true;
-  this.text.kill();
+  this.text2.kill();
 
 }.bind( crystals) );
 

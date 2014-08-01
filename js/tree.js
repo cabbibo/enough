@@ -438,6 +438,31 @@ tree.addToActivateArray( function(){
   this.text.activate();
 
 
+  var offset = new THREE.Vector3( -150 , -150 , 0 );
+
+  var callback = function(){
+
+    this.text.kill( 10000 );
+
+    this.tweenCamera( this.cameraPos2 , 5000 , function(){
+
+      G.sol.activate();
+      this.text2.activate();
+
+      G.tmpV3.set( 50 , - 150 , 0 );
+      this.endMesh.add( this , G.tmpV3 );
+
+
+    }.bind( this ) );
+
+
+  }.bind( this );
+
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
+  this.scene.add( this.transitionMesh1 );
+
+
+  /*var mesh 
   var mesh = new THREE.Mesh(
     G.pageTurner.markerGeometry,
     G.pageTurner.markerMaterial
@@ -458,8 +483,6 @@ tree.addToActivateArray( function(){
 
 
   mesh.select = function(){
-
-    this.position
 
     var l = 10000;
     var tween = new G.tween.Tween( this.cameraPos ).to( this.cameraPos2, l );
@@ -516,7 +539,7 @@ tree.addToActivateArray( function(){
   console.log( mesh );
   this.scene.add( mesh );
 
-  this.transitionMesh = mesh;
+  this.transitionMesh = mesh;*/
 
 
 

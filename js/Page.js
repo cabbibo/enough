@@ -344,6 +344,94 @@ Page.prototype.addToEndArray = function( callback ){
   this.endArray.push( callback );
 }
 
+// Some extra functions 
+
+Page.prototype.tweenCamera = function( newPos , length , callback ){
+
+
+      console.log('POS');
+    console.log( G.camera.position );
+
+  var tween = new G.tween.Tween( this.cameraPos ).to( newPos , length );
+
+  tween.onUpdate( function(){
+
+    G.camera.position.copy( this.cameraPos );
+    G.objectControls.unprojectMouse();
+    G.camera.lookAt( G.position );
+
+
+  }.bind( this ));
+
+  tween.onComplete( function(){
+
+    console.log('POS');
+    console.log( G.camera.position );
+    callback();
+
+  }.bind( this ) );
+
+  tween.start();
+
+}
+
+
+Page.prototype.createTurnerMesh = function( offset , callback ){
+
+  var mesh = new THREE.Mesh(
+    G.pageTurner.markerGeometry,
+    G.pageTurner.markerMaterial.clone()
+  );
+
+
+  mesh.hoverOver = function(){
+
+    this.material.opacity = .8;
+
+  }.bind( mesh );
+
+  mesh.hoverOut = function(){
+
+    this.material.opacity = .4;
+
+  }.bind( mesh );
+
+  mesh.select = function(){
+   
+    //console.
+    G.objectControls.remove( this );
+    this.parent.remove( this );
+    callback();
+
+  }.bind( mesh );
+  mesh.position.copy( G.camera.position.relative );
+
+  var forward  = new THREE.Vector3( 0 , 0 , -1 );
+  forward.applyQuaternion( G.camera.quaternion );
+  forward.normalize();
+  forward.multiplyScalar( G.iPlaneDistance );
+
+  console.log('HELLO');
+  console.log( G.iPlaneDistance );
+
+  //console.log( G.iPlaneDistance );
+  mesh.position.add( forward );
+
+  G.tmpV3.copy( offset );
+  G.tmpV3.applyQuaternion( G.camera.quaternion );
+  mesh.position.add(  G.tmpV3 );
+
+  G.tmpV3.copy( mesh.position );
+  mesh.lookAt( G.tmpV3.sub( forward ) );
+
+  G.objectControls.add( mesh );
+
+  return mesh;
+
+}
+
+
+
 // Load Functionality
 
 Page.prototype.loadAudio = function( name ,  file , params ){
@@ -456,7 +544,6 @@ Page.prototype.loadShader = function( name , file , type ){
     return G.shaders[t][ name ]; 
 
   }
-
 
 }
 

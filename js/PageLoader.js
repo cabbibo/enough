@@ -30,6 +30,7 @@ PageLoader.prototype.onLoad = function(){
   this.updatePercentage();
   if( this.numberLoaded == this.numberToLoad ){
     this.onStart();
+    console.log('sasdss');
   }
 
   if( this.numberLoaded > this.numberToLoad ){

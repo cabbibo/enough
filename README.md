@@ -15,13 +15,15 @@ TODO:
 
 FOR SIGGRAPH:
 
-  - Object controls should work with both hands!
+  - Object controls should work with both hands! ( create second object controls? only update if there is a left hand? )
   - Practice at least 10 times
   - Text
   - pages positions properly
   - audio for alone and together
+  - forest looks ugly
 
 
+  - Each segment within a page should trigger different notes / objects
 
 
 
@@ -65,6 +67,8 @@ FOR SIGGRAPH:
 - Global star system with pretty ambient audio
 
 - Test to see if mani and creatures look better with 1 directional spring rather than 2D
+
+- Need a more elegant way of removing meshes from teh Object Controls
 
 
 

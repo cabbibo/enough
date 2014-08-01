@@ -219,6 +219,8 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
    
     offset = offset || new THREE.Vector3( 150 , -150 , 0 );
 
+    console.log('OFFSET');
+    console.log( offset );
     mesh.position.copy( G.camera.position.relative );
     
     var forward  = new THREE.Vector3( 0 , 0 , -1 );
@@ -226,9 +228,16 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
     forward.normalize();
     forward.multiplyScalar( G.iPlaneDistance );
 
+    
+  console.log('HELLO');
+  console.log( G.iPlaneDistance );
+
     //console.log( G.iPlaneDistance );
     mesh.position.add( forward );
 
+
+    G.tmpV3.copy( offset );
+    G.tmpV3.applyQuaternion( G.camera.quaternion );
     mesh.position.add( offset );
 
     G.tmpV3.copy( mesh.position );
