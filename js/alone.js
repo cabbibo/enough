@@ -69,7 +69,7 @@ alone.addToActivateArray( function(){
   this.text.activate();
 
   
-  var offset = new THREE.Vector3( 450 , -150 , 0 );
+  var offset = G.pageTurnerOffset;
   
   var callback = function(){
 

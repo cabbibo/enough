@@ -72,7 +72,7 @@ G.pageMarker    = new THREE.Mesh(
   new THREE.IcosahedronGeometry( 40,2 ),
   new THREE.MeshBasicMaterial({color:0xffffff})
 );
-
+G.pageTurnerOffset = new THREE.Vector3(  450 , -150 , 0 );
 //G.scene.add( G.pageMarker );
 
 G.camera.position.relative = new THREE.Vector3().copy( G.camera.position );

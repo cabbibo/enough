@@ -1,61 +1,76 @@
 var forest = new Page( 'forest' );
 
-forest.textChunk = [
-
-  "The next land Mani journeyed to was even more marvelous than the one before",
-  "",
-  "",
-  "Here he found a land so soft tendrils, a lucious forest to explore.",
-  "",
-  "",
-  "He stayed there for a while, admiring the delicate metallic stalks that surrounded him, and the ethereal music they produced.",
-  "",
-  "",
-  "Before long though, the sinking feeling of lonliness returned, and he continued his hopeless exploration into the unknown."
-
-
-].join("\n" );
-
-
-
-
-forest.position.set(  0 , 0 , -1600 );
-forest.cameraPos.set( 0 , 0 , 0 );
-forest.iPlaneDistance = 1200
-
-
-forest.audioArray = [
-  'bolloning1',
-  'bolloning2',
-  'bolloning3',
+forest.addToInitArray( function(){
   
-  'wait1',
-  'wait2',
-  'wait3',
-  'wait4',
-  
-  'drumz1',
-  //'drumz2',
-  //'drumz3',
-  'drumz4',
-  //'drumz5',
-  //'drumz6',
-  //'drumz7',
-  //'drumz8',
-  'drumz9',
-  'drumz10',
-  'synth1',
-  'synth2',
-  'synth3',
-  'synth4',
-  'synth5'
-  //'weStand5',
-]
+  this.textChunk = [
 
-forest.audio = {};
-forest.audio.array = [];
+    "After traveling through the darkness for some time Webby came upon another beautiful playplace. Here he found a soft forest of metallic tendrils. As he swam through the flowing stalks, he listened to the soft plinks and hums that he created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he thought that sound waves couldn’t travel in the vacuum of space."
 
-forest.monomeMeshes = [];
+
+  ].join("\n" );
+
+  this.textChunk2 = [
+
+    "Through his wondering, Webby remembered the brilliant work done by the W3C to create an API that allowed people to not only play sounds on the web, but also analyze their every movement. It didn’t really bother Webby that he didn’t know what an API was, or that he couldn't even use it because he didn’t have fingers.",
+  "","",
+  "All that mattered was that he had learned a bit more about what made him."
+
+
+  ].join("\n" );
+
+  this.textChunk3 = [
+
+    "After traveling through the darkness for some time Webby came upon another beautiful playplace. Here he found a soft forest of metallic tendrils. As he swam through the flowing stalks, he listened to the soft plinks and hums that he created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he thought that sound waves couldn’t travel in the vacuum of space."
+
+
+  ].join("\n" );
+
+
+
+
+  this.position.set(  0 , 0 , -1600 );
+  this.cameraPos.set( 0 , 0 , 0 );
+
+  this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , -1000 );
+  this.cameraPos3 = new THREE.Vector3( -1000 , -1000 , -1000 );
+
+
+  this.iPlaneDistance = 1200
+
+
+  this.audioArray = [
+    'bolloning1',
+    'bolloning2',
+    'bolloning3',
+    
+    'wait1',
+    'wait2',
+    'wait3',
+    'wait4',
+    
+    'drumz1',
+    //'drumz2',
+    //'drumz3',
+    'drumz4',
+    //'drumz5',
+    //'drumz6',
+    //'drumz7',
+    //'drumz8',
+    'drumz9',
+    'drumz10',
+    'synth1',
+    'synth2',
+    'synth3',
+    'synth4',
+    'synth5'
+    //'weStand5',
+  ]
+
+  this.audio = {};
+  this.audio.array = [];
+  this.monomeMeshes = [];
+
+}.bind( forest ) );
 
 forest.addToInitArray( function(){
   
@@ -177,6 +192,13 @@ forest.addToStartArray( function(){
     //baseGeo: new THREE.CubeGeometry( 50 , 50 , 50, 10 , 10 , 10 )
   });
 
+
+
+}.bind( forest ) );
+
+
+forest.addToStartArray( function(){
+
   this.looper = new Looper( G.audio , G.timer , {
 
     beatsPerMinute: 280,
@@ -204,12 +226,57 @@ forest.addToStartArray( function(){
   this.forest.activate();
 
 
+  this.text = new PhysicsText( this.textChunk );
+  this.text2 = new PhysicsText( this.textChunk2 );
+  this.text3 = new PhysicsText( this.textChunk3 );
 
+  
 }.bind( forest ) );
+
 
 forest.addToActivateArray( function(){
 
-  this.endMesh.add( this );
+  var offset = G.pageTurnerOffset;
+  
+  var callback = function(){
+
+    this.text.kill( 5000 );
+
+    this.tweenCamera( this.cameraPos2 , 3000 , function(){
+
+      this.text2.activate();
+
+      var offset = G.pageTurnerOffset;
+  
+      var callback = function(){
+
+        this.text2.kill( 5000 );
+
+        this.tweenCamera( this.cameraPos3 , 3000 , function(){
+
+          this.text3.activate();
+
+          this.endMesh.add( this , G.pageTurnerOffset );
+
+        }.bind( this ) );
+
+      }.bind( this );
+
+      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+
+      this.scene.add( this.transitionMesh2 );
+
+    }.bind( this ) );
+
+  }.bind( this );
+
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
+  this.scene.add( this.transitionMesh1 );
+
+
+
+
+
   this.text.activate();
 
 }.bind( forest ));
@@ -218,15 +285,10 @@ forest.addToAllUpdateArrays( function(){
 
   this.forest.update();
 
-}.bind( forest ));
-
-
-forest.addToAllUpdateArrays( function(){
-
 
   this.text.update();
-
-
+  this.text2.update();
+  this.text3.update();
 
 
 }.bind( forest ));
@@ -234,7 +296,7 @@ forest.addToAllUpdateArrays( function(){
 
 forest.addToDeactivateArray( function(){
 
-  this.text.kill();
+  this.text3.kill();
 
   //G.mani.removeAllForces();
 

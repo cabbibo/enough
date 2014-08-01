@@ -1,6 +1,7 @@
 function PhysicsText( string , params ){
 
   this.string = string;
+  this.active = false;
   this.params = _.defaults( params || {} , {
 
     sim: G.shaders.ss.text,
@@ -149,6 +150,7 @@ PhysicsText.prototype.instant = function(){
 
 PhysicsText.prototype.activate = function(){
 
+  this.active = true;
   this.alive.value = 1;
   G.scene.add( this.particles );
 
@@ -156,13 +158,18 @@ PhysicsText.prototype.activate = function(){
 
 PhysicsText.prototype.deactivate = function(){
 
+  this.active = false;
   G.scene.remove( this.particles );
 
 }
 
 PhysicsText.prototype.update = function(){
 
-  this.physics.update();
+  if( this.active === true ){
+
+    this.physics.update();
+
+  }
 
 
 }
