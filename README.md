@@ -18,8 +18,6 @@ FOR SIGGRAPH:
   - Object controls should work with both hands! ( create second object controls? only update if there is a left hand? )
   - Practice at least 10 times
   - Text ( Proofread! )
-  - pages positions properly
-  - audio for alone and together
   - forest looks ugly
 
   - Black Screen after together ( frame loss? )
