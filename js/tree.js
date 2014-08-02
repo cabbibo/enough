@@ -567,8 +567,7 @@ tree.addToActivateArray( function(){
 
               }
 
-              G.tmpV3.set( 50 , - 150 , 0 );
-              this.endMesh.add( this , G.tmpV3 );
+              this.endMesh.add( this  );
 
 
             }.bind( this ) );

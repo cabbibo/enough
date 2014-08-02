@@ -1,74 +1,94 @@
 var planets = new Page( 'planets' );
 
+planets.addToInitArray( function(){
+  this.textChunk = [
 
-planets.textChunk = [
+    " There the creature revealed the most enlightening fact that Webby could ever know. There was not just one more of him. There was a myriad.",
+    "","",
+    "Creatures that displayed Models, creatures that were games. Creatures that played music, and ones that were played by music. There were advertisements and stories, products and tech demos.",
+    "","",
+    "Webby had never felt so right for being so wrong. The Web wasn’t just ready for 3D, it was perfect for it."
 
-  "   The joy Mani felt could not be described with mortal words. There was not just one more of him. There were Hundreds. The Lonliness that he had felt earlier in his journey had vanished, and the only thing left was comfort. Ecstasy.",
-  "",
-  "",
-  "He watched the way they swam, following their iridescent wanderings. Although he had been to this place before, it somehow felt different. Each color a bit more defined, each star that much more bright.",
-  "",
-  "",
-  "He still did not know why he had risen. Where his new found friends were going to. The darkness surrounding them was still overbearing, and stars did not do enough to make him forget it. But there, in that moment. They swam together, and that was enough."
+  ].join("\n");
 
-].join("\n");
+  this.textChunk2 = [
 
+    "The creatures swam through the infinity together. It now longer mattered to Webby if sound waves could travel through space. It didn’t matter that he was only RGB values driven by electrons. All that mattered was that he was alive now, with the rest of his new found friends, finding pleasure in the short existence they had."
 
-planets.position.set(  -1000 ,  2000 ,  -1000 );
-planets.cameraPos.set( -1000 , 1000 , 0 );
-planets.iPlaneDistance = Math.sqrt( 2000000 );
+  ].join("\n");
 
-planets.planets = [];
-planets.furryGroups = [];
-planets.furryTails = [];
+  this.textChunk3 = [
 
-planets.colorSchemes = [
+    "Webby knew his time was coming to an end, and though he was sad to leave his friends,  he was  completely content, just knowing that other could find happiness, playing with and creating the creatures he loved so much",
+    "","",
+    "He said goodbye and journeyed onward."
 
-  [ 
-    'Loki',
-    1,
-    new THREE.Color( '#1157ff' ),
-    new THREE.Color( '#00a4ff' ),
-    new THREE.Color( '#5e2dff' ),
-    new THREE.Color( '#00fff0' ),
-    'halle',
-    
-  ],
+  ].join("\n");
+
+  this.position.set(  -1000 ,  2000 ,  -1000 );
+  this.cameraPos.set( -1000 , 1000 , 0 );
+
+  this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , -600 );
+  this.cameraPos3 = new THREE.Vector3( -1000 , 2000 , 1000 );
 
 
-  [ 
-    'Friend1',
-    3,
-    new THREE.Color( '#fa0202' ),
-    new THREE.Color( '#faef42' ),
-    new THREE.Color( '#ff0000' ),
-    new THREE.Color( '#ff7800' ),
-    'main'
-  ],
 
-  [
-    'Friend2',
-    3,
-    new THREE.Color( '#5f5fff' ),
-    new THREE.Color( '#61a2ff' ),
-    new THREE.Color( '#52fff4' ),
-    new THREE.Color( '#78ffc7' ),
-    'shuffle'
-  ],
+  this.iPlaneDistance = 1500;
 
-  [ 
-    'Friend3',
-    4,
-    new THREE.Color( '#ffa400' ),
-    new THREE.Color( '#ee3700' ),
-    new THREE.Color( '#fce05e' ),
-    new THREE.Color( '#ff70cc' ),
-    'wood'
-  ],
+  this.planets = [];
+  this.furryGroups = [];
+  this.furryTails = [];
 
-]
+  this.colorSchemes = [
 
-planets.audio = {};
+    [ 
+      'Loki',
+      1,
+      new THREE.Color( '#1157ff' ),
+      new THREE.Color( '#00a4ff' ),
+      new THREE.Color( '#5e2dff' ),
+      new THREE.Color( '#00fff0' ),
+      'halle',
+      
+    ],
+
+
+    [ 
+      'Friend1',
+      3,
+      new THREE.Color( '#fa0202' ),
+      new THREE.Color( '#faef42' ),
+      new THREE.Color( '#ff0000' ),
+      new THREE.Color( '#ff7800' ),
+      'main'
+    ],
+
+    [
+      'Friend2',
+      3,
+      new THREE.Color( '#5f5fff' ),
+      new THREE.Color( '#61a2ff' ),
+      new THREE.Color( '#52fff4' ),
+      new THREE.Color( '#78ffc7' ),
+      'shuffle'
+    ],
+
+    [ 
+      'Friend3',
+      4,
+      new THREE.Color( '#ffa400' ),
+      new THREE.Color( '#ee3700' ),
+      new THREE.Color( '#fce05e' ),
+      new THREE.Color( '#ff70cc' ),
+      'wood'
+    ],
+
+  ]
+
+  this.audio = {};
+
+}.bind( planets ));
+
 
 planets.addToInitArray( function(){
   
@@ -262,6 +282,20 @@ planets.addToStartArray( function(){
     distToCam: this.iPlaneDist 
   });
 
+  this.text2 = new PhysicsText( this.textChunk2 , {
+    repelPositions:repelPosArray,
+    distToCam: this.iPlaneDist 
+  });
+
+  this.text3 = new PhysicsText( this.textChunk3 , {
+    repelPositions:repelPosArray,
+    distToCam: this.iPlaneDist 
+  });
+
+
+
+
+
 }.bind( planets ));
 
 
@@ -284,6 +318,58 @@ planets.addToStartArray( function(){
 
   }
 
+
+}.bind( planets ));
+
+/*
+
+   END BUTTON
+
+*/
+
+planets.addToActivateArray( function(){
+
+  this.text.activate();
+
+  var offset = G.pageTurnerOffset;
+
+  var callback = function(){
+
+    this.text.kill( 10000 );
+
+    this.tweenCamera( this.cameraPos2 , 5000 , function(){
+
+      this.text2.activate();
+
+      var offset =  G.pageTurnerOffset;
+
+      //this.
+
+      var callback = function(){
+
+        this.text2.kill( 10000 );
+
+        this.tweenCamera( this.cameraPos3 , 5000 , function(){
+
+          this.text3.activate();
+          this.endMesh.add( this );
+
+        }.bind( this ) );
+
+      }.bind( this );
+
+      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+      this.scene.add( this.transitionMesh2 );
+
+    }.bind( this ) );
+  }.bind( this );
+
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
+  this.scene.add( this.transitionMesh1 );
+
+
+
+ 
 }.bind( planets ));
 
 
@@ -291,6 +377,8 @@ planets.addToAllUpdateArrays( function(){
 
 
   this.text.update();
+  this.text2.update();
+  this.text3.update();
 
   for( var i = 0; i < this.furryTails.length; i++ ){
 
@@ -311,23 +399,9 @@ planets.addToAllUpdateArrays( function(){
 }.bind( planets ) );
 
 
-/*
-
-   END BUTTON
-
-*/
-
-planets.addToActivateArray( function(){
-
-  this.text.activate();
- 
-  this.endMesh.add( this );
- 
-}.bind( planets ));
-
 planets.addToDeactivateArray( function(){
 
-  this.text.kill();
+  this.text3.kill();
 
 }.bind( planets ));
 

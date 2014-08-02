@@ -111,7 +111,6 @@ together.addToEndArray( function(){
 
   this.looper.end();
 
-
-});
+}.bind( together) );
 
 

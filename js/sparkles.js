@@ -2,18 +2,26 @@ var sparkles = new Page( 'sparkles' );
 
 sparkles.textChunk = [
 
-  "Because, in the end, what we do is create. We dream the wildest dreams, and try to make them a reality.",
+  "In the end, this story is not actually about a small creature named Webby. It is not about the fact that the Internet is ready for the people in this room to use as a platform. It has been for a long time.",
   "","",
-  "It doesn't matter what we use, all that matters is what we make.",
+
+  "It is the fact that you, each and every one of you, can make beautiful experiences for others to see with a simple URL."
+
+].join("\n" );
+
+sparkles.textChunk2 = [
+
+  "They could be advertisements, they could be client work, but they could also be haikus, short sketches, and playful demos",
   "","",
-  "The stories we tell. The myths we weave. The emotions we evoke.",
-  "","",
-  " All to help us be more present in the Real Time that is NOW."
+  "What is important is not what they are, but what they do. The emotions they evoke, the feelings they create, and the ways in which they help us to fully experience the real time that is now."
+
 ].join("\n" );
 
 
 
-sparkles.textChunk2 = [
+
+
+sparkles.textChunk3 = [
 
   "Thank You.",
   "",
@@ -33,20 +41,13 @@ sparkles.iPlaneDistance = 1100
 
 
 sparkles.audioArray = [
-  'drums', 
-  'perc', 
-  'highs', 
-  'synth1', 
-  'synth2'
+  'hueBoy',
+  'hueSparkles',
+  'hueAngel',
+  'hueHum',
+  'hueMids'
 ];
 
-sparkles.audioArray = [
-  'drums', 
-  'hats', 
-  'highSynth', 
-  'lowSynth', 
-  'vox'
-];
 
 
 
@@ -60,8 +61,7 @@ sparkles.addToInitArray( function(){
   this.loadShader( 'sparkles' , f + 'fs-sparkles' , 'fragment'   );
 
 
-  var f = 'audio/pages/sparkles/part2/';
-  var f = 'audio/part2/';
+  var f = 'audio/global/';
 
   for( var i = 0; i < this.audioArray.length; i++ ){
   
@@ -87,12 +87,18 @@ sparkles.addToStartArray( function(){
   //G.mani.deactivate();
 
   this.text = new PhysicsText( this.textChunk );
+  this.text2 = new PhysicsText( this.textChunk2 );
+  this.text3 = new PhysicsText( this.textChunk3 );
+
+  this.text3.distToCam.value = 400;
+  this.text3.offsetPos.value.set( -10 , 40 , 0 );
+
 
   this.sparkles = new Sparkles( this , 64 );
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 120,
+    beatsPerMinute: 122,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
@@ -106,7 +112,8 @@ sparkles.addToStartArray( function(){
     var audio = G.AUDIO[  this.audioArray[i] ];
     audio.reconnect( this.gain );
 
-    if( i == 0 || i == 1 || i == 3 ){
+    if( i == 0 || i == 1 ){
+      
       audio.gain.gain.value = 1;
 
     }else{
@@ -128,95 +135,63 @@ sparkles.addToStartArray( function(){
 
 sparkles.addToActivateArray( function(){
 
+
+  var offset =  G.pageTurnerOffset;
+
+  var callback = function(){
+
+    this.text.kill();
+
+    this.text2.activate();
+
+    var offset =  G.pageTurnerOffset;
+
+    var callback = function(){
+
+      this.text2.kill( 3000 );
+
+      var start = { val:1 }
+      var end = { val:0 }
+      
+      this.endingTweenVal = start;
+
+      var tween = new G.tween.Tween( start ).to( end , 10000 );
+      
+      tween.onUpdate( function(t ){
+
+        for( var i = 0;i < this.audioArray.length; i++ ){
   
-  var mesh = new THREE.Mesh(
-    G.pageTurner.markerGeometry,
-    G.pageTurner.markerMaterial
-  );
+          if( i !== 1 ){
+            
+            var audio = G.AUDIO[  this.audioArray[i] ];
+            audio.gain.gain.value = 1 - t;
 
-  mesh.hoverOver = function(){
+          }
 
-    this.transitionMesh.material.color = G.pageTurner.hoverColor;
+        }
+
+      }.bind( this ));
+             
+      tween.onComplete(function(){
+
+        console.log('asdbas');
+        this.text3.activate();
+
+      }.bind( this));
+
+      tween.start();
+
+
+    }.bind( this );
+
+    this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+    this.scene.add( this.transitionMesh2 );
 
   }.bind( this );
 
-   
-  mesh.hoverOut = function(){
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
 
-    this.transitionMesh.material.color = G.pageTurner.neutralColor;
-
-  }.bind( this  );
-
-    
-  mesh.select = function(){
-
-    this.text.kill( 3000 );
-
-    var start = { val:1 }
-    var end = { val:0 }
-    
-    this.endingTweenVal = start;
-
-    var tween = new G.tween.Tween( start ).to( end , 10000 );
-    
-    this.text2 = new PhysicsText( this.textChunk2 );
-
-    this.text2.distToCam.value = 400;
-    this.text2.offsetPos.value.set( -10 , 40 , 0 );
-
-
-
-    tween.onUpdate( function(t ){
-
-      for( var i = 0;i < this.audioArray.length; i++ ){
- 
-        var audio = G.AUDIO[  this.audioArray[i] ];
-        audio.gain.gain.value = 1 - t;
-
-      }
-
-
-    }.bind( this ));
-
-
-    tween.onComplete(function(){
-
-      this.text2.activate();
-
-    }.bind( this));
-
-    tween.start();
-
-    this.scene.remove( this.transitionMesh );
-
-
-  }.bind( this );
-  
-  
-  mesh.position.copy( G.camera.position.relative );
-  
-  var forward  = new THREE.Vector3( 0 , 0 , -1 );
-  forward.applyQuaternion( G.camera.quaternion );
-  forward.normalize();
-  forward.multiplyScalar( G.iPlaneDistance );
-
-  //console.log( G.iPlaneDistance );
-  mesh.position.add( forward );
-
-  G.tmpV3.set( 150 , -150 , 0 );
-  mesh.position.add(  G.tmpV3 );
-
-  G.tmpV3.copy( mesh.position );
-  mesh.lookAt( G.tmpV3.sub( forward ) );
-
-  G.objectControls.add( mesh );
-  
-  
-  
-  
-  this.scene.add( mesh );
-
-  this.transitionMesh = mesh;
+  this.scene.add( this.transitionMesh1 );
   
 
 }.bind( sparkles ) );
@@ -228,7 +203,8 @@ sparkles.addToActivateArray( function(){
   this.sparkles.activate();
     
   for( var i = 0;i < this.audioArray.length; i++ ){
- 
+
+    console.log(this.audioArray[i]);
     var audio = G.AUDIO[  this.audioArray[i] ];
     audio.gain.gain.value = 1;
 
@@ -243,6 +219,9 @@ sparkles.addToActiveArray( function(){
 
   this.sparkles.update();
   this.text.update();
+  this.text2.update();
+  this.text3.update();
+  
 
   this.position.x += 1.5;
   G.camera.position.x += 1.5;
@@ -250,11 +229,6 @@ sparkles.addToActiveArray( function(){
   G.camera.lookAt( this.position );//= 1000;
 
 
-  if( this.text2 ){
-
-    this.text2.update();
-
-  }
 }.bind( sparkles ));
 
 
