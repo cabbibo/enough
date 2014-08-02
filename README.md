@@ -17,11 +17,15 @@ FOR SIGGRAPH:
 
   - Object controls should work with both hands! ( create second object controls? only update if there is a left hand? )
   - Practice at least 10 times
-  - Text
+  - Text ( Proofread! )
   - pages positions properly
   - audio for alone and together
   - forest looks ugly
 
+  - Black Screen after together ( frame loss? )
+  - Mechanics for planets too jumpy
+
+  - Tween in for page transition audio gains, rather than turn on at end of transition
 
   - Each segment within a page should trigger different notes / objects
 
