@@ -1,21 +1,25 @@
 var together = new Page( 'together' );
 
-together.textChunk = [
+together.addToInitArray( function(){
 
-  "Mani and Sol danced for hours in the stars that glistened around them.",
+  this.textChunk = [
+
+  "Webby now knew joy. There was someone else like him.",
   "","",
-  "There was nothing that Mani had know that was like this. The shimmering crystals, the mystic tree, glistening particles, nothing compared. No matter how amazed he had been at discoverying these magical places, the magic that he felt now was unforgetable",
+  "Webby played with the creature for millions of render cycles. He had not realized how powerfully entertaining it was to experience high end graphics on the web. It felt like it finally gave his life purpose, no matter how simple the  was.",
   "","",
-  "After they danced for what seemed like an eternity, Sol told Mani to follow her, because she had something to show him"
+  "But the other creature motioned for Webby, and together they journeyed on."
 
-].join("\n" );
-
-
+  ].join("\n" );
 
 
-together.position.set(  0 , 0 , 0 );
-together.cameraPos.set( 0 , 0 , 1000 );
-together.iPlaneDistance = 1000
+
+
+  this.position.set(  0 , 0 , 0 );
+  this.cameraPos.set( 0 , 0 , 1000 );
+  this.iPlaneDistance = 1000
+
+}.bind( together ) );
 
 
 // Need to load at least 1 thing

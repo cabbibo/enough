@@ -46,8 +46,7 @@ function TreeLight( page , params){
   console.log('texture');
   console.log( light.texture );
 
-  light.name = params.audio;
-
+  light.name = params.name;
   light.radius = params.radius;
   light.height = params.height;
   light.theta  = params.theta;
@@ -116,8 +115,7 @@ function TreeLight( page , params){
 
     }else{
 
-    this.audio.gain.gain.value = .8;
-
+      this.audio.gain.gain.value = .8;
 
     }
 
@@ -158,13 +156,14 @@ function TreeLight( page , params){
 
       var a = Math.min( 1000. / length , 1. );
 
-      this.audio.gain.gain.value = a;
+      this.audio.gain.gain.value = a * a ;
 
     }
 
 
   }.bind( light );
 
+  light.update();
 
   G.objectControls.add( light );
 

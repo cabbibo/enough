@@ -217,7 +217,7 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
 
   mesh.add = function( page , offset ){
    
-    offset = offset || new THREE.Vector3( 150 , -150 , 0 );
+    offset = offset || G.pageTurnerOffset;
 
     console.log('OFFSET');
     console.log( offset );

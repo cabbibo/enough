@@ -79,8 +79,7 @@ alone.addToActivateArray( function(){
 
       this.text2.activate();
 
-      G.tmpV3.set( 450 , -150 , 0 );
-      this.endMesh.add( this , G.tmpV3 );
+      this.endMesh.add( this , G.pageTurnerOffset );
 
     }.bind( this ) );
 

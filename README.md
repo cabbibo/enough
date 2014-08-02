@@ -25,6 +25,13 @@ FOR SIGGRAPH:
 
   - Each segment within a page should trigger different notes / objects
 
+-------------
+
+- Sol should be one of the global repelers for physics text
+
+- Each page should be able to be completly destroyed and reinitionalized. This means:
+  - Loader should be able to simply check if everything is loaded, rather than having to load something new.
+  - Everything should be defined within 'AddTo' functions, so we can wipe out everything, but whats in those functions
 
 
 - Focus and not on focus problem

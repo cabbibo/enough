@@ -1,147 +1,167 @@
 var tree = new Page( 'tree' );
 
-tree.textChunk = [
 
-  "The after leaving the flowing forest, Mani began feeling lonely again.",
+tree.addToInitArray( function(){
+
+  this.textChunk = [
+
+    "By now Webby was growing tired.  He had been looking for answers for what felt like forever, but still knew so little. Also, he felt lonely. Why, Webby Wondered , were there no other creatures like him. There were so many amazing technologies for creating space puppies like him, so why had he not seen any?"
+
+  ].join("\n" );
+
+  this.textChunk2 = [
+
+    "The haunting tree that stood before him mirrored the sadness he felt. There were amazing tools like three.js, play canvas and goo. So WHY were people not creating 3D experiences for the web?",
   "","",
-  "It was true that he had loved seeing the whisping silver flow around him, and the sounds he had heard were truly magical, but what he wanted there to be more. He wanted to find the purpose for the world around him. He wanted to know why he was hear, and most importantly he begged of the reality around him, that he was not alone."
 
-].join("\n" );
+  "He dejectedly chased the lights that moved around the tree, both because they were shiny, and because he hoped they would make him forget his loneliness. But even they could not quell the feeling that maybe 3D just wasn’t meant for the web."
 
-tree.textChunk2 = [
+  ].join("\n" );
 
-  "As he approached the haunting tree in front of him, Mani felt ready to resign. What was the purpose of all of this, if there was no purpose at all.",
+
+  this.textChunk3 = [
+
+    "Webby was ready to give up. What was the point of his existence, if he was the only one? ",
+    "","",
+  "What was the point of the Web if it was only going to be  tweets in html  and css facebook posts?",
+
+  ].join("\n" );
+
+  this.textChunk4 = [
+
+    "Suddenly, he heard a melody more sweet than he could imagine. A color more vibrant than he could understand. At first he did not understand, was this just another sparkly object, coming to remind him of his lonliness? Another page that seemed like it was 3D and only turned out having parallax scrolling?",
   "","",
-  "Than, suddenly, out of the corner of his eye, he spotted an orange glow. He wondered what the glow could be, and as he moved forward, he began to understand that the impossible occured"
+  "Or was it a creature, like him? A harbinger of the web to come?",
 
-].join("\n" );
-
-
-
-tree.position.set(  0 , -3000 , 0 );
-tree.cameraPos.set( 1000 , -2000 , 3000 );
-tree.cameraPos2 = new THREE.Vector3( 0 , -2200 , 2000 );
-
-tree.iPlaneDistance = 1000
+  ].join("\n" );
 
 
-tree.lights = [];
 
-tree.lightParamArray = [
+  this.position.set(  0 , -3000 , 0 );
+  this.cameraPos.set( 2000 , -1000 , 3000 );
+  this.cameraPos2 = new THREE.Vector3( 1000 , -2200 , 2000 );
+  this.cameraPos3 = new THREE.Vector3( -1000 , -2800 , 2000 );
+  this.cameraPos4 = new THREE.Vector3( -3000 , -3000 , 100 );
+
+  this.iPlaneDistance = 1000
+
+
+  this.lights = [];
+
+  this.lightParamArray = [
+      
+    {
+      audio:"lup",
+      color: new THREE.Vector3( .2  , 0. , .9 ),
+      position: new THREE.Vector3(),
+      early: true
+    },
+
+    { 
+      audio:"snare",
+      color: new THREE.Vector3( 0. , .4 , .8 ),
+      position: new THREE.Vector3(),
+      early: true
+
+    },
+
+    { 
+      audio:"glo",
+      color: new THREE.Vector3( .2 , .3 , .9 ),
+      position: new THREE.Vector3(),
+      early: true
+
+    },
+
+    { 
+      audio:"allRight",
+      color: new THREE.Vector3( .3 , .5 , 1 ),
+      position: new THREE.Vector3(),
+      early: true
+    },
+
+    { 
+      audio:"startingOver",
+      color: new THREE.Vector3( 0 , .2 , .5 ),
+      position: new THREE.Vector3(),
+      early: true
+    },
+
+    { 
+      audio:"tongue",
+      color: new THREE.Vector3( .1 , .4 , .9  ),
+      position: new THREE.Vector3(),
+      early: true 
+    },
+
+     { 
+      audio:"game",
+      color: new THREE.Vector3( 1. , .4 , .1 ),
+      position: new THREE.Vector3(),
+      early: false
+
+    },
+
+  ]
+
+
+  this.params = { 
     
-  {
-    audio:"lup",
-    color: new THREE.Vector3( .2  , 0. , .9 ),
-    position: new THREE.Vector3(),
-    early: true
-  },
+    radius:                 100,
+    height:                1000,
+    sides:                    8,
+    numOf:                   18, 
+    randomness:             180,
+    slices:                 100,
+    startingChance:          4.,
+    chanceReducer:           .9,
+    randomnessReducer:       .5,
+    sliceReducer:            .7,
+    numOfReducer:            .8,
+    progressionPower:        1.4,
+    lengthReduction:         .5,
+    maxIterations:            3,
+    material:             null,
+    createTree: function(){
+      this.createTree();
+    }.bind( this )
 
-  { 
-    audio:"snare",
-    color: new THREE.Vector3( 0. , .4 , .8 ),
-    position: new THREE.Vector3(),
-    early: true
-
-  },
-
-  { 
-    audio:"glo",
-    color: new THREE.Vector3( .2 , .3 , .9 ),
-    position: new THREE.Vector3(),
-    early: true
-
-  },
+  }
 
 
+  this.lightParams = {
+
+    cutoff: { type:"f" , value:1000 } ,
+    power: { type:"f" , value:1 } ,
+    positions: { type:"v3v" , value:[] },
+    textures:{   type:"tv" , value:[] },
+    colors: { type:"v3v" , value:[] },
+    normalScale:{ type:"f" , value:.5 } ,
+    texScale: { type:"f" , value:1.5 } ,
 
 
-  { 
-    audio:"allRight",
-    color: new THREE.Vector3( .3 , .5 , 1 ),
-    position: new THREE.Vector3(),
-    early: true
-  },
+  }
 
-  { 
-    audio:"startingOver",
-    color: new THREE.Vector3( 0 , .2 , .5 ),
-    position: new THREE.Vector3(),
-    early: true
-  },
+  this.floorParams = {
 
-  { 
-    audio:"tongue",
-    color: new THREE.Vector3( .1 , .4 , .9  ),
-    position: new THREE.Vector3(),
-    early: true 
-  },
+    normalScale:{ type:"f" , value:.3 } ,
+    texScale: { type:"f" , value:7 } ,
+    bumpHeight: { type:"f" , value:200 } ,
+    bumpSize: { type:"f" , value:.001 } ,
+    bumpSpeed: { type:"f" , value:.1 } ,
+    bumpCutoff: { type:"f" , value:.5 } ,
 
-   { 
-    audio:"game",
-    color: new THREE.Vector3( 1. , .4 , .1 ),
-    position: new THREE.Vector3(),
-    early: false
-
-  },
-
-]
+  }
 
 
-tree.params = { 
-  
-  radius:                 100,
-  height:                1000,
-  sides:                    8,
-  numOf:                   18, 
-  randomness:             180,
-  slices:                 100,
-  startingChance:          4.,
-  chanceReducer:           .9,
-  randomnessReducer:       .5,
-  sliceReducer:            .7,
-  numOfReducer:            .8,
-  progressionPower:        1.4,
-  lengthReduction:         .5,
-  maxIterations:            3,
-  material:             null,
-  createTree: function(){
-    this.createTree();
-  }.bind( tree )
-}
+  this.treeRenderParams = {
 
+    normalScale:{ type:"f" , value:.3 } ,
+    texScale: { type:"f" , value:.01 } ,
 
-tree.lightParams = {
+  }
 
-  cutoff: { type:"f" , value:1000 } ,
-  power: { type:"f" , value:1 } ,
-  positions: { type:"v3v" , value:[] },
-  textures:{   type:"tv" , value:[] },
-  colors: { type:"v3v" , value:[] },
-  normalScale:{ type:"f" , value:.5 } ,
-  texScale: { type:"f" , value:1.5 } ,
-
-
-}
-
-tree.floorParams = {
-
-  normalScale:{ type:"f" , value:.3 } ,
-  texScale: { type:"f" , value:7 } ,
-  bumpHeight: { type:"f" , value:200 } ,
-  bumpSize: { type:"f" , value:.001 } ,
-  bumpSpeed: { type:"f" , value:.1 } ,
-  bumpCutoff: { type:"f" , value:.5 } ,
-
-}
-
-
-tree.treeRenderParams = {
-
-  normalScale:{ type:"f" , value:.3 } ,
-  texScale: { type:"f" , value:.01 } ,
-
-}
-
+}.bind( tree ));
 // Need to load at least 1 thing
 tree.addToInitArray( function(){
   
@@ -301,8 +321,9 @@ tree.addToStartArray( function(){
   });
 
   this.text = new PhysicsText( this.textChunk );
-
   this.text2 = new PhysicsText( this.textChunk2 );
+  this.text3 = new PhysicsText( this.textChunk3 );
+  this.text4 = new PhysicsText( this.textChunk4 );
 
 }.bind( tree ) );
 
@@ -339,6 +360,8 @@ tree.addToStartArray( function(){
     params.loadedAudio = G.AUDIO[ params.audio ];  
     params.loadedAudio.reconnect( this.gain );
 
+    params.name = params.audio;
+
     params.radius = r;
     params.height = height;
     params.theta  = t;
@@ -350,6 +373,22 @@ tree.addToStartArray( function(){
 
   }
 
+
+  for( var i =0 ; i < this.lights.length; i++ ){
+
+    this.lights[i].select();
+
+    console.log( this.lights[i].name );
+    if( 
+      this.lights[i].name === 'snare' ||
+      this.lights[i].name === 'glo'
+    ){
+
+      this.lights[i].select();
+
+    }
+
+  }
 
 }.bind( tree ) );
 
@@ -423,8 +462,6 @@ tree.addToStartArray( function(){
 
 
   var tree = new Tree( this.params );
-
-
   tree.position.y = -500;
 
   this.scene.add( tree );
@@ -438,7 +475,7 @@ tree.addToActivateArray( function(){
   this.text.activate();
 
 
-  var offset = new THREE.Vector3( -150 , -150 , 0 );
+  var offset = G.pageTurnerOffset;
 
   var callback = function(){
 
@@ -446,101 +483,111 @@ tree.addToActivateArray( function(){
 
     this.tweenCamera( this.cameraPos2 , 5000 , function(){
 
-      G.sol.activate();
       this.text2.activate();
 
-      G.tmpV3.set( 50 , - 150 , 0 );
-      this.endMesh.add( this , G.tmpV3 );
+      var offset =  G.pageTurnerOffset;
 
+      for( var i =0 ; i < this.lights.length; i++ ){
+
+        if( this.lights[i].playing ){
+          this.lights[i].select();
+        }
+
+        if( 
+          this.lights[i].name === 'snare' ||
+          //this.lights[i].name === 'startingOver' ||
+          this.lights[i].name === 'lup' ||
+         // this.lights[i].name === 'glo' ||
+          this.lights[i].name === 'allRight' //||
+          //this.lights[i].name === 'tongue' //||
+          //this.lights[i].name === 'startingOver' ||
+        ){
+          this.lights[i].select();
+        }
+
+      }
+
+      var callback = function(){
+
+        this.text2.kill( 10000 );
+
+        this.tweenCamera( this.cameraPos3 , 5000 , function(){
+
+          this.text3.activate();
+
+          for( var i =0 ; i < this.lights.length; i++ ){
+
+            if( this.lights[i].playing ){
+              this.lights[i].select();
+            }
+
+            if( 
+              //this.lights[i].name === 'snare' ||
+              this.lights[i].name === 'startingOver' ||
+              this.lights[i].name === 'lup' ||
+              this.lights[i].name === 'glo' ||
+              this.lights[i].name === 'allRight' ||
+              this.lights[i].name === 'tongue' //||
+              //this.lights[i].name === 'startingOver' ||
+            ){
+              this.lights[i].select();
+            }
+
+          }
+
+
+
+          var offset =  G.pageTurnerOffset;
+
+          var callback = function(){
+
+            this.text3.kill( 10000 );
+
+            this.tweenCamera( this.cameraPos4 , 5000 , function(){
+
+              G.sol.activate();
+              this.text4.activate();
+              for( var i =0 ; i < this.lights.length; i++ ){
+
+                if( this.lights[i].playing ){
+                  this.lights[i].select();
+                }
+
+                if( 
+                  this.lights[i].name === 'snare' ||
+                  //this.lights[i].name === 'startingOver' ||
+                  this.lights[i].name === 'lup' ||
+                  this.lights[i].name === 'glo' ||
+                  //this.lights[i].name === 'allRight' ||
+                  this.lights[i].name === 'game' //||
+                  //this.lights[i].name === 'startingOver' ||
+                ){
+                  this.lights[i].select();
+                }
+
+              }
+
+              G.tmpV3.set( 50 , - 150 , 0 );
+              this.endMesh.add( this , G.tmpV3 );
+
+
+            }.bind( this ) );
+          }.bind( this );
+
+          this.transitionMesh3 = this.createTurnerMesh( offset , callback );
+          this.scene.add( this.transitionMesh3 );
+
+        }.bind( this ) );
+      }.bind( this );
+
+      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+      this.scene.add( this.transitionMesh2 );
 
     }.bind( this ) );
-
-
   }.bind( this );
 
   this.transitionMesh1 = this.createTurnerMesh( offset , callback );
   this.scene.add( this.transitionMesh1 );
-
-
-  /*var mesh 
-  var mesh = new THREE.Mesh(
-    G.pageTurner.markerGeometry,
-    G.pageTurner.markerMaterial
-  );
-
-  mesh.hoverOver = function(){
-
-    this.transitionMesh.material.color = G.pageTurner.hoverColor;
-
-  }.bind( tree );
-
-   
-  mesh.hoverOut = function(){
-
-    this.transitionMesh.material.color = G.pageTurner.neutralColor;
-
-  }.bind( tree );
-
-
-  mesh.select = function(){
-
-    var l = 10000;
-    var tween = new G.tween.Tween( this.cameraPos ).to( this.cameraPos2, l );
-   
-    this.text.kill( 10000 );
-
-    tween.onUpdate( function( t ){
-
-      G.camera.position.copy( this.cameraPos );
-      G.objectControls.unprojectMouse();
-
-      G.camera.lookAt( G.position );
-
-    }.bind( this ));
-
-
-    tween.onComplete( function(){
-
-      console.log('complete');
-
-      G.sol.activate();
-      this.text2.activate();
-
-
-      G.tmpV3.set( 50 , - 150 , 0 );
-      this.endMesh.add( this , G.tmpV3 );
-
-    }.bind( tree ) );
-
-
-    tween.start();
-
-  }.bind( tree );
-  
-  mesh.position.copy( G.camera.position.relative );
-  
-  var forward  = new THREE.Vector3( 0 , 0 , -1 );
-  forward.applyQuaternion( G.camera.quaternion );
-  forward.normalize();
-  forward.multiplyScalar( G.iPlaneDistance );
-
-  //console.log( G.iPlaneDistance );
-  mesh.position.add( forward );
-
-  G.tmpV3.set( 150 , -150 , 0 );
-  mesh.position.add(  G.tmpV3 );
-
-  G.tmpV3.copy( mesh.position );
-  mesh.lookAt( G.tmpV3.sub( forward ) );
-
-  G.objectControls.add( mesh );
-
-  console.log('MEHS');
-  console.log( mesh );
-  this.scene.add( mesh );
-
-  this.transitionMesh = mesh;*/
-
 
 
 }.bind( tree ));
@@ -580,8 +627,11 @@ tree.addToAllUpdateArrays( function(){
     }
 
   }
+  
   this.text.update();
   this.text2.update();
+  this.text3.update();
+  this.text4.update();
 
 }.bind( tree ));
 
@@ -591,13 +641,13 @@ tree.addToDeactivateArray( function(){
   G.mani.iPlaneAttracting = true;
   this.maniAttractionLight = undefined;
 
-
   for( var i =0; i < this.lights.length; i++ ){
 
     G.objectControls.remove( this.lights[i] );
 
   }
-  this.text2.kill();
+
+  this.text4.kill();
 
 }.bind( tree) );
 
