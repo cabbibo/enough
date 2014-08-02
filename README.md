@@ -23,11 +23,19 @@ FOR SIGGRAPH:
   - forest looks ugly
 
   - Black Screen after together ( frame loss? )
+    - Probably has something to do with the renderer clearing or not clearing b/c creating so many of those critters.
+      solutions:
+        create them globaly? may need them in multiple slides ?
+
+    
   - Mechanics for planets too jumpy
 
   - Tween in for page transition audio gains, rather than turn on at end of transition
 
   - Each segment within a page should trigger different notes / objects
+  - Title Page ( simplex text )
+
+  - Text on first slide of planets too long
 
 -------------
 
