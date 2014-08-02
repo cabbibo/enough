@@ -40,6 +40,8 @@ sparkles.addToInitArray( function(){
 
   this.position.set(  0 , 0 , 0 );
   this.cameraPos.set( 0 , 0 , 1000 );
+
+
   this.iPlaneDistance = 1100
 
 

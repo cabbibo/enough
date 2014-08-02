@@ -104,6 +104,13 @@ G.scene.add( G.camera );
 
 G.tween = TWEEN;
 
+TWEEN.origTween = TWEEN.Tween;
+TWEEN.Tween = function (options){
+  var res = new TWEEN.origTween(options);
+  res.easing(TWEEN.Easing.Quadratic.InOut);
+  return res;
+};
+
 // Need something to call when started
 G.startArray = [];
 
@@ -233,7 +240,7 @@ G.init = function(){
     //lineHeight:     40
   });
 
-
+  this.textCreator = new TextCreator( 300 );
 
   /*
 
