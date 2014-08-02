@@ -18,6 +18,8 @@ varying vec3 vNorm;
 varying vec3 vPos;
 varying vec3 vMPos;
 varying vec2 vUv;
+varying vec3 vCamDir;
+
 
 void main(){
 
@@ -40,7 +42,7 @@ void main(){
   mat3 tsn = mat3( S, T, N );
   vec3 fNorm =  normalize( tsn * mapN );
 
-  vec3 camDir   = normalize( vMPos - cameraPos);
+  vec3 camDir   = vCamDir;
   float facingRatio = max( 0. , dot( -fNorm , camDir ) );
 
   vec4 aFR = texture2D( t_audio , vec2( facingRatio , 0. ) );

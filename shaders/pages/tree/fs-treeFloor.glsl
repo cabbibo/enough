@@ -20,6 +20,12 @@ varying vec3 vPos;
 varying vec3 vMPos;
 varying vec2 vUv;
 
+varying vec3 vLightDir[7];
+varying float vDistMultiplier[7];
+varying vec3 vCamDir;
+
+
+
 varying vec3 vView;
 
 void main(){
@@ -56,24 +62,16 @@ void main(){
   vec3 totalIri = vec3( 0.);
   for( int i = 0; i < 7; i++ ){
 
-    vec3 lightPos = lightPositions[i];
+        
+    float fr = max( 0. ,  dot( -vLightDir[i] , fNorm ));
 
-    vec3 lightRay = vMPos - lightPos;
+    vec3 refl = reflect( -vLightDir[i] , fNorm );
+    float reflFR = dot( -refl , vCamDir );
 
-    vec3 lightDir = normalize( lightRay );
-    float lightDist = length( lightRay ); 
-     
-    float facingRatio = max( 0. ,  dot( -lightDir , fNorm ));
+    vec3 iri = texture2D( lightTextures[i] , vec2( reflFR*reflFR , 0. ) ).xyz;
 
-    vec3 refl = reflect( -lightDir , fNorm );
-    float reflFR = dot( -refl , camDir );
+    totalIri +=  lightColors[i] * iri * vDistMultiplier[i] * fr * fr *fr;
 
-    vec3 iri = texture2D( lightTextures[i]  , vec2( reflFR*reflFR , 0. ) ).xyz;
-
-    float distMultiplier = clamp( lightCutoff / lightDist , 0. , 1. );
-    distMultiplier = pow( distMultiplier , lightPower );
-
-    totalIri += lightColors[i] * iri * distMultiplier * facingRatio * facingRatio * facingRatio  * facingRatio;
 
   }
 
