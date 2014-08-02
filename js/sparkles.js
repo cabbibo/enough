@@ -1,52 +1,62 @@
 var sparkles = new Page( 'sparkles' );
 
-sparkles.textChunk = [
 
-  "In the end, this story is not actually about a small creature named Webby. It is not about the fact that the Internet is ready for the people in this room to use as a platform. It has been for a long time.",
-  "","",
+sparkles.addToInitArray( function(){
 
-  "It is the fact that you, each and every one of you, can make beautiful experiences for others to see with a simple URL."
+  this.textChunk = [
 
-].join("\n" );
+    "In the end, this story is not actually about a small creature named Webby. It is not about the fact that the Internet is ready for the people in this room to use as a platform. It has been for a long time.",
+    "","",
 
-sparkles.textChunk2 = [
+    "It is the fact that you, each and every one of you, can make beautiful experiences for others to see with a simple URL."
 
-  "They could be advertisements, they could be client work, but they could also be haikus, short sketches, and playful demos",
-  "","",
-  "What is important is not what they are, but what they do. The emotions they evoke, the feelings they create, and the ways in which they help us to fully experience the real time that is now."
+  ].join("\n" );
 
-].join("\n" );
+  this.textChunk2 = [
 
+    "They could be advertisements, they could be client work, but they could also be haikus, short sketches, and playful demos",
+    "","",
+    "What is important is not what they are, but what they do. The emotions they evoke, the feelings they create, and the ways in which they help us to fully experience the real time that is now."
 
-
-
-
-sparkles.textChunk3 = [
-
-  "Thank You.",
-  "",
-  " @Cabbibo"
-
-].join("\n" );
+  ].join("\n" );
 
 
 
 
 
+  this.textChunk3 = [
+
+    "Thank You.",
+    "",
+    " @Cabbibo"
+
+  ].join("\n" );
 
 
-sparkles.position.set(  0 , 0 , 0 );
-sparkles.cameraPos.set( 0 , 0 , 1000 );
-sparkles.iPlaneDistance = 1100
 
 
-sparkles.audioArray = [
-  'hueBoy',
-  'hueSparkles',
-  'hueAngel',
-  'hueHum',
-  'hueMids'
-];
+
+
+
+  this.position.set(  0 , 0 , 0 );
+  this.cameraPos.set( 0 , 0 , 1000 );
+  this.iPlaneDistance = 1100
+
+
+  this.audioArray = [
+    'hueBoy',
+    'hueSparkles',
+    'hueAngel',
+    'hueHum',
+    'hueMids'
+  ];
+
+
+  this.movementRate = 1.5;
+
+
+}.bind( sparkles ) );
+
 
 
 
@@ -91,7 +101,7 @@ sparkles.addToStartArray( function(){
   this.text3 = new PhysicsText( this.textChunk3 );
 
   this.text3.distToCam.value = 400;
-  this.text3.offsetPos.value.set( -10 , 40 , 0 );
+  this.text3.offsetPos.value.set( -9 , 40 , 0 );
 
 
   this.sparkles = new Sparkles( this , 64 );
@@ -177,6 +187,49 @@ sparkles.addToActivateArray( function(){
         console.log('asdbas');
         this.text3.activate();
 
+        var offset =  new THREE.Vector3(0 , 200 , 0 );
+
+        var callback = function(){
+
+          this.text3.kill();
+          this.movementRate = 4;
+
+
+          var tween = new G.tween.Tween( start ).to( end , 20000 );
+        
+          tween.onUpdate( function(t ){
+
+            for( var i = 0;i < this.audioArray.length; i++ ){
+      
+              if( i === 1 ){
+                
+                var audio = G.AUDIO[  this.audioArray[i] ];
+                audio.gain.gain.value = 1 - t;
+
+              }
+
+            }
+
+          }.bind( this ));
+
+
+
+          tween.onComplete(function(){
+
+
+
+          }.bind( this ));
+
+
+          tween.start();          
+
+        }.bind( this );
+
+
+        this.transitionMesh3 = this.createTurnerMesh( offset , callback );
+        this.scene.add( this.transitionMesh3 ); 
+
+
       }.bind( this));
 
       tween.start();
@@ -223,8 +276,8 @@ sparkles.addToActiveArray( function(){
   this.text3.update();
   
 
-  this.position.x += 1.5;
-  G.camera.position.x += 1.5;
+  this.position.x += this.movementRate;
+  G.camera.position.x += this.movementRate;
   G.position.copy( this.position );
   G.camera.lookAt( this.position );//= 1000;
 
