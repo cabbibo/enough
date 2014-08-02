@@ -13,11 +13,17 @@ together.addToInitArray( function(){
   ].join("\n" );
 
 
-
-
   this.position.set(  0 , 0 , 0 );
   this.cameraPos.set( 0 , 0 , 1000 );
-  this.iPlaneDistance = 1000
+  this.iPlaneDistance = 1000;
+
+  this.audioArray = [
+
+    'hueBoy',
+    'hueSparkles',
+    'hueAngel'
+
+  ]
 
 }.bind( together ) );
 
@@ -27,6 +33,17 @@ together.addToInitArray( function(){
   
   var f = 'img/iri/';
   this.loadTexture( 'wetwetwet' , f + 'comboWet.png');
+
+  var f = 'audio/global/';
+
+  for( var i=0; i< this.audioArray.length; i++ ){
+
+    var a = this.audioArray[i]
+    this.loadAudio( a , f + a + '.mp3' );
+
+
+  }
+
 
 }.bind( together ) );
 
@@ -45,6 +62,26 @@ together.addToStartArray( function(){
 together.addToStartArray( function(){
 
   this.text = new PhysicsText( this.textChunk );
+
+  this.looper = new Looper( G.audio , G.timer , {
+
+    beatsPerMinute: 120,
+    beatsPerMeasure: 4,
+    measuresPerLoop: 8
+
+  });
+
+  for( var i = 0; i < this.audioArray.length; i++ ){
+
+    var audio = G.AUDIO[ this.audioArray[i] ];
+    audio.reconnect( this.gain );
+
+    this.looper.everyLoop( function(){ this.play() }.bind( audio ) );
+
+  }
+
+  this.looper.start();
+
 
 }.bind( together ) );
 
@@ -69,5 +106,12 @@ together.addToDeactivateArray( function(){
   this.text.kill();
 
 }.bind( together) );
+
+together.addToEndArray( function(){
+
+  this.looper.end();
+
+
+});
 
 
