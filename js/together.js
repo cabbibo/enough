@@ -65,7 +65,7 @@ together.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 120,
+    beatsPerMinute: 122,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 

@@ -567,7 +567,7 @@ tree.addToActivateArray( function(){
 
               }
 
-              this.endMesh.add( this  );
+              this.endMesh.add( this );
 
 
             }.bind( this ) );

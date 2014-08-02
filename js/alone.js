@@ -36,9 +36,9 @@ alone.addToInitArray( function(){
 // Need to load at least 1 thing
 alone.addToInitArray( function(){
   
-  var f = 'pages/crystals/';
+  var f = 'audio/global/';
 
-  this.loadShader( 'crystalParticles' , f + 'ss-crystalParticles' , 'simulation' );
+  this.audio =  this.loadAudio( 'hueSparkles' , f + 'hueSparkles.mp3' );
 
 }.bind( alone ) );
 
@@ -59,6 +59,20 @@ alone.addToStartArray( function(){
   this.text = new PhysicsText( this.textChunk );
   this.text2 = new PhysicsText( this.textChunk2 );
 
+
+  this.looper = new Looper( G.audio , G.timer , {
+
+    beatsPerMinute: 122,
+    beatsPerMeasure: 4,
+    measuresPerLoop: 8
+
+  });
+
+  this.looper.everyLoop( function(){ this.play() }.bind( this.audio ) );
+
+  this.audio.reconnect( this.gain );
+
+  this.looper.start();
 
 
 }.bind( alone ) );
@@ -107,4 +121,8 @@ alone.addToDeactivateArray( function(){
 }.bind( alone) );
 
 
+alone.addToEndArray( function(){
 
+  this.looper.end();
+
+}.bind( alone ) );

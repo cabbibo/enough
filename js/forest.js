@@ -20,7 +20,9 @@ forest.addToInitArray( function(){
 
   this.textChunk3 = [
 
-    "After traveling through the darkness for some time Webby came upon another beautiful playplace. Here he found a soft forest of metallic tendrils. As he swam through the flowing stalks, he listened to the soft plinks and hums that he created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he thought that sound waves couldn’t travel in the vacuum of space."
+    "It still was not enough though, Webby wanted to find the answers, and had a feeling that his time in this world was limited, and he was right to think so, because there were only so many minutes until the presentation ended.",
+    "","",
+    "So Webby continued onwards, searching for more answers."
 
 
   ].join("\n" );
@@ -31,8 +33,8 @@ forest.addToInitArray( function(){
   this.position.set(  0 , 0 , -1600 );
   this.cameraPos.set( 0 , 0 , 0 );
 
-  this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , -1000 );
-  this.cameraPos3 = new THREE.Vector3( -1000 , -1000 , -1000 );
+  this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , 0 );
+  this.cameraPos3 = new THREE.Vector3( -1000 , -1000 , 0 );
 
 
   this.iPlaneDistance = 1200
@@ -256,7 +258,7 @@ forest.addToActivateArray( function(){
 
           this.text3.activate();
 
-          this.endMesh.add( this , G.pageTurnerOffset );
+          this.endMesh.add( this );
 
         }.bind( this ) );
 
