@@ -107,7 +107,7 @@ sparkles.addToStartArray( function(){
 
 
   this.sparkles = new Sparkles( this , 64 );
-  this.sparkles.particles.position.z = -500;
+  this.sparkles.particles.position.z = -1000;
 
   this.looper = new Looper( G.audio , G.timer , {
 
