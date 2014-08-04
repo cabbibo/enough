@@ -55,6 +55,7 @@
       dampening:.96,
       baseGeo: new THREE.BoxGeometry( 200 , 200 , 200 ),
       baseMat: new THREE.MeshNormalMaterial()
+
     });
 
     this.position         = this.params.position;
@@ -178,15 +179,19 @@
 
 
     var t_iri = G.TEXTURES['iri_comboWet'];
+    var t_normal = G.TEXTURES['normal_moss'];
 
 
     var uniforms = {
       t_pos:{type:"t",value:null},
       t_iri:{type:"t",value:t_iri},
+      t_normal:{type:"t",value:t_normal},
       t_audio:G.t_audio,
       lightPos:{type:"v3",value:G.iPoint.relative },
       t_active:{type:"t",value:this.activeTexture},
       girth:girth,
+      normalScale:{type:"f",value:5},
+      texScale:{type:"f",value:.1},
       headMultiplier:headMultiplier
     }
 
@@ -252,7 +257,7 @@
 
     for( var i = 0; i < this.bases.length; i++ ){
 
-      this.page.scene.add( this.bases[i].mesh );
+     this.page.scene.add( this.bases[i].mesh );
 
     }
 

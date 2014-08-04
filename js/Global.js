@@ -64,7 +64,7 @@ G.dpr           = window.devicePixelRatio || 1;
 G.ratio         = G.w / G.h * G.ratio 
 G.camera        = new THREE.PerspectiveCamera( 45 * G.ratio  , G.ratio , 10 , 10000 );
 G.scene         = new THREE.Scene();
-G.renderer      = new THREE.WebGLRenderer({preserveDrawingBuffer : true}); //autoclear:false\
+G.renderer      = new THREE.WebGLRenderer(); //autoclear:false\
 G.clock         = new THREE.Clock();
 
 G.position      = new THREE.Vector3();

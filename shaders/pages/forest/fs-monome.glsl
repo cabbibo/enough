@@ -15,8 +15,9 @@ varying vec3 vNormal;
 varying vec3 vPos;
 varying mat3 vNormalMat;
 varying vec3 vView;
-varying vec3 vMVPos;
+varying vec3 vMPos;
 varying vec3 vLightDir;
+varying vec3 vRefl;
 
 void main(){ 
 
@@ -81,7 +82,7 @@ void main(){
   
 
  // gl_FragColor = vec4( c * c * c * color + .3*(color* .2 + vec3( .3 , .3 , .3 )) , 1.0 );
-  gl_FragColor = vec4( lookup_table_color *( aColor+vec3( .3 , .3 , .3 )) , 1.0 );
+  gl_FragColor = vec4( lookup_table_color , 1.0 );
 
 }
 

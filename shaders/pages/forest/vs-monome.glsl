@@ -5,11 +5,11 @@ uniform vec3 lightPos;
 varying vec2 vUv;
 varying vec3 vNormal;
 varying vec3 vPos;
-varying vec3 vMVPos;
+varying vec3 vMPos;
 varying vec3 vView;
 varying mat3 vNormalMat;
 varying vec3 vLightDir;
-
+varying vec3 vRefl;
 
 void main(){
 
@@ -22,9 +22,15 @@ void main(){
   
  // vec3 audioPower = 
 
-  vMVPos = (modelViewMatrix * vec4( vPos , 1.0 )).xyz;
+  vMPos = (modelMatrix * vec4( vPos , 1.0 )).xyz;
 
-  vLightDir = normalize(lightPos - vMVPos);
+  vLightDir = normalize(lightPos - vMPos);
+
+  vRefl =  reflect( vLightDir , vNormal );
+ /* vec3 refl = reflect( vLightDir , finalNormal );
+  float facingRatio = abs( dot( finalNormal , refl) );
+  float newDot = dot( finalNormal  , normalize(vView) );
+  float inverse_dot_view = 1.0 - max( newDot  , 0.0);*/
 
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4( vPos , 1.0 );

@@ -64,7 +64,11 @@ Monome.prototype.createMaterial = function(){
     fragmentShader: G.shaders.fragmentShaders.monome,
 
   });
-
+/*
+  this.material = new THREE.MeshBasicMaterial({
+    color: new THREE.Color( .5 , .1 ,1 ) 
+  });
+*/
 }
 
 Monome.prototype.update = function( whichHit ){

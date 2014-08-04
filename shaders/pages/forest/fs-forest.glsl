@@ -2,7 +2,7 @@
 //uniform vec3 color;
 
 uniform sampler2D t_iri;
-uniform sampler2D tNormal;
+uniform sampler2D t_normal;
 uniform sampler2D t_audio;
 uniform sampler2D t_active;
 uniform vec3 lightPos;
@@ -64,9 +64,9 @@ void main(){
   vec2 coord2 = vPos.zx * texScale;
   vec2 coord3 = vPos.xy * texScale;
 
-  vec3 bump1 = texture2D( tNormal , coord1 ).rgb;  
-  vec3 bump2 = texture2D( tNormal , coord2  ).rgb;  
-  vec3 bump3 = texture2D( tNormal , coord3  ).rgb; 
+  vec3 bump1 = texture2D( t_normal , coord1 ).rgb;  
+  vec3 bump2 = texture2D( t_normal , coord2  ).rgb;  
+  vec3 bump3 = texture2D( t_normal , coord3  ).rgb; 
 
   vec3 blended_bump = bump1 * blend_weights.xxx +  
                       bump2 * blend_weights.yyy +  
@@ -176,6 +176,7 @@ void main(){
 
   float lookupOffset = 0.;
 
+
   if( hovered == 0. && selected == 0. && current == 0. ){
     lookupOffset = 0.;
   }
@@ -211,6 +212,12 @@ void main(){
 
   lookupOffset /= 6.;
 
+  if( lookupOffset == 0. ){
+
+    discard;
+
+  }
+
 
   float fLookup =(  inverse_dot_view * facingRatio  * (1./6.) ) +lookupOffset;
 
@@ -237,5 +244,5 @@ void main(){
 
   //gl_FragColor = vec4( active.xyz , 1. );
 
-  gl_FragColor = vec4( c , .1 );
+  gl_FragColor = vec4(  abs(finalNormal) , .1 );
 }
