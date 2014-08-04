@@ -252,7 +252,7 @@
 
   Forest.prototype.activate = function(){
 
-    this.page.scene.add( this.mesh );
+     this.page.scene.add( this.mesh );
     //this.page.scene.add( this.line );
 
     for( var i = 0; i < this.bases.length; i++ ){

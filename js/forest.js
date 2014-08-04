@@ -83,7 +83,10 @@ forest.addToInitArray( function(){
     var name = this.audioArray[i];
 
     this.audio[ name ] = this.loadAudio( name , f + name + '.mp3' );
-  
+ 
+    this.audio[ name ].updateAnalyser = true;
+    this.audio[ name ].updateTexture = true;
+
     this.audio.array.push( this.audio[ name ] );
 
   }
@@ -181,17 +184,17 @@ forest.addToStartArray( function(){
     repelPositions: repelPositions,
     repelVelocities: repelVelocities,
     repelRadii: repelRadii,
-    width: 1500,
-    height: 1500,
-    girth: 2,
-    headMultiplier: 8,
+    width: 2000,
+    height: 2000,
+    girth: 8,
+    headMultiplier: 4,
     repelMultiplier:50,
     flowMultiplier:40,
-    floatForce: 4000,
+    floatForce: 1000,
     springForce: 20,
-    springDist: 50,
+    springDist: 10,
     maxVel: 100,
-    baseGeo: new THREE.IcosahedronGeometry(50 , 2 )
+    baseGeo: new THREE.IcosahedronGeometry(50 , 1 )
     //baseGeo: new THREE.CubeGeometry( 50 , 50 , 50, 10 , 10 , 10 )
   });
 

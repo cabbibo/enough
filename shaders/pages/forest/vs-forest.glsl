@@ -204,15 +204,22 @@ void main(){
   float radius = girth;//(baseDown-baseUp); //( baseDown - baseUp );// * //amount;
 
   vHead = 0.;
-  
-  if( baseDown > 9. ){
+ 
+  if( baseDown < .8 ){
+
+
+   // radius = girth * 60.;
+
+    
+  }else if( baseDown > 9. ){
 
     vHead = 1.;
     radius = girth * headMultiplier * (max( 0. , sqrt(( 14. - (base) )))/5.);
 
   }
   //if( uv.x < 1. / 64. ){
-    point = centerOfCircle + radius * basisX * x  + radius * basisY * y;
+    
+  point = centerOfCircle + radius * basisX * x  + radius * basisY * y;
   //}else{
   //  point = vec3(0.);
   //}
