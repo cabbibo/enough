@@ -574,7 +574,7 @@ G.onKeyDown = function( e ){
        G.paused = false;
 
      }.bind( G );
-     THREE.renderTiledScene( G.renderer, G.scene,G.camera, 6 , 6 , 'enough' , cb );
+     THREE.renderTiledScene( G.renderer, G.scene,G.camera, 4 , 4 , 'enough' , cb );
 
   }
 
