@@ -5,10 +5,15 @@ sparkles.addToInitArray( function(){
 
   this.textChunk = [
 
-    "In the end, this story is not actually about a small creature named Webby. It is not about the fact that the Internet is ready for the people in this room to use as a platform. It has been for a long time.",
+    "Out beyond ideas of wrongdoing", 
+    "and rightdoing there is a field.",
+    "I'll meet you there.",
     "","",
 
-    "It is the fact that you, each and every one of you, can make beautiful experiences for others to see with a simple URL."
+    "When the soul lies down in that grass",
+    "the world is too full to talk about.",
+    "","",
+    "                     - Rumi"
 
   ].join("\n" );
 
@@ -106,8 +111,7 @@ sparkles.addToStartArray( function(){
   this.text3.offsetPos.value.set( -9 , 40 , 0 );
 
 
-  this.sparkles = new Sparkles( this , 64 );
-  this.sparkles.particles.position.z = -1000;
+  this.sparkles = new Sparkles( this , 128 );
 
   this.looper = new Looper( G.audio , G.timer , {
 
@@ -247,7 +251,13 @@ sparkles.addToActivateArray( function(){
 
   this.transitionMesh1 = this.createTurnerMesh( offset , callback );
 
-  this.scene.add( this.transitionMesh1 );
+  //this.scene.add( this.transitionMesh1 );
+  this.text.offsetPos.value.y = 70;
+  this.text.offsetPos.value.z = 400;
+  this.sparkles.particles.position.z = -500;
+  this.sparkles.particles.frustumCulled =  false;
+
+  G.sol.activate();
   
 
 }.bind( sparkles ) );

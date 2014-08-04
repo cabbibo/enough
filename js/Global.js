@@ -395,16 +395,13 @@ G.updateIntersection = function(){
 
 G.animate = function(){
 
-  this.dT.value = this.clock.getDelta();  
-  this.timer.value += G.dT.value;
-
-
   this.pageMarker.position.copy( this.position );
   
   if( !this.paused ){
 
+     this.dT.value = this.clock.getDelta();  
+  this.timer.value += G.dT.value;
 
- 
     this.tween.update();
 
     this.objectControls.update();
@@ -560,7 +557,7 @@ G.onResize = function(){
 
 G.onKeyDown = function( e ){
 
-  //console.log( e.which );
+  console.log( e.which );
   if( e.which == 32 ){
 
     this.paused = !this.paused;
@@ -568,8 +565,23 @@ G.onKeyDown = function( e ){
   }
 
 
-}
+   if( e.which == 80 ){
 
+     this.paused = true;
+      
+     var cb = function(){
+    
+       G.paused = false;
+
+     }.bind( G );
+     THREE.renderTiledScene( G.renderer, G.scene,G.camera, 6 , 6 , 'enough' , cb );
+
+  }
+
+
+
+
+}
 G.loadTextures = function(){
 
   for( var i = 0; i < G.texturesToLoad.length; i++ ){

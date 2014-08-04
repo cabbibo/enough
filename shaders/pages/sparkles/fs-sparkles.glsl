@@ -50,6 +50,7 @@ void main(){
 
   }*/
 
+
   vec3 mani = vec3( .2 , .9 , .6 ) * lightAmount * FR;
   vec3 color = vec3( 0. );
 
@@ -57,7 +58,7 @@ void main(){
 
   color += normalize((vec3( .5 , .5 , .5 ) + vNorm * .5 ));
 
-  color += glint;
+  color += glint * aEdge.xyz;
 
 
 
@@ -67,7 +68,7 @@ void main(){
 
 
 
-  gl_FragColor = vec4( glint + mani , 1. ) ;//FR *FR;
+  gl_FragColor = vec4( (glint + mani) * aEdge.xyz , 1. ) ;//FR *FR;
 
 
 }
