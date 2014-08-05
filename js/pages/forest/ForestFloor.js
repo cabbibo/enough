@@ -1,7 +1,7 @@
  
-function ForestFloor(){
+function ForestFloor( params ){
 
-  var forestFloorGeo = new THREE.PlaneGeometry( 1000 , 1000 , 100 , 100 );
+  var forestFloorGeo = new THREE.PlaneGeometry( params.width , params.height , 300 , 300 );
 
   console.log('IPOS');
   console.log( G.iPosition );

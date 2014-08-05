@@ -247,7 +247,7 @@
     this.physicsRenderer.reset( this.startingTexture );
 
 
-    this.floor = new ForestFloor();
+    this.floor = new ForestFloor(params);
     //scene.add( this.flowMarker );
 
   }

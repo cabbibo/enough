@@ -23,20 +23,24 @@ void main(){
   vUv = uv;
 
 
-  float xPosDown = floor( uv.x * 64. );
-  float xPosUp   = ceil(  uv.x * 64. );
-  float xDif     = ( uv.x * 64. ) - xPosDown; // 0 - 1
+  float xPosDown = floor( uv.x * 16. );
+  float xPosUp   = ceil(  uv.x * 16. );
+  float xDif     = ( uv.x * 16. ) - xPosDown; // 0 - 1
 
   float xDist    = abs( .5 - xDif );
   
-  float yPosDown = floor( uv.y * 64. );
-  float yPosUp   = ceil(  uv.y * 64. );
-  float yDif     = ( uv.y * 64. ) - yPosDown;
+  float yPosDown = floor( uv.y * 16. );
+  float yPosUp   = ceil(  uv.y * 16. );
+  float yDif     = ( uv.y * 16. ) - yPosDown;
   float yDist    = abs( .5 - yDif );
 
-  float dist     = pow( xDist * xDist + yDist * yDist , .5 );
+  float dist     = 1. - pow( xDist * xDist + yDist * yDist , .5 );
 
 
+    
+  vPos = position;
+
+  vPos.z = dist * 100.;
   vNormal = normal;
   vView = modelViewMatrix[3].xyz;
   vMPos = (modelMatrix * vec4( vPos , 1.0 )).xyz;
@@ -46,8 +50,6 @@ void main(){
   vLightDir = lightDir;
 
   vActiveDistance = dist;
-
-  vPos = position;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4( vPos , 1.0 );
   
