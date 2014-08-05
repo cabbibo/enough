@@ -1,5 +1,5 @@
  
-function ForestFloor( params ){
+function ForestFloor( activeTexture ,  params ){
 
   var forestFloorGeo = new THREE.PlaneGeometry( params.width , params.height , 300 , 300 );
 
@@ -10,8 +10,14 @@ function ForestFloor( params ){
 
     uniforms:{
 
-      lightPos:{type:"v3",value:G.iPoint }
-
+      lightPos:{type:"v3",value: G.iPoint},
+      cameraPos:{type:"v3",value: G.camera.position},
+      size:{ type:"v2" , value:new THREE.Vector2( params.width , params.height ) },
+      t_active:{ type:"t" , value: activeTexture},
+      t_audio:G.t_audio,
+      t_normal:{ type:"t" , value: G.TEXTURES.normal_moss},
+      normalScale:{ type:"f" , value: 1.5 },
+      texScale:{ type:"f" , value: .1 },
 
     },
     vertexShader: G.shaders.vs.forestFloor,

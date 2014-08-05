@@ -9,12 +9,46 @@ varying float vActiveDistance;
 varying vec2 vUv;
 
 
+uniform vec2 size;
 uniform vec3 lightPos;
 
 
-const float size = 1. / 64.;
-const float hSize = size / 2.;
+const float pixelSize = 1. / 16.;
+const float hPixelSize = .5 / 16.;
 
+//const float size = 1. / 64.;
+//const float hSize = size / 2.;
+
+
+vec4 getPos( vec2 uvpos , vec2 offset ){
+ 
+  vec2 UV = uvpos + offset;
+
+
+  float xPosDown = floor( UV.x  * 16. );
+  float xPosUp   = ceil(  UV.x * 16. );
+  float xDif     = ( UV.x * 16. ) - xPosDown; // 0 - 1
+
+  float xDist    = abs( .5 - xDif );
+  
+  float yPosDown = floor( UV.y * 16. );
+  float yPosUp   = ceil(  UV.y * 16. );
+  float yDif     = ( UV.y * 16. ) - yPosDown;
+  float yDist    = abs( .5 - yDif );
+
+  float dist     = max( 0. , 1. - ( pow( xDist * xDist + yDist * yDist , .5 ) )*2.);
+
+
+  vec3 pos = vec3( (UV.x-.5) * size.x , (UV.y-.5) * size.y , 0. );
+
+  pos.z = dist * 50.;
+
+
+
+  return vec4( pos , dist );
+
+
+}
 
 
 
@@ -22,34 +56,39 @@ void main(){
 
   vUv = uv;
 
+  float xDown = floor( uv.x  * 16. )/16.;
+  xDown += hPixelSize; 
+  float yDown = floor( uv.y  * 16. )/16.;
+  yDown += hPixelSize;
 
-  float xPosDown = floor( uv.x * 16. );
-  float xPosUp   = ceil(  uv.x * 16. );
-  float xDif     = ( uv.x * 16. ) - xPosDown; // 0 - 1
+  vActiveLookup = vec2( xDown , 1.-yDown );
 
-  float xDist    = abs( .5 - xDif );
-  
-  float yPosDown = floor( uv.y * 16. );
-  float yPosUp   = ceil(  uv.y * 16. );
-  float yDif     = ( uv.y * 16. ) - yPosDown;
-  float yDist    = abs( .5 - yDif );
+  vec4 main = getPos( uv , vec2( 0. , 0. ) );
 
-  float dist     = 1. - pow( xDist * xDist + yDist * yDist , .5 );
+  float dist = main.w;
 
+  vec3 pos  = main.xyz;
+  vec3 pXUp = getPos( uv , vec2( 0.05 , 0. ) ).xyz;
+  vec3 pXDo = getPos( uv , vec2( -.05 , 0. ) ).xyz;
+  vec3 pYUp = getPos( uv , vec2( 0. , 0.05 ) ).xyz;
+  vec3 pYDo = getPos( uv , vec2( 0. , -.05 ) ).xyz;
 
+  vec3 xDif = pXUp - pXDo;
+  vec3 yDif = pYUp - pYDo;
+
+  vec3 norm = normalize( cross( xDif , yDif ) );
+ 
+  //norm.z *= -1.;
     
-  vPos = position;
+  vPos = pos;
 
-  vPos.z = dist * 100.;
-  vNormal = normal;
+  vNormal = normalize((modelMatrix * vec4( norm , 0. ) ).xyz);
   vView = modelViewMatrix[3].xyz;
   vMPos = (modelMatrix * vec4( vPos , 1.0 )).xyz;
   
   vec3 lightDir = normalize( lightPos -  vMPos );
-
   vLightDir = lightDir;
-
-  vActiveDistance = dist;
+  vActiveDistance = smoothstep( -.1 , 1. , dist );
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4( vPos , 1.0 );
   

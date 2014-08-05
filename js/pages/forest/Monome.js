@@ -16,6 +16,7 @@ function Monome( forest , whichHit , whichNote , mesh ){
   this.hovered = false;
   this.mesh = mesh;
 
+  this.mesh.visible = false;
   this.mesh.monome = this; // For use in intersections
 
   this.hit = whichHit;
