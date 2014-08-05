@@ -3,6 +3,7 @@ function ForestFloor( activeTexture ,  params ){
 
   var forestFloorGeo = new THREE.PlaneGeometry( params.width , params.height , 300 , 300 );
 
+  forestFloorGeo.computeVertexNormals();
   console.log('IPOS');
   console.log( G.iPosition );
 
@@ -16,8 +17,8 @@ function ForestFloor( activeTexture ,  params ){
       t_active:{ type:"t" , value: activeTexture},
       t_audio:G.t_audio,
       t_normal:{ type:"t" , value: G.TEXTURES.normal_moss},
-      normalScale:{ type:"f" , value: 1.5 },
-      texScale:{ type:"f" , value: .1 },
+      normalScale:{ type:"f" , value: .5 },
+      texScale:{ type:"f" , value: .6 },
 
     },
     vertexShader: G.shaders.vs.forestFloor,

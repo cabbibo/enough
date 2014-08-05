@@ -68,13 +68,13 @@ void main(){
   float dist = main.w;
 
   vec3 pos  = main.xyz;
-  vec3 pXUp = getPos( uv , vec2( 0.05 , 0. ) ).xyz;
-  vec3 pXDo = getPos( uv , vec2( -.05 , 0. ) ).xyz;
-  vec3 pYUp = getPos( uv , vec2( 0. , 0.05 ) ).xyz;
-  vec3 pYDo = getPos( uv , vec2( 0. , -.05 ) ).xyz;
+  vec3 pXUp = getPos( uv , vec2( 0.004 , 0. ) ).xyz;
+  vec3 pXDo = getPos( uv , vec2( -.004 , 0. ) ).xyz;
+  vec3 pYUp = getPos( uv , vec2( 0. , 0.004 ) ).xyz;
+  vec3 pYDo = getPos( uv , vec2( 0. , -.004 ) ).xyz;
 
-  vec3 xDif = pXUp - pXDo;
-  vec3 yDif = pYUp - pYDo;
+  vec3 xDif =  normalize(pXUp - pXDo);
+  vec3 yDif = normalize(pYUp - pYDo);
 
   vec3 norm = normalize( cross( xDif , yDif ) );
  

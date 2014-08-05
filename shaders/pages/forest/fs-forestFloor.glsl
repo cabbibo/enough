@@ -44,18 +44,19 @@ void main(){
   //vec3 fNormal = vNormal;
   vec3 refl = reflect( -vLightDir , fNormal );
 
-  float reflFR = max( 0. , dot( -refl , normalize(cameraPos - vMPos) ));
+  float reflFR =  dot( -refl , normalize(cameraPos - vMPos) );
 
   float fr = dot(-vLightDir, fNormal );
 
 
 
   vec3 active = texture2D( t_active , vActiveLookup ).xyz;
-  vec3 audio = texture2D( t_audio , vec2( 1. - reflFR * reflFR * reflFR ,  0. ) ).xyz;
+  vec3 audio = texture2D( t_audio , vec2( 1. - abs(reflFR * reflFR * reflFR) ,  0. ) ).xyz;
 
   vec3 aColor = audio * vActiveDistance * vActiveDistance*vActiveDistance;
   vec3 activeColor = active * fr * fr * fr* fr * fr * fr *fr * fr * fr *fr * fr * fr* fr * fr * fr * vActiveDistance * vActiveDistance*vActiveDistance;
 
-  gl_FragColor = vec4( vActiveDistance * fNormal +  vActiveDistance *audio  , 1. );
+
+  gl_FragColor = vec4(  fNormal * fNormal * fNormal * vActiveDistance * active + audio* vActiveDistance * abs(fr) , 1. );
 
 }
