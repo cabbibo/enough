@@ -91,16 +91,6 @@ forest.addToInitArray( function(){
 
   }
 
-  var f = 'global/';
-
-  this.loadShader( 'furryParticles' , f + 'vs-furryParticles' , 'vs' );
-  this.loadShader( 'furryParticles' , f + 'fs-furryParticles' , 'fs' );
-  this.loadShader( 'furryTail'      , f + 'vs-furryTail' , 'vs' );
-  this.loadShader( 'furryTail'      , f + 'fs-furryTail' , 'fs' );
-  this.loadShader( 'furryHead'      , f + 'vs-furryHead' , 'vs' );
-  this.loadShader( 'furryHead'      , f + 'fs-furryHead' , 'fs' );
-  this.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
-  this.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
 
   var f = 'pages/forest/';
 
@@ -108,6 +98,9 @@ forest.addToInitArray( function(){
 
   this.loadShader( 'forest' , f + 'vs-forest' , 'vertex' ); 
   this.loadShader( 'forest' , f + 'fs-forest' , 'fragment' ); 
+
+  this.loadShader( 'forestFloor' , f + 'vs-forestFloor' , 'vertex' ); 
+  this.loadShader( 'forestFloor' , f + 'fs-forestFloor' , 'fragment' ); 
 
   this.loadShader( 'trunk'  , f + 'vs-trunk'  , 'vertex' ); 
   this.loadShader( 'trunk'  , f + 'fs-trunk'  , 'fragment' );
@@ -197,8 +190,6 @@ forest.addToStartArray( function(){
     baseGeo: new THREE.IcosahedronGeometry(50 , 1 )
     //baseGeo: new THREE.CubeGeometry( 50 , 50 , 50, 10 , 10 , 10 )
   });
-
-
 
 }.bind( forest ) );
 

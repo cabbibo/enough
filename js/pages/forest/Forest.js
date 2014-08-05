@@ -246,6 +246,8 @@
 
     this.physicsRenderer.reset( this.startingTexture );
 
+
+    this.floor = new ForestFloor();
     //scene.add( this.flowMarker );
 
   }
@@ -253,7 +255,7 @@
   Forest.prototype.activate = function(){
 
      this.page.scene.add( this.mesh );
-    //this.page.scene.add( this.line );
+    this.page.scene.add( this.floor );
 
     for( var i = 0; i < this.bases.length; i++ ){
 
