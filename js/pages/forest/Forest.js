@@ -190,8 +190,8 @@
       lightPos:{type:"v3",value:G.iPoint.relative },
       t_active:{type:"t",value:this.activeTexture},
       girth:girth,
-      normalScale:{type:"f",value:5},
-      texScale:{type:"f",value:.1},
+      normalScale:{type:"f",value:.1},
+      texScale:{type:"f",value:.001},
       headMultiplier:headMultiplier
     }
 
@@ -248,6 +248,7 @@
 
 
     this.floor = new ForestFloor( this.activeTexture , params);
+    this.floor.position.z = 50;
     //scene.add( this.flowMarker );
 
   }

@@ -15,6 +15,7 @@ function ForestFloor( activeTexture ,  params ){
       cameraPos:{type:"v3",value: G.camera.position},
       size:{ type:"v2" , value:new THREE.Vector2( params.width , params.height ) },
       t_active:{ type:"t" , value: activeTexture},
+      t_iri:{ type:"t" , value: G.TEXTURES.iri_comboWet},
       t_audio:G.t_audio,
       t_normal:{ type:"t" , value: G.TEXTURES.normal_moss},
       normalScale:{ type:"f" , value: .5 },

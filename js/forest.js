@@ -179,15 +179,15 @@ forest.addToStartArray( function(){
     repelRadii: repelRadii,
     width: 2000,
     height: 2000,
-    girth: 8,
-    headMultiplier: 4,
+    girth: 12.9,
+    headMultiplier: 6.6,
     repelMultiplier:50,
-    flowMultiplier:40,
-    floatForce: 1000,
-    springForce: 20,
+    flowMultiplier:280,
+    floatForce: 2000,
+    springForce: 40,
     springDist: 10,
-    maxVel: 100,
-    baseGeo: new THREE.IcosahedronGeometry(50 , 1 )
+    maxVel: 1000,
+    baseGeo: new THREE.IcosahedronGeometry(100 , 1 )
     //baseGeo: new THREE.CubeGeometry( 50 , 50 , 50, 10 , 10 , 10 )
   });
 

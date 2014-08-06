@@ -104,6 +104,7 @@ void main(){
 
 
   float upwardsForce = 80000. / ( pos.z * pos.z);
+  //float upwardsForce = 282. /pos.z;
 
   //vec3 fRepelPoint = repelPoint - offset;
   /*pos   += offset;
@@ -175,15 +176,15 @@ void main(){
     //vec3 difDown = posDown - pos;
    // force += difDown/12.;
    
-    force += springForce( pos , posDown ,uSpringDist  );
+    force += springForce( pos , posDown , uSpringDist * ( 1. + ( selected * 300. ) ) / 100.  );
 
     vec3 dif = ogPos - pos;
 
    // force += normalize( dif ) * 30.;
  
-    force += flow * slice * uFlowMultiplier*( ( current * 5.)+1.);
+    force += flow * slice * uFlowMultiplier;//*( ( current * 5.)+1.);
 
-    force += floating * upwardsForce * uFloatForce * (( selected * 5.)+1.);
+    force += floating * upwardsForce * uFloatForce * selected;
 
     force += getRepelForce( pos );
 
@@ -195,8 +196,8 @@ void main(){
     vec3 posDown = texture2D( t_pos , vUv.xy - vec2( 0. ,  size ) ).xyz;
     vec3 posUp = texture2D( t_pos , vUv.xy + vec2( 0. , size ) ).xyz;
 
-    force += springForce( pos , posDown ,uSpringDist  );
-    force += springForce( pos , posUp , uSpringDist );
+    force += springForce( pos , posDown , uSpringDist * ( 1. + ( selected * 100. ) ) / 100. );
+    //force += springForce( pos , posUp , uSpringDist* ( 1. + ( selected * 100. ) ) / 100. );
     
     //force += springForce( pos , posDown , 0. ) * 10.;
    // force += springForce( pos , posUp , 10. ) * 100.;
@@ -209,9 +210,9 @@ void main(){
 
 //    vec3 columnDif = vec3( x , y , 0 ) - pos;
    // force += vec3( columnDif.xy * 10. , 0. )*10.;
-    force += flow * slice * uFlowMultiplier *( ( current * 5.)+1.);
+    force += flow * slice * uFlowMultiplier;// *( ( current * 5.)+1.);
 
-    force += floating * upwardsForce * uFloatForce * (( selected * 5.)+1.);
+    force += floating * upwardsForce * uFloatForce * selected; //(( selected * 5.)+1.);
 
     force += getRepelForce( pos );
 
@@ -237,7 +238,7 @@ void main(){
 
     }
     
-    newPos = pos + vel * fDT * ((playing * 4.)+1.);
+    newPos = pos + vel * fDT; //* ((playing * 4.)+1.);
 
     gl_FragColor = vec4( newPos , 1. );
 

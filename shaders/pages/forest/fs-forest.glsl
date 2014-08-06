@@ -212,9 +212,9 @@ void main(){
 
   lookupOffset /= 6.;
 
-  if( lookupOffset == 0. ){
+  if( selected == 0. ){
 
-    discard;
+    //discard;
 
   }
 
@@ -244,5 +244,5 @@ void main(){
 
   //gl_FragColor = vec4( active.xyz , 1. );
 
-  gl_FragColor = vec4(  abs(finalNormal) , .1 );
+  gl_FragColor = vec4( c, .1 );
 }
