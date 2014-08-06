@@ -158,7 +158,7 @@ alone.addToActivateArray( function(){
 
 
    
-  var offset = new THREE.Vector3( 120 , -80 , 600 );
+  var offset = new THREE.Vector3( 0 , 0 , 100 );
   
   var callback = function(){
 
@@ -219,7 +219,7 @@ alone.addToActivateArray( function(){
   var mesh = this.createTurnerMesh( offset , callback );
   this.scene.add( mesh );
 
-  mesh.scale.multiplyScalar( .5 )
+  mesh.scale.multiplyScalar( 300.5 )
 
 }.bind( alone ));
 

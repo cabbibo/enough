@@ -49,6 +49,7 @@
     <script src="js/global/FurryTail.js"></script>
     <script src="js/global/FurryHead.js"></script>
     <script src="js/global/PhysicsText.js"></script>
+    <script src="js/global/HandParticles.js"></script>
     
     <script src="js/pages/crystals/Crystal.js"></script>
     <script src="js/pages/crystals/CrystalGeo.js"></script>
@@ -96,6 +97,10 @@
       G.shaders.load( 'global/fs-rHand' , 'rHand' , 'fragment'  );
       G.shaders.load( 'global/vs-lHand' , 'lHand' , 'vertex'    );
       G.shaders.load( 'global/fs-lHand' , 'lHand' , 'fragment'  );
+      
+      G.shaders.load( 'global/vs-handParticles' , 'handParticles' , 'vertex'      );
+      G.shaders.load( 'global/fs-handParticles' , 'handParticles' , 'fragment'    );
+      G.shaders.load( 'global/ss-handParticles' , 'handParticles' , 'simulation'  );
 
       // For Tails
       var f = 'global/';

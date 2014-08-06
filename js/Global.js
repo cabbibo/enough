@@ -192,6 +192,12 @@ G.init = function(){
     new THREE.MeshBasicMaterial( 0xff0000 )
   );
  
+
+  var smallMesh = new THREE.Mesh(
+    new THREE.IcosahedronGeometry( 1 , 2 ),
+    new THREE.MeshBasicMaterial({color:0xffffff})
+
+  );
   this.rHand = new RiggedSkeleton( this.leap , this.camera , {
   
     movementSize: 1000,
@@ -199,11 +205,14 @@ G.init = function(){
 
   });
   
-  this.rHand.addScaledMeshToAll( rHandMesh );
+ // this.rHand.addScaledMeshToAll( rHandMesh );
 
+  this.rHand.hand.add( smallMesh );
   this.rHand.addToScene( this.scene );
 
   this.rHand.relative = new THREE.Vector3();
+
+
 
 
   var lHandMesh = new THREE.Mesh( 
@@ -218,13 +227,23 @@ G.init = function(){
 
   });
   
-  this.lHand.addScaledMeshToAll( rHandMesh );
+  //this.lHand.addScaledMeshToAll( rHandMesh );
 
+  var sm = smallMesh.clone();
+  this.lHand.hand.add( sm );
   this.lHand.addToScene( this.scene );
 
   this.lHand.relative = new THREE.Vector3();
 
- 
+  console.log( 'HAND' );
+  console.log( this.lHand );
+
+  this.lHand.particles = new HandParticles( this.lHand.hand , 64 );
+  this.rHand.particles = new HandParticles( this.rHand.hand , 64 );
+
+  console.log( this.lHand.particles );
+  this.lHand.particles.activate();
+  this.rHand.particles.activate();
 
   /*
   
@@ -377,7 +396,7 @@ G.updateIntersection = function(){
   
   this.raycaster.set( this.camera.position , dir);
 
-    var intersects = this.raycaster.intersectObject( this.iPlane );
+  var intersects = this.raycaster.intersectObject( this.iPlane );
 
   if( intersects.length > 0 ){
   
@@ -411,6 +430,9 @@ G.animate = function(){
 
     this.rHand.update( 0 );
     this.lHand.update( 1 );
+
+    this.rHand.particles.update();
+    this.lHand.particles.update();
 
 
     this.rHand.relative.copy( this.rHand.hand.position );
