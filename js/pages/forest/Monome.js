@@ -24,10 +24,10 @@ function Monome( forest , whichHit , whichNote , mesh ){
 
   this.note = this.page.audio.array[ this.noteIndex ];
 
-  this.createMaterial();
+  /*this.createMaterial();
 
   this.mesh.material = this.material;
-  this.mesh.material.needsUpdate = true;
+  this.mesh.material.needsUpdate = true;*/
 
   this.mesh.hoverOver = this.hoverOver.bind( this );
   this.mesh.hoverOut  = this.hoverOut.bind( this );
@@ -117,7 +117,7 @@ Monome.prototype.hoverOver = function(){
   }
 
   this.hovered = true;
-  this.uniforms.hovered.value = 1;
+ // this.uniforms.hovered.value = 1;
 
 
 
@@ -146,7 +146,7 @@ Monome.prototype.hoverOut = function(){
   }
 
   this.hovered = false;
-  this.uniforms.hovered.value = 0;
+  //this.uniforms.hovered.value = 0;
 
 
 }
@@ -168,7 +168,7 @@ Monome.prototype.select = function(){
   }
   
   this.selected = true;
-  this.uniforms.selected.value = 1;
+  //this.uniforms.selected.value = 1;
 
   }else{
 
@@ -180,7 +180,7 @@ Monome.prototype.select = function(){
 
 
     this.selected = false;
-    this.uniforms.selected.value = 0;
+    //this.uniforms.selected.value = 0;
 
 
   }
@@ -198,7 +198,7 @@ Monome.prototype.deselect = function(){
 
 
   this.selected = false;
-  this.uniforms.selected.value = 0;
+  //this.uniforms.selected.value = 0;
 
 
 }
@@ -211,7 +211,7 @@ Monome.prototype.activate = function(){
   //this.mesh.material =this.activeMaterial;
   //his.mesh.materialNeedsUpdate = true;
 
-  this.uniforms.active.value = 1;
+  //this.uniforms.active.value = 1;
 
   if( this.selected ){
 
@@ -238,7 +238,7 @@ Monome.prototype.activate = function(){
 Monome.prototype.deactivate = function(){
 
   this.active = false;
-  this.uniforms.active.value = 0;
+  //this.uniforms.active.value = 0;
 
   if( this.selected ){
 

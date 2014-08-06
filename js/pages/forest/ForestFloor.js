@@ -11,7 +11,7 @@ function ForestFloor( activeTexture ,  params ){
 
     uniforms:{
 
-      lightPos:{type:"v3",value: G.iPoint},
+      lightPos:{type:"v3",value: G.mani.position},
       cameraPos:{type:"v3",value: G.camera.position},
       size:{ type:"v2" , value:new THREE.Vector2( params.width , params.height ) },
       t_active:{ type:"t" , value: activeTexture},
