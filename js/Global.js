@@ -97,7 +97,7 @@ G.container.appendChild( G.renderer.domElement );
 G.stats.domElement.id = 'stats';
 document.body.appendChild( G.stats.domElement );
 
-G.leap.connect();
+//G.leap.connect();
 G.gui.close();
 G.scene.add( G.camera );
 //G.onResize();
@@ -382,19 +382,19 @@ G.updateIntersection = function(){
   }
 
 
-  var dir = this.mouse.clone();
+  G.tmpV3.copy( this.mouse );
 
   if( this.objectControls.leap === true ){
 
-    dir = this.rHand.hand.position.clone();
+      G.tmpV3.copy(this.rHand.hand.position);
  
   }
   
-  dir.sub( this.camera.position );
-  dir.normalize();
+  G.tmpV3.sub( this.camera.position );
+  G.tmpV3.normalize();
 
   
-  this.raycaster.set( this.camera.position , dir);
+  this.raycaster.set( this.camera.position ,  G.tmpV3 );
 
   var intersects = this.raycaster.intersectObject( this.iPlane );
 
@@ -403,7 +403,7 @@ G.updateIntersection = function(){
     this.iPoint.copy( intersects[0].point );
     this.iPoint.relative.copy( this.iPoint );
     this.iPoint.relative.sub( this.position );
-    this.iDir = dir;
+    this.iDir.copy( G.tmpV3 );
    // bait.position.copy( intersects[0].point );
   }else{
     //console.log('NOT HITTING IPLANE!');
@@ -423,7 +423,7 @@ G.animate = function(){
 
     this.tween.update();
 
-    //this.objectControls.update();
+   // this.objectControls.update();
     this.updateIntersection();
 
     this.audio.update();
