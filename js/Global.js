@@ -97,7 +97,7 @@ G.container.appendChild( G.renderer.domElement );
 G.stats.domElement.id = 'stats';
 document.body.appendChild( G.stats.domElement );
 
-//G.leap.connect();
+G.leap.connect();
 G.gui.close();
 G.scene.add( G.camera );
 //G.onResize();
@@ -386,7 +386,7 @@ G.updateIntersection = function(){
 
   if( this.objectControls.leap === true ){
 
-      G.tmpV3.copy(this.rHand.hand.position);
+    G.tmpV3.copy(this.rHand.hand.position);
  
   }
   
@@ -423,13 +423,13 @@ G.animate = function(){
 
     this.tween.update();
 
-   // this.objectControls.update();
+    this.objectControls.update();
     this.updateIntersection();
 
     this.audio.update();
 
-    //this.rHand.update( 0 );
-    //this.lHand.update( 1 );
+    this.rHand.update( 0 );
+    this.lHand.update( 1 );
 
     this.rHand.particles.update();
     this.lHand.particles.update();

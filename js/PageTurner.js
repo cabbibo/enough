@@ -116,8 +116,8 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   tween.onComplete( function( t ){
 
-    page.end();
     page.nextPage.activate();
+    page.end();
   
   }.bind( this ));
 

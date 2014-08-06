@@ -91,6 +91,15 @@ function Page( name , params ){
 
   this.gui = G.gui.addFolder( name );
 
+  this.proptArray = [];
+
+
+  for( var propt in this ){
+
+    this.proptArray.push( propt );
+
+  }
+
 }
 
 Page.prototype.update = function(){
@@ -284,6 +293,24 @@ Page.prototype.end = function(){
   }
 
   G.scene.remove( this.scene );
+
+  for( var propt in this ){
+
+    var needPropt = false;
+    for( var i =0; i < this.proptArray.length; i++ ){
+      if( this.proptArray[i] === propt ) needPropt = true;
+    }
+
+    if( propt === 'proptArray' ){ needPropt = true; }
+
+    if( !needPropt ){
+
+      this[ propt ] = null;
+
+    }
+
+  }
+  //this = undefined;
 
 }
 

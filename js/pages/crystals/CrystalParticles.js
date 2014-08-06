@@ -62,7 +62,6 @@ CrystalParticles.prototype.createParticleMaterial = function(){
       map:{ type:"t" , value:null },
       size:{ type:"f" , value:this.size},
       sprite:{type:"t" , value:G.TEXTURES.sprite_flare },
-      //audio:{type:"t" , value:audioController.texture },
       time: G.timer,
       timeSpeed:{type:"f"  , value:2},
       timePower:{type:"f"  , value:.5},

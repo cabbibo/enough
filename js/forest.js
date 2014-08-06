@@ -303,5 +303,11 @@ forest.addToEndArray( function(){
 
   this.looper.end();
 
+  for( var i = 0; i < this.monomeMeshes.length; i++ ){
+
+    G.objectControls.remove( this.monomeMeshes[i] );
+
+  }
+
 }.bind( forest ));
 

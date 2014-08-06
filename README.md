@@ -18,7 +18,6 @@ FOR SIGGRAPH:
   - Object controls should work with both hands! ( create second object controls? only update if there is a left hand? )
   - Practice at least 10 times
   - Text ( Proofread! )
-  - forest looks ugly
 
   - Black Screen after together ( frame loss? )
     - Probably has something to do with the renderer clearing or not clearing b/c creating so many of those critters.
@@ -36,6 +35,8 @@ FOR SIGGRAPH:
   - Title Page ( simplex text )
 
   - Text on first slide of planets too long
+
+  - There is a bug on Object controls that will screw up on get intersection point
 
 -------------
 

@@ -1,10 +1,4 @@
 
-var MONOME_MESHES = [];
-var MONOME_NOTES  = [];
-
-var MONOME_INTERSECTED;
-
-var MONOME_MAT;
 
 function Monome( forest , whichHit , whichNote , mesh ){
 
@@ -34,11 +28,10 @@ function Monome( forest , whichHit , whichNote , mesh ){
   this.mesh.select    = this.select.bind( this );
  // this.mesh.deselect  = this.deselect.bind( this );
 
-
   G.objectControls.add( this.mesh );
 
   this.id = this.page.monomeMeshes.length;
-  this.page.monomeMeshes.push( mesh );
+  this.page.monomeMeshes.push( this.mesh );
 
 }
 
