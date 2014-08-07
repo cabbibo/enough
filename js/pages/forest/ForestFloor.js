@@ -1,7 +1,7 @@
  
 function ForestFloor( activeTexture ,  params ){
 
-  var forestFloorGeo = new THREE.PlaneGeometry( params.width , params.height , 300 , 300 );
+  var forestFloorGeo = new THREE.PlaneGeometry( params.width , params.height , 100 , 100 );
 
   forestFloorGeo.computeVertexNormals();
   console.log('IPOS');

@@ -31,7 +31,7 @@ forest.addToInitArray( function(){
 
 
   this.position.set(  0 , 0 , -1600 );
-  this.cameraPos.set( 0 , 0 , 0 );
+  this.cameraPos.set( 0 , 0 , 1000 );
 
   this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , 0 );
   this.cameraPos3 = new THREE.Vector3( -1000 , -1000 , 0 );
@@ -217,9 +217,40 @@ forest.addToStartArray( function(){
   this.text = new PhysicsText( this.textChunk );
 
   
-  this.forest.bases[32].select();
-  this.forest.bases[57].select();
-  this.forest.bases[76].select();
+
+  this.forest.bases[144].select();
+  this.forest.bases[154].select();
+  this.forest.bases[147].select();
+ 
+  this.forest.bases[123].select();
+  this.forest.bases[119].select();
+  this.forest.bases[116].select();
+  this.forest.bases[112].select();
+  this.forest.bases[127].select();
+  
+  this.forest.bases[128].select();
+  this.forest.bases[130].select();
+  this.forest.bases[133].select();
+  this.forest.bases[138].select();
+  this.forest.bases[142].select();
+  
+  
+  /*this.forest.bases[179].select();
+  this.forest.bases[201].select();
+  this.forest.bases[249].select();
+  this.forest.bases[236].select();
+  this.forest.bases[255].select();
+  this.forest.bases[208].select();
+
+  this.forest.bases[73].select();
+  this.forest.bases[93].select();
+  this.forest.bases[2].select();
+  this.forest.bases[13].select();
+  this.forest.bases[84].select();
+  this.forest.bases[98].select();
+  this.forest.bases[106].select();*/
+
+
 
   this.forest.activate();
 
@@ -239,14 +270,40 @@ forest.addToActivateArray( function(){
   var callback = function(){
 
     this.text.kill( 5000 );
+    this.forest.bases[73].select();
+    this.forest.bases[93].select();
+    this.forest.bases[2].select();
+    this.forest.bases[13].select();
+
+
+
 
     this.tweenCamera( this.cameraPos2 , 3000 , function(){
+
+
 
       this.text2.activate();
 
       var offset = G.pageTurnerOffset;
   
       var callback = function(){
+
+        this.forest.bases[179].select();
+        this.forest.bases[201].select();
+        this.forest.bases[249].select();
+        this.forest.bases[236].select();
+        this.forest.bases[255].select();
+        this.forest.bases[208].select();
+
+            this.forest.bases[32].select();
+    this.forest.bases[59].select();
+
+          this.forest.bases[84].select();
+  this.forest.bases[98].select();
+  this.forest.bases[106].select();
+
+
+
 
         this.text2.kill( 5000 );
 
