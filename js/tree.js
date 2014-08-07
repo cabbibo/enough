@@ -131,8 +131,8 @@ tree.addToInitArray( function(){
 
   this.lightParams = {
 
-    cutoff: { type:"f" , value:1000 } ,
-    power: { type:"f" , value:1 } ,
+    cutoff: { type:"f" , value:3000 } ,
+    power: { type:"f" , value:.4 } ,
     positions: { type:"v3v" , value:[] },
     textures:{   type:"tv" , value:[] },
     colors: { type:"v3v" , value:[] },

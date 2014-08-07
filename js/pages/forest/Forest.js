@@ -255,12 +255,12 @@
 
   Forest.prototype.activate = function(){
 
-     this.page.scene.add( this.mesh );
+    this.page.scene.add( this.mesh );
     this.page.scene.add( this.floor );
 
     for( var i = 0; i < this.bases.length; i++ ){
 
-     this.page.scene.add( this.bases[i].mesh );
+      this.page.scene.add( this.bases[i].mesh );
 
     }
 

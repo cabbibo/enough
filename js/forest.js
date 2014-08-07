@@ -135,6 +135,7 @@ forest.addToStartArray( function(){
   }
 
 }.bind( forest) );
+
 forest.addToStartArray( function(){
 
   var repelObjects    = [];
@@ -208,7 +209,7 @@ forest.addToStartArray( function(){
   this.looper.forest = this.forest;
   this.looper.onNewMeasure = function(){
     this.forest.updateBases( this.relativeMeasure );
-  }
+  };
 
 
   this.looper.start();

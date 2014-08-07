@@ -242,8 +242,8 @@ G.init = function(){
   this.rHand.particles = new HandParticles( this.rHand.hand , 64 );
 
   console.log( this.lHand.particles );
-  this.lHand.particles.activate();
-  this.rHand.particles.activate();
+  //this.lHand.particles.activate();
+  //this.rHand.particles.activate();
 
   /*
   

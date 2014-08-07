@@ -213,6 +213,7 @@ Monome.prototype.activate = function(){
     }else{
       this.forest.updateActiveTexture( this.hit , this.noteIndex , 0 , 1 , 1 , 0 );
     } 
+   
     this.note.play();
 
   }else{
