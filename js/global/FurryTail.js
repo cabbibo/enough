@@ -30,7 +30,7 @@
         dampening:      .99999
       },
     
-      particleSize: 4.,
+      particleSize: 2.,
       iriLookup: THREE.ImageUtils.loadTexture('img/iri/rainbow.png')
 
     });
@@ -59,6 +59,7 @@
       t_sprite:{ type:"t", value:null },
       t_audio:{ type:"t" , value:null },
       particleSize: { type:"f" , value: this.particleSize },
+      dpr: G.dpr,
       color1: { type:"v3" , value:this.color1 },
       color2: { type:"v3" , value:this.color2 },
       color3: { type:"v3" , value:this.color3 },

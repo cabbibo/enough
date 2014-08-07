@@ -85,6 +85,7 @@ G.container     = document.getElementById('container' );
 G.dT      = { type:"f" , value: 0               } 
 G.timer   = { type:"f" , value: 0               }
 G.t_audio = { type:"t" , value: G.audio.texture }
+G.dpr     = { type:"f" , value: window.devicePixelRatio || 1 }
 
 G.paused  = false;
 
@@ -590,18 +591,18 @@ G.onKeyDown = function( e ){
   }
 
 
-   if( e.which == 80 ){
+   /*if( e.which == 80 ){
 
-    /* this.paused = true;
+    this.paused = true;
       
      var cb = function(){
     
        G.paused = false;
 
      }.bind( G );
-    THREE.renderTiledScene( G.renderer, G.scene,G.camera, 4 , 4 , 'enough' , cb );*/
+    THREE.renderTiledScene( G.renderer, G.scene,G.camera, 10 , 10 , 'enough' , cb );
 
-  }
+  }*/
 
 
 

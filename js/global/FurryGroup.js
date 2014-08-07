@@ -32,7 +32,7 @@
       color3: new THREE.Vector3( 240/255 , 80/255 ,58/255 ),    
       color4: new THREE.Vector3( 37/255 , 1 , 178/255 ),
       iriLookup: THREE.ImageUtils.loadTexture('img/iri/rainbow.png'), 
-      particleSize:5
+      particleSize:3
 
     });
 

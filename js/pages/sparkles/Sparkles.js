@@ -96,6 +96,7 @@ function Sparkles( page , size ){
 
   this.particles = new THREE.Mesh( this.geo , this.mat );
 
+  this.particles.frustumCulled = false;
   this.physics.addBoundTexture( this.particles , 't_lookup' , 'output' );
 
 

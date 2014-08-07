@@ -3,6 +3,7 @@ uniform sampler2D t_oPos;
 uniform sampler2D t_ooPos;
 uniform sampler2D t_audio;
 
+uniform float dpr;
 uniform float particleSize;
 
 uniform vec3 color1;
@@ -57,6 +58,7 @@ void main(){
     }
   }
 
+  gl_PointSize *= dpr;
 
   vec3 c;
 
