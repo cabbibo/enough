@@ -238,12 +238,12 @@ G.init = function(){
   console.log( 'HAND' );
   console.log( this.lHand );
 
-  this.lHand.particles = new HandParticles( this.lHand.hand , 64 );
+  //this.lHand.particles = new HandParticles( this.lHand.hand , 64 );
   this.rHand.particles = new HandParticles( this.rHand.hand , 64 );
 
   console.log( this.lHand.particles );
   //this.lHand.particles.activate();
-  //this.rHand.particles.activate();
+  this.rHand.particles.activate();
 
   /*
   
@@ -432,7 +432,7 @@ G.animate = function(){
     this.lHand.update( 1 );
 
     this.rHand.particles.update();
-    this.lHand.particles.update();
+    //this.lHand.particles.update();
 
 
     this.rHand.relative.copy( this.rHand.hand.position );

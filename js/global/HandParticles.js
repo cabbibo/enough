@@ -71,11 +71,11 @@ HandParticles.prototype.update = function(){
 
   if( this.active === true ){
 
-    G.tmpV3.copy( this.hand.position );
+    G.tmpV3.copy( G.iPoint );
     G.tmpV3.sub( this.position );
 
     this.velocity.copy( G.tmpV3 );
-    this.position.copy( this.hand.position );
+    this.position.copy( G.iPoint );
 
     
 
