@@ -36,7 +36,9 @@ FOR SIGGRAPH:
 
   - Text on first slide of planets too long
 
-  - There is a bug on Object controls that will screw up on get intersection point
+  - There is a bug on Object controls that will screw up on get intersection point ( Leap Only )
+
+  - some sort of  'tween' for intersect plane, so that it doesn't jump. ( esp apparent on 'crystals' leaving transition )
 
 -------------
 
