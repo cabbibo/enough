@@ -1,9 +1,10 @@
 uniform sampler2D t_pos;
 //uniform sampler2D t_vel;
 //uniform sampler2D t_audio;
+uniform sampler2D t_audio;
 
 //varying vec4 vVel;
-//varying vec4 vAudio;
+varying vec4 vAudio;
 
 varying vec2 vUv;
 void main(){
@@ -14,7 +15,9 @@ void main(){
   
   vec4 mvPos = modelViewMatrix * vec4( pos , 1.0 );
 
-  gl_PointSize = 10.;
+  vAudio = texture2D( t_audio , vec2( vUv.x , 0.0 ) );
+
+  gl_PointSize = 3. * length( vAudio ) * length( vAudio )* length( vAudio );
   gl_Position = projectionMatrix * mvPos;
 
 }

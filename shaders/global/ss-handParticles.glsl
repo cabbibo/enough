@@ -55,7 +55,7 @@ void main(){
     float r = rand( vec2( audioX.x , audioY.y ) );
 
    // vel = uVel.xyz * 10. *  normalize( uVel ) * r;
-    vel = 4. * vec3( sin( r * 3.14159 ) , cos( r * 3.142 ) , cos( sin( r * 10.0 ) ));
+    vel = 4. * vec3( sin( r * 100. ) , cos( r * 100. ) , cos( sin( r * 1000.0 ) ));
     //vel = handVel;
   }
 
