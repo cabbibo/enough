@@ -592,14 +592,14 @@ G.onKeyDown = function( e ){
 
    if( e.which == 80 ){
 
-     this.paused = true;
+    /* this.paused = true;
       
      var cb = function(){
     
        G.paused = false;
 
      }.bind( G );
-     THREE.renderTiledScene( G.renderer, G.scene,G.camera, 4 , 4 , 'enough' , cb );
+    THREE.renderTiledScene( G.renderer, G.scene,G.camera, 4 , 4 , 'enough' , cb );*/
 
   }
 
