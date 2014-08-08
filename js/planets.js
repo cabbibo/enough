@@ -19,7 +19,7 @@ planets.addToInitArray( function(){
 
   this.textChunk3 = [
 
-    "Webby knew his time was coming to an end, and though he was sad to leave his friends, he was completely content just knowing that other could find happiness, playing with and creating the creatures he loved so much.",
+    "Webby knew his time was coming to an end, and though he was sad to leave his friends, he was completely content just knowing that others could find happiness, playing with and creating the creatures he loved so much.",
   "","",
   "He said goodbye and swam into the sunset. "
 
