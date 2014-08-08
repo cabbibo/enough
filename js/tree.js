@@ -379,8 +379,11 @@ tree.addToStartArray( function(){
 
     console.log( this.lights[i].name );
     if( 
-      this.lights[i].name === 'snare' ||
-      this.lights[i].name === 'glo'
+      this.lights[i].name === 'snare'       ||
+      this.lights[i].name === 'glo'         ||
+      this.lights[i].name === 'allRight'    ||
+      this.lights[i].name === 'startingOver'  
+
     ){
 
       this.lights[i].select();
@@ -480,7 +483,11 @@ tree.addToActivateArray( function(){
 
     this.text.kill( 10000 );
 
-    this.tweenCamera( this.cameraPos2 , 5000 , function(){
+    var percentTilEnd = 1 - this.looper.percentOfLoop;
+    var timeTilEnd = percentTilEnd * this.looper.loopLength;
+
+
+    this.tweenCamera( this.cameraPos2 , timeTilEnd * 1000 , function(){
 
       this.text2.activate();
 
@@ -510,7 +517,12 @@ tree.addToActivateArray( function(){
 
         this.text2.kill( 10000 );
 
-        this.tweenCamera( this.cameraPos3 , 5000 , function(){
+
+        var percentTilEnd = 1 - this.looper.percentOfLoop;
+        var timeTilEnd = percentTilEnd * this.looper.loopLength;
+
+
+        this.tweenCamera( this.cameraPos3 , timeTilEnd * 1000 , function(){
 
           this.text3.activate();
 
@@ -522,10 +534,9 @@ tree.addToActivateArray( function(){
 
             if( 
               //this.lights[i].name === 'snare' ||
-              this.lights[i].name === 'startingOver' ||
+             // this.lights[i].name === 'startingOver' ||
               this.lights[i].name === 'lup' ||
               this.lights[i].name === 'glo' ||
-              this.lights[i].name === 'allRight' ||
               this.lights[i].name === 'tongue' //||
               //this.lights[i].name === 'startingOver' ||
             ){
@@ -542,7 +553,10 @@ tree.addToActivateArray( function(){
 
             this.text3.kill( 10000 );
 
-            this.tweenCamera( this.cameraPos4 , 5000 , function(){
+            var percentTilEnd = 1 - this.looper.percentOfLoop;
+            var timeTilEnd = percentTilEnd * this.looper.loopLength;
+
+            this.tweenCamera( this.cameraPos4 , timeTilEnd * 1000 , function(){
 
               G.sol.activate();
               this.text4.activate();
