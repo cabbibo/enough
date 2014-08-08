@@ -15,7 +15,7 @@ TODO:
 
 FOR SIGGRAPH:
 
-  - Object controls should work with both hands! ( create second object controls? only update if there is a left hand? )
+  // - Object controls should work with both hands! ( create second object controls? only update if there is a left hand? )
   - Practice at least 10 times
   - Text ( Proofread! )
 
@@ -27,16 +27,17 @@ FOR SIGGRAPH:
     
   - Mechanics for planets too jumpy
 
-  - Tween in for page transition audio gains, rather than turn on at end of transition
-    -Check out the 'tween to end of loop' function in looper.
-    - Also could use a filter for all this stuff rather than straight gain? compare memory usage!
+  //- Tween in for page transition audio gains, rather than turn on at end of transition
+  //  -Check out the 'tween to end of loop' function in looper.
+  //  - Also could use a filter for all this stuff rather than straight gain? compare memory usage!
 
   - Each segment within a page should trigger different notes / objects
-  - Title Page ( simplex text )
+ 
+  // - Title Page ( simplex text )
 
-  - Text on first slide of planets too long
+  //  - Text on first slide of planets too long
 
-  - There is a bug on Object controls that will screw up on get intersection point ( Leap Only )
+  //  - There is a bug on Object controls that will screw up on get intersection point ( Leap Only )
 
   - some sort of  'tween' for intersect plane, so that it doesn't jump. ( esp apparent on 'crystals' leaving transition )
 
