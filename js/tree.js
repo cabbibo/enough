@@ -572,7 +572,9 @@ tree.addToActivateArray( function(){
                   this.lights[i].name === 'lup' ||
                   this.lights[i].name === 'glo' ||
                   //this.lights[i].name === 'allRight' ||
-                  this.lights[i].name === 'game' //||
+                  this.lights[i].name === 'game' ||
+                  this.lights[i].name === 'tongue' //||
+                  
                   //this.lights[i].name === 'startingOver' ||
                 ){
                   this.lights[i].select();

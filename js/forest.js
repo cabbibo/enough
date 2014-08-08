@@ -156,16 +156,16 @@ forest.addToStartArray( function(){
 
   repelPositions.push( G.iPoint.relative );
   repelVelocities.push( new THREE.Vector3() );
-  repelRadii.push( 200 );
+  repelRadii.push( 500 );
 
 
   repelPositions.push( G.lHand.relative );
   repelVelocities.push( new THREE.Vector3()  );
-  repelRadii.push( 200 );
+  repelRadii.push( 500 );
 
   repelPositions.push( G.rHand.relative  );
   repelVelocities.push( new THREE.Vector3()  );
-  repelRadii.push( 200 );
+  repelRadii.push( 500 );
 
 
   this.forest = new Forest(

@@ -13,6 +13,7 @@ G.texturesToLoad = [
   ['norm_moss'  , 'img/normals/moss_normal_map.jpg' ],
 
   ['sprite_flare'   , 'img/sprite/flare.png'],
+  ['sprite_cabbibo'   , 'img/sprite/cabbibo.png'],
 
   ['logo'       , 'img/icons/cabbibo.png' ],
 
@@ -208,7 +209,7 @@ G.init = function(){
   
  // this.rHand.addScaledMeshToAll( rHandMesh );
 
-  this.rHand.hand.add( smallMesh );
+  //this.rHand.hand.add( smallMesh );
   this.rHand.addToScene( this.scene );
 
   this.rHand.relative = new THREE.Vector3();

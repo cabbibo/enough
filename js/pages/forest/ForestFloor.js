@@ -34,6 +34,15 @@ function ForestFloor( activeTexture ,  params ){
     forestFloorMat
   );
 
+
+  var blocker = new THREE.Mesh(
+    new THREE.PlaneGeometry( params.width * 1.5 , params.height * 1.5 ),
+    new THREE.MeshBasicMaterial({color:0x000000})
+  )
+
+  blocker.position.z = -5;
+  forestFloor.add( blocker );
+
   return forestFloor;
 
 

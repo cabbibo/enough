@@ -31,7 +31,7 @@
 
     for( var i = 0; i < 10; i++ ){
       var p = i;
-      repelRadii.push( 100 );
+      repelRadii.push( 1000 );
     }
 
     this.page = page;

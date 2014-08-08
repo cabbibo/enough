@@ -9,8 +9,8 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
   this.color4 = color4;
 
   this.audio  = audio;
-  this.audio.updateAnalyser = true;
-  this.audio.updateTexture = true;
+  //this.audio.updateAnalyser = true;
+  //this.audio.updateTexture = true;
  
   // TODO: Bring this to main load
   var t_normal = THREE.ImageUtils.loadTexture( 'img/normals/moss_normal_map.jpg' );
@@ -22,7 +22,9 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
 
     lightPos: { type:"v3" , value: G.camera.position },
     t_normal:{type:"t",value:t_normal},
-    t_audio:{ type:"t" , value: this.audio.texture },
+    //t_audio:{ type:"t" , value: this.audio.texture },
+    t_audio:G.t_audio,
+
     color1:{ type:"v3" , value: color1 },
     color2:{ type:"v3" , value: color2 },
     color3:{ type:"v3" , value: color3 },
@@ -44,9 +46,11 @@ function Planet( page , type , audio , color1 , color2 , color3 , color4 ){
 
   });
 
-  this.geometry = new THREE.IcosahedronGeometry( 100 , 5 );
 
-  this.mesh = new THREE.Mesh( this.geometry, this.material );
+  console.log( page.planetsGeo );
+
+
+  this.mesh = new THREE.Mesh( page.planetGeo, this.material );
   this.mesh.selected = false;
 
   this.mesh.rotation.y = Math.PI / 2;

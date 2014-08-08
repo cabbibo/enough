@@ -2,6 +2,8 @@
 
   function FurryTail( group , params ){
 
+    G.renderer.render( G.scene , G.camera );
+    
     this.group = group;
     this.page = this.group.page;
 
@@ -17,7 +19,8 @@
       lineGeo:            this.createLineGeo,
       audio:              this.group.audio,
 
-      particleSprite:     THREE.ImageUtils.loadTexture('img/sprite/cabbibo.png'),
+      particleSprite:     G.TEXTURES.sprite_cabbibo,
+      //THREE.ImageUtils.loadTexture('img/sprite/cabbibo.png'),
       color1:             new THREE.Vector3( 1 , 1 , 1 ),
       color2:             new THREE.Vector3( 1 , 1 , 1 ),
       color3:             new THREE.Vector3( 1 , 1 , 1 ),
@@ -31,7 +34,7 @@
       },
     
       particleSize: 2.,
-      iriLookup: THREE.ImageUtils.loadTexture('img/iri/rainbow.png')
+      //iriLookup: THREE.ImageUtils.loadTexture('img/iri/rainbow.png')
 
     });
 
@@ -39,13 +42,20 @@
 
     this.setParams( this.params );
 
-    this.lineGeo = this.createLineGeo();
+    this.lineGeo;
+    
+    if( !G.mani ){ 
+      this.lineGeo = this.createLineGeo() 
+    }else{
+      this.lineGeo = G.mani.lineGeo;//this.createLineGeo();
+    }
 
     this.lineUniforms = {
       t_pos:{ type:"t" , value:null },
       t_oPos:{ type:"t" , value:null },
       t_ooPos:{ type:"t" , value:null },
-      t_audio:{ type:"t" , value:null },
+      //t_audio:{ type:"t" , value:null },
+      t_audio:G.t_audio,
       color1: { type:"v3" , value:this.color1 },
       color2: { type:"v3" , value:this.color2 },
       color3: { type:"v3" , value:this.color3 },
@@ -57,7 +67,9 @@
       t_oPos:{ type:"t" , value:null },
       t_ooPos:{ type:"t" , value:null },
       t_sprite:{ type:"t", value:null },
-      t_audio:{ type:"t" , value:null },
+      //t_audio:{ type:"t" , value:null },
+      t_audio:G.t_audio,
+
       particleSize: { type:"f" , value: this.particleSize },
       dpr: G.dpr,
       color1: { type:"v3" , value:this.color1 },
@@ -113,17 +125,15 @@
       G.renderer 
     );
 
-    this.physicsRenderer.apply
-   
     this.particleUniforms.t_sprite.value = this.particleSprite;
 
-    if( this.particleUniforms.t_audio){
+    /*if( this.particleUniforms.t_audio){
       this.particleUniforms.t_audio.value = this.audio.texture;
     }
     
     if( this.lineUniforms.t_audio){
       this.lineUniforms.t_audio.value = this.audio.texture;
-    }
+    }*/
  
     var mat = new THREE.ShaderMaterial({
       uniforms: this.particleUniforms,
@@ -133,9 +143,18 @@
       depthWrite: false
     })
 
-    var geo = ParticleUtils.createLookupGeometry( this.size );
+    //var geo = ParticleUtils.createLookupGeometry( this.size );
 
-    this.physicsParticles  = new THREE.PointCloud( geo , mat );
+    this.particleGeometry;
+     if( !G.mani ){ 
+      this.particleGeo = ParticleUtils.createLookupGeometry( this.size ); 
+    }else{
+      this.particleGeo = G.mani.particleGeo;//this.createLineGeo();
+    }
+
+
+  
+    this.physicsParticles  = new THREE.PointCloud( this.particleGeo , mat );
     this.physicsParticles.frustumCulled = false;
     var pR = this.physicsRenderer;
     
@@ -160,9 +179,19 @@
 
 
     var mesh = new THREE.Mesh( new THREE.SphereGeometry( 1 ) );
-    var pTexture = ParticleUtils.createPositionsTexture( this.size , mesh );
-    this.physicsRenderer.reset( pTexture );
-    
+    //var pTexture = ParticleUtils.createPositionsTexture( this.size , mesh );
+
+    this.pTexture;
+    if( !G.mani ){ 
+      var mesh = new THREE.Mesh( new THREE.SphereGeometry( 1 ) ); 
+      this.pTexture = ParticleUtils.createPositionsTexture( this.size , mesh ); 
+    }else{
+      this.pTexture = G.mani.pTexture;//this.createLineGeo();
+    }
+
+    //if( this === G.mani ){
+    this.physicsRenderer.reset( this.pTexture );
+    //}
     this.applyUniforms();
 
     this.head = new FurryHead(
@@ -177,6 +206,8 @@
 
     this.physicsRenderer.addBoundTexture( this.head.physicsRenderer , 't_column' , 'output' );
 
+
+    G.renderer.render( G.scene , G.camera );
 
   }
 

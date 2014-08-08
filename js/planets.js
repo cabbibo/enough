@@ -1,9 +1,12 @@
 var planets = new Page( 'planets' );
 
 planets.addToInitArray( function(){
+
+  this.planetGeo = new THREE.IcosahedronGeometry( 100 , 5 );
+  
   this.textChunk = [
 
-    " There was not just one more of him. There was a myriad.",
+    "There was not just one more of him. There was a myriad.",
   "","",
   "Creatures that displayed models, creatures that were games. Creatures that played music, and ones that were played by music. There were advertisements and stories, products and tech demos.",
   "","",
@@ -26,14 +29,14 @@ planets.addToInitArray( function(){
   ].join("\n");
 
   this.position.set(  -1000 ,  2000 ,  -1000 );
-  this.cameraPos.set( -1000 , 1000 , 0 );
+  this.cameraPos.set( -1000 , 2000 , 0 );
 
-  this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , -600 );
-  this.cameraPos3 = new THREE.Vector3( -1000 , 2000 , 1000 );
+  this.cameraPos2 = new THREE.Vector3( 0 , 2000 , -500 );
+  this.cameraPos3 = new THREE.Vector3( -2000 , 2000 , -500 );
 
 
 
-  this.iPlaneDistance = 1500;
+  this.iPlaneDistance = 1200;
 
   this.planets = [];
   this.furryGroups = [];
@@ -41,19 +44,8 @@ planets.addToInitArray( function(){
 
   this.colorSchemes = [
 
-    [ 
-      'Loki',
-      1,
-      new THREE.Color( '#1157ff' ),
-      new THREE.Color( '#00a4ff' ),
-      new THREE.Color( '#5e2dff' ),
-      new THREE.Color( '#00fff0' ),
-      'halle',
-      
-    ],
-
-
-    [ 
+    
+      [ 
       'Friend1',
       3,
       new THREE.Color( '#fa0202' ),
@@ -62,25 +54,36 @@ planets.addToInitArray( function(){
       new THREE.Color( '#ff7800' ),
       'main'
     ],
-
-    [
-      'Friend2',
-      3,
-      new THREE.Color( '#5f5fff' ),
-      new THREE.Color( '#61a2ff' ),
-      new THREE.Color( '#52fff4' ),
-      new THREE.Color( '#78ffc7' ),
-      'shuffle'
+    
+     [ 
+      'Friend3',
+        3,
+      new THREE.Color( '#ff0000' ),
+      new THREE.Color( '#ffd100' ),
+      new THREE.Color( '#ffa400' ),
+      new THREE.Color( '#ffc818' ),
+      'wood'
     ],
 
     [ 
-      'Friend3',
-      4,
+      'Loki',
+      2,
+      new THREE.Color( '#ff0000' ),
+      new THREE.Color( '#f7b5b5' ),
+      new THREE.Color( '#de0808' ),
+      new THREE.Color( '#f78585' ),
+      'halle',
+      
+    ],
+
+    [
+      'Friend2',
+       3,
       new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#ee3700' ),
-      new THREE.Color( '#fce05e' ),
-      new THREE.Color( '#ff70cc' ),
-      'wood'
+      new THREE.Color( '#fff000' ),
+      new THREE.Color( '#de9f07' ),
+      new THREE.Color( '#ff8700' ),
+      'shuffle'
     ],
 
   ]
@@ -167,12 +170,15 @@ planets.addToStartArray( function(){
 
     var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
 
-    planet.position.x = (Math.random() - .5 ) * 1000;
-    planet.position.z = (Math.random() - .5 ) * 1000;
-    planet.position.y = 0;//G.iPlaneDis//(Math.random() - .5 ) * 1000;
+
+    planet.position.x =  -200 * ( this.colorSchemes.length - i );
+    planet.position.z = 0;
+    planet.position.y = (((i+.5)/this.colorSchemes.length) -.5) * 500;
+//G.iPlaneDis//(Math.random() - .5 ) * 1000;
 
 
     this.planets.push( planet );
+  G.renderer.render( G.scene , G.camera );
 
     var f = new FurryGroup( this , c[0], audio , numOf, {
             
@@ -188,8 +194,11 @@ planets.addToStartArray( function(){
     this.furryGroups.push( f );
 
     this.center.visible = false;
+  G.renderer.render( G.scene , G.camera );
+    
 
   }
+
 
 
   for( var i = 0; i < this.furryGroups.length; i++ ){
@@ -320,6 +329,11 @@ planets.addToStartArray( function(){
 
 
 }.bind( planets ));
+
+
+
+
+
 
 /*
 

@@ -41,7 +41,8 @@
     var uniforms = {
       
       t_normal: { type:"t"  , value: t_normal           },
-      t_audio:  { type:"t"  , value: audio.texture      },
+      //t_audio:  { type:"t"  , value: audio.texture      },
+      t_audio:  G.t_audio,
       t_pos:    { type:"t"  , value: null               },
       lightPos: { type:"v3" , value: this.page.position },
       color1:   { type:"v3" , value: color1             },
@@ -59,11 +60,16 @@
       side: THREE.DoubleSide
 
     });
-    
-    var geo = this.createGeo( this.size );
+   
+    this.geo;
+    if( !G.mani ){
+      this.geo = this.createGeo( this.size );
+    }else{
+      this.geo = G.mani.head.geo;
+    }
 
     var m = new THREE.MeshNormalMaterial();
-    this.mesh = new THREE.Mesh( geo , material );
+    this.mesh = new THREE.Mesh( this.geo , material );
 
     this.mesh.frustumCulled = false;
 
@@ -73,7 +79,16 @@
 
     var mesh = new THREE.Mesh( new THREE.BoxGeometry( 5 , 5 , 5) );
     var pTexture = this.createPosTexture( this.size );
-    this.physicsRenderer.reset( pTexture );
+
+    this.pTexture;
+    if( !G.mani ){ 
+      var mesh = new THREE.Mesh( new THREE.BoxGeometry( 5 , 5 , 5) );
+      this.pTexture = this.createPosTexture( this.size );
+    }else{
+      this.pTexture = G.mani.head.pTexture;//this.createLineGeo();
+    }   
+    
+    this.physicsRenderer.reset( this.pTexture );
    
   }
 

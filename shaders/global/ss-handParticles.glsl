@@ -42,7 +42,7 @@ void main(){
 
   //vel += (toForce  / ( 1000. * life )) * toForceMultiplier;
 
-  vel += curl * .5 * ( 1. - life );
+  vel += curl * 1.5 * audioX.x * audioX.x* ( 1. - life );
 
 
   //vel += vec3( 0. , 1. * life* life , 0. );
@@ -63,7 +63,7 @@ void main(){
   //vec3 p = pos.xyz + vel * .6 * audioX.x * audioX.y* audioX.x * audioX.y  ; 
 
 
-  vec3 p = pos.xyz + vel * .95 * ( .2 + audioX.x * audioX.x);
+  vec3 p = pos.xyz + vel * .9 * ( .1 + audioX.x * audioX.x);
 
 
   //life -= .01;

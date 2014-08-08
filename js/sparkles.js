@@ -5,11 +5,11 @@ sparkles.addToInitArray( function(){
 
   this.textChunk = [
 
-    "In the end, this story is not actually about a small creature named Webby. It is not about the fact that the Internet is ready for people in this room to use as a platform. It has been for a long time.",
+    "In the end, this story is not actually about a small creature named Webby. It is not about trying to prove that the Internet is ready for people in this room to use as a platform. It has been for a long time.",
 
     "","",
  
-    "It is that you, each and every one of you, can make simple, beautiful experiences for others to see with just a URL."
+    "It is about the fact that you, each and every one of you, can make beautiful experiences for others to see with just a URL."
 
   ].join("\n" );
 
@@ -239,8 +239,12 @@ sparkles.addToActivateArray( function(){
 
     }.bind( this );
 
+        
     this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-    this.scene.add( this.transitionMesh2 );
+
+    setTimeout( function(){
+      this.scene.add( this.transitionMesh2 );
+    }.bind( this ) , 3000 );
 
   }.bind( this );
 

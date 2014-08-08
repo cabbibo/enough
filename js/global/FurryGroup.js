@@ -31,7 +31,7 @@
       color2: new THREE.Vector3( 255/255 , 190/255 , 30/255),    
       color3: new THREE.Vector3( 240/255 , 80/255 ,58/255 ),    
       color4: new THREE.Vector3( 37/255 , 1 , 178/255 ),
-      iriLookup: THREE.ImageUtils.loadTexture('img/iri/rainbow.png'), 
+      iriLookup: null,// THREE.ImageUtils.loadTexture('img/iri/rainbow.png'), 
       particleSize:3
 
     });
@@ -47,7 +47,6 @@
     this.position = this.bait.position;
     this.velocity = new THREE.Vector3();
 
-    var folder = this.page.gui.addFolder( title );
 
     /*
     
@@ -88,7 +87,6 @@
 
     */
 
-    var tailParams = folder.addFolder( 'Tail Physics' );
       
     var audioAmount = { type:"f" , value: .2 };
     var audioPower = { type:"f" , value: 1 };
@@ -138,104 +136,111 @@
 
     }
 
-    tailParams.add( audioPower , 'value' , 0 , 3 ).name( 'audioPower' );
-    tailParams.add( audioAmount , 'value' , 0 , 1  ).name( 'audioAmount' );
-
-    tailParams.add( d_spA, 'value' , 0 , 10  ).name( 'dist_spineAttract' );
-    tailParams.add( f_spA, 'value' , -0.1 , .5  ).name( 'force_spineAttract' );
-    
-    tailParams.add( d_bA,  'value' , 0 , 100  ).name( 'dist_bundleAttract' );
-    tailParams.add( f_bA,  'value' , -0.1, .5  ).name( 'force_bundleAttract' );
-    tailParams.add( d_bR,  'value' , 0 , 100  ).name( 'dist_bundleRepel' );
-    tailParams.add( f_bR,  'value' , -0.1 , .05 ).name( 'force_bundleRepel' );
-    
-    tailParams.add( d_sA,  'value' , 0 , 100  ).name( 'dist_subAttract' );
-    tailParams.add( f_sA,  'value' , -0.1 , .5  ).name( 'force_subAttract' );
-    tailParams.add( d_sR,  'value' , 0 , 100  ).name( 'dist_subRepel' );
-    tailParams.add( f_sR,  'value' , -0.1 , .2  ).name( 'force_subRepel' );
-    
-    tailParams.add( d_sSA, 'value' , 0 , 100  ).name( 'dist_subSubAttract' );
-    tailParams.add( f_sSA, 'value' , -0.1 , .5  ).name( 'force_subSubAttract' );
-    tailParams.add( d_sSR, 'value' , 0 , 100  ).name( 'dist_subSubRepel' );
-    tailParams.add( f_sSR, 'value' , -0.1 , .2  ).name( 'force_subSubRepel' );
+    if( G.createGui === true ){
+      
+      var folder = this.page.gui.addFolder( title );
+      var tailParams = folder.addFolder( 'Tail Physics' );
+      var tailColor = folder.addFolder( 'Render Tail / Particles' );
 
 
-    var tailColor = folder.addFolder( 'Render Tail / Particles' );
+      tailParams.add( audioPower , 'value' , 0 , 3 ).name( 'audioPower' );
+      tailParams.add( audioAmount , 'value' , 0 , 1  ).name( 'audioAmount' );
 
-    tailColor.add( this , 'particleSize' , 0 , 10 ).onChange( function(v){
-      for( var i = 0; i < this.tails.length; i++ ){
-        var fT = this.tails[i];
-        fT.particleUniforms.particleSize.value = v;
+      tailParams.add( d_spA, 'value' , 0 , 10  ).name( 'dist_spineAttract' );
+      tailParams.add( f_spA, 'value' , -0.1 , .5  ).name( 'force_spineAttract' );
+      
+      tailParams.add( d_bA,  'value' , 0 , 100  ).name( 'dist_bundleAttract' );
+      tailParams.add( f_bA,  'value' , -0.1, .5  ).name( 'force_bundleAttract' );
+      tailParams.add( d_bR,  'value' , 0 , 100  ).name( 'dist_bundleRepel' );
+      tailParams.add( f_bR,  'value' , -0.1 , .05 ).name( 'force_bundleRepel' );
+      
+      tailParams.add( d_sA,  'value' , 0 , 100  ).name( 'dist_subAttract' );
+      tailParams.add( f_sA,  'value' , -0.1 , .5  ).name( 'force_subAttract' );
+      tailParams.add( d_sR,  'value' , 0 , 100  ).name( 'dist_subRepel' );
+      tailParams.add( f_sR,  'value' , -0.1 , .2  ).name( 'force_subRepel' );
+      
+      tailParams.add( d_sSA, 'value' , 0 , 100  ).name( 'dist_subSubAttract' );
+      tailParams.add( f_sSA, 'value' , -0.1 , .5  ).name( 'force_subSubAttract' );
+      tailParams.add( d_sSR, 'value' , 0 , 100  ).name( 'dist_subSubRepel' );
+      tailParams.add( f_sSR, 'value' , -0.1 , .2  ).name( 'force_subSubRepel' );
+
+
+      tailColor.add( this , 'particleSize' , 0 , 10 ).onChange( function(v){
+        for( var i = 0; i < this.tails.length; i++ ){
+          var fT = this.tails[i];
+          fT.particleUniforms.particleSize.value = v;
+        }
+      }.bind( this ));
+
+      var c ={ 
+        spineColor: '#ff0000',
+        subColor:   '#eeaa00',
+        subSubColor:'#0000ff',
+        bundleColor:'#999999' 
       }
-    }.bind( this ));
 
-    var c ={ 
-      spineColor: '#ff0000',
-      subColor:   '#eeaa00',
-      subSubColor:'#0000ff',
-      bundleColor:'#999999' 
+      tailColor.addColor( c , 'spineColor' ).onChange( function( value ){
+
+       
+        var col = new THREE.Color( value );
+        console.log( col.r );
+        for( var i = 0; i < this.tails.length; i++ ){
+
+          var fT = this.tails[i];
+
+          fT.color1.x = col.r;
+          fT.color1.y = col.g;
+          fT.color1.z = col.b;
+
+        }
+      
+      }.bind( this ));
+
+      tailColor.addColor( c , 'subColor' ).onChange( function( value ){
+
+        var col = new THREE.Color( value );
+        for( var i = 0; i < this.tails.length; i++ ){
+
+          var fT = this.tails[i];
+
+          fT.color2.x = col.r;
+          fT.color2.y = col.g;
+          fT.color2.z = col.b;
+
+        }
+      
+      }.bind( this ));
+
+
+      tailColor.addColor( c , 'subSubColor' ).onChange( function( value ){
+
+        var col = new THREE.Color( value );
+        for( var i = 0; i < this.tails.length; i++ ){
+
+          var fT = this.tails[i];
+
+          fT.color3.x = col.r;
+          fT.color3.y = col.g;
+          fT.color3.z = col.b;
+
+        }
+      
+      }.bind( this ));
+
+      tailColor.addColor( c , 'bundleColor' ).onChange( function( value ){
+
+        var col = new THREE.Color( value );
+        for( var i = 0; i < this.tails.length; i++ ){
+
+          var fT = this.tails[i];
+          fT.color4.x = col.r;
+          fT.color4.y = col.g;
+          fT.color4.z = col.b;
+        }
+      
+      }.bind( this ));
+
     }
-
-    tailColor.addColor( c , 'spineColor' ).onChange( function( value ){
-
-     
-      var col = new THREE.Color( value );
-      console.log( col.r );
-      for( var i = 0; i < this.tails.length; i++ ){
-
-        var fT = this.tails[i];
-
-        fT.color1.x = col.r;
-        fT.color1.y = col.g;
-        fT.color1.z = col.b;
-
-      }
-    
-    }.bind( this ));
-
-    tailColor.addColor( c , 'subColor' ).onChange( function( value ){
-
-      var col = new THREE.Color( value );
-      for( var i = 0; i < this.tails.length; i++ ){
-
-        var fT = this.tails[i];
-
-        fT.color2.x = col.r;
-        fT.color2.y = col.g;
-        fT.color2.z = col.b;
-
-      }
-    
-    }.bind( this ));
-
-
-    tailColor.addColor( c , 'subSubColor' ).onChange( function( value ){
-
-      var col = new THREE.Color( value );
-      for( var i = 0; i < this.tails.length; i++ ){
-
-        var fT = this.tails[i];
-
-        fT.color3.x = col.r;
-        fT.color3.y = col.g;
-        fT.color3.z = col.b;
-
-      }
-    
-    }.bind( this ));
-
-    tailColor.addColor( c , 'bundleColor' ).onChange( function( value ){
-
-      var col = new THREE.Color( value );
-      for( var i = 0; i < this.tails.length; i++ ){
-
-        var fT = this.tails[i];
-        fT.color4.x = col.r;
-        fT.color4.y = col.g;
-        fT.color4.z = col.b;
-      }
-    
-    }.bind( this ));
    
 
     /*
