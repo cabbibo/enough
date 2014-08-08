@@ -9,22 +9,19 @@ alone.addToInitArray( function(){
 
   "When Webby awoke, he had no idea where he was, or what he was for that matter.",
   "","",
-
-  "For some reason though, he could remember the name ‘Khronos’. But that was just the beggning of the questions he had forthe strange new place he inhabited. Why was he here? Was there anything else like him?",
-  "","",
-
-  "Webby was worried he would never know the answers to these question , but was determined to find out more."
+ 
+"For some reason, he could remember the name ‘Khronos’, but that was just the beginning of the questions he had for the strange new place he inhabited. What was he? Why was he here? And was there anything else like him?","","",
+ 
+"Webby was worried he would never know the answers to these questions, but was still determined to find out more."
 
   ].join("\n" );
 
 
   this.textChunk2 = [
 
-  "Webby was, after all, a poorly veiled reference to ‘The Web’ created for a SIGGRAPH presentation.",
-   
-    "","",
+  "Webby was, after all, a poorly veiled reference to ‘The Web’ created for a SIGGRAPH presentation.","","",  
 
-    "He had no idea of this, of course, considering that he just a bunch of pixels, but for some reason he still wanted to know where he came from, and what it took to get him here today."
+  "He had no idea of this, of course, considering that he just a bunch of pixels, but for some reason he still wanted to know where he came from, and what it took to get him here today.  "
 
   ].join("\n" );
 

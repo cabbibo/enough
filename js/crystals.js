@@ -5,16 +5,22 @@ crystals.addToInitArray( function(){
 
 this.textChunk = [
 
-  "After traveling for what seemed like an eternity Webby came upon a land of sparkling crystals. Although it told him nothing more about where he came from, it was certainly pretty, so he took a moment to play with the crystals."
+  "After traveling for what seemed like an eternity, Webby came upon a land of sparkling crystals. Although it told him nothing more about himself, the crystals were very pretty, so he took a moment to play with them. "
 
 ].join("\n" );
 
 
 this.textChunk2 = [
 
-"As he got closer to the crystals, he suddenly remembered something of very distant past. A long time ago somebody name ‘Vladimir’ had done experiments that had made his existence possible. ",
-  "","",
-  "But this memory was not enough, so Webby moved again into the unknown, yearning for more answers to what made him be."
+"As he got closer to the crystals, the sounds they made conjured an image of a man wearing headphones. This made him remember that we was created using  a library called ‘three.js’, run by ‘Mr.doob’. Although he didn’t know what headphones were, seeing as he did not have ears, he still thought the word ‘doob’ looked a like a man wearing them."
+
+].join("\n");
+
+this.textChunk3 = [
+
+"He also didn’t know what a library was, but was certain that his creator, Cabbibo, had no idea what he was doing, so this ‘three.js’ must have been pretty easy to work with.",
+"","",
+  "It made Webby happy to know more about where he came from, but it still was not enough, so he moved again into the unknown, yearning for more answers. "
 
 ].join("\n");
 
@@ -22,7 +28,8 @@ this.position.set(  500 , -2000 , 1400 );
 this.cameraPos.set( 1000 , -1000 , 3600 );
 this.iPlaneDistance = 1200;
 
-this.cameraPos2 = new THREE.Vector3( -1000 , -1000 , 2000 );
+this.cameraPos2 = new THREE.Vector3( 0 , -1000 , 4000 );
+this.cameraPos3 = new THREE.Vector3( -3000 , -1000 , 0 );
 
 
 this.crystalParams = [
@@ -468,9 +475,11 @@ crystals.addToStartArray( function(){
 
 
 crystals.addToStartArray( function(){
-
   this.text2 = new PhysicsText( this.textChunk2 );
+}.bind( crystals ) );
 
+crystals.addToStartArray( function(){
+  this.text3 = new PhysicsText( this.textChunk3 );
 }.bind( crystals ) );
 
 crystals.addToActivateArray( function(){
@@ -488,10 +497,9 @@ crystals.addToActivateArray( function(){
   this.text.activate();
 
 
-  var offset = new THREE.Vector3( 450 , -150 , 0 );
-    
+  var offset = G.pageTurnerOffset;
+
   var percentTilEnd = 1 - this.looper.percentOfMeasure;
-    
   var timeTilEnd = percentTilEnd * this.looper.measureLength;
 
 
@@ -499,31 +507,48 @@ crystals.addToActivateArray( function(){
 
     this.text.kill( 5000 );
 
-    this.tweenCamera( this.cameraPos2 , (timeTilEnd-.1) * 1000 , function(){
+    this.tweenCamera( this.cameraPos2 , (timeTilEnd-.01) * 1000 , function(){
 
       this.text2.activate();
 
-      G.tmpV3.set( 450 , -150 , 0 );
-      this.endMesh.add( this , G.tmpV3 );
+      var offset = G.pageTurnerOffset;
 
-      for( var i = 0; i < this.crystals.length; i++ ){
+      var callback = function(){
 
-        var c = this.crystals[i];
-        if( i === 2 ){
+        this.text2.kill( 3000 );
+
+
+        var percentTilEnd = 1 - this.looper.percentOfMeasure;
+        var timeTilEnd = percentTilEnd * this.looper.measureLength;
+
+        this.tweenCamera( this.cameraPos3,  (timeTilEnd-.01) * 1000 , function(){
           
-          if( !c.selected ) c.select();
-
-        }else{
-
-          //if( c.selected ) c.select();
-          
-        }
-
-      }
-
-    }.bind( this ) );
+         
+          console.log('TWESNS');
+          this.text3.activate();
+          this.endMesh.add( this );
 
 
+          for( var i = 0; i < this.crystals.length; i++ ){
+
+            var c = this.crystals[i];
+            if( i === 2 ){
+              
+              if( !c.selected ) c.select();
+
+            }else{
+
+            }
+
+          }
+
+        }.bind( this ));
+      }.bind( this);
+
+      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+      this.scene.add( this.transitionMesh2 );
+
+    }.bind( this  ));
   }.bind( this );
 
   this.transitionMesh1 = this.createTurnerMesh( offset , callback );
@@ -541,13 +566,14 @@ crystals.addToAllUpdateArrays( function(){
   
   this.text.update();
   this.text2.update();
+  this.text3.update();
 
 }.bind( crystals ));
 
 crystals.addToDeactivateArray( function(){
 
   G.iPlane.faceCamera = true;
-  this.text2.kill();
+  this.text3.kill();
 
 }.bind( crystals) );
 

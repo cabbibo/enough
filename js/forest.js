@@ -295,12 +295,12 @@ forest.addToActivateArray( function(){
         this.forest.bases[255].select();
         this.forest.bases[208].select();
 
-            this.forest.bases[32].select();
-    this.forest.bases[59].select();
+        this.forest.bases[32].select();
+        this.forest.bases[59].select();
 
-          this.forest.bases[84].select();
-  this.forest.bases[98].select();
-  this.forest.bases[106].select();
+        this.forest.bases[84].select();
+        this.forest.bases[98].select();
+        this.forest.bases[106].select();
 
 
 
@@ -318,7 +318,6 @@ forest.addToActivateArray( function(){
       }.bind( this );
 
       this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-
       this.scene.add( this.transitionMesh2 );
 
     }.bind( this ) );

@@ -238,7 +238,7 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
 
     G.tmpV3.copy( offset );
     G.tmpV3.applyQuaternion( G.camera.quaternion );
-    mesh.position.add( offset );
+    mesh.position.add( G.tmpV3 );
 
     G.tmpV3.copy( mesh.position );
     mesh.lookAt( G.tmpV3.sub( forward ) );
