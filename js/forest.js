@@ -4,33 +4,30 @@ forest.addToInitArray( function(){
   
   this.textChunk = [
 
-    "After traveling through the darkness for some time Webby came upon another beautiful playplace. Here he found a soft forest of metallic tendrils. As he swam through the flowing stalks, he listened to the soft plinks and hums that he created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he thought that sound waves couldn’t travel in the vacuum of space."
+    "After traveling through the darkness for some time Webby came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he had no ears. "
 
 
   ].join("\n" );
 
   this.textChunk2 = [
 
-    "Through his wondering, Webby remembered the brilliant work done by the W3C to create an API that allowed people to not only play sounds on the web, but also analyze their every movement. It didn’t really bother Webby that he didn’t know what an API was, or that he couldn't even use it because he didn’t have fingers.",
-  "","",
-  "All that mattered was that he had learned a bit more about what made him."
+    "Through his wondering, Webby remembered the brilliant work done by the W3C to create an API that allowed people to not only play sounds on the web, but also analyze their every movement. It didn’t really bother Webby that he couldn’t use an API because he didn’t have fingers, all that mattered was that he learned a bit more about what made him. "
 
 
   ].join("\n" );
 
   this.textChunk3 = [
 
-    "It still was not enough though, Webby wanted to find the answers, and had a feeling that his time in this world was limited, and he was right to think so, because there were only so many minutes until the presentation ended.",
-    "","",
-    "So Webby continued onwards, searching for more answers."
-
+    "But Webby craved more, and had a feeling that his time  in this world was limited. He was right to think so, because there were only so many minutes until the presentation ended.",
+  "","",
+  "So Webby continued onwards, still searching. "
 
   ].join("\n" );
 
 
 
 
-  this.position.set(  0 , 0 , -1600 );
+  this.position.set(  0 , 0 , -2500 );
   this.cameraPos.set( 0 , 0 , 1000 );
 
   this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , 0 );

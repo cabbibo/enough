@@ -5,22 +5,22 @@ sparkles.addToInitArray( function(){
 
   this.textChunk = [
 
-    "In the end, this story is not actually about a small creature named Webby. It is not about the fact that the Internet is ready for the people in this room to use as a platform. It has been for a long time.",
-    "","",
+    "In the end, this story is not actually about a small creature named Webby. It is not about the fact that the Internet is ready for people in this room to use as a platform. It has been for a long time.",
 
-    "It is the fact that you, each and every one of you, can make beautiful experiences for others to see with a simple URL."
+    "","",
+ 
+    "It is that you, each and every one of you, can make simple, beautiful experiences for others to see with just a URL."
 
   ].join("\n" );
 
   this.textChunk2 = [
 
-    "They could be advertisements, they could be client work, but they could also be haikus, short sketches, and playful demos",
-    "","",
-    "What is important is not what they are, but what they do. The emotions they evoke, the feelings they create, and the ways in which they help us to fully experience the real time that is now."
+    "They could be advertisements, they could be client work, but they could also be haikus, short sketches, and playful experiments.",
+  "","",
+ 
+  "What is important is not what they are, but what they do. The emotions they evoke, the feelings they create, and the ways in which they help us to fully experience the real time that is now. "
 
   ].join("\n" );
-
-
 
 
 

@@ -4,11 +4,11 @@ together.addToInitArray( function(){
 
   this.textChunk = [
 
-  "Webby now knew joy. There was someone else like him.",
-  "","",
-  "Webby played with the creature for millions of render cycles. He had not realized how powerfully entertaining it was to experience high end graphics on the web. It felt like it finally gave his life purpose, no matter how simple the  was.",
-  "","",
-  "But the other creature motioned for Webby, and together they journeyed on."
+    "Webby now knew joy. There was someone else like him.",
+    "","",
+    "Webby played with the creature for millions of render cycles. He had not realized how powerfully entertaining it was to experience high end graphics on the web. It felt like it finally gave his life purpose, no matter how simple the venture was.",
+    "","",
+    "But soon enough,  the other creature motioned to Webby, and together they journeyed on. "
 
   ].join("\n" );
 

@@ -5,40 +5,39 @@ tree.addToInitArray( function(){
 
   this.textChunk = [
 
-    "By now Webby was growing tired.  He had been looking for answers for what felt like forever, but still knew so little. Also, he felt lonely. Why, Webby Wondered , were there no other creatures like him. There were so many amazing technologies for creating space puppies like him, so why had he not seen any?"
+    "By now Webby was growing tired.  He had been looking for answers forever, but still knew so little. Also, he felt lonely. Why, Webby wondered, were there no other creatures like him. There were so many spectacular technologies for creating space puppies like himself, so why had he not seen any?"
 
   ].join("\n" );
 
   this.textChunk2 = [
 
-    "The haunting tree that stood before him mirrored the sadness he felt. There were amazing tools like three.js, play canvas and goo. So WHY were people not creating 3D experiences for the web?",
-  "","",
-
-  "He dejectedly chased the lights that moved around the tree, both because they were shiny, and because he hoped they would make him forget his loneliness. But even they could not quell the feeling that maybe 3D just wasn’t meant for the web."
+    "The haunting tree that stood before him mirrored the sadness he felt. There were amazing tools like Play Canvas and Goo, beautiful tutorials by The Spite and Aerotwist. So WHY were people not creating 3D experiences for the web?",  
+    "","",
+    "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe 3D just wasn’t meant for the web. "
 
   ].join("\n" );
 
 
   this.textChunk3 = [
 
-    "Webby was ready to give up. What was the point of his existence, if he was the only one? ",
+  "Webby was ready to give up. What was the point of his existence, if he was the only one?",
     "","",
-  "What was the point of the Web if it was only going to be  tweets in html  and css facebook posts?",
+  "What was the point of the Web if all the apathetic tweets and narcissistic posts were always 2D?",
 
   ].join("\n" );
 
   this.textChunk4 = [
 
-    "Suddenly, he heard a melody more sweet than he could imagine. A color more vibrant than he could understand. At first he did not understand, was this just another sparkly object, coming to remind him of his lonliness? Another page that seemed like it was 3D and only turned out having parallax scrolling?",
-  "","",
-  "Or was it a creature, like him? A harbinger of the web to come?",
+    "Then, Webby heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another page that seemed like it was 3D but actually only had parallax scrolling?",
+    "","",
+    "Or was it a creature, like him? A harbinger of the web to come? ",
 
   ].join("\n" );
 
 
 
   this.position.set(  0 , -3000 , 0 );
-  this.cameraPos.set( 2000 , -1000 , 3000 );
+  this.cameraPos.set( 2000 , -2000 , 3000 );
   this.cameraPos2 = new THREE.Vector3( 1000 , -2200 , 2000 );
   this.cameraPos3 = new THREE.Vector3( -1000 , -2800 , 2000 );
   this.cameraPos4 = new THREE.Vector3( -3000 , -3000 , 100 );

@@ -29,7 +29,7 @@ this.cameraPos.set( 1000 , -1000 , 3600 );
 this.iPlaneDistance = 1200;
 
 this.cameraPos2 = new THREE.Vector3( 0 , -1000 , 4000 );
-this.cameraPos3 = new THREE.Vector3( -3000 , -1000 , 0 );
+this.cameraPos3 = new THREE.Vector3( 3000 , -1000 , 1000 );
 
 
 this.crystalParams = [
@@ -513,6 +513,21 @@ crystals.addToActivateArray( function(){
 
       var offset = G.pageTurnerOffset;
 
+       for( var i = 0; i < this.crystals.length; i++ ){
+
+          var c = this.crystals[i];
+          if( i !== 0 && i !== 1 && i !== 2 && i !== 3 && i !== 9){
+            
+            if( !c.selected ) c.select();
+          
+          }else{
+
+            if( c.selected ) c.select();
+          }
+
+        }
+
+
       var callback = function(){
 
         this.text2.kill( 3000 );
@@ -532,12 +547,10 @@ crystals.addToActivateArray( function(){
           for( var i = 0; i < this.crystals.length; i++ ){
 
             var c = this.crystals[i];
-            if( i === 2 ){
-              
+            if(  i !== 3 && i !== 9 ){
               if( !c.selected ) c.select();
-
             }else{
-
+              if( c.selected ) c.select();
             }
 
           }
