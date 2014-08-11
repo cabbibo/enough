@@ -218,6 +218,9 @@ alone.addToActivateArray( function(){
 
   mesh.scale.multiplyScalar( 300.5 )
 
+
+  G.mani.activate();
+
 }.bind( alone ));
 
 

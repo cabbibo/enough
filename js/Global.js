@@ -65,7 +65,7 @@ G.dpr           = window.devicePixelRatio || 1;
 G.ratio         = G.w / G.h * G.ratio 
 G.camera        = new THREE.PerspectiveCamera( 45 * G.ratio  , G.ratio , 10 , 10000 );
 G.scene         = new THREE.Scene();
-G.renderer      = new THREE.WebGLRenderer(); //autoclear:false\
+G.renderer      = new THREE.WebGLRenderer();
 G.clock         = new THREE.Clock();
 
 G.position      = new THREE.Vector3();
@@ -317,7 +317,7 @@ G.init = function(){
   this.mani =  this.furryTails[0];
   this.mani.position.relative = new THREE.Vector3();
 
-  this.mani.activate();
+  //this.mani.activate();
 
   this.mani.iPlaneAttracting = true;
 
