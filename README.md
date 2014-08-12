@@ -17,7 +17,7 @@ FOR SIGGRAPH:
 
   // - Object controls should work with both hands! ( create second object controls? only update if there is a left hand? )
   - Practice at least 10 times
-  - Text ( Proofread! )
+  //- Text ( Proofread! )
 
   - Black Screen after together ( frame loss? )
     - Probably has something to do with the renderer clearing or not clearing b/c creating so many of those critters.

@@ -11,7 +11,7 @@ tree.addToInitArray( function(){
 
   this.textChunk2 = [
 
-    "The haunting tree that stood before him mirrored the sadness Webby felt. There were amazing tools like Play Canvas , Verold, and Goo, beautiful tutorials by The Spite and Aerotwist. So WHY were people not creating 3D experiences for the web?",  
+    "The haunting tree that stood before him mirrored the sadness Webby felt. There were amazing tools like Play Canvas, Verold, and Goo; beautiful tutorials by The Spite and Aerotwist. So WHY were people not creating 3D experiences for the web?",  
     "","",
     "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe 3D just wasn’t meant for the web. "
 
