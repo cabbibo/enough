@@ -97,7 +97,7 @@ G.renderer.setSize( G.w , G.h );
 G.container.appendChild( G.renderer.domElement );
   
 G.stats.domElement.id = 'stats';
-document.body.appendChild( G.stats.domElement );
+//document.body.appendChild( G.stats.domElement );
 
 G.leap.connect();
 G.gui.close();
