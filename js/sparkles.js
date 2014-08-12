@@ -5,7 +5,7 @@ sparkles.addToInitArray( function(){
 
   this.textChunk = [
 
-    "In the end, this story is not actually about a small creature named Webby. It is not about trying to prove that the Internet is ready for people in this room to use as a platform. It has been for a long time.",
+    "In the end, this story is not actually about a small creature named Webby. It is not about trying to prove that the Internet is ready for people in this room to use as a platform. It has been ready for a long time.",
 
     "","",
  
