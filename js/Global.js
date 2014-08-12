@@ -31,7 +31,7 @@ G.MATS      = {};
 G.audio   = new AudioController();
 G.shaders = new ShaderLoader( 'shaders' );
 G.leap    = new Leap.Controller();
-G.gui     = new dat.GUI({});
+G.gui     = new dat.GUI({autoPlace:false});
 G.loader  = new Loader();
 G.stats   = new Stats();
 
@@ -237,13 +237,10 @@ G.init = function(){
 
   this.lHand.relative = new THREE.Vector3();
 
-  console.log( 'HAND' );
-  console.log( this.lHand );
 
   //this.lHand.particles = new HandParticles( this.lHand.hand , 64 );
   this.rHand.particles = new HandParticles( this.rHand.hand , 64 );
 
-  console.log( this.lHand.particles );
   //this.lHand.particles.activate();
   this.rHand.particles.activate();
 
