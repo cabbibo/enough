@@ -12,7 +12,7 @@ this.textChunk = [
 
 this.textChunk2 = [
 
-"As he got closer to the crystals, the sounds they made conjured an image of a man wearing headphones. This made him remember that we was created using a library called ‘three.js’, run by ‘Mr.doob’. Although he didn’t know what headphones were, seeing as he did not have ears, he still thought the word ‘doob’ looked a like a man wearing them."
+"As he got closer to the crystals, the sounds they made conjured an image of a man wearing headphones. This made him remember that he was created using a library called ‘three.js’, run by ‘Mr.doob’. Although he didn’t know what headphones were, seeing as he did not have ears, he still thought the word ‘doob’ looked a like a man wearing them."
 
 ].join("\n");
 

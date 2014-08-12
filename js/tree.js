@@ -81,7 +81,7 @@ tree.addToInitArray( function(){
 
     { 
       audio:"startingOver",
-      color: new THREE.Vector3( 0 , .2 , .5 ),
+      color: new THREE.Vector3( .4 , .5 , .8 ),
       position: new THREE.Vector3(),
       early: true
     },

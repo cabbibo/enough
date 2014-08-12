@@ -4,7 +4,7 @@ forest.addToInitArray( function(){
   
   this.textChunk = [
 
-    "After traveling through the darkness for some time Webby came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he had no ears. "
+    "After leaving the crystals, Webby swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he still had no ears. "
 
 
   ].join("\n" );
@@ -18,7 +18,7 @@ forest.addToInitArray( function(){
 
   this.textChunk3 = [
 
-    "But Webby craved more, and had a feeling that his time  in this world was limited. He was right to think so, because there were only so many minutes until the presentation ended.",
+    "But Webby craved more, and had a feeling that his time in this world was limited. He was right to think so, because there were only so many minutes until the presentation ended.",
   "","",
   "So Webby continued onwards, still searching. "
 

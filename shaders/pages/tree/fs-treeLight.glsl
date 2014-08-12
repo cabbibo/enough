@@ -47,7 +47,7 @@ void main(){
 
   vec4 aFR = texture2D( t_audio , vec2( facingRatio , 0. ) );
 
-  vec3 fColor = color * aFR.xyz + color * .2 * facingRatio + color * .9 * ( 1. - facingRatio ) * hovered;
+  vec3 fColor = color * aFR.xyz + color * .4 * facingRatio + color * .9 * ( 1. - facingRatio ) * hovered;
 
 
  
