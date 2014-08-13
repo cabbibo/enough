@@ -21,7 +21,7 @@ alone.addToInitArray( function(){
 
   "Webby was, after all, a poorly veiled reference to ‘The Web’ created for a SIGGRAPH presentation.","","",  
 
-  "He had no idea of this, of course, considering that he just a bunch of pixels, but for some reason he still wanted to know where he came from, and what it took to get him here today.  "
+  "He had no idea of this, of course, considering that he was just a bunch of pixels, but for some reason he still wanted to know where he came from, and what it took to get him here today.  "
 
   ].join("\n" );
 
