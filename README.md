@@ -27,9 +27,9 @@ FOR SIGGRAPH:
     
   - Mechanics for planets too jumpy
 
-  //- Tween in for page transition audio gains, rather than turn on at end of transition
-  //  -Check out the 'tween to end of loop' function in looper.
-  //  - Also could use a filter for all this stuff rather than straight gain? compare memory usage!
+  - Tween in for page transition audio gains, rather than turn on at end of transition
+    -Check out the 'tween to end of loop' function in looper.
+    - Also could use a filter for all this stuff rather than straight gain? compare memory usage!
 
   - Each segment within a page should trigger different notes / objects
  
