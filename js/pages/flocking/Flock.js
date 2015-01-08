@@ -30,17 +30,17 @@ function Flock( coral , params ){
 
     resolution:           { type: "v2", value: new THREE.Vector2() },
     testing:              { type: "f" , value: 1.0 },
-    seperationDistance:   { type: "f" , value: 3.9 },
-    alignmentDistance:    { type: "f" , value: 6.0 },
-    cohesionDistance:     { type: "f" , value: 9.0 },
+    seperationDistance:   { type: "f" , value: 10.9 },
+    alignmentDistance:    { type: "f" , value: 20.0 },
+    cohesionDistance:     { type: "f" , value: 30.0 },
     freedomFactor:        { type: "f" , value: 1000000000000000.0 },
-    maxVel:               { type: "f" , value: 5 },
+    maxVel:               { type: "f" , value: 20 },
     velMultiplier:        { type: "f" , value: 5. },
     forceMultiplier:      { type: "f" , value: 8000. },
-    centerPower:          { type: "f" , value: .06 },
+    centerPower:          { type: "f" , value: .2 },
     predator:             { type: "v3", value: G.iPoint.relative },
-    predatorRepelRadius:  { type: "f" , value: 50 },
-    predatorRepelPower:   { type: "f" , value: 200 },
+    predatorRepelRadius:  { type: "f" , value: 300 },
+    predatorRepelPower:   { type: "f" , value: 800 },
     attractor:            { type: "v3", value: new THREE.Vector3() },
     attractionCoral :     { type: "f" , value: 3 },
     coralRepelRadius:     { type: "f" , value:10 },
@@ -56,7 +56,9 @@ function Flock( coral , params ){
     
     t_pos :       { type:"t"  , value: null },
     t_posArray :  { type:"tv" , value: this.textureArray },
-    t_matcap :    { type:"t"  , value: this.params.matcap }
+    t_matcap :    { type:"t"  , value: this.params.matcap },
+    t_audio:      G.t_audio,
+    t_normal:     { type:"t" , value: G.TEXTURES.norm_moss},
 
   };
 
@@ -177,8 +179,8 @@ function Flock( coral , params ){
     fragmentShader: G.shaders.fs.ribbon,
     linewidth:1,
     side: THREE.DoubleSide,
-    //transparent: true,
-    //depthWrite:false,
+    transparent: true,
+    depthWrite:false,
     //blending: THREE.AdditiveBlending
   });
 
@@ -193,8 +195,8 @@ function Flock( coral , params ){
 
 Flock.prototype.activate = function( scene ){
 
-  scene.add( this.fish );
-  scene.add( this.eel );
+  //scene.add( this.fish );
+  //scene.add( this.eel );
   scene.add( this.ribbon );
 
   this.simulationActive = true;
@@ -203,8 +205,8 @@ Flock.prototype.activate = function( scene ){
 
 Flock.prototype.deactivate = function( scene ){
 
-  scene.remove( this.fish );
-  scene.remove( this.eel );
+  // scene.remove( this.fish );
+  // scene.remove( this.eel );
   scene.remove( this.ribbon );
 
   this.simulationActive = false;

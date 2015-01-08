@@ -140,7 +140,7 @@ void main()	{
 
     if( dist < predatorRepelRadius ){
 
-      force += normalize( dir ) * predatorRepelPower;
+      force += (predatorRepelRadius-dist) * normalize( dir ) * predatorRepelPower;
 
 
     }

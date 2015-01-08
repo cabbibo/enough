@@ -1,4 +1,6 @@
 
+uniform sampler2D t_audio;
+uniform sampler2D t_normal;
 varying float vDepth;
 
 varying vec2 vRibbonUV;
@@ -34,6 +36,14 @@ void main(){
     
     col = nCol * pow( dot( vNormal , normalize(vEye) ) , 5. );
 
+  }
+
+  vec4 norm = texture2D( t_normal , vRibbonUV * .5 );
+  col = texture2D( t_audio , vRibbonUV );
+
+  if( norm.x < .45 ){
+
+    discard;
   }
 
 

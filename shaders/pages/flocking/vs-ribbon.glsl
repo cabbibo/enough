@@ -1,4 +1,6 @@
 
+uniform vec3 relativeCameraPostion;
+
 attribute vec2 info;
 varying float vDepth;
 
@@ -8,7 +10,7 @@ varying float vAmount;
 
 varying vec3 vNormal;
 
-varying vec3 vEye; 
+varying vec3 vEye;
 
 const int depth = @DEPTH;
 
@@ -130,7 +132,8 @@ void main(){
   //vec3 columnToPos = pos.xyz - columnPos;
 
 
-  vec3  upVector = normalize(centerOfCircle - cameraPosition); //vec3( 0. , 1. , 0. );
+  vec3  upVector = normalize((modelViewMatrix * vec4( centerOfCircle ,1.)).xyz - cameraPosition);
+ //vec3( 0. , 1. , 0. );
   //vec3  upVector = normalize( centerOfCircle );// vec3( 0. , 1. , 0. );
   float upVectorProj = dot( upVector , dirNorm );
   vec3  upVectorPara = upVectorProj * dirNorm;
@@ -140,10 +143,11 @@ void main(){
   vec3 basisY = cross( dirNorm , basisX );
 
 
-  p = centerOfCircle + basisY * uv.y * abs(sin( uv.x *4.+3.14)) + .4;
+ // p = centerOfCircle + basisY * (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
+  p = centerOfCircle + basisY * 10. * uv.y;//* (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
   
 
-  vEye = normalize(centerOfCircle - cameraPosition);
+  vEye = normalize((modelViewMatrix * vec4( centerOfCircle ,1.)).xyz - cameraPosition);
   vNormal = basisX;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4( p , 1. );

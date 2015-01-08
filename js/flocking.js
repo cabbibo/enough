@@ -18,10 +18,14 @@ flocking.addToInitArray( function(){
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
-
-    'hueBoy',
-    'hueSparkles',
-    'hueAngel'
+  
+    //'flockFaith',
+    'flockBongos',
+    'flockGlitter',
+    'flockShuffled',
+    'flockHoly',
+    //'flockFaith',
+    //'flockMajor'
 
   ]
 
@@ -37,7 +41,7 @@ flocking.addToInitArray( function(){
 
 
 
-  var f = 'audio/global/';
+  var f = 'audio/pages/flocking/';
 
   for( var i=0; i< this.audioArray.length; i++ ){
 
@@ -87,7 +91,7 @@ flocking.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 122,
+    beatsPerMinute: 78,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
@@ -147,9 +151,9 @@ flocking.addToStartArray( function(){
 
   this.flock.activate( this.scene );
 
-  var debugScene = this.flock.soul.createDebugScene();
+  /*var debugScene = this.flock.soul.createDebugScene();
   debugScene.scale.multiplyScalar( 20. );
-  this.scene.add( debugScene );
+  this.scene.add( debugScene );*/
 
 }.bind( flocking ) );
 

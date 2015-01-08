@@ -21,3 +21,4 @@ how to make 1level place based on position of last level ( AKA sparkles is movin
 
 --> dropped frames that occur between pages *could* be because the camera is jumping back to origin for a single frame!
 --> can see this bug when transfering from tree to together, if you turn page right after reaching last section. Shoudl see sol *flash* for a frame
+--> Could be at beginnign of all .addToStartArray( because they have G.camera.position.copy( this.position ) ). INVESTIGATE
