@@ -87,6 +87,7 @@
     <script src="js/tree.js"></script>
     <script src="js/sparkles.js"></script>
     <script src="js/fireworks.js"></script>
+    <script src="js/sun.js"></script>
     <script src="js/credits.js"></script>
 
 
@@ -95,7 +96,7 @@
       // TODO: 
       // Write shaders for hands
 
-     //G.audio.mute.gain.value = 0;
+     G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -153,10 +154,13 @@
       G.pages.planets.nextPage   = G.pages.sparkles;
 
       G.pages.sparkles.prevPage = G.pages.planets;
-      G.pages.sparkles.nextPage = G.pages.fireworks;
+      G.pages.sparkles.nextPage = G.pages.sun;
       //console.log( G.pages.alone.nextPage );
 
-      G.pages.fireworks.prevPage = G.pages.sparkles;
+      G.pages.sun.prevPage = G.pages.sparkles;
+      G.pages.sun.nextPage = G.pages.fireworks;
+      
+      G.pages.fireworks.prevPage = G.pages.sun;
       G.pages.fireworks.nextPage = G.pages.credits;
      
       
@@ -166,7 +170,7 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.alone;
+        var s = G.pages.sun;
 
         s.init();
         s.addToOnLoadArray( function(){
