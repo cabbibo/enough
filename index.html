@@ -38,6 +38,7 @@
 
     <script src="lib/ParticleUtils.js"></script>
     <script src="lib/PhysicsRenderer.js"></script>
+    <script src="lib/PhysicsArrayRenderer.js"></script>
     
     <script src="lib/Loader.js"></script>
     
@@ -68,6 +69,9 @@
     
     <script src="js/pages/sparkles/Sparkles.js"></script>
 
+    <script src="js/pages/flocking/Flock.js"></script>
+    <script src="js/pages/flocking/CreateFlockingGeometry.js"></script>
+
     <script src="js/pages/sun/GEM.js"></script>
     <script src="js/pages/sun/RepelerMesh.js"></script>
 
@@ -88,6 +92,7 @@
     <script src="js/together.js"></script>
     <script src="js/tree.js"></script>
     <script src="js/sparkles.js"></script>
+    <script src="js/flocking.js"></script>
     <script src="js/fireworks.js"></script>
     <script src="js/sun.js"></script>
     <script src="js/credits.js"></script>
@@ -98,7 +103,7 @@
       // TODO: 
       // Write shaders for hands
 
-     //G.audio.mute.gain.value = 0;
+     G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -156,10 +161,12 @@
       G.pages.planets.nextPage   = G.pages.sparkles;
 
       G.pages.sparkles.prevPage = G.pages.planets;
-      G.pages.sparkles.nextPage = G.pages.sun;
-      //console.log( G.pages.alone.nextPage );
+      G.pages.sparkles.nextPage = G.pages.sparkles;
 
-      G.pages.sun.prevPage = G.pages.sparkles;
+      G.pages.flocking.prevPage = G.pages.sparkles;
+      G.pages.flocking.nextPage = G.pages.sun;
+
+      G.pages.sun.prevPage = G.pages.flocking;
       G.pages.sun.nextPage = G.pages.fireworks;
       
       G.pages.fireworks.prevPage = G.pages.sun;
@@ -172,7 +179,7 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.sun;
+        var s = G.pages.flocking;
 
         s.init();
         s.addToOnLoadArray( function(){
