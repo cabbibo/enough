@@ -168,8 +168,7 @@
       fragmentShader: G.shaders.fs.furryTail,    
     });
 
-    this.line = new THREE.Line( this.lineGeo , lineMat );
-    this.line.type = THREE.LinePieces;
+    this.line = new THREE.Line( this.lineGeo , lineMat  , THREE.LinePieces);
 
     this.line.frustumCulled = false;
     

@@ -5,30 +5,30 @@ function RepelerMesh( title , mesh , repelers , extraParams ){
 
   var title = title || 'HELLO';
   var mesh = mesh || new THREE.Mesh( new THREE.BoxGeometry( 1000 , 1000 , 1000 , 80 , 80 , 80 ) );
-  var geometry = new THREE.Geometry();
+  //var geometry = new THREE.Geometry();
 
-  geometry.merge( mesh.geometry , mesh.matrix );
+ // geometry.merge( mesh.geometry , mesh.matrix );
   
+  var geometry = mesh;
  // var geometry =  || new THREE.BoxGeometry( 1000 , 1000 , 1000 , 80 , 80 , 80 );
   
 
   var st = repelers.length + "";
 
-  var s = shaders.setValue( shaders.simulationShaders.fire , 'SIZE' , st );
+  var s = G.shaders.setValue( G.shaders.simulationShaders.sun , 'SIZE' , st );
  
   
   this.rotationSpeed = .1;
 
   var extraParams = extraParams || {};
-  console.log( extraParams );
   var params =  {
 
     rotationSpeed: .1,
     rotationRadius: 300,
     repelers: repelers,
 
-    vs: extraParams.vs || shaders.vertexShaders.fire,
-    fs: extraParams.fs || shaders.fragmentShaders.weird1,
+    vs: extraParams.vs || G.shaders.vertexShaders.sun,
+    fs: extraParams.fs || G.shaders.fragmentShaders.sun,
     ss: s,
 
     geometry: geometry,

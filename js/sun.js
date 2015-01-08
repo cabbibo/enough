@@ -35,6 +35,15 @@ sun.addToInitArray( function(){
 
   this.audio = {};
   this.audio.array = [];
+
+
+   var f = 'pages/sun/';
+
+  this.loadShader( 'sun' , f + 'ss-sun' , 'simulation' );
+
+  this.loadShader( 'sun' , f + 'vs-sun' , 'vertex' ); 
+  this.loadShader( 'sun' , f + 'fs-sun' , 'fragment' ); 
+
     
 }.bind( sun ) );
 
@@ -42,8 +51,8 @@ sun.addToInitArray( function(){
 // Need to load at least 1 thing
 sun.addToInitArray( function(){
   
-  var f = 'img/iri/';
-  this.loadTexture( 'wetwetwet' , f + 'comboWet.png');
+  var f = 'img/matcap/';
+  this.loadTexture( 'matcapBlood' , f + 'blood.jpg');
 
   var f = 'audio/pages/sun/'
 
@@ -51,8 +60,6 @@ sun.addToInitArray( function(){
     
     var name = this.audioArray[i];
 
-    console.log( name );
-    console.log( this.audio );
     this.audio[ name ] = this.loadAudio( name , f + name + '.mp3' );
  
     this.audio[ name ].updateAnalyser = true;
@@ -103,6 +110,62 @@ sun.addToStartArray( function(){
 
 }.bind( sun ) );
 
+sun.addToStartArray( function(){
+
+
+  this.repelers = [];
+
+   for(var i = 0; i < 50; i++ ){
+
+      var mesh = new THREE.Mesh( G.GEOS.icosahedron, G.MATS.normal  );
+      mesh.target   = new THREE.Vector3();//toCart( 12 , t , p );
+      mesh.velocity = new THREE.Vector3();
+      mesh.power    = new THREE.Vector3( 1 , 1 , 1);
+      mesh.radius   = new THREE.Vector3( 1 , 1 , 1);
+      mesh.scale.multiplyScalar( 10 );
+      this.repelers.push( mesh );
+
+      this.scene.add( mesh );
+
+      mesh.position.x = (Math.random() - .5 ) * 200;
+      mesh.position.z = (Math.random() - .5 ) * 200;
+      mesh.position.y = (Math.random() - .5 ) * 200;
+
+    }
+
+
+  var mesh = new THREE.IcosahedronGeometry( 100 , 5 ); 
+  this.gem = new RepelerMesh( 'Parameters' , mesh , this.repelers , {
+
+        
+    vs: G.shaders.vs.sun,
+
+    fs: G.shaders.fs.sun,
+
+    soul:{
+
+      repulsionPower:     { type:"f" , value: .0000000 , constraints:[-300  , 0] },
+      repulsionRadius:     { type:"f" , value: .00000 , constraints:[ 0  , 1000] },
+    },
+
+    body:{
+      //t_refl:{type:"t" , value:reflectionCube},
+      //t_refr:{type:"t" , value:reflectionCube },
+      custom1:{type:"f" , value:.9 , constraints:[ .8 , 1 ]},
+      t_sem:{type:"t" , value: G.TEXTURES.matcapBlood }
+
+    }
+
+  }); 
+
+  this.gem.soul.reset( this.gem.t_og.value );
+  this.gem.toggle( this.scene );
+
+  this.gem.debug( this.scene , 1 , 100 );
+
+}.bind( sun ));
+
+
 
 sun.addToActivateArray( function(){
 
@@ -115,6 +178,8 @@ sun.addToActivateArray( function(){
 sun.addToAllUpdateArrays( function(){
 
   this.text.update();
+  this.gem.update();
+
 
 }.bind( sun ));
 

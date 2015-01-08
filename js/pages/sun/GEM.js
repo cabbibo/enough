@@ -6,9 +6,9 @@ function GEM( params ){
     
     geometry: new THREE.IcosahedronGeometry( 10 , 5 ),
 
-    ss: shaders.simulationShaders.ball,
-    vs: shaders.vertexShaders.ball,
-    fs: shaders.fragmentShaders.ball,
+    ss: G.shaders.simulationShaders.sun,
+    vs: G.shaders.vertexShaders.sun,
+    fs: G.shaders.fragmentShaders.sun,
 
     blending: THREE.NormalBlending,
     transparent: false,
@@ -42,7 +42,7 @@ function GEM( params ){
   this.vertexUVs = this.createVertexUVs();
   this.t_og = this.createOGTexture();
 
-  this.soul = new PhysicsRenderer( this.size , this.ss , renderer );
+  this.soul = new PhysicsRenderer( this.size , this.ss , G.renderer );
 
   this.soul.setUniform( 'dT'    , this.params.dT );
   this.soul.setUniform( 'timer' , this.params.time );
@@ -107,26 +107,28 @@ function GEM( params ){
 
 }
 
-GEM.prototype.addToScene = function(){
+GEM.prototype.addToScene = function( scene ){
 
   this.active = true;
   scene.add( this.body );
 
 }
 
-GEM.prototype.removeFromScene = function(){
+GEM.prototype.removeFromScene = function( scene ){
 
   this.active = false;
   scene.remove( this.body );
 
 }
 
-GEM.prototype.toggle = function(){
+GEM.prototype.toggle = function( scene ){
+
+  var scene = scene || G.scene;
 
   if( !this.active ){
-    this.addToScene();
+    this.addToScene( scene );
   }else{
-    this.removeFromScene();
+    this.removeFromScene( scene );
   }
 
 }
@@ -297,12 +299,13 @@ GEM.prototype.createGeometry = function(){
 GEM.prototype.update = function(){
 
   if( this.active ){
+    console.log( 'hellsp');
     this.soul.update();
   }
 
 }
 
-GEM.prototype.debug = function(scale , y){
+GEM.prototype.debug = function(scene , scale , y){
 
   var scale = scale || .1;
   var y = y || 20;

@@ -43,7 +43,7 @@ THREE.ShaderLib['mirror'] = {
 			"vec4 color = texture2DProj(mirrorSampler, mirrorCoord);",
 			"color = vec4(blendOverlay(mirrorColor.r, color.r), blendOverlay(mirrorColor.g, color.g), blendOverlay(mirrorColor.b, color.b), 1.0);",
 
-			"gl_FragColor = vec4( .5, 0. , 0. , 0. ) + color;",
+			"gl_FragColor = color;",
 
 		"}"
 
@@ -117,20 +117,11 @@ THREE.Mirror = function ( renderer, camera, options ) {
 	var mirrorShader = THREE.ShaderLib[ "mirror" ];
 	var mirrorUniforms = THREE.UniformsUtils.clone( mirrorShader.uniforms );
 
-    var uniforms = {
-      mirrorColor: { type: "c", value: new THREE.Color(0x7F7F7F) },
-      mirrorSampler: { type: "t", value: null },
-      textureMatrix : { type: "m4", value: new THREE.Matrix4() },
-      t_audio:      G.t_audio,
-      time: G.timer,
-      t_normal:     { type:"t" , value: G.TEXTURES['normal_water'] },
-    }
-
 	this.material = new THREE.ShaderMaterial( {
 
-		fragmentShader: G.shaders.fs.mirror , 
-		vertexShader: G.shaders.vs.mirror , 
-		uniforms: uniforms 
+		fragmentShader: mirrorShader.fragmentShader,
+		vertexShader: mirrorShader.vertexShader,
+		uniforms: mirrorUniforms
 
 	} );
 
@@ -179,8 +170,6 @@ THREE.Mirror.prototype.renderWithMirror = function ( otherMirror ) {
 };
 
 THREE.Mirror.prototype.updateTextureMatrix = function () {
-
-	var sign = THREE.Math.sign;
 
 	this.updateMatrixWorld();
 	this.camera.updateMatrixWorld();
@@ -232,7 +221,7 @@ THREE.Mirror.prototype.updateTextureMatrix = function () {
 	this.mirrorPlane.setFromNormalAndCoplanarPoint( this.normal, this.mirrorWorldPosition );
 	this.mirrorPlane.applyMatrix4( this.mirrorCamera.matrixWorldInverse );
 
-	this.clipPlane.set( this.mirrorPlane.normal.x , this.mirrorPlane.normal.z, this.mirrorPlane.normal.z, this.mirrorPlane.constant );
+	this.clipPlane.set( this.mirrorPlane.normal.x, this.mirrorPlane.normal.y, this.mirrorPlane.normal.z, this.mirrorPlane.constant );
 
 	var q = new THREE.Vector4();
 	var projectionMatrix = this.mirrorCamera.projectionMatrix;

@@ -515,7 +515,7 @@ Page.prototype.loadTexture = function( name , file , params ){
 
     this.loader.addLoad();
     
-    G.TEXTURES[ name ] = l( file , m , cb );
+    G.TEXTURES[ name ] = THREE.ImageUtils.loadTexture( file , m , cb );
     G.TEXTURES[ name ].wrapS = params.wrapping || THREE.RepeatWrapping;
     G.TEXTURES[ name ].wrapT = params.wrapping || THREE.RepeatWrapping;
 

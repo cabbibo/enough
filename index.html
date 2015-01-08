@@ -12,7 +12,7 @@
     <div id="container"></div>
 
     <script src="lib/leap.min.js"></script>
-    <script src="lib/three.js"></script>
+    <script src="lib/three.min.js"></script>
     <script src="lib/jquery.min.js"></script>
     <script src="lib/stats.min.js"></script>
     <script src="lib/dat.gui.min.js"></script>
@@ -68,7 +68,9 @@
     
     <script src="js/pages/sparkles/Sparkles.js"></script>
 
-  
+    <script src="js/pages/sun/GEM.js"></script>
+    <script src="js/pages/sun/RepelerMesh.js"></script>
+
     <script src="js/pages/fireworks/Firework.js"></script>
     <script src="js/pages/fireworks/Water.js"></script>
     <script src="js/pages/fireworks/Mirror.js"></script>
@@ -170,7 +172,7 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.sun;
+        var s = G.pages.fireworks;
 
         s.init();
         s.addToOnLoadArray( function(){

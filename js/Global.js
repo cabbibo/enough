@@ -34,7 +34,7 @@ G.GEOS      = {};
 G.MATS      = {};
 
 G.audio   = new AudioController();
-G.shaders = new ShaderLoader( 'shaders' );
+G.shaders = new ShaderLoader( 'shaders' , 'shaders' );
 G.leap    = new Leap.Controller();
 G.gui     = new dat.GUI({autoPlace:false});
 G.loader  = new Loader();
@@ -633,7 +633,7 @@ G.loadTexture = function( name , file ){
   var l = THREE.ImageUtils.loadTexture;
 
   G.loader.addLoad();
-  G.TEXTURES[ name ] = l( file , m , cb );
+  G.TEXTURES[ name ] = THREE.ImageUtils.loadTexture( file , m , cb );
   G.TEXTURES[ name ].wrapS = THREE.RepeatWrapping;
   G.TEXTURES[ name ].wrapT = THREE.RepeatWrapping;
 
