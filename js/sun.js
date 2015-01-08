@@ -15,7 +15,7 @@ sun.addToInitArray( function(){
 
 
   this.position.set(  3000 , 5000 , 0 );
-  this.cameraPos.set( 3000 , 5000 , 1000 );
+  this.cameraPos.set( 2000 , 4000 , 1400 );
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -127,14 +127,14 @@ sun.addToStartArray( function(){
 
       this.scene.add( mesh );
 
-      mesh.position.x = (Math.random() - .5 ) * 200;
-      mesh.position.z = (Math.random() - .5 ) * 200;
-      mesh.position.y = (Math.random() - .5 ) * 200;
+      mesh.position.x = (Math.random() - .5 ) * 2000;
+      mesh.position.z = (Math.random() - .5 ) * 2000;
+      mesh.position.y = (Math.random() - .5 ) * 2000;
 
     }
 
 
-  var mesh = new THREE.IcosahedronGeometry( 100 , 5 ); 
+  var mesh = new THREE.IcosahedronGeometry( 1000 , 5 ); 
   this.gem = new RepelerMesh( 'Parameters' , mesh , this.repelers , {
 
         
@@ -144,8 +144,8 @@ sun.addToStartArray( function(){
 
     soul:{
 
-      repulsionPower:     { type:"f" , value: .0000000 , constraints:[-300  , 0] },
-      repulsionRadius:     { type:"f" , value: .00000 , constraints:[ 0  , 1000] },
+      repulsionPower:     { type:"f" , value: 1000, constraints:[-300  , 0] },
+      repulsionRadius:     { type:"f" , value: 1000 , constraints:[ 0  , 1000] },
     },
 
     body:{

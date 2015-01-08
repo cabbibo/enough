@@ -64,5 +64,5 @@ void main(){
   gl_FragColor = pow( vFR, 30. ) * 1. * vAudio + vec4( 0.5 * normalize(vReflection ) + 0.7 , 1. ) *   sem; //vec4( vSEM.x , 0. , vSEM.y , 1. );
   //gl_FragColor = vec4( 0.5 * normalize(vReflection ) + 0.7 , 1. ); //vec4( vSEM.x , 0. , vSEM.y , 1. );
 
-  gl_FragColor = vec4( 1. );
+ // gl_FragColor = vec4( 1. );
 }
