@@ -187,7 +187,7 @@ PageTurner.prototype.removeLoading = function(){
 PageTurner.prototype.createMarker = function( page , offset , length ){
 
   offset = offset || new THREE.Vector3( 300 , -300 , 0 );
-  length = length || 50;
+  length = length || G.pageTransitionLength;
 
   var mesh = new THREE.Mesh(
     this.markerGeometry,

@@ -68,6 +68,11 @@
     
     <script src="js/pages/sparkles/Sparkles.js"></script>
 
+  
+    <script src="js/pages/fireworks/Firework.js"></script>
+    <script src="js/pages/fireworks/Water.js"></script>
+    <script src="js/pages/fireworks/Mirror.js"></script>
+    <script src="js/pages/fireworks/Mountains.js"></script>
 
 
     <!-- THESE ALWAYS GOES LAST -->
@@ -81,6 +86,8 @@
     <script src="js/together.js"></script>
     <script src="js/tree.js"></script>
     <script src="js/sparkles.js"></script>
+    <script src="js/fireworks.js"></script>
+    <script src="js/credits.js"></script>
 
 
     <script>
@@ -144,8 +151,16 @@
      
       G.pages.planets.prevPage   = G.pages.together;
       G.pages.planets.nextPage   = G.pages.sparkles;
-      
+
+      G.pages.sparkles.prevPage = G.pages.planets;
+      G.pages.sparkles.nextPage = G.pages.fireworks;
       //console.log( G.pages.alone.nextPage );
+
+      G.pages.fireworks.prevPage = G.pages.sparkles;
+      G.pages.fireworks.nextPage = G.pages.credits;
+     
+      
+      G.pages.credits.nextPage = G.pages.fireworks;
 
 
 

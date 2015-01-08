@@ -2,20 +2,25 @@
 
 var G = {};
 
+
+G.pageTransitionLength = 10;
+
+
+
 G.texturesToLoad = [
  
-  ['ubuntuMono' , 'img/extras/ubuntuMono.png'],
+  ['ubuntuMono'       , 'img/extras/ubuntuMono.png'       ],
   
-  ['iri_red'    , 'img/iri/red.png'],
-  ['iri_gold'   , 'img/iri/gold.png'],
-  ['iri_blue'   , 'img/iri/blue.png'],
+  ['iri_red'          , 'img/iri/red.png'                 ],
+  ['iri_gold'         , 'img/iri/gold.png'                ],
+  ['iri_blue'         , 'img/iri/blue.png'                ],
 
-  ['norm_moss'  , 'img/normals/moss_normal_map.jpg' ],
+  ['norm_moss'        , 'img/normals/moss_normal_map.jpg' ],
 
-  ['sprite_flare'   , 'img/sprite/flare.png'],
-  ['sprite_cabbibo'   , 'img/sprite/cabbibo.png'],
+  ['sprite_flare'     , 'img/sprite/flare.png'            ],
+  ['sprite_cabbibo'   , 'img/sprite/cabbibo.png'          ],
 
-  ['logo'       , 'img/icons/cabbibo.png' ],
+  ['logo'             , 'img/icons/cabbibo.png'           ],
 
 ]
 
@@ -89,7 +94,6 @@ G.t_audio = { type:"t" , value: G.audio.texture }
 G.dpr     = { type:"f" , value: window.devicePixelRatio || 1 }
 
 G.paused  = false;
-
 
 // Get all the fun stuff started
 

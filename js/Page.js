@@ -438,8 +438,8 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
   forward.normalize();
   forward.multiplyScalar( G.iPlaneDistance );
 
-  console.log('HELLO');
-  console.log( G.iPlaneDistance );
+  //console.log('HELLO');
+  //console.log( G.iPlaneDistance );
 
   //console.log( G.iPlaneDistance );
   mesh.position.add( forward );

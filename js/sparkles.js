@@ -23,21 +23,6 @@ sparkles.addToInitArray( function(){
   ].join("\n" );
 
 
-
-  this.textChunk3 = [
-
-    "Thank You.",
-    "",
-    " @Cabbibo"
-
-  ].join("\n" );
-
-
-
-
-
-
-
   this.position.set(  0 , 0 , 0 );
   this.cameraPos.set( 0 , 0 , 1000 );
 
@@ -100,10 +85,10 @@ sparkles.addToStartArray( function(){
 
   this.text = new PhysicsText( this.textChunk );
   this.text2 = new PhysicsText( this.textChunk2 );
-  this.text3 = new PhysicsText( this.textChunk3 );
+  //this.text3 = new PhysicsText( this.textChunk3 );
 
-  this.text3.distToCam.value = 400;
-  this.text3.offsetPos.value.set( -9 , 40 , 0 );
+  //this.text3.distToCam.value = 400;
+  //this.text3.offsetPos.value.set( -9 , 40 , 0 );
 
 
   this.sparkles = new Sparkles( this , 64 );
@@ -156,7 +141,18 @@ sparkles.addToActivateArray( function(){
 
     this.text2.activate();
 
-    var offset =  G.pageTurnerOffset;
+    this.endMesh.add( this );
+
+    //var offset =  G.pageTurnerOffset;
+
+   /* this.text2.kill( 5000 );
+
+        this.tweenCamera( this.cameraPos3 , 3000 , function(){
+
+          this.text3.activate();
+          this.endMesh.add( this );
+
+        }.bind( this ) );
 
     var callback = function(){
 
@@ -186,7 +182,6 @@ sparkles.addToActivateArray( function(){
              
       tween.onComplete(function(){
 
-        console.log('asdbas');
         this.text3.activate();
 
         var offset =  new THREE.Vector3(0 , 200 , 0 );
@@ -244,7 +239,7 @@ sparkles.addToActivateArray( function(){
 
     setTimeout( function(){
       this.scene.add( this.transitionMesh2 );
-    }.bind( this ) , 3000 );
+    }.bind( this ) , 3000 );*/
 
   }.bind( this );
 
@@ -274,12 +269,20 @@ sparkles.addToActivateArray( function(){
 }.bind( sparkles ));
 
 
-sparkles.addToActiveArray( function(){
 
+sparkles.addToAllUpdateArrays( function(){
+
+
+ 
   this.sparkles.update();
   this.text.update();
   this.text2.update();
-  this.text3.update();
+
+
+}.bind( sparkles));
+
+sparkles.addToActiveArray( function(){
+
   
 
   this.position.x += this.movementRate;
@@ -293,7 +296,8 @@ sparkles.addToActiveArray( function(){
 
 sparkles.addToDeactivateArray( function(){
 
-  this.text.kill();
+  console.log( 'hellas');
+  this.text2.kill();
 
 }.bind( sparkles) );
 

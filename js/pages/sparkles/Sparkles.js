@@ -125,6 +125,15 @@ Sparkles.prototype.activate = function(){
   
 }
 
+Sparkles.prototype.deactivate = function(){
+
+  this.page.scene.remove( this.particles );
+  this.active = false;
+  
+}
+
+
+
 Sparkles.prototype.update = function(){
 
   if( this.active ){
