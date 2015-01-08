@@ -48,8 +48,8 @@ void main(){
     float rL = max( .01 , length( rD ) );
     vec3  rN = normalize( rD );
 
-    //float p = power[i].x;
-    float p = 1.;
+    float p = power[i].x;
+    //float p = 1.;
     if( rL < p * p * p * repulsionRadius ){
 
       f += repulsionPower  * p * rN / (rL);

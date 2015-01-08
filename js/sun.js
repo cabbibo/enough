@@ -15,7 +15,7 @@ sun.addToInitArray( function(){
 
 
   this.position.set(  3000 , 5000 , 0 );
-  this.cameraPos.set( 2000 , 4000 , 1400 );
+  this.cameraPos.set( 2000 , 4000 , 4000 );
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -52,7 +52,7 @@ sun.addToInitArray( function(){
 sun.addToInitArray( function(){
   
   var f = 'img/matcap/';
-  this.loadTexture( 'matcapBlood' , f + 'blood.jpg');
+  this.loadTexture( 'matcapMetal' , f + 'metal.jpg');
 
   var f = 'audio/pages/sun/'
 
@@ -80,6 +80,9 @@ sun.addToStartArray( function(){
   G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = this.iPlaneDistance;
+
+  G.mani.activate();
+  G.sol.activate();
 
 }.bind( sun ));
 
@@ -130,11 +133,13 @@ sun.addToStartArray( function(){
       mesh.position.x = (Math.random() - .5 ) * 2000;
       mesh.position.z = (Math.random() - .5 ) * 2000;
       mesh.position.y = (Math.random() - .5 ) * 2000;
+      mesh.position.normalize();
+      mesh.position.multiplyScalar( 1200 );
 
     }
 
 
-  var mesh = new THREE.IcosahedronGeometry( 1000 , 5 ); 
+  var mesh = new THREE.IcosahedronGeometry( 3000 , 6 ); 
   this.gem = new RepelerMesh( 'Parameters' , mesh , this.repelers , {
 
         
@@ -144,15 +149,15 @@ sun.addToStartArray( function(){
 
     soul:{
 
-      repulsionPower:     { type:"f" , value: 1000, constraints:[-300  , 0] },
-      repulsionRadius:     { type:"f" , value: 1000 , constraints:[ 0  , 1000] },
+      repulsionPower:     { type:"f" , value: 50000, constraints:[-300  , 0] },
+      repulsionRadius:     { type:"f" , value:4000 , constraints:[ 0  , 1000] },
     },
 
     body:{
       //t_refl:{type:"t" , value:reflectionCube},
       //t_refr:{type:"t" , value:reflectionCube },
       custom1:{type:"f" , value:.9 , constraints:[ .8 , 1 ]},
-      t_sem:{type:"t" , value: G.TEXTURES.matcapBlood }
+      t_sem:{type:"t" , value: G.TEXTURES.matcapMetal }
 
     }
 
@@ -180,6 +185,21 @@ sun.addToAllUpdateArrays( function(){
   this.text.update();
   this.gem.update();
 
+  for( var i = 0; i < this.repelers.length; i++ ){
+
+    var a = G.audio.analyzer.array;
+    
+    var ind = i / ( 4 * this.repelers.length); 
+    var fI = Math.floor( ind * G.audio.analyzer.array.length );
+    var p = G.audio.analyzer.array[ fI ];
+
+    console.log( p );
+    //PARAMS.soul.aPower.value[i].x = p / 256;
+    //var l = a.varlu
+
+    this.repelers[i].power.x = p / 256; 
+
+  }
 
 }.bind( sun ));
 

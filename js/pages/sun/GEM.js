@@ -299,7 +299,7 @@ GEM.prototype.createGeometry = function(){
 GEM.prototype.update = function(){
 
   if( this.active ){
-    console.log( 'hellsp');
+    //console.log( 'hellsp');
     this.soul.update();
   }
 
