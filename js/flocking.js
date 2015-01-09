@@ -92,7 +92,7 @@ flocking.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 78,
+    beatsPerMinute: 77,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
@@ -149,7 +149,7 @@ flocking.addToStartArray( function(){
 
 
   this.flock = new Flock( this.coral , {
-    size: 16
+    size: 32
   });
 
   this.flock.activate( this.scene );

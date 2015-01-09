@@ -37,6 +37,7 @@ tree.addToInitArray( function(){
 
 
   this.position.set(  0 , -3000 , 0 );
+  
   this.cameraPos.set( 2000 , -2000 , 3000 );
   this.cameraPos2 = new THREE.Vector3( 1000 , -2200 , 2000 );
   this.cameraPos3 = new THREE.Vector3( -1000 , -2800 , 2000 );
@@ -301,8 +302,8 @@ tree.addToStartArray( function(){
   var g = lightGui.add( lp.cutoff , 'value' ).name( 'cutoff' );
   var g = lightGui.add( lp.power  , 'value' ).name( 'power' );
    
-  var g = lightGui.add( lp.normalScale , 'value' ).name( 'normalScale' );
-  var g = lightGui.add( lp.texScale  , 'value' ).name( 'texScale' );
+  var g = lightGui.add( lp.normalScale  , 'value' ).name( 'normalScale' );
+  var g = lightGui.add( lp.texScale     , 'value' ).name( 'texScale' );
 
 
 }.bind( tree ) );
@@ -478,6 +479,7 @@ tree.addToActivateArray( function(){
 
 
   var offset = G.pageTurnerOffset;
+
 
   var callback = function(){
 

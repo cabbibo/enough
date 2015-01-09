@@ -5,17 +5,56 @@ sun.addToInitArray( function(){
 
   this.textChunk = [
 
-    "Webby now knew joy. There was someone else like him.",
-    "","",
-    "Webby played with the creature for millions of render cycles. He had not realized how powerfully entertaining it was to experience high end graphics on the web. It felt like it finally gave his life purpose, no matter how simple the venture was.",
-    "","",
-    "But soon enough,  the other creature motioned to Webby, and sun they journeyed on. "
+    "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
+  "","",
+  "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
 
   ].join("\n" );
 
 
-  this.position.set(  3000 , 5000 , 0 );
-  this.cameraPos.set( 2000 , 4000 , 4000 );
+  this.textChunk2 = [
+    
+    "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
+  "","",
+  "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
+
+  ].join("\n" );
+
+  this.textChunk3 = [
+    
+    "Further and further Mani swam, approaching the loving behemoth.",
+    "","",
+    "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished."
+
+  ].join("\n" );
+
+  this.textChunk4 = [
+    
+     "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
+    "","",
+    "And with a nobility of intent Mani ascended."
+
+  ].join("\n" );
+
+
+
+  // Inside
+  this.textChunk5 = [
+     "The shell of the being was only"
+  ].join("\n" );
+
+
+
+
+  this.position.set(  10000 , 10000 , 0 );
+  
+ // this.cameraPos.set( 10000 , 10100 , 000 );
+  //this.cameraPos2 = new THREE.Vector3( 10000 , 10000 , 100 );
+  this.cameraPos.set( 2000 , 2000 , 4000 );
+  this.cameraPos2 = new THREE.Vector3( 4000 , 3000 , 4000 );
+  this.cameraPos3 = new THREE.Vector3( 6000 , 6000 , 4000 );
+  this.cameraPos4 = new THREE.Vector3( 10000 , 10000 , 6000 );
+  
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -87,10 +126,13 @@ sun.addToStartArray( function(){
 sun.addToStartArray( function(){
 
   this.text = new PhysicsText( this.textChunk );
-
+  this.text2 = new PhysicsText( this.textChunk2 );
+  this.text3 = new PhysicsText( this.textChunk3 );
+  this.text4 = new PhysicsText( this.textChunk4 );
+  
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 77,
+    beatsPerMinute: 78,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
@@ -131,7 +173,7 @@ sun.addToStartArray( function(){
       mesh.position.z = (Math.random() - .5 ) * 2000;
       mesh.position.y = (Math.random() - .5 ) * 2000;
       mesh.position.normalize();
-      mesh.position.multiplyScalar( 1200 );
+      mesh.position.multiplyScalar( 4000 );
 
     }
 
@@ -146,8 +188,8 @@ sun.addToStartArray( function(){
 
     soul:{
 
-      repulsionPower:     { type:"f" , value: 50000, constraints:[-300  , 0] },
-      repulsionRadius:     { type:"f" , value:4000 , constraints:[ 0  , 1000] },
+      repulsionPower:     { type:"f" , value: 1000000, constraints:[-300  , 0] },
+      repulsionRadius:     { type:"f" , value:10000 , constraints:[ 0  , 1000] },
     },
 
     body:{
@@ -171,8 +213,72 @@ sun.addToStartArray( function(){
 
 sun.addToActivateArray( function(){
 
-  this.endMesh.add( this );
   this.text.activate();
+  
+  
+  // First section end
+  var callback = function(){
+    
+    this.text.kill( 10000 );
+
+    var percentTilEnd = 1 - this.looper.percentOfLoop;
+    var timeTilEnd = percentTilEnd * this.looper.loopLength;
+
+    // 1 --> 2 Transition
+    this.tweenCamera( this.cameraPos2 , timeTilEnd * 1000 , function(){
+
+      // Second section start
+      this.text2.activate();
+      
+      // Second section end
+      var callback = function(){
+
+        this.text2.kill( 10000 );
+
+        var percentTilEnd = 1 - this.looper.percentOfLoop;
+        var timeTilEnd = percentTilEnd * this.looper.loopLength;
+
+
+        // 2 --> 3 Transition
+        this.tweenCamera( this.cameraPos3 , timeTilEnd * 1000 , function(){
+
+          // Third Section start
+          this.text3.activate();
+
+          // third section end
+          var callback = function(){
+        
+            this.text3.kill( 10000 );
+
+            var percentTilEnd = 1 - this.looper.percentOfLoop;
+            var timeTilEnd = percentTilEnd * this.looper.loopLength;
+
+            this.tweenCamera( this.cameraPos4 , timeTilEnd * 1000 , function(){
+
+              this.text4.activate();
+              this.endMesh.add( this );
+
+            }.bind( this ) );
+          }.bind( this );
+
+
+          var offset =  G.pageTurnerOffset;
+          this.transitionMesh3 = this.createTurnerMesh( offset , callback );
+          this.scene.add( this.transitionMesh3 );
+
+        }.bind( this ) );
+      }.bind( this );
+
+      var offset =  G.pageTurnerOffset;
+      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+      this.scene.add( this.transitionMesh2 );
+
+    }.bind( this ) );
+  }.bind( this );
+
+  var offset =  G.pageTurnerOffset;
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
+  this.scene.add( this.transitionMesh1 );
 
 }.bind( sun ));
 
@@ -180,6 +286,10 @@ sun.addToActivateArray( function(){
 sun.addToAllUpdateArrays( function(){
 
   this.text.update();
+  this.text2.update();
+  this.text3.update();
+  this.text4.update();
+  
   this.gem.update();
 
   for( var i = 0; i < this.repelers.length; i++ ){
@@ -190,7 +300,6 @@ sun.addToAllUpdateArrays( function(){
     var fI = Math.floor( ind * G.audio.analyzer.array.length );
     var p = G.audio.analyzer.array[ fI ];
 
-    console.log( p );
     //PARAMS.soul.aPower.value[i].x = p / 256;
     //var l = a.varlu
 
