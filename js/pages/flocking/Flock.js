@@ -38,7 +38,7 @@ function Flock( coral , params ){
     velMultiplier:        { type: "f" , value: 5. },
     forceMultiplier:      { type: "f" , value: 8000. },
     centerPower:          { type: "f" , value: .2 },
-    predator:             { type: "v3", value: G.iPoint.relative },
+    predator:             { type: "v3", value: G.mani.position.relative },
     predatorRepelRadius:  { type: "f" , value: 300 },
     predatorRepelPower:   { type: "f" , value: 800 },
     attractor:            { type: "v3", value: new THREE.Vector3() },
@@ -59,6 +59,7 @@ function Flock( coral , params ){
     t_matcap :    { type:"t"  , value: this.params.matcap },
     t_audio:      G.t_audio,
     t_normal:     { type:"t" , value: G.TEXTURES.norm_moss},
+    t_ribbon:     { type:"t" , value: G.TEXTURES.ribbon},
 
   };
 

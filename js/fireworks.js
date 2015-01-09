@@ -99,9 +99,9 @@ fireworks.addToInitArray( function(){
 
 fireworks.addToStartArray( function(){
 
-  G.position.copy( this.position );
-  G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;*/
+ // G.position.copy( this.position );
+ // G.camera.position.copy( this.cameraPos );
+ // G.camera.lookAt( this.position );//= 1000;*/
 
  // G.iPlaneDistance = this.iPlaneDistance;
 

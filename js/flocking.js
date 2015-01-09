@@ -4,11 +4,7 @@ flocking.addToInitArray( function(){
 
   this.textChunk = [
 
-    "Webby now knew joy. There was someone else like him.",
-    "","",
-    "Webby played with the creature for millions of render cycles. He had not realized how powerfully entertaining it was to experience high end graphics on the web. It felt like it finally gave his life purpose, no matter how simple the venture was.",
-    "","",
-    "But soon enough,  the other creature motioned to Webby, and flocking they journeyed on. "
+    "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and thought there movement was soothing, he still felt despair he couldn't have before imagined."
 
   ].join("\n" );
 
@@ -35,8 +31,8 @@ flocking.addToInitArray( function(){
 // Need to load at least 1 thing
 flocking.addToInitArray( function(){
   
-  var f = 'img/matcap/';
-  this.loadTexture( 'matcapBlood' , f + 'metal.jpg');
+  var f = 'img/extras/';
+  this.loadTexture( 'ribbon' , f + 'ribbon.png');
 
 
 
@@ -81,6 +77,8 @@ flocking.addToStartArray( function(){
   G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = this.iPlaneDistance;
+
+  G.mani.activate();
 
 }.bind( flocking ));
 

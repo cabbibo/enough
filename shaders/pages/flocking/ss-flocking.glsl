@@ -138,9 +138,13 @@ void main()	{
     //dir.y *= 2.5;
     force -= normalize( dir ) * centerPower * 1.;
 
+    float predRepelSq = predatorRepelRadius * predatorRepelRadius;
     if( dist < predatorRepelRadius ){
+      float predDistSquared = dist * dist;
 
-      force += (predatorRepelRadius-dist) * normalize( dir ) * predatorRepelPower;
+      float f = ( predDistSquared / predRepelSq - 1.0 ) ;
+     // float amount = pow( (predatorRepelRadius-dist) , 3. );
+      force -= f * 100. * normalize( dir ) * predatorRepelPower;
 
 
     }
@@ -203,10 +207,11 @@ void main()	{
 
 
 
+    float mDT = min( .2 , dT );
     // this make tends to fly around than down or up
     // if (velocity.y > 0.) velocity.y *= (1. - 0.2 * delta);
 
-    vel += force * forceMultiplier * dT;
+    vel += force * forceMultiplier * mDT;
 
 
     // Speed Limits
@@ -214,6 +219,6 @@ void main()	{
       vel = normalize( vel ) * maxVel;
     }
 
-    gl_FragColor = vec4( pos + vel * velMultiplier * dT, whichCoral);
+    gl_FragColor = vec4( pos + vel * velMultiplier * mDT, whichCoral);
 
 }
