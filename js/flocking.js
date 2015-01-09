@@ -15,13 +15,16 @@ flocking.addToInitArray( function(){
 
   this.audioArray = [
   
-    //'flockFaith',
-    'flockBongos',
-    'flockGlitter',
-    'flockShuffled',
-    'flockHoly',
-    //'flockFaith',
-    //'flockMajor'
+    'flocking1',
+    'flocking2',
+    'flocking3',
+    'flocking4',
+    'flocking5',
+    'flocking6',
+    'flocking7',
+    'flocking8',
+    'flocking9',
+    'flocking10',
 
   ]
 
@@ -145,7 +148,9 @@ flocking.addToStartArray( function(){
   }
 
 
-  this.flock = new Flock( this.coral );
+  this.flock = new Flock( this.coral , {
+    size: 16
+  });
 
   this.flock.activate( this.scene );
 

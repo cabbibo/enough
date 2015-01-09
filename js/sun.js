@@ -27,9 +27,6 @@ sun.addToInitArray( function(){
     'sun5',
     'sun6',
     'sun7',
-    'sun8',
-    'sun9',
-    'sun10',
 
   ]
 
