@@ -25,7 +25,6 @@ varying float vDistMultiplier[7];
 varying vec3 vCamDir;
 
 
-
 varying vec3 vView;
 
 void main(){

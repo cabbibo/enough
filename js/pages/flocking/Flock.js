@@ -58,8 +58,12 @@ function Flock( coral , params ){
     t_posArray :  { type:"tv" , value: this.textureArray },
     t_matcap :    { type:"t"  , value: this.params.matcap },
     t_audio:      G.t_audio,
-    t_normal:     { type:"t" , value: G.TEXTURES.norm_moss},
+    t_normal:     { type:"t" , value: G.TEXTURES.ribbonNorm},
+    t_matcap:     { type:"t" , value: G.TEXTURES.matcapMetal},
     t_ribbon:     { type:"t" , value: G.TEXTURES.ribbon},
+    lightPos:     { type: "v3", value: G.mani.position },
+    maniPos:      { type: "v3", value: G.mani.position },
+    
 
   };
 
@@ -181,7 +185,7 @@ function Flock( coral , params ){
     linewidth:1,
     side: THREE.DoubleSide,
     transparent: true,
-    depthWrite:false,
+    //depthWrite:false,
     //blending: THREE.AdditiveBlending
   });
 

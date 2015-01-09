@@ -23,3 +23,39 @@ how to make 1level place based on position of last level ( AKA sparkles is movin
 --> can see this bug when transfering from tree to together, if you turn page right after reaching last section. Shoudl see sol *flash* for a frame
 --> Could be at beginnign of all .addToStartArray( because they have G.camera.position.copy( this.position ) ). INVESTIGATE
 --> IT IS! all of the look ats / G.camera.positiosn should be in the addToActivateArray, not the addToStartArray
+
+
+Text not dying on sun flocking and fireworks
+
+
+/*
+
+
+   THINKING SPACE
+
+
+*/
+Tubes on Forsest aren't long enough. Nothing to play with, and doesn't show off simulation
+
+Better framing for SUN
+
+Pointer at beginning of crystals level can't be seen
+
+For all empty levels, need sparkling stars, and possibly for *every* level!
+
+Make sure to thank all artists sampled
+
+Sparkles can't have the same audio as the empty pages!
+Neither can Fireworks!
+Only credits / quote should have.
+
+
+
+/*
+
+   Release README info
+
+*/
+
+UGLIEST code is the sections of the page turning
+

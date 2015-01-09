@@ -9,8 +9,8 @@ flocking.addToInitArray( function(){
   ].join("\n" );
 
 
-  this.position.set(  0 , 2000 , 0 );
-  this.cameraPos.set( 0 , 2000 , 300 );
+  this.position.set(  0 , 500 , 0 );
+  this.cameraPos.set( 0 , 500 , 300 );
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -36,8 +36,11 @@ flocking.addToInitArray( function(){
   
   var f = 'img/extras/';
   this.loadTexture( 'ribbon' , f + 'ribbon.png');
+  var f = 'img/normals/';
+  this.loadTexture( 'ribbonNorm' , f + 'ribbon.jpg');
 
-
+var f = 'img/matcap/';
+  this.loadTexture( 'matcapMetal' , f + 'metal.jpg');
 
 
   var f = 'audio/pages/flocking/';

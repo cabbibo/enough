@@ -161,7 +161,7 @@
       G.pages.planets.nextPage   = G.pages.sparkles;
 
       G.pages.sparkles.prevPage = G.pages.planets;
-      G.pages.sparkles.nextPage = G.pages.sparkles;
+      G.pages.sparkles.nextPage = G.pages.flocking;
 
       G.pages.flocking.prevPage = G.pages.sparkles;
       G.pages.flocking.nextPage = G.pages.sun;
@@ -179,7 +179,8 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.sun;
+        var s = G.pages.flocking;
+
 
         s.init();
         s.addToOnLoadArray( function(){
