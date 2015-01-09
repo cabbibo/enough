@@ -9,8 +9,8 @@ flocking.addToInitArray( function(){
   ].join("\n" );
 
 
-  this.position.set(  0 , 500 , 0 );
-  this.cameraPos.set( 0 , 500 , 300 );
+  this.position.set(  0 , 1000 , 0 );
+  this.cameraPos.set( 0 , 1000 , 300 );
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
