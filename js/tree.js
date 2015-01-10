@@ -3,45 +3,60 @@ var tree = new Page( 'tree' );
 
 tree.addToInitArray( function(){
 
-  this.textChunk = [
+  this.textChunks = [];
+  this.text = [];
+  this.textChunks.push( [
 
     "By now Webby was growing tired.  He had been looking for answers forever, but still knew so little. Also, he felt lonely. Why, Webby wondered, were there no other creatures like him. There were so many spectacular technologies for creating space puppies like himself, so why had he not seen any?"
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk2 = [
+  this.textChunks.push( [
 
     "The haunting tree that stood before him mirrored the sadness Webby felt. There were amazing tools like Play Canvas, Verold, and Goo; beautiful tutorials by The Spite and Aerotwist. So WHY were people not creating 3D experiences for the web?",  
     "","",
     "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe 3D just wasn’t meant for the web. "
 
-  ].join("\n" );
+  ].join("\n" ));
 
 
-  this.textChunk3 = [
+  this.textChunks.push( [
 
   "Webby was ready to give up. What was the point of his existence, if he was the only one?",
     "","",
   "What was the point of the Web if all the apathetic tweets and narcissistic posts were always 2D?",
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk4 = [
+  this.textChunks.push( [
 
     "Then, Webby heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another page that seemed like it was 3D but actually only had parallax scrolling?",
     "","",
     "Or was it a creature, like him? A harbinger of the web to come? ",
 
-  ].join("\n" );
+  ].join("\n" ));
 
+//x: 1000, y: 0, z: -2500,
 
-
-  this.position.set(  0 , -3000 , 0 );
+ // this.position.set(  0 , -3000 , 0 );
+  this.position.set(  -1000 , -3000 , 2500 );
   
-  this.cameraPos.set( 2000 , -2000 , 3000 );
+ /* this.cameraPos.set( 2000 , -2000 , 3000 );
   this.cameraPos2 = new THREE.Vector3( 1000 , -2200 , 2000 );
   this.cameraPos3 = new THREE.Vector3( -1000 , -2800 , 2000 );
-  this.cameraPos4 = new THREE.Vector3( -3000 , -3000 , 100 );
+  this.cameraPos4 = new THREE.Vector3( -3000 , -3000 , 100 );*/
+
+  this.cameraPositions = [];
+
+  this.cameraPositions.push( new THREE.Vector3(  2000 , 1000 , 3000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  1000 , 1200 , 2000 ) );
+  this.cameraPositions.push( new THREE.Vector3( -1000 , 200 , 2000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  -3000 , 0 , 100  ) );
+
+  this.cameraPos =  this.cameraPositions[0];
+
+
+
 
   this.iPlaneDistance = 1000
 
@@ -193,11 +208,11 @@ tree.addToInitArray( function(){
 
 tree.addToStartArray( function(){
 
-  console.log('TREE START' );
+  /*console.log('TREE START' );
   
   G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
   G.iPlaneDistance = this.iPlaneDistance;
 
@@ -319,11 +334,12 @@ tree.addToStartArray( function(){
     measuresPerLoop: 8
 
   });
+  
+  for( var i = 0; i < this.textChunks.length; i++ ){
 
-  this.text = new PhysicsText( this.textChunk );
-  this.text2 = new PhysicsText( this.textChunk2 );
-  this.text3 = new PhysicsText( this.textChunk3 );
-  this.text4 = new PhysicsText( this.textChunk4 );
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+
+  }
 
 }.bind( tree ) );
 
@@ -475,7 +491,7 @@ tree.addToStartArray( function(){
 
 tree.addToActivateArray( function(){
 
-  this.text.activate();
+  this.text[0].activate();
 
 
   var offset = G.pageTurnerOffset;
@@ -483,15 +499,16 @@ tree.addToActivateArray( function(){
 
   var callback = function(){
 
-    this.text.kill( 10000 );
+    this.text[0].kill( 10000 );
 
     var percentTilEnd = 1 - this.looper.percentOfLoop;
     var timeTilEnd = percentTilEnd * this.looper.loopLength;
 
 
-    this.tweenCamera( this.cameraPos2 , timeTilEnd * 1000 , function(){
+    this.tweenCamera( this.cameraPositions[1] , timeTilEnd * 1000 , function(){
 
-      this.text2.activate();
+
+      this.text[1].activate();
 
       var offset =  G.pageTurnerOffset;
 
@@ -517,16 +534,17 @@ tree.addToActivateArray( function(){
 
       var callback = function(){
 
-        this.text2.kill( 10000 );
+        this.text[1].kill( 10000 );
 
 
         var percentTilEnd = 1 - this.looper.percentOfLoop;
         var timeTilEnd = percentTilEnd * this.looper.loopLength;
 
 
-        this.tweenCamera( this.cameraPos3 , timeTilEnd * 1000 , function(){
+        this.tweenCamera( this.cameraPositions[2] , timeTilEnd * 1000 , function(){
 
-          this.text3.activate();
+
+          this.text[2].activate();
 
           for( var i =0 ; i < this.lights.length; i++ ){
 
@@ -553,15 +571,15 @@ tree.addToActivateArray( function(){
 
           var callback = function(){
 
-            this.text3.kill( 10000 );
+            this.text[2].kill( 10000 );
 
             var percentTilEnd = 1 - this.looper.percentOfLoop;
             var timeTilEnd = percentTilEnd * this.looper.loopLength;
 
-            this.tweenCamera( this.cameraPos4 , timeTilEnd * 1000 , function(){
+            this.tweenCamera( this.cameraPositions[3] , timeTilEnd * 1000 , function(){
 
               G.sol.activate();
-              this.text4.activate();
+              this.text[3].activate();
               for( var i =0 ; i < this.lights.length; i++ ){
 
                 if( this.lights[i].playing ){
@@ -644,10 +662,10 @@ tree.addToAllUpdateArrays( function(){
 
   }
   
-  this.text.update();
-  this.text2.update();
-  this.text3.update();
-  this.text4.update();
+  for( var i = 0; i < this.text.length; i++ ){
+    this.text[i].update();
+  }
+
 
 }.bind( tree ));
 
@@ -663,7 +681,7 @@ tree.addToDeactivateArray( function(){
 
   }
 
-  this.text4.kill();
+  this.text[3].kill();
 
 }.bind( tree) );
 

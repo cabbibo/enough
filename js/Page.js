@@ -449,7 +449,7 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
   //console.log( G.iPlaneDistance );
 
   //console.log( G.iPlaneDistance );
-  mesh.position.add( forward );
+ // mesh.position.add( forward );
 
   G.tmpV3.copy( offset );
   G.tmpV3.applyQuaternion( G.camera.quaternion );

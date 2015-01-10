@@ -203,7 +203,7 @@ PageTurner.prototype.removeLoading = function(){
 
 PageTurner.prototype.createMarker = function( page , offset , length ){
 
-  offset = offset || new THREE.Vector3( 300 , -300 , 0 );
+  offset = offset || G.pageTurnerOffset;
   length = length || G.pageTransitionLength;
 
   var mesh = new THREE.Mesh(
@@ -213,7 +213,6 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
 
   mesh.select = function(){
 
-    
     this.pageTurner.parent.remove( this.pageTurner );
     G.objectControls.remove( this.pageTurner );
     this.nextPage( page ,  length  );
@@ -241,11 +240,11 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
     var forward  = new THREE.Vector3( 0 , 0 , -1 );
     forward.applyQuaternion( G.camera.quaternion );
     forward.normalize();
-    forward.multiplyScalar( G.iPlaneDistance );
+    //forward.multiplyScalar( G.iPlaneDistance );
 
     
     //console.log( G.iPlaneDistance );
-    mesh.position.add( forward );
+   // mesh.position.add( forward );
 
 
     G.tmpV3.copy( offset );

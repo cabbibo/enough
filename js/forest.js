@@ -1,40 +1,49 @@
 var forest = new Page( 'forest' );
 
 forest.addToInitArray( function(){
-  
-  this.textChunk = [
-
+   this.textChunks = [];
+  this.text = []; 
+  this.textChunks.push( [
     "After leaving the crystals, Webby swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he still had no ears. "
 
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk2 = [
-
+  this.textChunks.push( [
     "Through his wondering, Webby remembered the brilliant work done by the W3C to create an API that allowed people to not only play sounds on the web, but also analyze their every movement. It didn’t really bother Webby that he couldn’t use an API because he didn’t have fingers, all that mattered was that he learned a bit more about what made him. "
 
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk3 = [
+  this.textChunks.push( [
 
     "But Webby craved more, and had a feeling that his time in this world was limited. He was right to think so, because there were only so many minutes until the presentation ended.",
   "","",
   "So Webby continued onwards, still searching. "
 
-  ].join("\n" );
+  ].join("\n" ));
 
 
 
+ // this.position.set(  0 , 0 , -2500 );
 
-  this.position.set(  0 , 0 , -2500 );
+  this.position.set(  500 , 2000 , -3900 );
   this.cameraPos.set( 0 , 0 , 1000 );
+
+  this.cameraPositions = [];
+
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 3500 ) );
+  this.cameraPositions.push( new THREE.Vector3( 1000 , 1000 , 2500 ) );
+  this.cameraPositions.push( new THREE.Vector3( -1000 , -1000 , 2500) );
+
+
+  this.cameraPos =  this.cameraPositions[0];
 
   this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , 0 );
   this.cameraPos3 = new THREE.Vector3( -1000 , -1000 , 0 );
 
 
-  this.iPlaneDistance = 1200
+  this.iPlaneDistance = 3000
 
 
   this.audioArray = [
@@ -114,11 +123,11 @@ forest.addToInitArray( function(){
 
 forest.addToStartArray( function(){
 
-  G.position.copy( this.position );
+/*  G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
-  G.iPlaneDistance = 1200;
+  G.iPlaneDistance = this.iPlaneDistance;
 
 }.bind( forest ));
 
@@ -211,7 +220,7 @@ forest.addToStartArray( function(){
 
   this.looper.start();
 
-  this.text = new PhysicsText( this.textChunk );
+ // this.text = new PhysicsText( this.textChunk );
 
   
 
@@ -252,9 +261,13 @@ forest.addToStartArray( function(){
   this.forest.activate();
 
 
-  this.text = new PhysicsText( this.textChunk );
-  this.text2 = new PhysicsText( this.textChunk2 );
-  this.text3 = new PhysicsText( this.textChunk3 );
+  for( var i = 0; i < this.textChunks.length; i++ ){
+
+    console.log( this.textChunks[i] );
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+
+  }
+
 
   
 }.bind( forest ) );
@@ -266,7 +279,7 @@ forest.addToActivateArray( function(){
   
   var callback = function(){
 
-    this.text.kill( 5000 );
+    this.text[0].kill( 5000 );
     this.forest.bases[73].select();
     this.forest.bases[93].select();
     this.forest.bases[2].select();
@@ -275,11 +288,11 @@ forest.addToActivateArray( function(){
 
 
 
-    this.tweenCamera( this.cameraPos2 , 3000 , function(){
+    this.tweenCamera( this.cameraPositions[1] , 3000 , function(){
 
 
 
-      this.text2.activate();
+      this.text[1].activate();
 
       var offset = G.pageTurnerOffset;
   
@@ -302,11 +315,11 @@ forest.addToActivateArray( function(){
 
 
 
-        this.text2.kill( 5000 );
+        this.text[1].kill( 5000 );
 
-        this.tweenCamera( this.cameraPos3 , 3000 , function(){
+        this.tweenCamera( this.cameraPositions[2] , 3000 , function(){
 
-          this.text3.activate();
+          this.text[2].activate();
 
           this.endMesh.add( this );
 
@@ -328,18 +341,32 @@ forest.addToActivateArray( function(){
 
 
 
-  this.text.activate();
+  this.text[0].activate();
+
+
+
+
+  G.iPlane.faceCamera = false;
+  
+  G.tmpV3.set( 0 , 0 , 450 );
+
+  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+  G.tmpV3.set( 0 , 0 , 450 )
+  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
 
 }.bind( forest ));
 
 forest.addToAllUpdateArrays( function(){
 
   this.forest.update();
+ 
+  for( var i = 0; i < this.text.length; i++ ){
+
+    this.text[i].update();
+
+  }
 
 
-  this.text.update();
-  this.text2.update();
-  this.text3.update();
 
 
 }.bind( forest ));
@@ -347,7 +374,8 @@ forest.addToAllUpdateArrays( function(){
 
 forest.addToDeactivateArray( function(){
 
-  this.text3.kill();
+  this.text[2].kill();
+  G.iPlane.faceCamera = true;
 
   //G.mani.removeAllForces();
 

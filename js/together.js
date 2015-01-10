@@ -2,7 +2,9 @@ var together = new Page( 'together' );
 
 together.addToInitArray( function(){
 
-  this.textChunk = [
+  this.text = [];
+  this.textChunks = [];
+  this.textChunks.push([
 
     "Webby now knew joy. There was someone else like him.",
     "","",
@@ -10,11 +12,19 @@ together.addToInitArray( function(){
     "","",
     "But soon enough,  the other creature motioned to Webby, and together they journeyed on. "
 
-  ].join("\n" );
+  ].join("\n" ));
 
 
-  this.position.set(  0 , 0 , 0 );
+  this.position.set(  0 , 4000 , 0 );
   this.cameraPos.set( 0 , 0 , 1000 );
+
+  this.cameraPositions = [];
+
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
+
+  this.cameraPos =  this.cameraPositions[0];
+
+
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -50,9 +60,9 @@ together.addToInitArray( function(){
 
 together.addToStartArray( function(){
 
-  G.position.copy( this.position );
+ /* G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
   G.iPlaneDistance = this.iPlaneDistance;
 
@@ -61,7 +71,11 @@ together.addToStartArray( function(){
 
 together.addToStartArray( function(){
 
-  this.text = new PhysicsText( this.textChunk );
+  for( var i = 0; i < this.textChunks.length; i++ ){
+
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+
+  }
 
   this.looper = new Looper( G.audio , G.timer , {
 
@@ -89,21 +103,23 @@ together.addToStartArray( function(){
 together.addToActivateArray( function(){
 
   this.endMesh.add( this );
-  this.text.activate();
+  this.text[0].activate();
 
 }.bind( together ));
 
 
 together.addToAllUpdateArrays( function(){
 
-  this.text.update();
+  for( var i = 0; i < this.text.length; i++ ){
+    this.text[i].update();
+  }
+
 
 }.bind( together ));
 
 
 together.addToDeactivateArray( function(){
-
-  this.text.kill();
+  this.text[0].kill();
 
 }.bind( together) );
 

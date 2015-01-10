@@ -4,32 +4,41 @@ alone.addToInitArray( function(){
 
 
   this.title = "Real Time Is Now";
-  
-  this.textChunk = [
 
-  "When Webby awoke, he had no idea where he was, or what he was for that matter.",
-  "","",
- 
-"For some reason, he could remember the name ‘Khronos’, but that was just the beginning of the questions he had for the strange new place he inhabited. What was he? Why was he here? And was there anything else like him?","","",
- 
-"Webby was worried he would never know the answers to these questions, but was still determined to find out more."
+  this.textChunks = [];
+  this.text = [];
+  this.textChunks.push( [
 
-  ].join("\n" );
+    "When Webby awoke, he had no idea where he was, or what he was for that matter.",
+    "","",
+   
+    "For some reason, he could remember the name ‘Khronos’, but that was just the beginning of the questions he had for the strange new place he inhabited. What was he? Why was he here? And was there anything else like him?","","",
+     
+    "Webby was worried he would never know the answers to these questions, but was still determined to find out more."
+
+  ].join("\n" ));
 
 
-  this.textChunk2 = [
+  this.textChunks.push([
 
-  "Webby was, after all, a poorly veiled reference to ‘The Web’ created for a SIGGRAPH presentation.","","",  
+    "Webby was, after all, a poorly veiled reference to ‘The Web’ created for a SIGGRAPH presentation.","","",  
 
-  "He had no idea of this, of course, considering that he was just a bunch of pixels, but for some reason he still wanted to know where he came from, and what it took to get him here today.  "
+    "He had no idea of this, of course, considering that he was just a bunch of pixels, but for some reason he still wanted to know where he came from, and what it took to get him here today.  "
 
-  ].join("\n" );
+  ].join("\n" ));
 
 
   this.position.set(  0 , 0 , 0 );
   this.cameraPos.set( 0 , 0 , 2000 );
-  this.cameraPos2 = new THREE.Vector3( 0 , 0 , 1000 );
-  this.cameraPos3 = new THREE.Vector3( 0 , 0 , 1500 );
+
+  this.cameraPositions = [];
+  
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 2000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1500 ) );
+  
+  this.cameraPos =  this.cameraPositions[0];
+
   this.iPlaneDistance = 1000
 
 }.bind( alone ) );
@@ -64,9 +73,9 @@ alone.addToInitArray( function(){
 
 alone.addToStartArray( function(){
 
-  G.position.copy( this.position );
+ /* G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
   G.iPlaneDistance = this.iPlaneDistance;
 
@@ -75,8 +84,12 @@ alone.addToStartArray( function(){
 
 alone.addToStartArray( function(){
 
-  this.text = new PhysicsText( this.textChunk );
-  this.text2 = new PhysicsText( this.textChunk2 );
+  for( var i = 0; i < this.textChunks.length; i++ ){
+
+    console.log( this.textChunks[i] );
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+
+  }
 
 
   this.titleTexture = G.textCreator.createTexture( this.title ,{
@@ -155,7 +168,7 @@ alone.addToActivateArray( function(){
 
 
    
-  var offset = new THREE.Vector3( 0 , 0 , 100 );
+  var offset = new THREE.Vector3( 0 , 0 , -1000 );
   
   var callback = function(){
 
@@ -173,9 +186,9 @@ alone.addToActivateArray( function(){
 
     tween.onComplete( function( t ){
 
-    this.tweenCamera( this.cameraPos2 , 5000 , function(){
+    this.tweenCamera( this.cameraPositions[1] , 5000 , function(){
 
-      this.text.activate();
+      this.text[0].activate();
       this.scene.remove( this.titleMesh );
     
       var offset = G.pageTurnerOffset;
@@ -185,11 +198,11 @@ alone.addToActivateArray( function(){
 
       var callback = function(){
 
-        this.text.kill( 5000 );
+        this.text[0].kill( 5000 );
 
-        this.tweenCamera( this.cameraPos3 , 1000 , function(){
+        this.tweenCamera( this.cameraPositions[2] , 1000 , function(){
 
-          this.text2.activate();
+          this.text[1].activate();
 
           this.endMesh.add( this , G.pageTurnerOffset );
 
@@ -226,15 +239,19 @@ alone.addToActivateArray( function(){
 
 alone.addToAllUpdateArrays( function(){
 
-  this.text.update();
-  this.text2.update();
+   for( var i = 0; i < this.text.length; i++ ){
+
+    this.text[i].update();
+
+  }
+
 
 }.bind( alone ));
 
 
 alone.addToDeactivateArray( function(){
 
-  this.text2.kill();
+  this.text[1].kill();
 
 }.bind( alone) );
 
