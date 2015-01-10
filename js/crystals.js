@@ -3,8 +3,8 @@ var crystals = new Page( 'crystals' );
 
 crystals.addToInitArray( function(){
 
-  this.textChunks = [];
   this.text = [];
+  this.textChunks = [];
   this.textChunks.push( [
 
     "After traveling for what seemed like an eternity, Webby came upon a land of sparkling crystals. Although it told him nothing more about himself, the crystals were very pretty, so he took a moment to play with them. "

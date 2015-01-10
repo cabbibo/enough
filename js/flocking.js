@@ -2,18 +2,24 @@ var flocking = new Page( 'flocking' );
 
 flocking.addToInitArray( function(){
 
-  this.textChunk = [
+  this.text = [];
+  this.textChunks = [];
+  this.textChunks.push([
 
     "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and thought there movement was soothing, he still felt despair he couldn't have before imagined."
 
-  ].join("\n" );
-
+  ].join("\n" ));
 
   // Position relative to previous page
-  this.position.set(  0 , 1000 , 0 );
+  this.position.set(  2000 , -2000 , 0 );
+  
+  
+  this.cameraPositions = [];
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 300 ) );
+  this.cameraPos =  this.cameraPositions[0];
 
-  // Position relative to center
-  this.cameraPos.set( 0 , 0 , 300 );
+
+
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -94,7 +100,11 @@ flocking.addToStartArray( function(){
 
 flocking.addToStartArray( function(){
 
-  this.text = new PhysicsText( this.textChunk );
+   for( var i = 0; i < this.textChunks.length; i++ ){
+
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+
+  }
 
   this.looper = new Looper( G.audio , G.timer , {
 
@@ -169,7 +179,7 @@ flocking.addToStartArray( function(){
 flocking.addToActivateArray( function(){
 
   this.endMesh.add( this );
-  this.text.activate();
+  this.text[0].activate();
 
 }.bind( flocking ));
 
@@ -177,14 +187,20 @@ flocking.addToActivateArray( function(){
 flocking.addToAllUpdateArrays( function(){
 
   this.flock.update();
-  this.text.update();
+    
+  for( var i = 0; i < this.text.length; i++ ){
+
+    this.text[i].update();
+
+  }
+
 
 }.bind( flocking ));
 
 
 flocking.addToDeactivateArray( function(){
 
-  this.text.kill();
+  this.text[0].kill();
 
 }.bind( flocking) );
 

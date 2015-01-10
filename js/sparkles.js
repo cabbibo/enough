@@ -3,7 +3,12 @@ var sparkles = new Page( 'sparkles' );
 
 sparkles.addToInitArray( function(){
 
-  this.textChunk = [
+  this.text = [];
+  this.textChunks = [];
+
+  this.textChunks.push( [
+
+
 
     "In the end, this story is not actually about a small creature named Webby. It is not about trying to prove that the Internet is ready for people in this room to use as a platform. It has been ready for a long time.",
 
@@ -11,21 +16,24 @@ sparkles.addToInitArray( function(){
  
     "It is about the fact that you, each and every one of you, can make beautiful experiences for others to see with just a URL."
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk2 = [
+  this.textChunks.push([
 
     "They could be advertisements, they could be client work, but they could also be haikus, short sketches, and playful experiments.",
   "","",
  
   "What is important is not what they are, but what they do. The emotions they evoke, the feelings they create, and the ways in which they help us to fully experience the real time that is now. "
 
-  ].join("\n" );
+  ].join("\n" ));
 
 
-  this.position.set(  0 , 0 , 0 );
-  this.cameraPos.set( 0 , 0 , 1000 );
+  this.position.set(  1000 , 2000 , 1000 );
 
+  this.cameraPositions = [];
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
+  this.cameraPos =  this.cameraPositions[0];
+  
 
   this.iPlaneDistance = 1100
 
@@ -71,9 +79,9 @@ sparkles.addToInitArray( function(){
 
 sparkles.addToStartArray( function(){
 
-  G.position.copy( this.position );
+  /*G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
   G.iPlaneDistance = this.iPlaneDistance;
 
@@ -83,12 +91,11 @@ sparkles.addToStartArray( function(){
 sparkles.addToStartArray( function(){
   //G.mani.deactivate();
 
-  this.text = new PhysicsText( this.textChunk );
-  this.text2 = new PhysicsText( this.textChunk2 );
-  //this.text3 = new PhysicsText( this.textChunk3 );
+   for( var i = 0; i < this.textChunks.length; i++ ){
 
-  //this.text3.distToCam.value = 400;
-  //this.text3.offsetPos.value.set( -9 , 40 , 0 );
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+
+  }
 
 
   this.sparkles = new Sparkles( this , 64 );
@@ -133,13 +140,14 @@ sparkles.addToStartArray( function(){
 sparkles.addToActivateArray( function(){
 
 
+  this.text[0].activate();
   var offset =  G.pageTurnerOffset;
 
   var callback = function(){
 
-    this.text.kill();
+    this.text[0].kill();
 
-    this.text2.activate();
+    this.text[1].activate();
 
     this.endMesh.add( this );
 
@@ -154,7 +162,6 @@ sparkles.addToActivateArray( function(){
 
 sparkles.addToActivateArray( function(){
 
-  this.text.activate();
 
   this.sparkles.activate();
     
@@ -177,8 +184,12 @@ sparkles.addToAllUpdateArrays( function(){
 
  
   this.sparkles.update();
-  this.text.update();
-  this.text2.update();
+
+  for( var i = 0; i < this.text.length; i++ ){
+
+    this.text[i].update();
+
+  }
 
 
 }.bind( sparkles));
@@ -198,8 +209,7 @@ sparkles.addToActiveArray( function(){
 
 sparkles.addToDeactivateArray( function(){
 
-  console.log( 'hellas');
-  this.text2.kill();
+  this.text[1].kill();
 
 }.bind( sparkles) );
 

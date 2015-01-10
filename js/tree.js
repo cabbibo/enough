@@ -3,8 +3,8 @@ var tree = new Page( 'tree' );
 
 tree.addToInitArray( function(){
 
-  this.textChunks = [];
   this.text = [];
+  this.textChunks = [];
   this.textChunks.push( [
 
     "By now Webby was growing tired.  He had been looking for answers forever, but still knew so little. Also, he felt lonely. Why, Webby wondered, were there no other creatures like him. There were so many spectacular technologies for creating space puppies like himself, so why had he not seen any?"

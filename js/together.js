@@ -16,7 +16,7 @@ together.addToInitArray( function(){
 
 
   this.position.set(  0 , 4000 , 0 );
-  this.cameraPos.set( 0 , 0 , 1000 );
+  //this.cameraPos.set( 0 , 0 , 1000 );
 
   this.cameraPositions = [];
 

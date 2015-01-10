@@ -3,37 +3,47 @@ var fireworks = new Page( 'fireworks' );
 
 fireworks.addToInitArray( function(){
 
-  this.textChunk = [
+  this.text = [];
+  this.textChunks = [];
+  this.textChunks.push([
 
     "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
   "","",
     "Like a small fire in the distance, whispered its goodbuys, leaving Sol and Mani to circle a seemingly lonesome lake. They're reflections kept them company, as they danced in the darkness, as they had danced in the light."
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk2 = [
+  this.textChunks.push([
 
     "In front of them glorious fireworks rose above the shimmering surface. They're golden sparkles reminded Mani of the first sparkles he had seen, coming from the crystals.",    "","",
     "He remembered his lonliness, his confusion, as well as each wonder he had discovered. Even the lonely tree he circled was now firmly etched into his memory."
 
-  ].join("\n" );
+  ].join("\n" ));
 
 
 
-  this.textChunk3 = [
+  this.textChunks.push([
 
     "Even as the two spiraled together, Mani remembered the Golden Diety that had invited him towards the light. He thought, heart filled with meloncholy, that maybe he was mistaken. That maybe he should have learned what was True, and become one with life.",
     "","",
-    "But next to him, Sol swam. In the distance the sparkles shimmered. The water glistened below then, and Mani realized, this was Enough."
+    "But next to him, Sol swam. In the distance the sparkles shimmered. The water glistened below them, and Mani realized, this was Enough."
     
-  ].join("\n" );
+  ].join("\n" ));
 
 
 
-  this.position.set(  00 , -3000 , 0 )
-  this.cameraPos.set( 00 , -2010 , 2000 );
+  this.position.set(  0 , -6000 , 0 )
+  /*this.cameraPos.set( 0 , -2010 , 2000 );
   this.cameraPos2 = new THREE.Vector3( 500 , -2010 , 2200 );
-  this.cameraPos3 = new THREE.Vector3( -500 , 010 , 2200 );
+  this.cameraPos3 = new THREE.Vector3( -500 , 010 , 2200 );*/
+
+  this.cameraPositions = [];
+
+  this.cameraPositions.push( new THREE.Vector3(    0 , 1000 , 2000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  500 , 1000 , 2200 ) );
+  this.cameraPositions.push( new THREE.Vector3( -500 , 2000 , 2200 ) );
+
+  this.cameraPos =  this.cameraPositions[0];
 
   this.iPlaneDistance = 1100;
 
@@ -105,13 +115,7 @@ fireworks.addToStartArray( function(){
 
  // G.iPlaneDistance = this.iPlaneDistance;
 
-  G.iPlane.faceCamera = false;
-  
-  G.tmpV3.set( 0 , 100 , 0 );
 
-  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
-  G.tmpV3.set( 0 , 101 , 0 )
-  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
 
 }.bind( fireworks ));
 
@@ -140,10 +144,15 @@ fireworks.addToStartArray( function(){
  // this.water.body.position.y = -320;
   //console.log( this.water.body );
  // this.scene.add( this.water );
+ 
+  
+  for( var i = 0; i < this.textChunks.length; i++ ){
 
-  this.text   = new PhysicsText( this.textChunk );
-  this.text2  = new PhysicsText( this.textChunk2 );
-  this.text3  = new PhysicsText( this.textChunk3 );
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+
+  }
+
+
 
   //this.text3.distToCam.value = 400;
   //this.text3.offsetPos.value.set( -9 , 40 , 0 );
@@ -221,27 +230,35 @@ fireworks.addToStartArray( function(){
 
 fireworks.addToActivateArray( function(){
 
+ 
+  G.iPlane.faceCamera = false;
   
-   var offset = new THREE.Vector3( 300 , -150 , -200 );
-   var offset = G.pageTurnerOffset;
+  G.tmpV3.set( 0 , 100 , 0 );
+
+  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+  G.tmpV3.set( 0 , 101 , 0 )
+  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
+
+  this.text[0].activate();
+
+  var offset = G.pageTurnerOffset;
   
   var callback = function(){
 
-    this.text.kill( 5000 );
+    this.text[0].kill( 5000 );
 
-    this.tweenCamera( this.cameraPos2 , 3000 , function(){
+    this.tweenCamera( this.cameraPositions[1] , 3000 , function(){
 
-      this.text2.activate();
+      this.text[1].activate();
 
-      var offset = new THREE.Vector3( 300 , -150 , -200 );
   
       var callback = function(){
 
-        this.text2.kill( 5000 );
+        this.text[1].kill( 5000 );
 
-        this.tweenCamera( this.cameraPos3 , 3000 , function(){
+        this.tweenCamera( this.cameraPositions[2] , 3000 , function(){
 
-          this.text3.activate();
+          this.text[2].activate();
           this.endMesh.add( this );
 
         }.bind( this ) );
@@ -258,17 +275,12 @@ fireworks.addToActivateArray( function(){
   this.transitionMesh1 = this.createTurnerMesh( offset , callback );
   this.scene.add( this.transitionMesh1 );
 
-
-  this.text.activate();
-
-
     
 
 }.bind( fireworks ) );
 
 fireworks.addToActivateArray( function(){
 
-  this.text.activate();
 
   for( var i = 0; i < this.fireworks.length; i++ ){
 
@@ -297,9 +309,9 @@ fireworks.addToActivateArray( function(){
 fireworks.addToActiveArray( function(){
 
   //this.fireworks.update();
-  this.text.update();
-  this.text2.update();
-  this.text3.update();
+  for( var i = 0; i < this.text.length; i++ ){
+    this.text[i].update();
+  }
  
   for( var i=0; i < this.fireworks.length; i++ ){
 
@@ -320,7 +332,7 @@ fireworks.addToActiveArray( function(){
 
 fireworks.addToDeactivateArray( function(){
 
-  this.text.kill();
+  this.text[2].kill(3000);
   G.iPlane.faceCamera = true;
   
 

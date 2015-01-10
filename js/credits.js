@@ -2,7 +2,9 @@ var credits = new Page( 'credits' );
 
 credits.addToInitArray( function(){
 
-  this.textChunk = [
+  this.text = [];
+  this.textChunks = [];
+  this.textChunks.push( [
 
     "                 Who could be so lucky?                      ",
     "","",
@@ -11,20 +13,24 @@ credits.addToInitArray( function(){
 
     "                         - Rumi                                 "
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk2 = [
-
+  this.textChunks.push( [
     "THANKS:","","",
-    "Jaume Sanchez     Ricardo Cabello      Eddie Lee ",
-    "Reza Ali     Robbie Tilton     Nicole Campos",
-    "Julia Sills    Luke Ishmael   Alex Dotter"
-  
-  ].join("\n" );
+    "Jaume Sanchez   Ricardo Cabello   Eddie Lee  Reza Ali  Robbie Tilton  Nicole Campos  Julia Sills    Luke Ishmael   Alex Dotter   Andrew Benson   Grant Marr   Erica Gibbons  Andrew West   Kristi Upson-Saia   Malek   Dale Wright   George Schmiedeschoff  Sally Visher  Joseph Cohen    Abe Cohen   Xochitl Garcia   Luke Abbott   Holy Other   Tielsie  Susanna and the Magical Orchestra    Pantha Du Prince"
+  ].join("\n" ));
 
 
   this.position.set(  0 , 1000 , 0 );
   this.cameraPos.set( 0 , 1000 , 1000 );
+
+  this.cameraPositions = [];
+
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
+
+  this.cameraPos =  this.cameraPositions[0];
+
+
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -59,9 +65,9 @@ credits.addToInitArray( function(){
 
 credits.addToStartArray( function(){
 
-  G.position.copy( this.position );
+  /*G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
   G.iPlaneDistance = this.iPlaneDistance;
 
@@ -70,12 +76,14 @@ credits.addToStartArray( function(){
 
 credits.addToStartArray( function(){
 
-  this.text = new PhysicsText( this.textChunk , { 
-   offset: new THREE.Vector3( -200 , 150 , 0 ), 
-  });
-  this.text2 = new PhysicsText( this.textChunk2 , { 
-   offset: new THREE.Vector3( -200 , 150 , 0 ), 
-  });
+ 
+  for( var i = 0; i < this.textChunks.length; i++ ){
+
+    this.text.push( new PhysicsText( this.textChunks[i] , { 
+      offset: new THREE.Vector3( -200 , 150 , 0 ), 
+    } )); 
+
+  }
 
   this.looper = new Looper( G.audio , G.timer , {
 
@@ -103,15 +111,15 @@ credits.addToStartArray( function(){
 credits.addToActivateArray( function(){
 
  // this.endMesh.add( this );
-  this.text.activate();
+  this.text[0].activate();
 
-  var offset = new THREE.Vector3( 0 , -100 , 300 );
+  var offset = new THREE.Vector3( 0 , -100 , -900 );
 
   var callback = function(){
 
-    this.text.kill();
+    this.text[0].kill();
 
-    this.text2.activate();
+    this.text[1].activate();
 
     //this.endMesh.add( this );
 
@@ -125,16 +133,17 @@ credits.addToActivateArray( function(){
 
 
 credits.addToAllUpdateArrays( function(){
-
-  this.text.update();
-  this.text2.update();
+    
+  for( var i = 0; i < this.text.length; i++ ){
+    this.text[i].update();
+  }
 
 }.bind( credits ));
 
 
 credits.addToDeactivateArray( function(){
 
-  this.text.kill();
+  this.text[2].kill();
 
 }.bind( credits) );
 

@@ -4,7 +4,10 @@ planets.addToInitArray( function(){
 
   this.planetGeo = new THREE.IcosahedronGeometry( 100 , 5 );
   
-  this.textChunk = [
+  this.text = [];
+  this.textChunks = [];
+
+  this.textChunks.push( [
 
     "There was not just one more of him. There was a myriad.",
   "","",
@@ -12,28 +15,36 @@ planets.addToInitArray( function(){
   "","",
   "Webby had never felt so right for being so wrong. The Web wasn’t just ready for 3D, it was perfect for it. "
 
-  ].join("\n");
+  ].join("\n"));
 
-  this.textChunk2 = [
+  this.textChunks.push( [
 
     "The creatures swam through the infinity together. It no longer mattered to Webby if he could never type or wear headphones. It didn’t matter that he was only RGB values driven by electrons. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in the short existence they had. "
 
-  ].join("\n");
+  ].join("\n"));
 
-  this.textChunk3 = [
+  this.textChunks.push([
 
     "Webby knew his time was coming to an end, and though he was sad to leave his friends, he was completely content just knowing that others could find happiness, playing with and creating the creatures he loved so much.",
   "","",
   "He said goodbye and swam into the sunset. "
 
-  ].join("\n");
+  ].join("\n"));
+
 
   this.position.set(  -1000 ,  2000 ,  -1000 );
-  this.cameraPos.set( -1000 , 2000 , 0 );
+  /*this.cameraPos.set( -1000 , 2000 , 0 );
 
   this.cameraPos2 = new THREE.Vector3( 0 , 2000 , -500 );
-  this.cameraPos3 = new THREE.Vector3( -2000 , 2000 , -500 );
+  this.cameraPos3 = new THREE.Vector3( -2000 , 2000 , -500 );*/
+ 
+  this.cameraPositions = [];
 
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  1000 , 0 , 500 ) );
+  this.cameraPositions.push( new THREE.Vector3(  -1000 , 0 , 500 ) );
+
+  this.cameraPos =  this.cameraPositions[0];
 
 
   this.iPlaneDistance = 1200;
@@ -125,9 +136,9 @@ planets.addToInitArray( function(){
 planets.addToStartArray( function(){
 
   
-  G.position.copy( this.position );
+  /*G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
   G.iPlaneDistance = this.iPlaneDistance;
 
@@ -286,24 +297,14 @@ planets.addToStartArray( function(){
 
   }
 
-  this.text = new PhysicsText( this.textChunk , {
-    repelPositions:repelPosArray,
-    distToCam: this.iPlaneDist 
-  });
+  for( var i = 0; i < this.textChunks.length; i++ ){
 
-  this.text2 = new PhysicsText( this.textChunk2 , {
-    repelPositions:repelPosArray,
-    distToCam: this.iPlaneDist 
-  });
+    this.text.push( new PhysicsText( this.textChunks[i],{
+      repelPositions:repelPosArray,
+      distToCam: this.iPlaneDist 
+    })); 
 
-  this.text3 = new PhysicsText( this.textChunk3 , {
-    repelPositions:repelPosArray,
-    distToCam: this.iPlaneDist 
-  });
-
-
-
-
+  }
 
 }.bind( planets ));
 
@@ -343,17 +344,17 @@ planets.addToStartArray( function(){
 
 planets.addToActivateArray( function(){
 
-  this.text.activate();
+  this.text[0].activate();
 
   var offset = G.pageTurnerOffset;
 
   var callback = function(){
 
-    this.text.kill( 10000 );
+    this.text[0].kill( 10000 );
 
-    this.tweenCamera( this.cameraPos2 , 5000 , function(){
+    this.tweenCamera( this.cameraPositions[1] , 5000 , function(){
 
-      this.text2.activate();
+      this.text[1].activate();
 
       var offset =  G.pageTurnerOffset;
 
@@ -361,11 +362,11 @@ planets.addToActivateArray( function(){
 
       var callback = function(){
 
-        this.text2.kill( 10000 );
+        this.text[1].kill( 10000 );
 
-        this.tweenCamera( this.cameraPos3 , 5000 , function(){
+        this.tweenCamera( this.cameraPositions[2] , 5000 , function(){
 
-          this.text3.activate();
+          this.text[2].activate();
           this.endMesh.add( this );
 
         }.bind( this ) );
@@ -389,11 +390,12 @@ planets.addToActivateArray( function(){
 
 planets.addToAllUpdateArrays( function(){
 
+  for( var i = 0; i < this.text.length; i++ ){
 
-  this.text.update();
-  this.text2.update();
-  this.text3.update();
+    this.text[i].update();
 
+  }
+  
   for( var i = 0; i < this.furryTails.length; i++ ){
 
     var furryTail = this.furryTails[i];
@@ -415,7 +417,7 @@ planets.addToAllUpdateArrays( function(){
 
 planets.addToDeactivateArray( function(){
 
-  this.text3.kill();
+  this.text[2].kill();
 
 }.bind( planets ));
 

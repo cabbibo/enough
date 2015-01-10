@@ -3,59 +3,64 @@ var sun = new Page( 'sun' );
 
 sun.addToInitArray( function(){
 
-  this.textChunk = [
+  this.text = [];
+  this.textChunks = [];
+
+  this.textChunks.push([
 
     "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
   "","",
   "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
 
-  ].join("\n" );
+  ].join("\n" ));
 
 
-  this.textChunk2 = [
+  this.textChunks.push([
     
     "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
   "","",
   "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk3 = [
+  this.textChunks.push([
     
     "Further and further Mani swam, approaching the loving behemoth.",
     "","",
     "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished."
 
-  ].join("\n" );
+  ].join("\n" ));
 
-  this.textChunk4 = [
+  this.textChunks.push([
     
      "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
     "","",
     "And with a nobility of intent Mani ascended."
 
-  ].join("\n" );
-
-
-
-  // Inside
-  this.textChunk5 = [
-     "The shell of the being was only"
-  ].join("\n" );
+  ].join("\n" ));
 
 
 
 
-  this.position.set(  10000 , 0 , 0 );
+  this.position.set(  9000 , 0 , 0 );
   
  // this.cameraPos.set( 10000 , 10100 , 000 );
   //this.cameraPos2 = new THREE.Vector3( 10000 , 10000 , 100 );
-  this.cameraPos.set( -10000 , 0 , 0 );
+ /* this.cameraPos.set( -10000 , 0 , 0 );
 
   this.cameraPos2 = new THREE.Vector3( -6000 , 0 , 0 );
   this.cameraPos3 = new THREE.Vector3( -4000 , 0 , 0 );
-  this.cameraPos4 = new THREE.Vector3( 10000 , 10000 , 6000 );
-  
+  this.cameraPos4 = new THREE.Vector3( 10000 , 10000 , 6000 );*/
+ 
+  this.cameraPositions = [];
+
+  this.cameraPositions.push( new THREE.Vector3(  -10000 , 0 , 0 ) );
+  this.cameraPositions.push( new THREE.Vector3(  -6000 , 0 , 0 ) );
+  this.cameraPositions.push( new THREE.Vector3(  -4000 , 0 , 1000 ) );
+  this.cameraPositions.push( new THREE.Vector3(   0 , 4000 , 4000 ) );
+
+  this.cameraPos =  this.cameraPositions[0];
+
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -126,10 +131,9 @@ sun.addToStartArray( function(){
 
 sun.addToStartArray( function(){
 
-  this.text = new PhysicsText( this.textChunk );
-  this.text2 = new PhysicsText( this.textChunk2 );
-  this.text3 = new PhysicsText( this.textChunk3 );
-  this.text4 = new PhysicsText( this.textChunk4 );
+  for( var i = 0; i < this.textChunks.length; i++ ){
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+  }
   
   this.looper = new Looper( G.audio , G.timer , {
 
@@ -214,49 +218,50 @@ sun.addToStartArray( function(){
 
 sun.addToActivateArray( function(){
 
-  this.text.activate();
+  this.text[0].activate();
   
-  
+ 
+  console.log( 'text arctivarts' );
   // First section end
   var callback = function(){
     
-    this.text.kill( 10000 );
+    this.text[0].kill( 10000 );
 
     var percentTilEnd = 1 - this.looper.percentOfLoop;
     var timeTilEnd = percentTilEnd * this.looper.loopLength;
 
     // 1 --> 2 Transition
-    this.tweenCamera( this.cameraPos2 , timeTilEnd * 1000 , function(){
+    this.tweenCamera( this.cameraPositions[1] , timeTilEnd * 1000 , function(){
 
       // Second section start
-      this.text2.activate();
+      this.text[1].activate();
       
       // Second section end
       var callback = function(){
 
-        this.text2.kill( 10000 );
+        this.text[1].kill( 10000 );
 
         var percentTilEnd = 1 - this.looper.percentOfLoop;
         var timeTilEnd = percentTilEnd * this.looper.loopLength;
 
 
         // 2 --> 3 Transition
-        this.tweenCamera( this.cameraPos3 , timeTilEnd * 1000 , function(){
+        this.tweenCamera( this.cameraPositions[2] , timeTilEnd * 1000 , function(){
 
           // Third Section start
-          this.text3.activate();
+          this.text[2].activate();
 
           // third section end
           var callback = function(){
         
-            this.text3.kill( 10000 );
+            this.text[2].kill( 10000 );
 
             var percentTilEnd = 1 - this.looper.percentOfLoop;
             var timeTilEnd = percentTilEnd * this.looper.loopLength;
 
-            this.tweenCamera( this.cameraPos4 , timeTilEnd * 1000 , function(){
+            this.tweenCamera( this.cameraPositions[3], timeTilEnd * 1000 , function(){
 
-              this.text4.activate();
+              this.text[3].activate();
               this.endMesh.add( this );
 
             }.bind( this ) );
@@ -286,10 +291,9 @@ sun.addToActivateArray( function(){
 
 sun.addToAllUpdateArrays( function(){
 
-  this.text.update();
-  this.text2.update();
-  this.text3.update();
-  this.text4.update();
+  for( var i = 0; i < this.text.length; i++ ){
+    this.text[i].update();
+  }
   
   this.gem.update();
 
@@ -313,7 +317,7 @@ sun.addToAllUpdateArrays( function(){
 
 sun.addToDeactivateArray( function(){
 
-  this.text.kill();
+  this.text[3].kill();
 
 }.bind( sun) );
 
