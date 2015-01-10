@@ -206,7 +206,7 @@
     this.physicsRenderer.addBoundTexture( this.head.physicsRenderer , 't_column' , 'output' );
 
 
-    G.renderer.render( G.scene , G.camera );
+  //  G.renderer.render( G.scene , G.camera );
 
   }
 
@@ -217,6 +217,28 @@
 
   }
 
+
+  FurryTail.prototype.transport = function( position ){
+
+
+    var data = this.pTexture.image.data ;
+    for( var i = 0; i < data.length; i += 4 ){
+
+      data[ i + 0 ] = position.x + Math.random() * 10;
+      data[ i + 1 ] = position.y + Math.random() * 10;
+      data[ i + 2 ] = position.z + Math.random() * 10;
+
+      data[ i + 3 ] = 0;
+
+    }
+
+    this.pTexture.needsUpdate = true;
+
+    this.physicsRenderer.reset( this.pTexture );
+
+    this.position.copy( position );
+
+  }
 
   FurryTail.prototype.activate = function(){
 
