@@ -9,8 +9,11 @@ flocking.addToInitArray( function(){
   ].join("\n" );
 
 
+  // Position relative to previous page
   this.position.set(  0 , 1000 , 0 );
-  this.cameraPos.set( 0 , 1000 , 300 );
+
+  // Position relative to center
+  this.cameraPos.set( 0 , 0 , 300 );
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -78,9 +81,9 @@ var f = 'img/matcap/';
 
 flocking.addToStartArray( function(){
 
-  G.position.copy( this.position );
+  /*G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  G.camera.lookAt( this.position );//= 1000;*/
 
   G.iPlaneDistance = this.iPlaneDistance;
 

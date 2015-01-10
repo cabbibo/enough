@@ -46,13 +46,14 @@ sun.addToInitArray( function(){
 
 
 
-  this.position.set(  10000 , 10000 , 0 );
+  this.position.set(  10000 , 0 , 0 );
   
  // this.cameraPos.set( 10000 , 10100 , 000 );
   //this.cameraPos2 = new THREE.Vector3( 10000 , 10000 , 100 );
-  this.cameraPos.set( 2000 , 2000 , 4000 );
-  this.cameraPos2 = new THREE.Vector3( 4000 , 3000 , 4000 );
-  this.cameraPos3 = new THREE.Vector3( 6000 , 6000 , 4000 );
+  this.cameraPos.set( -10000 , 0 , 0 );
+
+  this.cameraPos2 = new THREE.Vector3( -6000 , 0 , 0 );
+  this.cameraPos3 = new THREE.Vector3( -4000 , 0 , 0 );
   this.cameraPos4 = new THREE.Vector3( 10000 , 10000 , 6000 );
   
   this.iPlaneDistance = 1000;
@@ -111,9 +112,9 @@ sun.addToInitArray( function(){
 
 sun.addToStartArray( function(){
 
-  G.position.copy( this.position );
-  G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
+  //G.position.copy( this.position );
+  //G.camera.position.copy( this.cameraPos );
+  //G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = this.iPlaneDistance;
 

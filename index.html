@@ -103,7 +103,7 @@
       // TODO: 
       // Write shaders for hands
 
-      //G.audio.mute.gain.value = 0;
+      G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -179,13 +179,37 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.alone;
+        var s = G.pages.crystals;
 
 
         s.init();
         s.addToOnLoadArray( function(){
 
+
+                      G.position.copy( this.position );
+
+            for( var  i =0; i < this.cameraPositions.length; i++ ){
+
+             this.cameraPositions[i].add( this.position );
+
+            }
+
+            this.cameraPos.copy( this.cameraPositions[0] ); //page.nextPage.position );
+            
+           // this.cameraPos.add( this.position );
+            G.camera.position.copy( this.cameraPos );
+            G.camera.lookAt( this.position );//= 1000;
+  
+
+
+
+
           this.addToStartArray(function(){
+
+
+
+
+
 
             this.activate();
 

@@ -85,12 +85,29 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   }
 
 
+  // 
+
   this.sceneStartPos = page.position.clone();
+
+  page.nextPage.position.add( page.position );
+
   this.sceneEndPos   = page.nextPage.position.clone();
 
   this.camStartPos   = G.camera.position.clone();
-  this.camEndPos     = page.nextPage.cameraPos.clone();
 
+  for( var  i =0; i < page.nextPage.cameraPositions.length; i++ ){
+
+    page.nextPage.cameraPositions[i].add( page.nextPage.position );
+
+  }
+  console.log('OLD POS' );
+
+  console.log( page.nextPage.cameraPos );
+  page.nextPage.cameraPos.copy( page.nextPage.cameraPositions[0] ); //page.nextPage.position );
+
+  console.log( page.nextPage.cameraPos );
+
+  this.camEndPos     = page.nextPage.cameraPositions[0];
 
   this.distStart = { d: G.iPlaneDistance }
   this.distEnd   = { d: page.nextPage.iPlaneDistance }

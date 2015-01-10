@@ -373,11 +373,19 @@ Page.prototype.addToEndArray = function( callback ){
 
 // Some extra functions 
 
-Page.prototype.tweenCamera = function( newPos , length , callback ){
+Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos ){
 
 
-      console.log('POS');
-    console.log( G.camera.position );
+  console.log('POS');
+  console.log( G.camera.position );
+
+  var lookAt = G.position;
+
+  if( lookAtPos ){
+
+    lookAt = lookAtPos.add( G.position );
+
+  }
 
   var tween = new G.tween.Tween( this.cameraPos ).to( newPos , length );
 
@@ -385,15 +393,14 @@ Page.prototype.tweenCamera = function( newPos , length , callback ){
 
     G.camera.position.copy( this.cameraPos );
     G.objectControls.unprojectMouse();
-    G.camera.lookAt( G.position );
+
+    G.camera.lookAt( lookAt );
 
 
   }.bind( this ));
 
   tween.onComplete( function(){
 
-    console.log('POS');
-    console.log( G.camera.position );
     callback();
 
   }.bind( this ) );
@@ -453,6 +460,9 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
 
   G.objectControls.add( mesh );
 
+  console.log( 'MEHS');
+  console.log( G.camera.position );
+  console.log( mesh.position );
   return mesh;
 
 }
