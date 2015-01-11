@@ -579,6 +579,10 @@ tree.addToActivateArray( function(){
             this.tweenCamera( this.cameraPositions[3] , timeTilEnd * 1000 , function(){
 
               G.sol.activate();
+
+
+              G.tmpV3.set( 0 , 2000 , 0 );
+              G.sol.transport( G.tmpV3.add( G.position ));
               this.text[3].activate();
               for( var i =0 ; i < this.lights.length; i++ ){
 

@@ -102,6 +102,7 @@ function GEM( params ){
     this.body = new THREE.PointCloud( this.geometry , this.material );
   }
 
+  this.body.frustumCulled = false;
   this.soul.addBoundTexture( this.body , 't_pos' , 'output' );
   this.soul.addBoundTexture( this.body , 't_oPos' , 'oOutput' );
 
