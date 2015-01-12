@@ -7,6 +7,7 @@ uniform sampler2D t_audio;
 uniform sampler2D t_og;
 
 uniform float audioDisplacement;
+uniform vec3 lightPos;
 
 varying vec2 vUv;
 varying vec3 vVel;
@@ -73,7 +74,7 @@ void main(){
   
   
  
-  vLightDir = normalize( vMPos - vec3( 1000. , 0. , 0. ) );
+  vLightDir = normalize( vMPos - lightPos );
   
  // vReflection =vNorm;//r;
   

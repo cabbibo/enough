@@ -57,7 +57,7 @@ function RepelerMesh( title , mesh , repelers , extraParams ){
       audioDisplacement:{ type:"f" , value : 0.0 ,  constraints:[ 0 , 20 ]},
       
       custom1:{type:"f" , value: .04,  constraints:[ 0.00001 , 1]},
-      lightPos:{type:"v3" , value: new THREE.Vector3( 10 , 1 , 1 )},
+      lightPos:{type:"v3" , value: new THREE.Vector3( 0 , 5000 , 5000 ) },
       
       t_audio:   G.t_audio,
 
