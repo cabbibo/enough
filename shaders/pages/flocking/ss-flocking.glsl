@@ -8,6 +8,7 @@ uniform float cohesionDistance; //
 uniform float freedomFactor;
 uniform float maxVel;
 uniform float centerPower;
+uniform vec3  centerPosition;
 uniform float forceMultiplier;
 uniform float velMultiplier;
 uniform vec3 predator;
@@ -132,12 +133,14 @@ void main()	{
     }
 
     // Attract flocks to the center
-    vec3 central = predator;
+    vec3 central = centerPosition;
     dir = pos - central;
     dist = length( dir );
     //dir.y *= 2.5;
     force -= normalize( dir ) * centerPower * 1.;
 
+    dir = pos - predator;
+    dist = length( dir );
     float predRepelSq = predatorRepelRadius * predatorRepelRadius;
     if( dist < predatorRepelRadius ){
       float predDistSquared = dist * dist;

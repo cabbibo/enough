@@ -161,6 +161,7 @@ G.init = function(){
 
 
   G.GEOS[ 'icosahedron' ]  = new THREE.IcosahedronGeometry( 1 , 2 );
+  G.GEOS[ 'icosahedronDense' ]  = new THREE.IcosahedronGeometry( 1 , 3 );
   G.MATS[ 'normal'      ]  = new THREE.MeshNormalMaterial();
 
   /*

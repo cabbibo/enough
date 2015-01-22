@@ -8,12 +8,12 @@ function Coral( page , audio , position ){
     active:{type:"f" ,value:0 },
     hovered:{type:"f" ,value:0 },
     timer:G.timer,
-    t_audio:{type:"t" , value: audio.audioTexture.texture }
-
+    t_audio:{type:"t" , value: audio.audioTexture.texture },
+    lightPos:{ type:"v3" , value: G.mani.position }
 
   }
  
-  var geo = G.GEOS.icosahedron;
+  var geo = G.GEOS.icosahedronDense;
 
   var mat = new THREE.ShaderMaterial({
     uniforms:       this.uniforms,
@@ -21,14 +21,22 @@ function Coral( page , audio , position ){
     fragmentShader: G.shaders.fs.coral,
     transparent: true,
     side: THREE.DoubleSide
-
   });
-
 
   this.body = new THREE.Mesh( geo , mat );
   this.body.position.copy( position );
   this.body.scale.multiplyScalar( 40. );
 
+ // var g = G.GEOS.icosahedron;
+  var m = new THREE.MeshBasicMaterial();
+  this.center = new THREE.Mesh( geo , m );
+  //this.centerOBJ.position.y += 100;
+  this.center.scale.multiplyScalar( .3 );
+  //
+  this.center.rotation.x = Math.PI / 4;
+  this.center.rotation.y = Math.PI / 4;
+  this.center.rotation.z = Math.PI / 4;
+  this.body.add( this.center );
     
   this.audio = audio;
   this.audio.updateTexture = true;
@@ -38,8 +46,6 @@ function Coral( page , audio , position ){
   this.average =  0;
 
   this.data = new THREE.Vector4();
-
-
 
 
   G.objectControls.add( this.body );
@@ -130,6 +136,7 @@ Coral.prototype.update = function(){
 
 Coral.prototype.hoverOver = function(){
 
+  this.center.material.color.setRGB( 1 , 1,1);
   this.uniforms.hovered.value = 1.;
   if( !this.active ){
     this.audio.turnOffFilter();
@@ -140,6 +147,8 @@ Coral.prototype.hoverOver = function(){
 
 Coral.prototype.hoverOut = function(){
   this.uniforms.hovered.value = 0.;
+
+  this.center.material.color.setRGB( .3 , .3,.3);
 
   if( !this.active ){
     this.audio.turnOnFilter();

@@ -493,10 +493,10 @@ crystals.addToActivateArray( function(){
     
   G.iPlane.faceCamera = false;
   
-  G.tmpV3.set( 0 , 450 , 0 );
+  G.tmpV3.set( 0 , 250 , 0 );
 
   G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
-  G.tmpV3.set( 0 , 451 , 0 )
+  G.tmpV3.set( 0 , 251 , 0 )
   G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
 
   //this.looper.start();

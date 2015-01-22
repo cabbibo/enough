@@ -32,17 +32,19 @@ function Flock( coral , params ){
 
     resolution:           { type: "v2", value: new THREE.Vector2() },
     testing:              { type: "f" , value: 1.0 },
-    seperationDistance:   { type: "f" , value: 10.9 },
-    alignmentDistance:    { type: "f" , value: 20.0 },
-    cohesionDistance:     { type: "f" , value: 30.0 },
+    seperationDistance:   { type: "f" , value: 20.9 },
+    alignmentDistance:    { type: "f" , value: 40.0 },
+    cohesionDistance:     { type: "f" , value: 60.0 },
     freedomFactor:        { type: "f" , value: 1000000000000000.0 },
     maxVel:               { type: "f" , value: 20 },
     velMultiplier:        { type: "f" , value: 5. },
     forceMultiplier:      { type: "f" , value: 8000. },
-    centerPower:          { type: "f" , value: .2 },
+    centerPower:          { type: "f" , value: 2 },
+    centerPosition:       { type: "v3", value: new THREE.Vector3(0,200,0) },
+   // prsdator:             { type: "v3", value: new THREE.Vector3(0 , 400 , 0) },
     predator:             { type: "v3", value: G.mani.position.relative },
     predatorRepelRadius:  { type: "f" , value: 300 },
-    predatorRepelPower:   { type: "f" , value: 800 },
+    predatorRepelPower:   { type: "f" , value: .1 },
     attractor:            { type: "v3", value: new THREE.Vector3() },
     attractionCoral :     { type: "f" , value: 3 },
     coralRepelRadius:     { type: "f" , value:10 },
@@ -90,7 +92,7 @@ function Flock( coral , params ){
 
   var s = this.params.size;
   this.soulUniforms.resolution.value.set( s , s );
-  this.soulUniforms.predator.value.set( 10000000000 , 0 , 0 );
+  //this.soulUniforms.predator.value.set( 10000000000 , 0 , 0 );
 
   var nc = this.coralPositions.length;
   var simulation = G.shaders.setValue( G.shaders.ss.flocking , 'SIZE' , s + "." );
@@ -233,6 +235,9 @@ Flock.prototype.update = function(){
 
   if( this.simulationActive ){
 
+    this.soulUniforms.seperationDistance.value = Math.abs(Math.sin( G.timer.value * 1 ) * 20);
+    this.soulUniforms.alignmentDistance.value = Math.abs(Math.sin( G.timer.value * .5 ) * 40);
+    this.soulUniforms.cohesionDistance.value = Math.abs(Math.sin( G.timer.value * .8 ) * 60);
     this.soul.update();
 
     for( var i =0;i< this.params.joints; i++ ){
@@ -242,6 +247,7 @@ Flock.prototype.update = function(){
   }
 
 }
+
 
 
 

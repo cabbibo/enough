@@ -89,7 +89,7 @@ sun.addToInitArray( function(){
  
   this.cameraPositions = [];
 
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  -10000 , 0 , 5000 ) );
   this.cameraPositions.push( new THREE.Vector3(  -6000 , 0 , 0 ) );
   this.cameraPositions.push( new THREE.Vector3(  -4000 , 0 , 1000 ) );
   this.cameraPositions.push( new THREE.Vector3(   0 , 4000 , 4000 ) );

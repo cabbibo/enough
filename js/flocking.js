@@ -4,12 +4,6 @@ flocking.addToInitArray( function(){
 
   this.text = [];
   this.textChunks = [];
-  this.textChunks.push([
-
-    "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and thought there movement was soothing, he still felt despair he couldn't have before imagined."
-
-  ].join("\n" ));
-
   this.textChunks.push([ 
     "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and though he found movement was soothing, he still felt an ultimate dispair."
   ].join("\n"));
@@ -38,9 +32,15 @@ flocking.addToInitArray( function(){
   
   
   this.cameraPositions = [];
-  this.cameraPositions.push( new THREE.Vector3(  0 , 500 , 2000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  0 , 200 , 2000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 2000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  100 , 2000 , 100 ) );
+  //this.cameraPositions.push( new THREE.Vector3(  0 , 1200 , 100 ) );
+  this.cameraPositions.push( new THREE.Vector3( -200 , 800 ,1400 ) );
+  
+  this.cameraPositions.push( new THREE.Vector3( 0 , 400 , 1000 ) );
+  this.cameraPositions.push( new THREE.Vector3( 0 , 600 , 300 ) );
+  
+  //this.cameraPositions.push( new THREE.Vector3( -2000 , 1500 ,2400 ) );
+  //this.cameraPositions.push( new THREE.Vector3(  -3000 , 3000 , 3000 ) );
   this.cameraPos =  this.cameraPositions[0];
 
 
@@ -126,9 +126,19 @@ flocking.addToStartArray( function(){
   G.camera.position.copy( this.cameraPos );
   G.camera.lookAt( this.position );//= 1000;*/
 
-  G.iPlaneDistance = this.iPlaneDistance;
+  //G.iPlaneDistance = this.iPlaneDistance;
+  
+  G.iPlane.faceCamera = false;
+  
+  G.tmpV3.set( 0 , 200 , 0 );
+
+  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+  G.tmpV3.set( 0 , 201 , 0 )
+  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
 
   G.mani.activate();
+
+  G.mani.transport( G.position );
 
 }.bind( flocking ));
 
@@ -171,9 +181,10 @@ flocking.addToStartArray( function(){
   for( var i = 0; i < this.audioArray.length; i++ ){
 
     var z = Math.sin( Math.PI * 2 * i / this.audioArray.length); 
-    var x = (i / this.audioArray.length);
+    var x = Math.cos( Math.PI * 2 * i / this.audioArray.length);
+    //(i / this.audioArray.length);
     coralPositions[ i ] = [
-      (x-.5) * 20,
+      x * 10, //(x-.5) * 20,
       ( Math.random() )+1,
       z * 10
     ]
@@ -216,8 +227,83 @@ flocking.addToStartArray( function(){
 
 flocking.addToActivateArray( function(){
 
-  this.endMesh.add( this );
   this.text[0].activate();
+
+
+  var offset = G.pageTurnerOffset;
+
+  var percentTilEnd = 1 - this.looper.percentOfMeasure;
+  var timeTilEnd = percentTilEnd * this.looper.measureLength;
+
+   var callback = function(){
+
+    this.text[0].kill( 5000 );
+
+    this.tweenCamera( this.cameraPositions[1] , (timeTilEnd-.01) * 1000 , function(){
+
+      this.text[1].activate();
+
+      var offset = G.pageTurnerOffset;
+
+      var callback = function(){
+
+        this.text[1].kill( 3000 );
+
+
+
+
+        var percentTilEnd = 1 - this.looper.percentOfMeasure;
+        var timeTilEnd = percentTilEnd * this.looper.measureLength;
+
+        this.tweenCamera( this.cameraPositions[2],  (timeTilEnd-.01) * 1000 , function(){
+
+
+          G.tmpV3.set( 0 , 100 , 0 );
+          G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+          G.tmpV3.set( 0 , 101 , 0 )
+          G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
+
+          this.text[2].activate();
+
+          var callback = function(){
+
+            this.text[2].kill( 3000 );
+
+
+            var percentTilEnd = 1 - this.looper.percentOfMeasure;
+            var timeTilEnd = percentTilEnd * this.looper.measureLength;
+
+            G.tmpV3.set( 0 ,  200 , 0 );
+            G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+            G.tmpV3.set( 0 , 209 , 0 )
+            G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) )
+            this.tweenCamera( this.cameraPositions[3],  (timeTilEnd-.01) * 1000 , function(){
+
+
+              this.text[3].activate();
+              this.endMesh.add( this );
+              
+            }.bind( this ));
+          }.bind( this);
+
+          var offset =  G.pageTurnerOffset;          
+          this.transitionMesh3 = this.createTurnerMesh( offset , callback );
+          this.scene.add( this.transitionMesh3 );
+
+
+        }.bind( this ));
+      }.bind( this);
+
+      var offset =  G.pageTurnerOffset;      
+      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+      this.scene.add( this.transitionMesh2 );
+
+    }.bind( this  ));
+  }.bind( this );
+
+  var offset =  G.pageTurnerOffset;   
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
+  this.scene.add( this.transitionMesh1 );
 
 }.bind( flocking ));
 
@@ -242,7 +328,9 @@ flocking.addToAllUpdateArrays( function(){
 
 flocking.addToDeactivateArray( function(){
 
-  this.text[0].kill();
+  this.text[3].kill();
+
+  G.iPlane.faceCamera = true;
 
 }.bind( flocking) );
 
