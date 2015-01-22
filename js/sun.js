@@ -252,7 +252,7 @@ sun.addToStartArray( function(){
 
   
   
-  var mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000 , 3000 , 3000 , 10,10,10 ));
+  var mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000 , 3000 , 3000 , 80,80,80 ));
   console.log( mesh );
   mesh.rotation.x = Math.PI / 2;
   mesh.rotation.y = -Math.PI / 4;
