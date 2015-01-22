@@ -27,17 +27,52 @@ sun.addToInitArray( function(){
     
     "Further and further Mani swam, approaching the loving behemoth.",
     "","",
-    "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished."
+    "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
+    "","",
+    "So inwards Mani went."
 
   ].join("\n" ));
 
   this.textChunks.push([
     
-     "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
-    "","",
-    "And with a nobility of intent Mani ascended."
+     "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
+     "","",
+     "The song continued and urged Mani towards its center. The shining essence of life lay before him and he yearned to be one with it, experience the world and the truths that lay beyond."
 
   ].join("\n" ));
+
+    this.textChunks.push([
+    
+     "The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
+     "","",
+     "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
+     "","",
+      "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement."
+
+  ].join("\n" ));
+
+
+  this.textChunks.push([
+    
+    "It was Sol!",
+    "","",
+    "She swam to him. And he towards her.",
+    "","",
+    "The being sang in the background of the world Beyond, urging Mani to return towards its arms. But there was Sol, so sweetly she swam, and Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
+
+  ].join("\n" ));
+
+
+  this.textChunks.push([
+
+    "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
+    "","",
+    "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
+
+  ].join("\n" ));
+
+
+
 
 
 
@@ -54,7 +89,7 @@ sun.addToInitArray( function(){
  
   this.cameraPositions = [];
 
-  this.cameraPositions.push( new THREE.Vector3(  -400 , 0 , 0 ) );
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
   this.cameraPositions.push( new THREE.Vector3(  -6000 , 0 , 0 ) );
   this.cameraPositions.push( new THREE.Vector3(  -4000 , 0 , 1000 ) );
   this.cameraPositions.push( new THREE.Vector3(   0 , 4000 , 4000 ) );
@@ -85,6 +120,9 @@ sun.addToInitArray( function(){
 
   this.loadShader( 'sun' , f + 'vs-sun' , 'vertex' ); 
   this.loadShader( 'sun' , f + 'fs-sun' , 'fragment' ); 
+
+  this.loadShader( 'akira' , f + 'vs-akira' , 'vertex' ); 
+  this.loadShader( 'akira' , f + 'fs-akira' , 'fragment' ); 
 
     
 }.bind( sun ) );
@@ -183,7 +221,7 @@ sun.addToStartArray( function(){
     }
 
 
-  var mesh = new THREE.IcosahedronGeometry( 3000 , 6 ); 
+  var mesh = new THREE.Mesh( new THREE.IcosahedronGeometry( 3000 , 6 )); 
   this.gem = new RepelerMesh( 'Parameters' , mesh , this.repelers , {
 
         
@@ -210,7 +248,43 @@ sun.addToStartArray( function(){
   this.gem.soul.reset( this.gem.t_og.value );
   this.gem.toggle( this.scene );
 
-  this.gem.debug( this.scene , 1 , 100 );
+  //this.gem.debug( this.scene , 1 , 100 );
+
+  
+  
+  var mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000 , 3000 , 3000 , 10,10,10 ));
+  console.log( mesh );
+  mesh.rotation.x = Math.PI / 2;
+  mesh.rotation.y = -Math.PI / 4;
+  mesh.rotation.z = Math.PI / 1.6;
+  mesh.updateMatrix();
+  this.akira = new RepelerMesh( 'Parameters' , mesh , this.repelers , {
+
+        
+    vs: G.shaders.vs.akira,
+    fs: G.shaders.fs.akira,
+
+    soul:{
+
+      repulsionPower:     { type:"f" , value: 1000000, constraints:[-300  , 0] },
+      repulsionRadius:     { type:"f" , value:10000 , constraints:[ 0  , 1000] },
+    },
+
+    body:{
+      //t_refl:{type:"t" , value:reflectionCube},
+      //t_refr:{type:"t" , value:reflectionCube },
+      custom1:{type:"f" , value:.9 , constraints:[ .8 , 1 ]},
+      t_sem:{type:"t" , value: G.TEXTURES.matcapMetal }
+
+    }
+
+  }); 
+
+  this.akira.soul.reset( this.akira.t_og.value );
+  this.akira.toggle( this.scene );
+
+  this.akira.body.scale.multiplyScalar( .05 );
+  this.akira.debug( this.scene , 1 , 100 );
 
 }.bind( sun ));
 
@@ -218,6 +292,8 @@ sun.addToStartArray( function(){
 
 sun.addToActivateArray( function(){
 
+  G.mani.transport( G.position );
+  G.sol.transport( G.position );
   this.text[0].activate();
   
  
@@ -296,6 +372,7 @@ sun.addToAllUpdateArrays( function(){
   }
   
   this.gem.update();
+  this.akira.update();
 
   for( var i = 0; i < this.repelers.length; i++ ){
 

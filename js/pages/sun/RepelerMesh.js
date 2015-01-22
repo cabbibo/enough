@@ -5,11 +5,11 @@ function RepelerMesh( title , mesh , repelers , extraParams ){
 
   var title = title || 'HELLO';
   var mesh = mesh || new THREE.Mesh( new THREE.BoxGeometry( 1000 , 1000 , 1000 , 80 , 80 , 80 ) );
-  //var geometry = new THREE.Geometry();
+  var geometry = new THREE.Geometry();
 
- // geometry.merge( mesh.geometry , mesh.matrix );
+  geometry.merge( mesh.geometry , mesh.matrix );
   
-  var geometry = mesh;
+  //eometry = mesh.geometry;
  // var geometry =  || new THREE.BoxGeometry( 1000 , 1000 , 1000 , 80 , 80 , 80 );
   
 

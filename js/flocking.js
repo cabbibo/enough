@@ -10,11 +10,36 @@ flocking.addToInitArray( function(){
 
   ].join("\n" ));
 
+  this.textChunks.push([ 
+    "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and though he found movement was soothing, he still felt an ultimate dispair."
+  ].join("\n"));
+
+  this.textChunks.push([ 
+    "The small ribbons of light moved gently around Mani, but he could only imagine them as ghosts of his golden friends. As angelic as their song seemed, it was not enough, and Mani resigned himself to a well of sorrow",
+    "","",
+    "As Mani came to the realization that he would never find what he was missing, would never fill that void in his soul, he settled down on the floor beneath the fish, ready for the quiet to come, and waited."
+  ].join("\n"));
+
+
+  this.textChunks.push([ 
+    "Mani could feel the darkness inch in around him, winding its icy grip around the deepest part of his being, and he lay, paralyzed with heartache.",
+    "","",
+    "In his final moments, Mani remembered fondly the crystals , tendrils and tree. He thought of Sol and her compassionate movements and  of his friends circling the glowing planets.  The ground found him and he sank slowly into a dreamless sleep."
+  ].join("\n"));
+
+ this.textChunks.push([ 
+    "Then, as he began his descent into nothingness, Mani saw a sparkle.",
+    "","",
+    "At first he thought of it with disdain. It was sparkles distracted him, that had made him lose his first and only friends, but as more and more fell upon his melancholy form, he felt compelled to rise and follow."
+  ].join("\n"));
+
   // Position relative to previous page
   this.position.set(  2000 , -2000 , 0 );
   
   
   this.cameraPositions = [];
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 300 ) );
+  this.cameraPositions.push( new THREE.Vector3(  0 , 200 , 300 ) );
   this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 300 ) );
   this.cameraPos =  this.cameraPositions[0];
 
@@ -76,8 +101,12 @@ var f = 'img/matcap/';
   this.loadShader( 'eel' , f + 'vs-eel' , 'vertex' );
   this.loadShader( 'ribbon' , f + 'fs-ribbon'  , 'fragment' );
   this.loadShader( 'ribbon' , f + 'vs-ribbon'  , 'vertex' );
-  this.loadShader( 'tube' , f + 'fs-tube' , 'fragment' );
-  this.loadShader( 'tube' , f + 'vs-tube' , 'vertex' );
+
+  //this.loadShader( 'tube' , f + 'fs-tube' , 'fragment' );
+  //this.loadShader( 'tube' , f + 'vs-tube' , 'vertex' );
+
+  this.loadShader( 'coralEmanator' , f + 'fs-coralEmanator' , 'fragment' );
+  this.loadShader( 'coralEmanator' , f + 'vs-coralEmanator' , 'vertex' );
 
 
 
@@ -133,12 +162,12 @@ flocking.addToStartArray( function(){
 
   var coralPositions = [];
 
-  for( var i = 0; i < 30; i++ ){
+  for( var i = 0; i < this.audioArray.length; i++ ){
 
     coralPositions[ i ] = [
-      ( Math.random() - .5 )* 100,
-      ( Math.random() - .5 )* 100,
-      ( Math.random() - .5 )* 100
+      ( Math.random() - .5 )* 10,
+      ( Math.random() - .5 )* 10,
+      ( Math.random() - .5 )* 10
     ]
 
 
@@ -149,23 +178,23 @@ flocking.addToStartArray( function(){
   for( var i = 0; i < coralPositions.length; i++ ){
 
   // TODO: pull out into Coral.js
-    var m = new THREE.Mesh( G.GEOS.icosahedron , G.MATS.normal );
+    var cp = coralPositions[i]
+    var p = new THREE.Vector3( cp[0] , cp[1] , cp[2] );
+    p.multiplyScalar( 10 );
 
-    var p = coralPositions[i];
-    m.position.x = p[0] * 10; 
-    m.position.y = p[1] * 10; 
-    m.position.z = p[2] * 10; 
+    console.log( p );
+    var audio = G.AUDIO[ this.audioArray[i] ];
+    var coral = new Coral( this , audio , p );  
+    
+    this.scene.add( coral.body );
+    this.coral.push( coral );
 
-    this.scene.add( m );
-
-    this.coral.push( m );
-
-
+    coral.deactivate();
   }
 
 
   this.flock = new Flock( this.coral , {
-    size: 32
+    size: 16
   });
 
   this.flock.activate( this.scene );
@@ -192,6 +221,10 @@ flocking.addToAllUpdateArrays( function(){
 
     this.text[i].update();
 
+  }
+
+  for( var i = 0; i < this.coral.length; i++ ){
+    this.coral[i].update();
   }
 
 

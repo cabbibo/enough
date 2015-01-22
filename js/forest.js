@@ -4,22 +4,22 @@ forest.addToInitArray( function(){
    this.textChunks = [];
   this.text = []; 
   this.textChunks.push( [
-    "After leaving the crystals, Webby swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. He wondered how he could hear them, partially because it seemed like an impossible technological feat, but mostly because he still had no ears. "
+    " After leaving the crystals, Mani swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. Powerful as they were, they made way for his slender form, bowing out of his way as if he were royalty."
 
 
   ].join("\n" ));
 
   this.textChunks.push( [
-    "Through his wondering, Webby remembered the brilliant work done by the W3C to create an API that allowed people to not only play sounds on the web, but also analyze their every movement. It didn’t really bother Webby that he couldn’t use an API because he didn’t have fingers, all that mattered was that he learned a bit more about what made him. "
+    "Mani was mesmerized by their song. It felt old and wise, full of love and sadness. He tried to comprehend, and by doing so recognized his own loneliness. He loved the forest, and how it proclaimed its hymn to the darkness, but knew it could not fill the void he was beginning to feel in his heart."
 
 
   ].join("\n" ));
 
   this.textChunks.push( [
 
-    "But Webby craved more, and had a feeling that his time in this world was limited. He was right to think so, because there were only so many minutes until the presentation ended.",
-  "","",
-  "So Webby continued onwards, still searching. "
+    "Mani almost envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but still it seemed as though they had found some sort of purpose in they shimmering sanctuary. For them, to sing, no matter if others were listening, was enough.",
+    "","",
+    "For Mani it was not, so he continued onwards, yearning for more."
 
   ].join("\n" ));
 

@@ -9,21 +9,21 @@ alone.addToInitArray( function(){
   this.text = [];
   this.textChunks.push( [
 
-    "When Webby awoke, he had no idea where he was, or what he was for that matter.",
+    "When Mani awoke, he had now idea where he was.",
     "","",
-   
-    "For some reason, he could remember the name ‘Khronos’, but that was just the beginning of the questions he had for the strange new place he inhabited. What was he? Why was he here? And was there anything else like him?","","",
-     
-    "Webby was worried he would never know the answers to these questions, but was still determined to find out more."
+    "He was surrounded by a darkness that reached farther than he could see, an abyss greater than he could comprehend.",
+    "","",
+    "He began to move, slowly discovering the physics of his form."
+
 
   ].join("\n" ));
 
 
   this.textChunks.push([
 
-    "Webby was, after all, a poorly veiled reference to ‘The Web’ created for a SIGGRAPH presentation.","","",  
-
-    "He had no idea of this, of course, considering that he was just a bunch of pixels, but for some reason he still wanted to know where he came from, and what it took to get him here today.  "
+    "The nothing was so complete, Mani could not tell if he moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
+    "","",
+    "Mani was curious, and though he was scared, decided that he would explore, even if the conquest ended in darkness"
 
   ].join("\n" ));
 

@@ -8,22 +8,23 @@ sparkles.addToInitArray( function(){
 
   this.textChunks.push( [
 
-
-
-    "In the end, this story is not actually about a small creature named Webby. It is not about trying to prove that the Internet is ready for people in this room to use as a platform. It has been ready for a long time.",
-
-    "","",
- 
-    "It is about the fact that you, each and every one of you, can make beautiful experiences for others to see with just a URL."
+    "How glorious these shapes were. As they stoically drifted past him, Mani examined their infinitely precise textures. How Sol must love these objects! he thought, and turned to see the sense of wonder emanating from her being."
 
   ].join("\n" ));
 
   this.textChunks.push([
 
-    "They could be advertisements, they could be client work, but they could also be haikus, short sketches, and playful experiments.",
-  "","",
- 
-  "What is important is not what they are, but what they do. The emotions they evoke, the feelings they create, and the ways in which they help us to fully experience the real time that is now. "
+    "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
+    "","",
+    "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be scene."
+
+  ].join("\n" ));
+
+  this.textChunks.push([
+
+    "The devastating weight of the abyss returned. Crashing over him like a wave of silence. He could have never comprehended this loneliness. Now that he had seen the beauty of his friends, to have lost them was too much.",
+    "","",
+    "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
 
   ].join("\n" ));
 
@@ -146,10 +147,19 @@ sparkles.addToActivateArray( function(){
   var callback = function(){
 
     this.text[0].kill();
-
     this.text[1].activate();
 
-    this.endMesh.add( this );
+    var callback = function(){
+
+      this.text[1].kill();
+      this.text[2].activate();
+    
+      this.endMesh.add( this );
+
+    }.bind( this );
+
+    this.transitionMesh2 = this.createTurnerMesh( offset , callback );
+    this.scene.add( this.transitionMesh2 );
 
   }.bind( this );
 
@@ -209,7 +219,7 @@ sparkles.addToActiveArray( function(){
 
 sparkles.addToDeactivateArray( function(){
 
-  this.text[1].kill();
+  this.text[2].kill();
 
 }.bind( sparkles) );
 

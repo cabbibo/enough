@@ -7,32 +7,40 @@ tree.addToInitArray( function(){
   this.textChunks = [];
   this.textChunks.push( [
 
-    "By now Webby was growing tired.  He had been looking for answers forever, but still knew so little. Also, he felt lonely. Why, Webby wondered, were there no other creatures like him. There were so many spectacular technologies for creating space puppies like himself, so why had he not seen any?"
+    "By now Mani was growing tired. He had been traveling forever, but still did not know where he was, who he was, why he was. The crystals were majestic, and the forest filled with dignity, but still the darkness was overwhelming, and the hole in his heart reminded.",
+
+  "Mani was alone."
 
   ].join("\n" ));
 
   this.textChunks.push( [
 
-    "The haunting tree that stood before him mirrored the sadness Webby felt. There were amazing tools like Play Canvas, Verold, and Goo; beautiful tutorials by The Spite and Aerotwist. So WHY were people not creating 3D experiences for the web?",  
+    "The haunting tree that stood before him mirrored the sadness Mani felt. How could he be part of this world without a purpose. Crystals hummed and the trees murmured. They knew their task and performed it with a quiet nobility.",
     "","",
-    "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe 3D just wasn’t meant for the web. "
+    "But Mani could not tell what his truth was."
 
   ].join("\n" ));
 
 
   this.textChunks.push( [
 
-  "Webby was ready to give up. What was the point of his existence, if he was the only one?",
-    "","",
-  "What was the point of the Web if all the apathetic tweets and narcissistic posts were always 2D?",
+  "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe the tree and the crystals would be the only friends he would have.",
 
   ].join("\n" ));
 
   this.textChunks.push( [
 
-    "Then, Webby heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another page that seemed like it was 3D but actually only had parallax scrolling?",
+    "Mani was ready to give up. What was the point of his existence if it was to be spent, alone in the dark that would eventually consume him.",
     "","",
-    "Or was it a creature, like him? A harbinger of the web to come? ",
+    "Mani approached the tree, ready to curl around its base and rest until the pain, the storm in his soul, had passed. He would lie there forever, until he was one with the dark, if need be.",
+
+  ].join("\n" ));
+
+  this.textChunks.push( [
+
+    "Then, Mani heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another frail attempt to extinguish the lonliness which consumed him?",
+    "","",
+    "Or was it a creature, like him? Another friend, lost in the darkness, yearning for truth?",
 
   ].join("\n" ));
 

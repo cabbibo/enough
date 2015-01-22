@@ -6,11 +6,19 @@ together.addToInitArray( function(){
   this.textChunks = [];
   this.textChunks.push([
 
-    "Webby now knew joy. There was someone else like him.",
+    "Mani now knew joy.",
     "","",
-    "Webby played with the creature for millions of render cycles. He had not realized how powerfully entertaining it was to experience high end graphics on the web. It felt like it finally gave his life purpose, no matter how simple the venture was.",
+    "He danced with the creature, and that moment flowered into eternity. He watched her chase the dark away her simple radiance. Her presence compelled Mani, and he could feel even the night in his begin to fade.",
     "","",
-    "But soon enough,  the other creature motioned to Webby, and together they journeyed on. "
+    "She swayed with him, in the mists of the night, and Mani knew Truth."
+
+  ].join("\n" ));
+
+  this.textChunks.push([
+
+    "Sol was her name, Mani knew. The way she shown  told him of a world filled with light, of a land without darkness or fear.",
+    "","",
+    "They continued circling each other in the twilight, until Sol motioned to Mani, and together they journeyed on."
 
   ].join("\n" ));
 
@@ -20,6 +28,7 @@ together.addToInitArray( function(){
 
   this.cameraPositions = [];
 
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 3000 ) );
   this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
 
   this.cameraPos =  this.cameraPositions[0];
@@ -102,8 +111,32 @@ together.addToStartArray( function(){
 
 together.addToActivateArray( function(){
 
-  this.endMesh.add( this );
+
+  //this.endMesh.add( this );
   this.text[0].activate();
+
+  var offset = G.pageTurnerOffset;
+
+
+  var callback = function(){
+
+    this.text[0].kill( 10000 );
+
+    var percentTilEnd = 1 - this.looper.percentOfLoop;
+    var timeTilEnd = percentTilEnd * this.looper.loopLength;
+
+    this.tweenCamera( this.cameraPositions[1] , timeTilEnd * 1000 , function(){
+
+      this.text[1].activate();
+
+      this.endMesh.add( this );
+
+
+     }.bind( this ) );
+  }.bind( this );
+
+  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
+  this.scene.add( this.transitionMesh1 );
 
 }.bind( together ));
 
@@ -119,7 +152,7 @@ together.addToAllUpdateArrays( function(){
 
 
 together.addToDeactivateArray( function(){
-  this.text[0].kill();
+  this.text[1].kill();
 
 }.bind( together) );
 

@@ -7,22 +7,27 @@ crystals.addToInitArray( function(){
   this.textChunks = [];
   this.textChunks.push( [
 
-    "After traveling for what seemed like an eternity, Webby came upon a land of sparkling crystals. Although it told him nothing more about himself, the crystals were very pretty, so he took a moment to play with them. "
 
+    "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
+    "","",
+    "They spewed sparkles into the world around him."
+  
   ].join("\n" ));
 
 
   this.textChunks.push([
 
-  "As he got closer to the crystals, the sounds they made conjured an image of a man wearing headphones. This made him remember that he was created using a library called ‘three.js’, run by ‘Mr.doob’. Although he didn’t know what headphones were, seeing as he did not have ears, he still thought the word ‘doob’ looked a like a man wearing them."
+  "Their simple existence filled Mani with wonder. Why were they here? How could they sing? What were they saying?",
+  "","",
+  "He explored the crystals, dancing with delight through their glistening glitter. How could they be? What could they be?"
 
   ].join("\n"));
 
   this.textChunks.push([
 
-  "He also didn’t know what a library was, but was certain that his creator, Cabbibo, had no idea what he was doing, so this ‘three.js’ must have been pretty easy to work with.",
+  "He felt a certain camaraderie with the crystals, the simple fact that they were not the darkness made him approach them with a sense of reverence.",
   "","",
-    "It made Webby happy to know more about where he came from, but it still was not enough, so he moved again into the unknown, yearning for more answers. "
+  "But as Mani wondered, so he wandered, and after he determined the crystals to be thoroughly explored, he moved onwards."
 
   ].join("\n"));
 

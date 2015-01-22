@@ -9,25 +9,23 @@ planets.addToInitArray( function(){
 
   this.textChunks.push( [
 
-    "There was not just one more of him. There was a myriad.",
-  "","",
-  "Creatures that displayed models, creatures that were games. Creatures that played music, and ones that were played by music. There were advertisements and stories, products and tech demos.",
-  "","",
-  "Webby had never felt so right for being so wrong. The Web wasn’t just ready for 3D, it was perfect for it. "
+    "There wasn’t just one more of him. There was a myriad.",
+    "","",
+    "Mani had never felt so right for being so wrong. He would never be lonely again."
 
   ].join("\n"));
 
   this.textChunks.push( [
 
-    "The creatures swam through the infinity together. It no longer mattered to Webby if he could never type or wear headphones. It didn’t matter that he was only RGB values driven by electrons. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in the short existence they had. "
+    "The creatures swam through the infinity together. It no longer mattered to Mani that he didn’t have the answers. It didn’t matter that he still surrounded by darkness. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in mysterious Eden they inhabited."
 
   ].join("\n"));
 
   this.textChunks.push([
 
-    "Webby knew his time was coming to an end, and though he was sad to leave his friends, he was completely content just knowing that others could find happiness, playing with and creating the creatures he loved so much.",
-  "","",
-  "He said goodbye and swam into the sunset. "
+    "Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his golden community.",
+    "","",
+    "In the distance he saw soft sparkles and motioned for his companions to follow him, triumphantly, to their next destination."
 
   ].join("\n"));
 

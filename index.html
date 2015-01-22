@@ -70,6 +70,7 @@
     <script src="js/pages/sparkles/Sparkles.js"></script>
 
     <script src="js/pages/flocking/Flock.js"></script>
+    <script src="js/pages/flocking/Coral.js"></script>
     <script src="js/pages/flocking/CreateFlockingGeometry.js"></script>
 
     <script src="js/pages/sun/GEM.js"></script>
@@ -103,7 +104,7 @@
       // TODO: 
       // Write shaders for hands
 
-      //G.audio.mute.gain.value = 0;
+     // G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -179,7 +180,7 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.sun;
+        var s = G.pages.flocking;
         
 
 
@@ -187,33 +188,22 @@
         s.addToOnLoadArray( function(){
 
 
-            G.position.copy( this.position );
+          G.position.copy( this.position );
 
-            for( var  i =0; i < this.cameraPositions.length; i++ ){
+          for( var  i =0; i < this.cameraPositions.length; i++ ){
 
-             this.cameraPositions[i].add( this.position );
+            this.cameraPositions[i].add( this.position );
 
-            }
+          }
 
-            this.cameraPos.copy( this.cameraPositions[0] ); //page.nextPage.position );
-            
-           // this.cameraPos.add( this.position );
-            G.camera.position.copy( this.cameraPos );
-            G.camera.lookAt( this.position );//= 1000;
-  
-
-
-
+          this.cameraPos.copy( this.cameraPositions[0] ); //page.nextPage.position );
+          
+         // this.cameraPos.add( this.position );
+          G.camera.position.copy( this.cameraPos );
+          G.camera.lookAt( this.position );//= 1000;
 
           this.addToStartArray(function(){
-
-
-
-
-
-
             this.activate();
-
           }.bind( this));
 
           this.start();
