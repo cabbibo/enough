@@ -4,6 +4,7 @@ uniform vec4 coralData[numOfCoral];
 uniform vec3 coral[numOfCoral];
 varying float vDisplacement;
 
+varying vec3 vMPos;
 void main(){
 
   vec3 mPos = (modelMatrix * vec4( position , 1. )).xyz;
@@ -26,6 +27,8 @@ void main(){
 
   vec3 pos = position;
   pos.z += pow( displacement, .1 ) * 300.;
+
+  vMPos = ( modelMatrix * vec4( pos , 1. )).xyz;
 
   vDisplacement = displacement;
   gl_Position = projectionMatrix * modelViewMatrix * vec4( pos , 1. );

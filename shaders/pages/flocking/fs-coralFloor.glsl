@@ -1,7 +1,15 @@
 
 varying float vDisplacement;
+varying vec3 vMPos;
+
+$simplex
 void main(){
 
-  gl_FragColor = vDisplacement * vec4( 1. );
+  //float noise = snoise( vMPos * ( vDisplacement + 40. )  * .0001 );
+  
+  vec3 col = vec3( 1. );
+ // if( abs(noise) > (vDisplacement+10.) * .05 ){ col = vec3( 0. ); }
+
+  gl_FragColor = vec4(  vDisplacement * col ,1. );
 
 }
