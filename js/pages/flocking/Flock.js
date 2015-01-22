@@ -3,9 +3,11 @@ function Flock( coral , params ){
 
   this.coral = coral;
   this.coralPositions = [];
+  this.coralData = [];
   
   for( var i = 0; i < this.coral.length; i++ ){
-    this.coralPositions.push( this.coral[i] );
+    this.coralPositions.push( this.coral[i].position );
+    this.coralData.push( this.coral[i].data );
   }
 
   this.counter = { type:"f" , value: 0 };
@@ -47,7 +49,8 @@ function Flock( coral , params ){
     coralAttractRadius:   { type: "f" , value:100 },
     coralAttractPower:    { type: "f" , value:2000000 },
     coralRepelPower:      { type: "f" , value:10 },
-    coral:                { type: "v3v" , value:this.coralPositions }
+    coral:                { type: "v3v" , value:this.coralPositions },
+    coralData:            { type: "v4v" , value:this.coralData }
 
   };
 
@@ -76,6 +79,7 @@ function Flock( coral , params ){
   this.bodyUniforms.alignmentDistance    = this.soulUniforms.alignmentDistance;
   this.bodyUniforms.cohesionDistance     = this.soulUniforms.cohesionDistance;
 
+  this.bodyUniforms.coralData            = this.soulUniforms.coralData;
 
 
   /*
@@ -132,7 +136,7 @@ function Flock( coral , params ){
 
   // FISH ( point )
 
-  var vs = G.shaders.setValue( 
+  /*var vs = G.shaders.setValue( 
     G.shaders.vs.fish , 
     'DEPTH' ,
     this.params.joints
@@ -168,7 +172,7 @@ function Flock( coral , params ){
   var geo = this.geometries.line( this.params.size , this.params.joints );
   this.eel = new THREE.Line( geo , eelMat, THREE.LinePieces );
 
-
+*/
   // Ribbons
 
   var vs = G.shaders.setValue( 
@@ -177,11 +181,17 @@ function Flock( coral , params ){
     this.params.joints  
   );
 
+  var fs = G.shaders.setValue( 
+    G.shaders.fs.ribbon, 
+    'SIZE' ,
+    this.coral.length  
+  );
+
   
   var ribbonMat = new THREE.ShaderMaterial({
     uniforms: this.bodyUniforms,
     vertexShader: vs,
-    fragmentShader: G.shaders.fs.ribbon,
+    fragmentShader:fs,
     linewidth:1,
     side: THREE.DoubleSide,
     transparent: true,

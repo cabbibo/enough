@@ -6,19 +6,41 @@ function Coral( page , audio , position ){
   this.uniforms = {
 
     active:{type:"f" ,value:0 },
+    hovered:{type:"f" ,value:0 },
+    timer:G.timer,
     t_audio:{type:"t" , value: audio.audioTexture.texture }
 
 
   }
-  
-  this.body = new THREE.Mesh( G.GEOS.icosahedron , G.MATS.basic );
+ 
+  var geo = G.GEOS.icosahedron;
+
+  var mat = new THREE.ShaderMaterial({
+    uniforms:       this.uniforms,
+    vertexShader:   G.shaders.vs.coral,
+    fragmentShader: G.shaders.fs.coral,
+    transparent: true,
+    side: THREE.DoubleSide
+
+  });
+
+
+  this.body = new THREE.Mesh( geo , mat );
   this.body.position.copy( position );
-  this.body.scale.multiplyScalar( 4. );
-  
-  
+  this.body.scale.multiplyScalar( 40. );
+
+    
   this.audio = audio;
   this.audio.updateTexture = true;
   this.audio.updateAnalyser = true;
+  this.audio.updateAverageVolume = true;
+
+  this.average =  0;
+
+  this.data = new THREE.Vector4();
+
+
+
 
   G.objectControls.add( this.body );
 
@@ -42,8 +64,6 @@ function Coral( page , audio , position ){
     geometry.vertices.push( new THREE.Vector3(5 , 0 , 0));
   }
 
-  console.log( G.shaders.vs.coralEmanator );
-  console.log( G.shaders.fs.coralEmanator );
   var material = new THREE.ShaderMaterial({
     uniforms: uniforms,
     vertexShader: G.shaders.vs.coralEmanator,
@@ -56,6 +76,18 @@ function Coral( page , audio , position ){
   this.emanator = new THREE.PointCloud( geometry, material );
 
   this.body.add( this.emanator );
+
+
+  page.scene.add( this.body );
+  page.scene.updateMatrixWorld();
+
+  G.tmpV3.set( 0,0,0);
+  G.tmpV3.setFromMatrixPosition( this.body.matrixWorld );
+
+  this.data.x = G.tmpV3.x;
+  this.data.y = G.tmpV3.y;
+  this.data.z = G.tmpV3.z;
+  this.data.w = this.average;
   
 }
 
@@ -79,14 +111,13 @@ Coral.prototype.update = function(){
     }
    // console.log( audioPower/256 );
     if( v.x > 500 ){
-
-      console.log('BOO');
       v.x = 0;
-
     }
 
   }
 
+  this.average= this.audio.averageVolume;
+  this.data.w = this.average;
 
   
   g.verticesNeedUpdate = true;
@@ -99,6 +130,7 @@ Coral.prototype.update = function(){
 
 Coral.prototype.hoverOver = function(){
 
+  this.uniforms.hovered.value = 1.;
   if( !this.active ){
     this.audio.turnOffFilter();
   }
@@ -107,6 +139,7 @@ Coral.prototype.hoverOver = function(){
 }
 
 Coral.prototype.hoverOut = function(){
+  this.uniforms.hovered.value = 0.;
 
   if( !this.active ){
     this.audio.turnOnFilter();

@@ -5,6 +5,9 @@ uniform sampler2D t_normal;
 uniform sampler2D t_ribbon;
 uniform sampler2D t_matcap;
 
+const int numOfCoral = @SIZE;
+
+uniform vec4 coralData[numOfCoral];
 uniform mat3 normalMatrix;
 
 varying float vDepth;
@@ -65,6 +68,7 @@ void main(){
 
   }
 
+
   /*if( vRibbonUV.y > .8 || vRibbonUV.y < -.8 ||  vRibbonUV.x < .1  ){
 
     col = nCol;//nCol; //vec4( 1. , 1.  , 1. , 1. );
@@ -84,8 +88,19 @@ void main(){
     discard;
   }
 
+  float coralPower = 0.;
+
+  for( int i = 0; i < numOfCoral; i++ ){
+
+    vec3 dif = coralData[i].xyz - vMPos;
+    float dist = length( dif );
+
+    coralPower += coralData[i].w  * 1000. / (dist * dist);
+
+
+  }
   //gl_FragColor = nCol;
-  gl_FragColor = semCol * vec4(aColor.xyz, 1.);  //gl_FragColor = vec4( lambert * lambert * lambert , spec * spec * spec * spec , lightDist / 100., 1. );
+  gl_FragColor = min( 3.5 , coralPower ) * semCol * vec4(aColor.xyz, 1.);  //gl_FragColor = vec4( lambert * lambert * lambert , spec * spec * spec * spec , lightDist / 100., 1. );
 
  // gl_FragColor =   vec4( uv.x , .3 , uv.y , 1. );
   //gl_FragColor =   vec4( offset.x , .3 , offset.y , 1. );

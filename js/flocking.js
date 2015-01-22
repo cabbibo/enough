@@ -38,14 +38,14 @@ flocking.addToInitArray( function(){
   
   
   this.cameraPositions = [];
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 300 ) );
-  this.cameraPositions.push( new THREE.Vector3(  0 , 200 , 300 ) );
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 300 ) );
+  this.cameraPositions.push( new THREE.Vector3(  0 , 500 , 2000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  0 , 200 , 2000 ) );
+  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 2000 ) );
   this.cameraPos =  this.cameraPositions[0];
 
 
 
-  this.iPlaneDistance = 1000;
+  this.iPlaneDistance = 2000;
 
   this.audioArray = [
   
@@ -108,6 +108,12 @@ var f = 'img/matcap/';
   this.loadShader( 'coralEmanator' , f + 'fs-coralEmanator' , 'fragment' );
   this.loadShader( 'coralEmanator' , f + 'vs-coralEmanator' , 'vertex' );
 
+  this.loadShader( 'coralFloor' , f + 'fs-coralFloor' , 'fragment' );
+  this.loadShader( 'coralFloor' , f + 'vs-coralFloor' , 'vertex' );
+
+  this.loadShader( 'coral' , f + 'fs-coral' , 'fragment' );
+  this.loadShader( 'coral' , f + 'vs-coral' , 'vertex' );
+
 
 
 
@@ -164,10 +170,12 @@ flocking.addToStartArray( function(){
 
   for( var i = 0; i < this.audioArray.length; i++ ){
 
+    var z = Math.sin( Math.PI * 2 * i / this.audioArray.length); 
+    var x = (i / this.audioArray.length);
     coralPositions[ i ] = [
-      ( Math.random() - .5 )* 10,
-      ( Math.random() - .5 )* 10,
-      ( Math.random() - .5 )* 10
+      (x-.5) * 20,
+      ( Math.random() )+1,
+      z * 10
     ]
 
 
@@ -180,13 +188,12 @@ flocking.addToStartArray( function(){
   // TODO: pull out into Coral.js
     var cp = coralPositions[i]
     var p = new THREE.Vector3( cp[0] , cp[1] , cp[2] );
-    p.multiplyScalar( 10 );
+    p.multiplyScalar( 50 );
 
     console.log( p );
     var audio = G.AUDIO[ this.audioArray[i] ];
     var coral = new Coral( this , audio , p );  
     
-    this.scene.add( coral.body );
     this.coral.push( coral );
 
     coral.deactivate();
@@ -199,6 +206,8 @@ flocking.addToStartArray( function(){
 
   this.flock.activate( this.scene );
 
+  this.floor = new CoralFloor( this.coral );
+  this.scene.add( this.floor.body );
   /*var debugScene = this.flock.soul.createDebugScene();
   debugScene.scale.multiplyScalar( 20. );
   this.scene.add( debugScene );*/
