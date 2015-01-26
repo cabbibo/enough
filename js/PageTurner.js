@@ -3,7 +3,7 @@ function PageTurner( pages ){
   this.pageLoaded = true;
 
   
-  this.markerGeometry =  new THREE.PlaneGeometry( 80 , 80 );
+  this.markerGeometry =  new THREE.PlaneBufferGeometry( 80 , 80 );
 
   this.neutralColor = new THREE.Color( .5 , .5 , .5 );
   this.hoverColor   = new THREE.Color( .9 , .9 , .9 );

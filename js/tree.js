@@ -422,7 +422,7 @@ tree.addToStartArray( function(){
 
 tree.addToStartArray( function(){
     
-  var floorGeo =  new THREE.PlaneGeometry( 5000 , 5000 , 100 , 100 );
+  var floorGeo =  new THREE.PlaneBufferGeometry( 5000 , 5000 , 100 , 100 );
 
   
   var floorMat = new THREE.ShaderMaterial({
