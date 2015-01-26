@@ -2,8 +2,22 @@ var fireworks = new Page( 'fireworks' );
 
 
 fireworks.addToInitArray( function(){
+  
+  this.position.set(  0 , -6000 , 0 )
 
-  this.text = [];
+  this.iPlaneDistance = 1100;
+
+
+  this.audioArray = [
+    'hueBoy',
+    'hueSparkles',
+    'hueAngel',
+    'hueHum',
+    'hueMids'
+  ];
+
+
+
   this.textChunks = [];
   this.textChunks.push([
 
@@ -32,29 +46,38 @@ fireworks.addToInitArray( function(){
 
 
 
-  this.position.set(  0 , -6000 , 0 )
-  /*this.cameraPos.set( 0 , -2010 , 2000 );
-  this.cameraPos2 = new THREE.Vector3( 500 , -2010 , 2200 );
-  this.cameraPos3 = new THREE.Vector3( -500 , 010 , 2200 );*/
-
-  this.cameraPositions = [];
-
-  this.cameraPositions.push( new THREE.Vector3(    0 , 1000 , 2000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  500 , 1000 , 2200 ) );
-  this.cameraPositions.push( new THREE.Vector3( -500 , 2000 , 2200 ) );
-
+  this.cameraPositions = [
+    new THREE.Vector3(    0 , 1000 , 2000 ),
+    new THREE.Vector3(  500 , 1000 , 2200 ),
+    new THREE.Vector3( -500 , 2000 , 2200 )
+  ]
   this.cameraPos =  this.cameraPositions[0];
 
-  this.iPlaneDistance = 1100;
+  this.sectionParams = [
 
+    {
+      transitionIn: function(){ console.log('First tran in');},
+      transitionOut: function(){ console.log('first tran out');},
+      start: function(){ console.log('first start');},
+      end: function(){ console.log('first end');}
+    },
 
-  this.audioArray = [
-    'hueBoy',
-    'hueSparkles',
-    'hueAngel',
-    'hueHum',
-    'hueMids'
+    {
+      transitionIn: function(){ console.log('Second tran in');},
+      transitionOut: function(){ console.log('Second tran out');},
+      start: function(){ console.log('Second start');},
+      end: function(){ console.log('Second end');}
+    },
+    
+    {
+      transitionIn: function(){ console.log('Third tran in');},
+      transitionOut: function(){ console.log('Third tran out');},
+      start: function(){ console.log('Third start');},
+      end: function(){ console.log('Third end'); }
+    }
+
   ];
+    
 
 
 }.bind( fireworks ) );
@@ -96,28 +119,7 @@ fireworks.addToInitArray( function(){
 }.bind( fireworks ) );
 
 
-/*fireworks.addToStartArray( function(){
 
-  G.position.copy( this.position );
-  G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;
-
-  G.iPlaneDistance = this.iPlaneDistance;
-
-}.bind( fireworks ));*/
-
-
-fireworks.addToStartArray( function(){
-
- // G.position.copy( this.position );
- // G.camera.position.copy( this.cameraPos );
- // G.camera.lookAt( this.position );//= 1000;*/
-
- // G.iPlaneDistance = this.iPlaneDistance;
-
-
-
-}.bind( fireworks ));
 
 
 fireworks.addToStartArray( function(){
@@ -145,12 +147,7 @@ fireworks.addToStartArray( function(){
   //console.log( this.water.body );
  // this.scene.add( this.water );
  
-  
-  for( var i = 0; i < this.textChunks.length; i++ ){
 
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-
-  }
 
 
 
@@ -238,44 +235,6 @@ fireworks.addToActivateArray( function(){
   G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
   G.tmpV3.set( 0 , 101 , 0 )
   G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
-
-  this.text[0].activate();
-
-  var offset = G.pageTurnerOffset;
-  
-  var callback = function(){
-
-    this.text[0].kill( 5000 );
-
-    this.tweenCamera( this.cameraPositions[1] , 3000 , function(){
-
-      this.text[1].activate();
-
-  
-      var callback = function(){
-
-        this.text[1].kill( 5000 );
-
-        this.tweenCamera( this.cameraPositions[2] , 3000 , function(){
-
-          this.text[2].activate();
-          this.endMesh.add( this );
-
-        }.bind( this ) );
-
-      }.bind( this );
-
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this ) );
-
-  }.bind( this );
-
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );
-
-    
 
 }.bind( fireworks ) );
 

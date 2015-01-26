@@ -3,6 +3,43 @@ var sun = new Page( 'sun' );
 
 sun.addToInitArray( function(){
 
+  
+  this.position.set(  9000 , 0 , 0 );
+  this.iPlaneDistance = 1000;
+
+  this.audioArray = [
+
+    'sun1',
+    'sun2',
+    'sun3',
+    'sun4',
+    'sun5',
+    'sun6',
+    'sun7',
+
+  ]
+
+  this.audio = {};
+  this.audio.array = [];
+
+
+   var f = 'pages/sun/';
+
+  this.loadShader( 'sun' , f + 'ss-sun' , 'simulation' );
+
+  this.loadShader( 'sun' , f + 'vs-sun' , 'vertex' ); 
+  this.loadShader( 'sun' , f + 'fs-sun' , 'fragment' ); 
+
+  this.loadShader( 'akira' , f + 'vs-akira' , 'vertex' ); 
+  this.loadShader( 'akira' , f + 'fs-akira' , 'fragment' ); 
+
+
+  /*
+
+     SETTING UP SECTIONS
+
+  */
+
   this.textChunks = [
 
     [
@@ -72,55 +109,19 @@ sun.addToInitArray( function(){
   ];
 
 
-
-
-
-
-
-  this.position.set(  9000 , 0 , 0 );
   
  
   this.cameraPositions = [
-    new THREE.Vector3(  -10000 , 0 , 5000 ),
-    new THREE.Vector3(  -6000 , 0 , 0 ),
-    new THREE.Vector3(  -4000 , 0 , 1000 ),
-    new THREE.Vector3(   0 , 4000 , 4000 ),
-    new THREE.Vector3(   0 , 1000 , 1000 ),
-    new THREE.Vector3(   0 , 0 , 100 ),
-    new THREE.Vector3(   0 , 1000 , 100 ),
-
+    new THREE.Vector3(  -10000 ,    0 , 5000 ),
+    new THREE.Vector3(   -6000 ,    0 ,    0 ),
+    new THREE.Vector3(   -4000 ,    0 , 1000 ),
+    new THREE.Vector3(       0 , 4000 , 4000 ),
+    new THREE.Vector3(       0 , 1000 , 1000 ),
+    new THREE.Vector3(       0 ,    0 ,  100 ),
+    new THREE.Vector3(       0 , 1000 ,  100 ),
   ]
 
   this.cameraPos =  this.cameraPositions[0];
-
-  this.iPlaneDistance = 1000;
-
-  this.audioArray = [
-
-    'sun1',
-    'sun2',
-    'sun3',
-    'sun4',
-    'sun5',
-    'sun6',
-    'sun7',
-
-  ]
-
-  this.audio = {};
-  this.audio.array = [];
-
-
-   var f = 'pages/sun/';
-
-  this.loadShader( 'sun' , f + 'ss-sun' , 'simulation' );
-
-  this.loadShader( 'sun' , f + 'vs-sun' , 'vertex' ); 
-  this.loadShader( 'sun' , f + 'fs-sun' , 'fragment' ); 
-
-  this.loadShader( 'akira' , f + 'vs-akira' , 'vertex' ); 
-  this.loadShader( 'akira' , f + 'fs-akira' , 'fragment' ); 
-
 
 
 
@@ -345,71 +346,6 @@ sun.addToActivateArray( function(){
   G.mani.transport( G.position );
   G.sol.transport( G.position );
   //this.text[0].activate();
-  
-  this.sections[0]._transitionIn();
-  // First section end
-  /*var callback = function(){
-    
-    this.text[0].kill( 10000 );
-
-    var percentTilEnd = 1 - this.looper.percentOfLoop;
-    var timeTilEnd = percentTilEnd * this.looper.loopLength;
-
-    // 1 --> 2 Transition
-    this.tweenCamera( this.cameraPositions[1] , timeTilEnd * 1000 , function(){
-
-      // Second section start
-      this.text[1].activate();
-      
-      // Second section end
-      var callback = function(){
-
-        this.text[1].kill( 10000 );
-
-        var percentTilEnd = 1 - this.looper.percentOfLoop;
-        var timeTilEnd = percentTilEnd * this.looper.loopLength;
-
-
-        // 2 --> 3 Transition
-        this.tweenCamera( this.cameraPositions[2] , timeTilEnd * 1000 , function(){
-
-          // Third Section start
-          this.text[2].activate();
-
-          // third section end
-          var callback = function(){
-        
-            this.text[2].kill( 10000 );
-
-            var percentTilEnd = 1 - this.looper.percentOfLoop;
-            var timeTilEnd = percentTilEnd * this.looper.loopLength;
-
-            this.tweenCamera( this.cameraPositions[3], timeTilEnd * 1000 , function(){
-
-              this.text[3].activate();
-              this.endMesh.add( this );
-
-            }.bind( this ) );
-          }.bind( this );
-
-
-          var offset =  G.pageTurnerOffset;
-          this.transitionMesh3 = this.createTurnerMesh( offset , callback );
-          this.scene.add( this.transitionMesh3 );
-
-        }.bind( this ) );
-      }.bind( this );
-
-      var offset =  G.pageTurnerOffset;
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this ) );
-  }.bind( this );
-
-  var offset =  G.pageTurnerOffset;
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );*/
 
 }.bind( sun ));
 
@@ -440,12 +376,6 @@ sun.addToAllUpdateArrays( function(){
 
 }.bind( sun ));
 
-
-sun.addToDeactivateArray( function(){
-
-  this.text[3].kill();
-
-}.bind( sun) );
 
 sun.addToEndArray( function(){
 

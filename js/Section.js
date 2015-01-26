@@ -96,6 +96,11 @@ Section.prototype.createTransitionInCallback = function(){
     if(  transitionTime == "endOfLoop" ){
       
       var percentTilEnd = 1 - this.page.looper.percentOfMeasure;
+      
+      // Making sure the transition is never toooooo quick
+      if( percentTilEnd < .3 ){
+        percentTilEnd += 1;
+      }
       var timeTilEnd = percentTilEnd * this.page.looper.measureLength;
 
       transitionTime = (timeTilEnd-.01) * 1000;

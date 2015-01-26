@@ -279,6 +279,8 @@ Page.prototype.activate = function(){
     this.activateArray[i]( this );
   }
 
+  this.sections[0]._transitionIn();
+
 }
 
 Page.prototype.deactivate = function(){
@@ -291,6 +293,7 @@ Page.prototype.deactivate = function(){
     this.deactivateArray[i]( this );
   }
 
+  this.sections[ this.sections.length -1 ].text.kill();
 }
 
 Page.prototype.end = function(){
