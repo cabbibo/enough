@@ -75,6 +75,7 @@ function Page( name , params ){
 
   // SECTIONS
   this.sections       = [];
+  this.text           = [];
 
 
   this.frame          = 0;
@@ -244,6 +245,14 @@ Page.prototype.start = function(){
   this.startFrame = this.frame;
 
   this.addingStartArray = true;
+
+
+  console
+  this.createText( this.textChunks );
+  this.createSections( this.sectionParams );
+  this.assignSections();
+
+  console.log('STARS');
   /*
 
   for( var i = 0; i < this.startArray.length; i++ ){
@@ -380,11 +389,38 @@ Page.prototype.addToEndArray = function( callback ){
 
 
 // Sections
-Page.prototype.createSection = function(params){
+Page.prototype.createSections = function(params){
 
-  this.sections.push( new Section( this.sections.length , this , params ) );
+  for( var i = 0; i < params.length; i++ ){
+    this.sections.push( new Section( i , this , params[i] ) );
+  }
 
 };
+
+Page.prototype.assignSections = function(){
+
+  for( var i = 0; i < this.sections.length; i++ ){
+
+    this.sections[i].text = this.text[i];
+    this.sections[i].cameraPosition = this.cameraPositions[i];
+    if( i > 0 ){
+      this.sections[i].prevSection = this.sections[i-1];
+    }
+    if( i < this.sections.length -1 ){
+      this.sections[i].nextSection = this.sections[i+1]
+    }
+
+  }
+
+}
+
+Page.prototype.createText = function(){
+  
+  for( var i = 0; i < this.textChunks.length; i++ ){
+    this.text.push( new PhysicsText( this.textChunks[i] )); 
+  }
+
+}
 
 
 

@@ -1,4 +1,13 @@
 
+SECTION REQUIRMENTS:
+
+- textChunks array
+- cameraPositions array
+- sectionParams array
+
+Page will take these 3 things and make the sections!
+- TODO: Make it so we can have a look pos too!
+
 
 THINGS TO DO:
 

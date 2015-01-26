@@ -3,73 +3,73 @@ var sun = new Page( 'sun' );
 
 sun.addToInitArray( function(){
 
-  this.text = [];
-  this.textChunks = [];
+  this.textChunks = [
 
-  this.textChunks.push([
+    [
 
-    "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
-  "","",
-  "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
-
-  ].join("\n" ));
-
-
-  this.textChunks.push([
-    
-    "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
-  "","",
-  "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
-
-  ].join("\n" ));
-
-  this.textChunks.push([
-    
-    "Further and further Mani swam, approaching the loving behemoth.",
+      "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
     "","",
-    "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
+    "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
+
+    ].join("\n" ),
+
+    [
+    
+      "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
     "","",
-    "So inwards Mani went."
+    "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
 
-  ].join("\n" ));
+    ].join("\n" ),
 
-  this.textChunks.push([
+    [
+    
+      "Further and further Mani swam, approaching the loving behemoth.",
+      "","",
+      "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
+      "","",
+      "So inwards Mani went."
+
+    ].join("\n" ),
+
+    [
     
      "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
      "","",
      "The song continued and urged Mani towards its center. The shining essence of life lay before him and he yearned to be one with it, experience the world and the truths that lay beyond."
 
-  ].join("\n" ));
+    ].join("\n" ),
 
-    this.textChunks.push([
+    [
     
-     "The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
-     "","",
-     "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
-     "","",
-      "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement."
+       "The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
+       "","",
+       "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
+       "","",
+        "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement."
 
-  ].join("\n" ));
+    ].join("\n" ),
 
 
-  this.textChunks.push([
+    [
     
-    "It was Sol!",
-    "","",
-    "She swam to him. And he towards her.",
-    "","",
-    "The being sang in the background of the world Beyond, urging Mani to return towards its arms. But there was Sol, so sweetly she swam, and Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
+      "It was Sol!",
+      "","",
+      "She swam to him. And he towards her.",
+      "","",
+      "The being sang in the background of the world Beyond, urging Mani to return towards its arms. But there was Sol, so sweetly she swam, and Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
 
-  ].join("\n" ));
+    ].join("\n" ),
 
 
-  this.textChunks.push([
+    [
 
-    "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
-    "","",
-    "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
+      "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
+      "","",
+      "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
 
-  ].join("\n" ));
+    ].join("\n" )
+
+  ];
 
 
 
@@ -79,20 +79,17 @@ sun.addToInitArray( function(){
 
   this.position.set(  9000 , 0 , 0 );
   
- // this.cameraPos.set( 10000 , 10100 , 000 );
-  //this.cameraPos2 = new THREE.Vector3( 10000 , 10000 , 100 );
- /* this.cameraPos.set( -10000 , 0 , 0 );
-
-  this.cameraPos2 = new THREE.Vector3( -6000 , 0 , 0 );
-  this.cameraPos3 = new THREE.Vector3( -4000 , 0 , 0 );
-  this.cameraPos4 = new THREE.Vector3( 10000 , 10000 , 6000 );*/
  
-  this.cameraPositions = [];
+  this.cameraPositions = [
+    new THREE.Vector3(  -10000 , 0 , 5000 ),
+    new THREE.Vector3(  -6000 , 0 , 0 ),
+    new THREE.Vector3(  -4000 , 0 , 1000 ),
+    new THREE.Vector3(   0 , 4000 , 4000 ),
+    new THREE.Vector3(   0 , 1000 , 1000 ),
+    new THREE.Vector3(   0 , 0 , 100 ),
+    new THREE.Vector3(   0 , 1000 , 100 ),
 
-  this.cameraPositions.push( new THREE.Vector3(  -10000 , 0 , 5000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  -6000 , 0 , 0 ) );
-  this.cameraPositions.push( new THREE.Vector3(  -4000 , 0 , 1000 ) );
-  this.cameraPositions.push( new THREE.Vector3(   0 , 4000 , 4000 ) );
+  ]
 
   this.cameraPos =  this.cameraPositions[0];
 
@@ -130,22 +127,58 @@ sun.addToInitArray( function(){
   // Setting up sections
   
 
-  this.createSection({
-    cameraPosition: this.cameraPositions[0]
-  });
+  this.sectionParams = [
+  
+    {
+      transitionIn: function(){ console.log('First tran in');},
+      transitionOut: function(){ console.log('first tran out');},
+      start: function(){ console.log('first start');},
+      end: function(){ console.log('first end');}
+    },
 
+    {
+      transitionIn: function(){ console.log('Second tran in');},
+      transitionOut: function(){ console.log('Second tran out');},
+      start: function(){ console.log('Second start');},
+      end: function(){ console.log('Second end');}
+    },
+    
+    {
+      transitionIn: function(){ console.log('Third tran in');},
+      transitionOut: function(){ console.log('Third tran out');},
+      start: function(){ console.log('Third start');},
+      end: function(){ console.log('Third end');}
+    },
 
-  this.createSection({
-    cameraPosition: this.cameraPositions[1]
-  });
+    {
+      transitionIn: function(){ console.log('Fourth tran in');},
+      transitionOut: function(){ console.log('Fourth tran out');},
+      start: function(){ console.log('Fourth start');},
+      end: function(){ console.log('Fourth end');}
+    },
 
-  this.createSection({
-    cameraPosition: this.cameraPositions[2]
-  });
+    {
+      transitionIn: function(){ console.log('Fifth tran in');},
+      transitionOut: function(){ console.log('Fifth tran out');},
+      start: function(){ console.log('Fifth start');},
+      end: function(){ console.log('Fifth end');}
+    },
 
-  this.createSection({
-    cameraPosition: this.cameraPositions[3]
-  });
+    {
+      transitionIn: function(){ console.log('Sixth tran in');},
+      transitionOut: function(){ console.log('Sixth tran out');},
+      start: function(){ console.log('Sixth start');},
+      end: function(){ console.log('Sixth end');}
+    },
+
+    {
+      transitionIn: function(){ console.log('Seventh tran in');},
+      transitionOut: function(){ console.log('Seventh tran out');},
+      start: function(){ console.log('Seventh start');},
+      end: function(){ console.log('Seventh end');}
+    },
+
+  ]
 
 }.bind( sun ) );
 
@@ -190,27 +223,6 @@ sun.addToStartArray( function(){
 
 
 sun.addToStartArray( function(){
-
-  for( var i = 0; i < this.textChunks.length; i++ ){
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-  }
- 
-
-  for( var i = 0; i < this.sections.length; i++ ){
-
-    this.sections[i].text = this.text[i];
-    if( i > 0 ){
-      this.sections[i].prevSection = this.sections[i-1];
-    }else{
-      console.log('PREV NOPPE NOPE NOPPE');
-    }
-    if( i < this.sections.length -1 ){
-      this.sections[i].nextSection = this.sections[i+1]
-    }
-
-  }
-
-
 
   this.looper = new Looper( G.audio , G.timer , {
 
