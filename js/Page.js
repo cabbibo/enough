@@ -73,6 +73,10 @@ function Page( name , params ){
   this.endingArray    = [];
   this.endArray       = [];
 
+  // SECTIONS
+  this.sections       = [];
+
+
   this.frame          = 0;
   
   this.loader         = new PageLoader();
@@ -371,13 +375,32 @@ Page.prototype.addToEndArray = function( callback ){
   this.endArray.push( callback );
 }
 
+
+
+
+
+// Sections
+Page.prototype.createSection = function(params){
+
+  this.sections.push( new Section( this.sections.length , this , params ) );
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
 // Some extra functions 
 
 Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos ){
 
-
-  console.log('POS');
-  console.log( G.camera.position );
 
   var lookAt = G.position;
 
@@ -408,6 +431,8 @@ Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos ){
   tween.start();
 
 }
+
+
 
 
 Page.prototype.createTurnerMesh = function( offset , callback ){
@@ -460,12 +485,21 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
 
   G.objectControls.add( mesh );
 
-  console.log( 'MEHS');
-  console.log( G.camera.position );
-  console.log( mesh.position );
   return mesh;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

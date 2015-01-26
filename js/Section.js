@@ -1,19 +1,24 @@
-function Section( page , params ){
+function Section( id , page , params ){
 
   this.page = page;
+  this.id = id;
 
   this.prevSection = undefined;
   this.nextSection = undefined;
 
-  this.params = _.defaults({
+  this.active = false;
+
+  this.params = _.defaults(params || {} , {
 
     text: null,
     
     offset: G.pageTurnerOffset,
-    transitionTime: "endOLoop",
+    transitionTime: "endOfLoop",
+    textDeathTime: 3000,
 
     cameraPosition: G.position.relative,
-    lookPosition: G.tmpV1.set( 0 , 0 , 0 ),
+    lookPosition: G.tmpV3.set( 0 , 0 , 0 ),
+
 
     transitionIn:   function(){ console.log( 'tranIn'   );},
     start:          function(){ console.log( 'start'    );},
@@ -22,18 +27,19 @@ function Section( page , params ){
     
   });
 
+
   //bubblin up dem params
   for( var propt in this.params ){
     this[propt] = this.params[propt];
   }
 
-  if( !this.text ){ console.log('NO TEXT YA FOOL'); }
+  //if( !this.text ){ console.log('NO TEXT YA FOOL'); }
 
 }
 
-Section.prototype._begin = function(){
-  
-  this.begin();
+Section.prototype._start = function(){
+ 
+  this.start();
 
   this.text.activate();
 
@@ -41,45 +47,69 @@ Section.prototype._begin = function(){
 
     var callback = this.nextSection.createTransitionInCallback();
 
-    var mesh  = this.page.createTurnerMesh( this.params.offset , callback ); 
-    this.page.scene.add( this.mesh );
+    var mesh  = this.page.createTurnerMesh( this.offset , callback );
+    this.page.scene.add( mesh );
 
   }else{
 
-    this.endMesh.add( this );
+    this.page.endMesh.add( this.page );
 
+  }
+
+}
+
+Section.prototype._end = function(){
+
+  this.active = false;
+  this.end();
+
+}
+
+Section.prototype._transitionOut = function(){
+  this.text.kill( this.textDeathTime );
+
+  this.transitionOut();
+
+}
+
+Section.prototype._transitionIn = function(){
+
+  if( !this.prevSection ){
+    this.active = true;
+    this._start();
+  }else{
+    this.active = true;
+    this.transitionIn();
   }
 
 }
 
 Section.prototype.createTransitionInCallback = function(){
 
-
   var callback = function(){
    
-    this.prevSection.transitionOut();
-    this.transitionIn();
+    this.prevSection._transitionOut();
+    this._transitionIn();
 
     var transitionTime = this.params.transitionTime;
 
     if(  transitionTime == "endOfLoop" ){
       
-      var percentTilEnd = 1 - this.looper.percentOfMeasure;
-      var timeTilEnd = percentTilEnd * this.looper.measureLength;
+      var percentTilEnd = 1 - this.page.looper.percentOfMeasure;
+      var timeTilEnd = percentTilEnd * this.page.looper.measureLength;
 
       transitionTime = (timeTilEnd-.01) * 1000;
 
     }
-   
-    this.tweenCamera( this.nextPage.cameraPosition , transitionTime  , function(){
+
+    this.page.tweenCamera( this.cameraPosition , transitionTime  , function(){
 
       this.prevSection._end();
-      this._begin();
-      
-
+      this._start();
+        
     }.bind( this ));
-
-  }.bind( this.page );
+    
+  }.bind( this );
 
   return callback;
 

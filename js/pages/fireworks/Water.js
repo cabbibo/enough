@@ -37,7 +37,7 @@ function Water( page , y ){
   });
 
   this.body = new THREE.Mesh(
-    new THREE.PlaneBufferGeometry( 1000000 , 1000000 ),
+    new THREE.PlaneGeometry( 1000000 , 1000000 ),
     this.material
   );
 

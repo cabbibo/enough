@@ -124,7 +124,29 @@ sun.addToInitArray( function(){
   this.loadShader( 'akira' , f + 'vs-akira' , 'vertex' ); 
   this.loadShader( 'akira' , f + 'fs-akira' , 'fragment' ); 
 
-    
+
+
+
+  // Setting up sections
+  
+
+  this.createSection({
+    cameraPosition: this.cameraPositions[0]
+  });
+
+
+  this.createSection({
+    cameraPosition: this.cameraPositions[1]
+  });
+
+  this.createSection({
+    cameraPosition: this.cameraPositions[2]
+  });
+
+  this.createSection({
+    cameraPosition: this.cameraPositions[3]
+  });
+
 }.bind( sun ) );
 
 
@@ -172,7 +194,24 @@ sun.addToStartArray( function(){
   for( var i = 0; i < this.textChunks.length; i++ ){
     this.text.push( new PhysicsText( this.textChunks[i] )); 
   }
-  
+ 
+
+  for( var i = 0; i < this.sections.length; i++ ){
+
+    this.sections[i].text = this.text[i];
+    if( i > 0 ){
+      this.sections[i].prevSection = this.sections[i-1];
+    }else{
+      console.log('PREV NOPPE NOPE NOPPE');
+    }
+    if( i < this.sections.length -1 ){
+      this.sections[i].nextSection = this.sections[i+1]
+    }
+
+  }
+
+
+
   this.looper = new Looper( G.audio , G.timer , {
 
     beatsPerMinute: 78,
@@ -253,7 +292,6 @@ sun.addToStartArray( function(){
   
   
   var mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000 , 3000 , 3000 , 80,80,80 ));
-  console.log( mesh );
   mesh.rotation.x = Math.PI / 2;
   mesh.rotation.y = -Math.PI / 4;
   mesh.rotation.z = Math.PI / 1.6;
@@ -294,12 +332,11 @@ sun.addToActivateArray( function(){
 
   G.mani.transport( G.position );
   G.sol.transport( G.position );
-  this.text[0].activate();
+  //this.text[0].activate();
   
- 
-  console.log( 'text arctivarts' );
+  this.sections[0]._transitionIn();
   // First section end
-  var callback = function(){
+  /*var callback = function(){
     
     this.text[0].kill( 10000 );
 
@@ -360,7 +397,7 @@ sun.addToActivateArray( function(){
 
   var offset =  G.pageTurnerOffset;
   this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );
+  this.scene.add( this.transitionMesh1 );*/
 
 }.bind( sun ));
 
