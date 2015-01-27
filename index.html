@@ -183,7 +183,7 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.alone;
+        var s = G.pages.crystals;
         
 
 
@@ -196,14 +196,15 @@
           for( var  i =0; i < this.sections.length; i++ ){
 
             this.sections[i].cameraPosition.add( this.position );
+            this.sections[i].lookPosition.add( this.position );
 
           }
 
           this.cameraPos.copy(  this.sections[0].cameraPosition ); //page.nextPage.position );
-          
+          G.lookAt.copy(  this.sections[0].lookPosition );
          // this.cameraPos.add( this.position );
-          G.camera.position.copy( this.cameraPos );
-          G.camera.lookAt( this.position );//= 1000;
+         G.camera.position.copy( this.cameraPos );
+          G.camera.lookAt( G.lookAt );//= 1000;
 
           this.addToStartArray(function(){
             this.activate();

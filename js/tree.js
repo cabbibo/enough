@@ -3,65 +3,152 @@ var tree = new Page( 'tree' );
 
 tree.addToInitArray( function(){
 
-  this.text = [];
-  this.textChunks = [];
-  this.textChunks.push( [
+  this.sectionParams = [];
 
-    "By now Mani was growing tired. He had been traveling forever, but still did not know where he was, who he was, why he was. The crystals were majestic, and the forest filled with dignity, but still the darkness was overwhelming, and the hole in his heart reminded.",
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 2000 , 1000 , 3000 ),
+    textChunk:[
+      "By now Mani was growing tired. He had been traveling forever, but still did not know where he was, who he was, why he was. The crystals were majestic, and the forest filled with dignity, but still the darkness was overwhelming, and the hole in his heart reminded.",
+      "","",
+      "Mani was alone."
 
-  "Mani was alone."
+    ].join("\n" ), 
+  });
 
-  ].join("\n" ));
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 1000 , 1200 , 2000 ),
+    textChunk:[
+      "The haunting tree that stood before him mirrored the sadness Mani felt. How could he be part of this world without a purpose. Crystals hummed and the trees murmured. They knew their task and performed it with a quiet nobility.",
+      "","",
+      "But Mani could not tell what his truth was."
+    ].join("\n" ),
+    start:function(){
+      for( var i =0 ; i < this.lights.length; i++ ){
 
-  this.textChunks.push( [
+        if( this.lights[i].playing ){
+          this.lights[i].select();
+        }
 
-    "The haunting tree that stood before him mirrored the sadness Mani felt. How could he be part of this world without a purpose. Crystals hummed and the trees murmured. They knew their task and performed it with a quiet nobility.",
-    "","",
-    "But Mani could not tell what his truth was."
+        if( 
+          this.lights[i].name === 'snare' ||
+          //this.lights[i].name === 'startingOver' ||
+          this.lights[i].name === 'lup' ||
+         // this.lights[i].name === 'glo' ||
+          this.lights[i].name === 'allRight' //||
+          //this.lights[i].name === 'tongue' //||
+          //this.lights[i].name === 'startingOver' ||
+        ){
+          this.lights[i].select();
+        }
 
-  ].join("\n" ));
+      }
+    }
+  });
 
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( -1000 , 200 , 2000 ),
+    textChunk:[
+      "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe the tree and the crystals would be the only friends he would have.",
+    ].join("\n" ),
+    start:function(){
+      for( var i =0 ; i < this.lights.length; i++ ){
 
-  this.textChunks.push( [
+        if( this.lights[i].playing ){
+          this.lights[i].select();
+        }
 
-  "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe the tree and the crystals would be the only friends he would have.",
+        if( 
+          //this.lights[i].name === 'snare' ||
+         // this.lights[i].name === 'startingOver' ||
+          this.lights[i].name === 'lup' ||
+          this.lights[i].name === 'glo' ||
+          this.lights[i].name === 'tongue' //||
+          //this.lights[i].name === 'startingOver' ||
+        ){
+          this.lights[i].select();
+        }
 
-  ].join("\n" ));
-
-  this.textChunks.push( [
-
-    "Mani was ready to give up. What was the point of his existence if it was to be spent, alone in the dark that would eventually consume him.",
+      }
+    }
+  });
+    
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  -3000 , 0 , 100  ),
+    textChunk:[
+      "Mani was ready to give up. What was the point of his existence if it was to be spent, alone in the dark that would eventually consume him.",
     "","",
     "Mani approached the tree, ready to curl around its base and rest until the pain, the storm in his soul, had passed. He would lie there forever, until he was one with the dark, if need be.",
 
-  ].join("\n" ));
+    ].join("\n" ),
+    start:function(){
+      for( var i =0 ; i < this.lights.length; i++ ){
 
-  this.textChunks.push( [
+        if( this.lights[i].playing ){
+          this.lights[i].select();
+        }
 
-    "Then, Mani heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another frail attempt to extinguish the lonliness which consumed him?",
+        if( 
+          //this.lights[i].name === 'snare' ||
+         // this.lights[i].name === 'startingOver' ||
+          //this.lights[i].name === 'lup' ||
+          this.lights[i].name === 'glo'// ||
+          //this.lights[i].name === 'tongue' //||
+
+          //this.lights[i].name === 'startingOver' ||
+        ){
+          this.lights[i].select();
+        }
+
+      }
+    }
+  });
+
+   this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  -3000 , 0 , -300  ),
+    textChunk:[
+      "Then, Mani heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another frail attempt to extinguish the lonliness which consumed him?",
     "","",
-    "Or was it a creature, like him? Another friend, lost in the darkness, yearning for truth?",
+    "Or was it a creature, like him? Another friend, lost in the darkness, yearning for truth?"
+    ].join("\n" ),
+    start:function(){
+      G.sol.activate();
 
-  ].join("\n" ));
+      G.tmpV3.set( 0 , 2000 , 0 );
+      G.sol.transport( G.tmpV3.add( G.position ));
+      this.text[3].activate();
+      for( var i =0 ; i < this.lights.length; i++ ){
+
+        if( this.lights[i].playing ){
+          this.lights[i].select();
+        }
+
+        if( 
+          this.lights[i].name === 'snare' ||
+          //this.lights[i].name === 'startingOver' ||
+          this.lights[i].name === 'lup' ||
+          this.lights[i].name === 'glo' ||
+          //this.lights[i].name === 'allRight' ||
+          this.lights[i].name === 'game' ||
+          this.lights[i].name === 'tongue' //||
+          
+          //this.lights[i].name === 'startingOver' ||
+        ){
+          this.lights[i].select();
+        }
+
+      }
+
+
+    }
+  });
+
 
 //x: 1000, y: 0, z: -2500,
 
  // this.position.set(  0 , -3000 , 0 );
   this.position.set(  -1000 , -3000 , 2500 );
   
- /* this.cameraPos.set( 2000 , -2000 , 3000 );
-  this.cameraPos2 = new THREE.Vector3( 1000 , -2200 , 2000 );
-  this.cameraPos3 = new THREE.Vector3( -1000 , -2800 , 2000 );
-  this.cameraPos4 = new THREE.Vector3( -3000 , -3000 , 100 );*/
-
-  this.cameraPositions = [];
-
-  this.cameraPositions.push( new THREE.Vector3(  2000 , 1000 , 3000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  1000 , 1200 , 2000 ) );
-  this.cameraPositions.push( new THREE.Vector3( -1000 , 200 , 2000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  -3000 , 0 , 100  ) );
-
-  this.cameraPos =  this.cameraPositions[0];
+  this.cameraPos =  this.sectionParams[0].cameraPosition;
 
 
 
@@ -342,12 +429,7 @@ tree.addToStartArray( function(){
     measuresPerLoop: 8
 
   });
-  
-  for( var i = 0; i < this.textChunks.length; i++ ){
 
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-
-  }
 
 }.bind( tree ) );
 
@@ -499,143 +581,6 @@ tree.addToStartArray( function(){
 
 tree.addToActivateArray( function(){
 
-  this.text[0].activate();
-
-
-  var offset = G.pageTurnerOffset;
-
-
-  var callback = function(){
-
-    this.text[0].kill( 10000 );
-
-    var percentTilEnd = 1 - this.looper.percentOfLoop;
-    var timeTilEnd = percentTilEnd * this.looper.loopLength;
-
-
-    this.tweenCamera( this.cameraPositions[1] , timeTilEnd * 1000 , function(){
-
-
-      this.text[1].activate();
-
-      var offset =  G.pageTurnerOffset;
-
-      for( var i =0 ; i < this.lights.length; i++ ){
-
-        if( this.lights[i].playing ){
-          this.lights[i].select();
-        }
-
-        if( 
-          this.lights[i].name === 'snare' ||
-          //this.lights[i].name === 'startingOver' ||
-          this.lights[i].name === 'lup' ||
-         // this.lights[i].name === 'glo' ||
-          this.lights[i].name === 'allRight' //||
-          //this.lights[i].name === 'tongue' //||
-          //this.lights[i].name === 'startingOver' ||
-        ){
-          this.lights[i].select();
-        }
-
-      }
-
-      var callback = function(){
-
-        this.text[1].kill( 10000 );
-
-
-        var percentTilEnd = 1 - this.looper.percentOfLoop;
-        var timeTilEnd = percentTilEnd * this.looper.loopLength;
-
-
-        this.tweenCamera( this.cameraPositions[2] , timeTilEnd * 1000 , function(){
-
-
-          this.text[2].activate();
-
-          for( var i =0 ; i < this.lights.length; i++ ){
-
-            if( this.lights[i].playing ){
-              this.lights[i].select();
-            }
-
-            if( 
-              //this.lights[i].name === 'snare' ||
-             // this.lights[i].name === 'startingOver' ||
-              this.lights[i].name === 'lup' ||
-              this.lights[i].name === 'glo' ||
-              this.lights[i].name === 'tongue' //||
-              //this.lights[i].name === 'startingOver' ||
-            ){
-              this.lights[i].select();
-            }
-
-          }
-
-
-
-          var offset =  G.pageTurnerOffset;
-
-          var callback = function(){
-
-            this.text[2].kill( 10000 );
-
-            var percentTilEnd = 1 - this.looper.percentOfLoop;
-            var timeTilEnd = percentTilEnd * this.looper.loopLength;
-
-            this.tweenCamera( this.cameraPositions[3] , timeTilEnd * 1000 , function(){
-
-              G.sol.activate();
-
-
-              G.tmpV3.set( 0 , 2000 , 0 );
-              G.sol.transport( G.tmpV3.add( G.position ));
-              this.text[3].activate();
-              for( var i =0 ; i < this.lights.length; i++ ){
-
-                if( this.lights[i].playing ){
-                  this.lights[i].select();
-                }
-
-                if( 
-                  this.lights[i].name === 'snare' ||
-                  //this.lights[i].name === 'startingOver' ||
-                  this.lights[i].name === 'lup' ||
-                  this.lights[i].name === 'glo' ||
-                  //this.lights[i].name === 'allRight' ||
-                  this.lights[i].name === 'game' ||
-                  this.lights[i].name === 'tongue' //||
-                  
-                  //this.lights[i].name === 'startingOver' ||
-                ){
-                  this.lights[i].select();
-                }
-
-              }
-
-              this.endMesh.add( this );
-
-
-            }.bind( this ) );
-          }.bind( this );
-
-          this.transitionMesh3 = this.createTurnerMesh( offset , callback );
-          this.scene.add( this.transitionMesh3 );
-
-        }.bind( this ) );
-      }.bind( this );
-
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this ) );
-  }.bind( this );
-
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );
-
-
 }.bind( tree ));
 
 
@@ -673,10 +618,7 @@ tree.addToAllUpdateArrays( function(){
     }
 
   }
-  
-  for( var i = 0; i < this.text.length; i++ ){
-    this.text[i].update();
-  }
+
 
 
 }.bind( tree ));
@@ -693,7 +635,6 @@ tree.addToDeactivateArray( function(){
 
   }
 
-  this.text[3].kill();
 
 }.bind( tree) );
 

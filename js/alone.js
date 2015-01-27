@@ -22,7 +22,7 @@ alone.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  0 , 0 , 1000 ),
     transitionTime: 3000,
     textChunk:[
-      "When Mani awoke, he had now idea where he was.",
+      "When Mani awoke, he had no idea where he was.",
       "","",
       "He was surrounded by a darkness that reached farther than he could see, an abyss greater than he could comprehend.",
       "","",
