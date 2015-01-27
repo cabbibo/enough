@@ -1,48 +1,64 @@
 var forest = new Page( 'forest' );
 
 forest.addToInitArray( function(){
-   this.textChunks = [];
-  this.text = []; 
-  this.textChunks.push( [
-    " After leaving the crystals, Mani swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. Powerful as they were, they made way for his slender form, bowing out of his way as if he were royalty."
+
+  this.sectionParams = [];
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 3500 ),
+    textChunk:[
+      "After leaving the crystals, Mani swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. Powerful as they were, they made way for his slender form, bowing out of his way as if he were royalty."
+    ].join("\n" ), 
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 1000 , 1000 , 2500 ),
+    textChunk:[
+      "Mani was mesmerized by their song. It felt old and wise, full of love and sadness. He tried to comprehend, and by doing so recognized his own loneliness. He loved the forest, and how it proclaimed its hymn to the darkness, but knew it could not fill the void he was beginning to feel in his heart."
+    ].join("\n" ),
+    transitionIn:function(){
+      this.page.forest.bases[73].select();
+      this.page.forest.bases[93].select();
+      this.page.forest.bases[2].select();
+      this.page.forest.bases[13].select();
+    }
+  });
 
 
-  ].join("\n" ));
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( -1000 , -1000 , 2500),
+    textChunk:[
+      "Mani almost envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but still it seemed as though they had found some sort of purpose in they shimmering sanctuary. For them, to sing, no matter if others were listening, was enough.",
+      "","",
+      "For Mani it was not, so he continued onwards, yearning for more."
+    ].join("\n" ),
+    transitionIn:function(){
+      this.page.forest.bases[179].select();
+      this.page.forest.bases[201].select();
+      this.page.forest.bases[249].select();
+      this.page.forest.bases[236].select();
+      this.page.forest.bases[255].select();
+      this.page.forest.bases[208].select();
 
-  this.textChunks.push( [
-    "Mani was mesmerized by their song. It felt old and wise, full of love and sadness. He tried to comprehend, and by doing so recognized his own loneliness. He loved the forest, and how it proclaimed its hymn to the darkness, but knew it could not fill the void he was beginning to feel in his heart."
+      this.page.forest.bases[32].select();
+      this.page.forest.bases[59].select();
 
-
-  ].join("\n" ));
-
-  this.textChunks.push( [
-
-    "Mani almost envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but still it seemed as though they had found some sort of purpose in they shimmering sanctuary. For them, to sing, no matter if others were listening, was enough.",
-    "","",
-    "For Mani it was not, so he continued onwards, yearning for more."
-
-  ].join("\n" ));
+      this.page.forest.bases[84].select();
+      this.page.forest.bases[98].select();
+      this.page.forest.bases[106].select();
+    }
+  });
 
 
 
  // this.position.set(  0 , 0 , -2500 );
 
   this.position.set(  500 , 2000 , -3900 );
-  this.cameraPos.set( 0 , 0 , 1000 );
+  
+  this.cameraPos =  this.sectionParams[0].cameraPosition;
 
-  this.cameraPositions = [];
-
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 3500 ) );
-  this.cameraPositions.push( new THREE.Vector3( 1000 , 1000 , 2500 ) );
-  this.cameraPositions.push( new THREE.Vector3( -1000 , -1000 , 2500) );
-
-
-  this.cameraPos =  this.cameraPositions[0];
-
-  this.cameraPos2 = new THREE.Vector3( 1000 , 1000 , 0 );
-  this.cameraPos3 = new THREE.Vector3( -1000 , -1000 , 0 );
-
-
+  
+  
   this.iPlaneDistance = 3000
 
 
@@ -261,90 +277,11 @@ forest.addToStartArray( function(){
   this.forest.activate();
 
 
-  for( var i = 0; i < this.textChunks.length; i++ ){
-
-    console.log( this.textChunks[i] );
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-
-  }
-
-
   
 }.bind( forest ) );
 
 
 forest.addToActivateArray( function(){
-
-  var offset = G.pageTurnerOffset;
-  
-  var callback = function(){
-
-    this.text[0].kill( 5000 );
-    this.forest.bases[73].select();
-    this.forest.bases[93].select();
-    this.forest.bases[2].select();
-    this.forest.bases[13].select();
-
-
-
-
-    this.tweenCamera( this.cameraPositions[1] , 3000 , function(){
-
-
-
-      this.text[1].activate();
-
-      var offset = G.pageTurnerOffset;
-  
-      var callback = function(){
-
-        this.forest.bases[179].select();
-        this.forest.bases[201].select();
-        this.forest.bases[249].select();
-        this.forest.bases[236].select();
-        this.forest.bases[255].select();
-        this.forest.bases[208].select();
-
-        this.forest.bases[32].select();
-        this.forest.bases[59].select();
-
-        this.forest.bases[84].select();
-        this.forest.bases[98].select();
-        this.forest.bases[106].select();
-
-
-
-
-        this.text[1].kill( 5000 );
-
-        this.tweenCamera( this.cameraPositions[2] , 3000 , function(){
-
-          this.text[2].activate();
-
-          this.endMesh.add( this );
-
-        }.bind( this ) );
-
-      }.bind( this );
-
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this ) );
-
-  }.bind( this );
-
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );
-
-
-
-
-
-  this.text[0].activate();
-
-
-
 
   G.iPlane.faceCamera = false;
   
@@ -360,21 +297,12 @@ forest.addToAllUpdateArrays( function(){
 
   this.forest.update();
  
-  for( var i = 0; i < this.text.length; i++ ){
-
-    this.text[i].update();
-
-  }
-
-
-
 
 }.bind( forest ));
 
 
 forest.addToDeactivateArray( function(){
 
-  this.text[2].kill();
   G.iPlane.faceCamera = true;
 
   //G.mani.removeAllForces();

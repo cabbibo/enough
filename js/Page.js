@@ -430,14 +430,8 @@ Page.prototype.assignSections = function(){
 
 Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos , updateFunction ){
 
+  var lookAt = lookAtPos;
 
-  var lookAt = G.position;
-
-  if( lookAtPos ){
-
-    lookAt = lookAtPos.add( G.position );
-
-  }
 
   var tween = new G.tween.Tween( this.cameraPos ).to( newPos , length );
 
@@ -460,8 +454,19 @@ Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos , 
 
   tween.start();
 
-  var tween = new G.tween.Tween( G.lookAt ).to( lookAt , length );
-  tween.start();
+  var s = { x: G.lookAt.x , y: G.lookAt.y , z: G.lookAt.z };
+  var e = { x:   lookAt.x , y:   lookAt.y , z:   lookAt.z };
+
+  var tween2 = new G.tween.Tween( s ).to( e , length );
+  tween2.onUpdate( function(t){
+
+    G.lookAt.x = this.x;
+    G.lookAt.y = this.y;
+    G.lookAt.z = this.z;
+
+  });
+
+  tween2.start();
 }
 
 

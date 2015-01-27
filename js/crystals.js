@@ -3,8 +3,6 @@ var crystals = new Page( 'crystals' );
 
 crystals.addToInitArray( function(){
 
-  this.text = [];
-  this.textChunks = []
   this.sectionParams = [];
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3(  500 , 1000 , 1400 ),
@@ -23,7 +21,22 @@ crystals.addToInitArray( function(){
       "Their simple existence filled Mani with wonder. Why were they here? How could they sing? What were they saying?",
       "","",
       "He explored the crystals, dancing with delight through their glistening glitter. How could they be? What could they be?"
-    ].join("\n")
+    ].join("\n"),
+    start:function(){
+      for( var i = 0; i < this.page.crystals.length; i++ ){
+
+        var c = this.page.crystals[i];
+        if( i !== 0 && i !== 1 && i !== 2 && i !== 3 && i !== 9){
+          
+          if( !c.selected ) c.select();
+        
+        }else{
+
+          if( c.selected ) c.select();
+        }
+
+      }
+    }
     
   });
 
@@ -33,7 +46,17 @@ crystals.addToInitArray( function(){
       "He felt a certain camaraderie with the crystals, the simple fact that they were not the darkness made him approach them with a sense of reverence.",
       "","",
       "But as Mani wondered, so he wandered, and after he determined the crystals to be thoroughly explored, he moved onwards."
-    ].join("\n")
+    ].join("\n"),
+    start:function(){
+      for( var i = 0; i < this.page.crystals.length; i++ ){
+        var c = this.page.crystals[i];
+        if(  i !== 3 && i !== 9 ){
+          if( !c.selected ) c.select();
+        }else{
+          if( c.selected ) c.select();
+        }
+      }
+    }
   });
 
   this.position.set(  500 , -2000 , 1400 );
@@ -470,17 +493,12 @@ crystals.addToStartArray( function(){
   }
 
   this.crystals[5].select();
+  this.crystals[4].select();
 
  
 }.bind( crystals ) );
 
 crystals.addToStartArray( function(){
-  
-  for( var i = 0; i < this.textChunks.length; i++ ){
-
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-
-  }
 
   this.looper.start();
 
@@ -498,83 +516,6 @@ crystals.addToActivateArray( function(){
   G.tmpV3.set( 0 , 451 , 0 )
   G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
 
-  //this.looper.start();
-  this.text[0].activate();
-
-
-  var offset = G.pageTurnerOffset;
-
-  var percentTilEnd = 1 - this.looper.percentOfMeasure;
-  var timeTilEnd = percentTilEnd * this.looper.measureLength;
-
-
-  var callback = function(){
-
-    this.text[0].kill( 5000 );
-
-    this.tweenCamera( this.cameraPositions[1] , (timeTilEnd-.01) * 1000 , function(){
-
-      this.text[1].activate();
-
-      var offset = G.pageTurnerOffset;
-
-       for( var i = 0; i < this.crystals.length; i++ ){
-
-          var c = this.crystals[i];
-          if( i !== 0 && i !== 1 && i !== 2 && i !== 3 && i !== 9){
-            
-            if( !c.selected ) c.select();
-          
-          }else{
-
-            if( c.selected ) c.select();
-          }
-
-        }
-
-
-      var callback = function(){
-
-        this.text[1].kill( 3000 );
-
-
-        var percentTilEnd = 1 - this.looper.percentOfMeasure;
-        var timeTilEnd = percentTilEnd * this.looper.measureLength;
-
-        this.tweenCamera( this.cameraPositions[2],  (timeTilEnd-.01) * 1000 , function(){
-          
-         
-          console.log('TWESNS');
-          this.text[2].activate();
-          console.log( this.endMesh );
-          this.endMesh.add( this );
-
-
-          for( var i = 0; i < this.crystals.length; i++ ){
-
-            var c = this.crystals[i];
-            if(  i !== 3 && i !== 9 ){
-              if( !c.selected ) c.select();
-            }else{
-              if( c.selected ) c.select();
-            }
-
-          }
-
-        }.bind( this ));
-      }.bind( this);
-
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this  ));
-  }.bind( this );
-
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );
-
- // this.endMesh.add( this );
-
 }.bind( crystals ));
 
 crystals.addToAllUpdateArrays( function(){
@@ -583,21 +524,7 @@ crystals.addToAllUpdateArrays( function(){
     this.crystals[i].update();
   }
   
-  for( var i = 0; i < this.text.length; i++ ){
-
-    this.text[i].update();
-
-  }
-
 }.bind( crystals ));
-
-crystals.addToDeactivateArray( function(){
-
-  // No need to reenable
- // G.iPlane.faceCamera = true;
-  this.text[2].kill();
-
-}.bind( crystals) );
 
 crystals.addToEndArray( function(){
 

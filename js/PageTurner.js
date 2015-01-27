@@ -95,19 +95,20 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   this.camStartPos   = G.camera.position.clone();
 
-  for( var  i =0; i < page.nextPage.cameraPositions.length; i++ ){
+  for( var  i =0; i < page.nextPage.sections.length; i++ ){
 
-    page.nextPage.cameraPositions[i].add( page.nextPage.position );
+    page.nextPage.sections[i].cameraPosition.add( page.nextPage.position );
+    page.nextPage.sections[i].lookPosition.add( page.nextPage.position );
 
   }
   console.log('OLD POS' );
 
   console.log( page.nextPage.cameraPos );
-  page.nextPage.cameraPos.copy( page.nextPage.cameraPositions[0] ); //page.nextPage.position );
+  page.nextPage.cameraPos.copy( page.nextPage.sections[0].cameraPosition ); //page.nextPage.position );
 
   console.log( page.nextPage.cameraPos );
 
-  this.camEndPos     = page.nextPage.cameraPositions[0];
+  this.camEndPos     = page.nextPage.sections[0].cameraPosition;
 
   this.distStart = { d: G.iPlaneDistance }
   this.distEnd   = { d: page.nextPage.iPlaneDistance }
@@ -145,8 +146,12 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
   
   tween1.onUpdate( function( t ){
 
-    G.position.copy( this.sceneStartPos );
-    G.camera.lookAt( G.position );
+    G.position.x = this.sceneStartPos.x;
+    G.position.y = this.sceneStartPos.y;
+    G.position.z = this.sceneStartPos.z;
+    
+    G.lookAt.copy( G.position );
+    G.camera.lookAt( G.lookAt );
 
   }.bind( this ));
 

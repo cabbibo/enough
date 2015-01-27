@@ -17,9 +17,8 @@ function Section( id , page , params ){
     transitionTime: "endOfLoop",
     textDeathTime: 3000,
 
-    cameraPosition: G.position.relative,
-    lookPosition:   new THREE.Vector3(),
-
+    cameraPosition:   G.position.relative,
+    lookPosition:     new THREE.Vector3(),
 
     transitionIn:     function(){ console.log( 'tranIn'   );},
     start:            function(){ console.log( 'start'    );},
@@ -123,6 +122,7 @@ Section.prototype.createTransitionInCallback = function(){
 
     }
 
+    //var lookAt = this.lookPosition || this.page.position;
     this.page.tweenCamera( this.cameraPosition , transitionTime ,  function(){
 
       this.prevSection._end();

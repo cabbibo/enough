@@ -3,8 +3,6 @@ var sun = new Page( 'sun' );
 
 sun.addToInitArray( function(){
 
-  
-
 
   /*  
 
