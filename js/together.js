@@ -9,7 +9,7 @@ together.addToInitArray( function(){
     textChunk:[
       "Mani now knew joy.",
       "","",
-      "He danced with the creature, and that moment flowered into eternity. He watched her chase the dark away her simple radiance. Her presence compelled Mani, and he could feel even the night in his begin to fade.",
+      "He danced with the creature, and that moment flowered into eternity. He watched her chase the dark away with her simple radiance. Her presence compelled Mani, and he could feel even the night in soul his begin to fade.",
       "","",
       "She swayed with him, in the mists of the night, and Mani knew Truth."
     ].join("\n" ),
