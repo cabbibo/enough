@@ -47,7 +47,7 @@ flocking.addToInitArray( function(){
 
   
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(   0 , 600 , 300 ) ,
+    cameraPosition: new THREE.Vector3(   0 , 1000 , 100 ) ,
     textChunk:[
       "Then, as he began his descent into nothingness, Mani saw a sparkle.",
       "","",

@@ -166,9 +166,11 @@ G.init = function(){
   this.iPlaneDistance = 600;
 
 
-  G.GEOS[ 'icosahedron' ]  = new THREE.IcosahedronGeometry( 1 , 2 );
+  G.GEOS[ 'icosahedron' ]       = new THREE.IcosahedronGeometry( 1 , 2 );
   G.GEOS[ 'icosahedronDense' ]  = new THREE.IcosahedronGeometry( 1 , 3 );
+  G.GEOS[ 'sun' ]               = new THREE.IcosahedronGeometry( 3000 , 5 );
   G.MATS[ 'normal'      ]  = new THREE.MeshNormalMaterial();
+
 
   /*
 

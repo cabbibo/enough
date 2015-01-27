@@ -13,20 +13,46 @@ sparkles.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,900 ),
+    transitionTime:1000,
     textChunk:[
       "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
       "","",
       "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be scene."
-    ].join("\n" ), 
+    ].join("\n" ),
+    transitionIn:function(){
+
+      console.log('TANSL');
+      this.cameraPosition.copy( G.camera.position );
+      this.page.cameraPos.copy( G.camera.position );
+      this.lookPosition.copy( this.page.position );
+      //G.lookAt.copy( this.page.position );
+     // G.camera.position.copy( this.page.position );
+      //G.v1.set( 0 , 0 , 900 );
+      //this.cameraPosition.add( G.v1 );
+
+    }
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1100 ),
+    transitionTime:1000,
     textChunk:[
       "The devastating weight of the abyss returned. Crashing over him like a wave of silence. He could have never comprehended this loneliness. Now that he had seen the beauty of his friends, to have lost them was too much.",
       "","",
       "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
-    ].join("\n" ), 
+    ].join("\n" ),
+    transitionIn:function(){
+
+      console.log('TANSL2');
+      
+      this.cameraPosition.copy( G.camera.position );
+      this.page.cameraPos.x =  G.camera.position.x;
+      this.page.cameraPos.y =  G.camera.position.y;
+      this.page.cameraPos.z =  G.camera.position.z;
+      this.lookPosition.copy( this.page.position );
+
+
+    }
   });
 
   this.position.set(  1000 , 2000 , 1000 );
@@ -160,10 +186,9 @@ sparkles.addToAllUpdateArrays( function(){
 }.bind( sparkles));
 
 sparkles.addToActiveArray( function(){
-
   
 
-  this.position.x += this.movementRate;
+  this.position.x     += this.movementRate;
   G.camera.position.x += this.movementRate;
   G.position.copy( this.position );
   G.camera.lookAt( this.position );//= 1000;

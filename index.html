@@ -104,10 +104,20 @@
 
     <script>
 
+
+
+      var startingPage = "alone";
+
+      var url = document.URL;
+      var stringArray = url.split("#");
+      if( stringArray[1] ){ startingPage = stringArray[1] }
+
+
+
       // TODO: 
       // Write shaders for hands
 
-     // G.audio.mute.gain.value = 0;
+      G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -183,7 +193,7 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.alone;
+        var s = G.pages[ startingPage ];
         
 
 

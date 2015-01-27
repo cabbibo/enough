@@ -10,8 +10,6 @@ sun.addToInitArray( function(){
 
   */
 
-  this.sectionParams = [];
-  
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  -10000 , 0 , 5000 ),
     textChunk:[
@@ -208,7 +206,10 @@ sun.addToStartArray( function(){
     }
 
 
-  var mesh = new THREE.Mesh( new THREE.IcosahedronGeometry( 3000 , 6 )); 
+   console.log('GES');
+   console.log( G.GEOS.sun );
+
+  var mesh = new THREE.Mesh(  G.GEOS.sun ); 
   this.gem = new RepelerMesh( 'Parameters' , mesh , this.repelers , {
 
         
@@ -239,7 +240,7 @@ sun.addToStartArray( function(){
 
   
   
-  var mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000 , 3000 , 3000 , 80,80,80 ));
+  var mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000 , 3000 , 3000 , 5,5,5 ));
   mesh.rotation.x = Math.PI / 2;
   mesh.rotation.y = -Math.PI / 4;
   mesh.rotation.z = Math.PI / 1.6;
