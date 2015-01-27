@@ -3,41 +3,58 @@ var alone = new Page( 'alone' );
 alone.addToInitArray( function(){
 
 
+  console.log( 'INAT');
   this.title = "Real Time Is Now";
 
-  this.textChunks = [];
-  this.text = [];
-  this.textChunks.push( [
+  this.sectionParams = [];
+  this.sectionParams.push({
+    
+    cameraPosition: new THREE.Vector3(  0 , 800 , 100 ),
+    transitionTime: 1000000,
+    transitioningOut:function(){ 
+      console.log('HELLOS'); 
+     // this.page.titleOpacity = 1 - t
+    }
+    
+  });
+  this.sectionParams.push({
+    
+    cameraPosition: new THREE.Vector3(  0 , 0 , 1000 ),
+    transitionTime: 3000,
+    textChunk:[
+      "When Mani awoke, he had now idea where he was.",
+      "","",
+      "He was surrounded by a darkness that reached farther than he could see, an abyss greater than he could comprehend.",
+      "","",
+      "He began to move, slowly discovering the physics of his form."
+    ].join("\n" ),
+    start: function(){
 
-    "When Mani awoke, he had now idea where he was.",
-    "","",
-    "He was surrounded by a darkness that reached farther than he could see, an abyss greater than he could comprehend.",
-    "","",
-    "He began to move, slowly discovering the physics of his form."
+      G.v1.copy( G.position );
+      G.v2.set( 0 , 1000 , 0 );
+      G.v1.add( G.v2 );
+      G.mani.transport( G.v1 );
+     
+      G.mani.activate();
 
+    }
+    
+  });
 
-  ].join("\n" ));
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 1500 ),
+    transitionTime: 3000,
+    textChunk:[
+      "The nothing was so complete, Mani could not tell if he moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
+      "","",
+      "Mani was curious, and though he was scared, decided that he would explore, even if the conquest ended in darkness"
+    ].join("\n" )
+  });
 
-
-  this.textChunks.push([
-
-    "The nothing was so complete, Mani could not tell if he moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
-    "","",
-    "Mani was curious, and though he was scared, decided that he would explore, even if the conquest ended in darkness"
-
-  ].join("\n" ));
-
-
+ 
   this.position.set(  0 , 0 , 0 );
-  this.cameraPos.set( 0 , 0 , 2000 );
-
-  this.cameraPositions = [];
   
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 2000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1500 ) );
-  
-  this.cameraPos =  this.cameraPositions[0];
+  this.cameraPos =  this.sectionParams[0].cameraPosition;
 
   this.iPlaneDistance = 1000
 
@@ -49,7 +66,7 @@ alone.addToInitArray( function(){
   var f = 'audio/global/';
   this.audio =  this.loadAudio( 'hueSparkles' , f + 'hueSparkles.mp3' );
 
-  var t = 'rtis';
+  var t = 'titleSDF';
   this.textTexture = this.loadTexture( 'text_' + t , 'img/extras/' + t + '.png' );
 
   
@@ -84,13 +101,6 @@ alone.addToStartArray( function(){
 
 alone.addToStartArray( function(){
 
-  for( var i = 0; i < this.textChunks.length; i++ ){
-
-    console.log( this.textChunks[i] );
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-
-  }
-
 
   this.titleTexture = G.textCreator.createTexture( this.title ,{
     size:.4,
@@ -102,7 +112,7 @@ alone.addToStartArray( function(){
 console.log('SCALED')
   console.log( scale );
 
-  var titleGeo = new THREE.PlaneGeometry( 1000 , 1000 , 100 , 100 );
+  var titleGeo = new THREE.PlaneGeometry( 2000 , 2000 , 100 , 100 );
 
 
   var uniforms = {
@@ -140,9 +150,12 @@ console.log('SCALED')
 
   });
   this.titleMesh = new THREE.Mesh( titleGeo , titleMat );
-  this.titleMesh.position.z = 1500;
+  this.titleMesh.position.y = -500;
   this.titleOpacity = titleMat.uniforms.opacity;
 
+  console.log( 'OPACITY' );
+  console.log( this.titleOpacity );
+  this.titleMesh.rotation.x = -Math.PI / 2;
   this.scene.add( this.titleMesh );
 
 
@@ -166,92 +179,17 @@ console.log('SCALED')
 
 alone.addToActivateArray( function(){
 
-
-   
-  var offset = new THREE.Vector3( 0 , 0 , -1000 );
-  
-  var callback = function(){
-
-
-    var s={b:1};
-    var e={b:2};
-
-    var tween = new G.tween.Tween( s ).to( e , 3000);
-  
-    tween.onUpdate( function( t ){
-
-      this.titleOpacity.value = 1- t;
-
-    }.bind( this ));
-
-    tween.onComplete( function( t ){
-
-    this.tweenCamera( this.cameraPositions[1] , 5000 , function(){
-
-      this.text[0].activate();
-      this.scene.remove( this.titleMesh );
-    
-      var offset = G.pageTurnerOffset;
-      
-      
-
-
-      var callback = function(){
-
-        this.text[0].kill( 5000 );
-
-        this.tweenCamera( this.cameraPositions[2] , 1000 , function(){
-
-          this.text[1].activate();
-
-          this.endMesh.add( this , G.pageTurnerOffset );
-
-        }.bind( this ) );
-
-      }.bind( this );
-
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this) );
-
-    
-    }.bind( this ));
-
-    tween.start();
-
-
-
-
-  }.bind( this );
-
-
-  var mesh = this.createTurnerMesh( offset , callback );
-  this.scene.add( mesh );
-
-  mesh.scale.multiplyScalar( 300.5 )
-
-
-  G.mani.activate();
+ // G.mani.activate();
 
 }.bind( alone ));
 
 
 alone.addToAllUpdateArrays( function(){
 
-   for( var i = 0; i < this.text.length; i++ ){
-
-    this.text[i].update();
-
-  }
-
-
 }.bind( alone ));
 
 
 alone.addToDeactivateArray( function(){
-
-  this.text[1].kill();
 
 }.bind( alone) );
 

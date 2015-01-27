@@ -183,7 +183,7 @@
 
       G.addToStartArray( function(){
 
-        var s = G.pages.sun;
+        var s = G.pages.alone;
         
 
 
@@ -193,13 +193,13 @@
 
           G.position.copy( this.position );
 
-          for( var  i =0; i < this.cameraPositions.length; i++ ){
+          for( var  i =0; i < this.sections.length; i++ ){
 
-            this.cameraPositions[i].add( this.position );
+            this.sections[i].cameraPosition.add( this.position );
 
           }
 
-          this.cameraPos.copy( this.cameraPositions[0] ); //page.nextPage.position );
+          this.cameraPos.copy(  this.sections[0].cameraPosition ); //page.nextPage.position );
           
          // this.cameraPos.add( this.position );
           G.camera.position.copy( this.cameraPos );

@@ -222,6 +222,8 @@
 
 
     var data = this.pTexture.image.data ;
+
+    // giving some randomness, so that objects splay out properly
     for( var i = 0; i < data.length; i += 4 ){
 
       data[ i + 0 ] = position.x + Math.random() * 10;

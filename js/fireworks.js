@@ -291,7 +291,6 @@ fireworks.addToActiveArray( function(){
 
 fireworks.addToDeactivateArray( function(){
 
-  this.text[2].kill( 3000 );
   G.iPlane.faceCamera = true;
   
 

@@ -99,8 +99,10 @@ void main(){
   fOpacity += 1. * lum;
 
 
+  float dimY = (.5 - abs((vUv.y - .5))) * 2.;
+  float dimX = min( 1. , max( 0. , ((.5 - abs((vUv.x - .5))) * 2.) - .3) * 5.);
 
-  gl_FragColor = vec4( totalIri  , fOpacity );
+  gl_FragColor = min( 1.  , dimY * dimY * pow( dimX , .5 )* 1.1 ) * vec4( totalIri  , fOpacity );
  // gl_FragColor = vec4( tLookup.x , 0. , tLookup.y , 1. );
  // gl_FragColor = title;//vec4( tLookup.x , 0. , tLookup.y , 1. );
 

@@ -4,44 +4,43 @@ var crystals = new Page( 'crystals' );
 crystals.addToInitArray( function(){
 
   this.text = [];
-  this.textChunks = [];
-  this.textChunks.push( [
+  this.textChunks = []
+  this.sectionParams = [];
+  this.sectionParams.push({
+    cameraPosition:new THREE.Vector3(  500 , 1000 , 1400 ),
+    textChunk:[
+      "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
+      "","",
+      "They spewed sparkles into the world around him."
+    ].join("\n" ),
+
+  });
 
 
-    "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
-    "","",
-    "They spewed sparkles into the world around him."
-  
-  ].join("\n" ));
+  this.sectionParams.push({
+    cameraPosition:new THREE.Vector3( -500 , 1000 , 3600  ),
+    textChunk:[
+      "Their simple existence filled Mani with wonder. Why were they here? How could they sing? What were they saying?",
+      "","",
+      "He explored the crystals, dancing with delight through their glistening glitter. How could they be? What could they be?"
+    ].join("\n")
+    
+  });
 
-
-  this.textChunks.push([
-
-  "Their simple existence filled Mani with wonder. Why were they here? How could they sing? What were they saying?",
-  "","",
-  "He explored the crystals, dancing with delight through their glistening glitter. How could they be? What could they be?"
-
-  ].join("\n"));
-
-  this.textChunks.push([
-
-  "He felt a certain camaraderie with the crystals, the simple fact that they were not the darkness made him approach them with a sense of reverence.",
-  "","",
-  "But as Mani wondered, so he wandered, and after he determined the crystals to be thoroughly explored, he moved onwards."
-
-  ].join("\n"));
+  this.sectionParams.push({
+    cameraPosition:new THREE.Vector3( 2500 , 1000 , -400  ),
+    textChunk:[
+      "He felt a certain camaraderie with the crystals, the simple fact that they were not the darkness made him approach them with a sense of reverence.",
+      "","",
+      "But as Mani wondered, so he wandered, and after he determined the crystals to be thoroughly explored, he moved onwards."
+    ].join("\n")
+  });
 
   this.position.set(  500 , -2000 , 1400 );
+  
   this.iPlaneDistance = 1200;
 
-  this.cameraPositions = [];
-
-  this.cameraPositions.push( new THREE.Vector3(  500 , 1000 , 1400 ) );
-  this.cameraPositions.push( new THREE.Vector3(  -500 , 1000 , 3600 ) );
-  this.cameraPositions.push( new THREE.Vector3(  2500 , 1000 , -400 ) );
-
-
-  this.cameraPos =  this.cameraPositions[0];
+  this.cameraPos =  this.sectionParams[0].cameraPosition;
 
 
   this.crystalParams = [

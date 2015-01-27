@@ -4,6 +4,92 @@ var sun = new Page( 'sun' );
 sun.addToInitArray( function(){
 
   
+
+
+  /*  
+
+      SECTIONS
+
+  */
+
+  this.sectionParams = [];
+  
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  -10000 , 0 , 5000 ),
+    textChunk:[
+      "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
+    "","",
+      "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
+    ].join("\n" ),
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(   -6000 ,    0 ,    0 ),
+    textChunk:[
+      "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
+      "","",
+      "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
+    ].join("\n" ),
+  });
+    
+  this.sectionParams.push({
+    cameraPosition:  new THREE.Vector3(   -4000 ,    0 , 1000 ),
+    textChunk: [
+      "Further and further Mani swam, approaching the loving behemoth.",
+      "","",
+      "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
+      "","",
+      "So inwards Mani went."
+
+    ].join("\n" ),
+  });
+
+  this.sectionParams.push({
+    cameraPosition:new THREE.Vector3( 0 , 4000 , 4000 ),
+    textChunk:[
+    
+     "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
+     "","",
+     "The song continued and urged Mani towards its center. The shining essence of life lay before him and he yearned to be one with it, experience the world and the truths that lay beyond."
+
+    ].join("\n"),
+  });
+
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 1000 , 1000 ),
+    textChunk:["The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
+       "","",
+       "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
+       "","",
+        "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 ,    0 ,  100 ),
+    textChunk: [
+      "It was Sol!",
+      "","",
+      "She swam to him. And he towards her.",
+      "","",
+      "The being sang in the background of the world Beyond, urging Mani to return towards its arms. But there was Sol, so sweetly she swam, and Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
+    ].join("\n" )
+
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 1000 ,  100 ), 
+    textChunk:[
+      "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
+      "","",
+      "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
+    ].join("\n" )
+
+  });
+  
+  
+  this.cameraPos =  this.sectionParams[0].cameraPosition;
+  
   this.position.set(  9000 , 0 , 0 );
   this.iPlaneDistance = 1000;
 
@@ -23,7 +109,7 @@ sun.addToInitArray( function(){
   this.audio.array = [];
 
 
-   var f = 'pages/sun/';
+  var f = 'pages/sun/';
 
   this.loadShader( 'sun' , f + 'ss-sun' , 'simulation' );
 
@@ -32,154 +118,6 @@ sun.addToInitArray( function(){
 
   this.loadShader( 'akira' , f + 'vs-akira' , 'vertex' ); 
   this.loadShader( 'akira' , f + 'fs-akira' , 'fragment' ); 
-
-
-  /*
-
-     SETTING UP SECTIONS
-
-  */
-
-  this.textChunks = [
-
-    [
-
-      "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
-    "","",
-    "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
-
-    ].join("\n" ),
-
-    [
-    
-      "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
-    "","",
-    "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
-
-    ].join("\n" ),
-
-    [
-    
-      "Further and further Mani swam, approaching the loving behemoth.",
-      "","",
-      "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
-      "","",
-      "So inwards Mani went."
-
-    ].join("\n" ),
-
-    [
-    
-     "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
-     "","",
-     "The song continued and urged Mani towards its center. The shining essence of life lay before him and he yearned to be one with it, experience the world and the truths that lay beyond."
-
-    ].join("\n" ),
-
-    [
-    
-       "The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
-       "","",
-       "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
-       "","",
-        "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement."
-
-    ].join("\n" ),
-
-
-    [
-    
-      "It was Sol!",
-      "","",
-      "She swam to him. And he towards her.",
-      "","",
-      "The being sang in the background of the world Beyond, urging Mani to return towards its arms. But there was Sol, so sweetly she swam, and Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
-
-    ].join("\n" ),
-
-
-    [
-
-      "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
-      "","",
-      "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
-
-    ].join("\n" )
-
-  ];
-
-
-  
- 
-  this.cameraPositions = [
-    new THREE.Vector3(  -10000 ,    0 , 5000 ),
-    new THREE.Vector3(   -6000 ,    0 ,    0 ),
-    new THREE.Vector3(   -4000 ,    0 , 1000 ),
-    new THREE.Vector3(       0 , 4000 , 4000 ),
-    new THREE.Vector3(       0 , 1000 , 1000 ),
-    new THREE.Vector3(       0 ,    0 ,  100 ),
-    new THREE.Vector3(       0 , 1000 ,  100 ),
-  ]
-
-  this.cameraPos =  this.cameraPositions[0];
-
-
-
-  // Setting up sections
-  
-
-  this.sectionParams = [
-  
-    {
-      transitionIn: function(){ console.log('First tran in');},
-      transitionOut: function(){ console.log('first tran out');},
-      start: function(){ console.log('first start');},
-      end: function(){ console.log('first end');}
-    },
-
-    {
-      transitionIn: function(){ console.log('Second tran in');},
-      transitionOut: function(){ console.log('Second tran out');},
-      start: function(){ console.log('Second start');},
-      end: function(){ console.log('Second end');}
-    },
-    
-    {
-      transitionIn: function(){ console.log('Third tran in');},
-      transitionOut: function(){ console.log('Third tran out');},
-      start: function(){ console.log('Third start');},
-      end: function(){ console.log('Third end');}
-    },
-
-    {
-      transitionIn: function(){ console.log('Fourth tran in');},
-      transitionOut: function(){ console.log('Fourth tran out');},
-      start: function(){ console.log('Fourth start');},
-      end: function(){ console.log('Fourth end');}
-    },
-
-    {
-      transitionIn: function(){ console.log('Fifth tran in');},
-      transitionOut: function(){ console.log('Fifth tran out');},
-      start: function(){ console.log('Fifth start');},
-      end: function(){ console.log('Fifth end');}
-    },
-
-    {
-      transitionIn: function(){ console.log('Sixth tran in');},
-      transitionOut: function(){ console.log('Sixth tran out');},
-      start: function(){ console.log('Sixth start');},
-      end: function(){ console.log('Sixth end');}
-    },
-
-    {
-      transitionIn: function(){ console.log('Seventh tran in');},
-      transitionOut: function(){ console.log('Seventh tran out');},
-      start: function(){ console.log('Seventh start');},
-      end: function(){ console.log('Seventh end');}
-    },
-
-  ]
 
 }.bind( sun ) );
 
@@ -352,9 +290,6 @@ sun.addToActivateArray( function(){
 
 sun.addToAllUpdateArrays( function(){
 
-  for( var i = 0; i < this.text.length; i++ ){
-    this.text[i].update();
-  }
   
   this.gem.update();
   this.akira.update();

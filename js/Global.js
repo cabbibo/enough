@@ -41,6 +41,8 @@ G.loader  = new Loader();
 G.stats   = new Stats();
 
 G.tmpV3   = new THREE.Vector3();
+G.v1      = G.tmpV3;
+G.v2      = G.v1.clone();         // for typing sake
 G.tmpV2   = new THREE.Vector2();
 
 
@@ -73,7 +75,11 @@ G.scene         = new THREE.Scene();
 G.renderer      = new THREE.WebGLRenderer();
 G.clock         = new THREE.Clock();
 
+
+
 G.position      = new THREE.Vector3();
+G.lookAt        = new THREE.Vector3();
+
 G.pageMarker    = new THREE.Mesh(
   new THREE.IcosahedronGeometry( 40,2 ),
   new THREE.MeshBasicMaterial({color:0xffffff})

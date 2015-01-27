@@ -1,29 +1,34 @@
 function Section( id , page , params ){
 
+  console.log('PARAMS');
+  console.log( params );
   this.page = page;
   this.id = id;
 
   this.prevSection = undefined;
   this.nextSection = undefined;
 
-  this.active = false;
+  this.active  = false;
+  this.current = false; 
 
   this.params = _.defaults(params || {} , {
 
-    text: null,
-    
     offset: G.pageTurnerOffset,
     transitionTime: "endOfLoop",
     textDeathTime: 3000,
 
     cameraPosition: G.position.relative,
-    lookPosition: G.tmpV3.set( 0 , 0 , 0 ),
+    lookPosition:   new THREE.Vector3(),
 
 
-    transitionIn:   function(){ console.log( 'tranIn'   );},
-    start:          function(){ console.log( 'start'    );},
-    transitionOut:  function(){ console.log( 'tranOut'  );},
-    end:            function(){ console.log( 'end'      );},
+    transitionIn:     function(){ console.log( 'tranIn'   );},
+    start:            function(){ console.log( 'start'    );},
+    transitionOut:    function(){ console.log( 'tranOut'  );},
+    end:              function(){ console.log( 'end'      );},
+    transitioningOut: function(){},
+    transitioningIn:  function(){},
+    currentUpdate:    function(){},
+    activeUpdate:     function(){},
     
   });
 
@@ -33,7 +38,23 @@ function Section( id , page , params ){
     this[propt] = this.params[propt];
   }
 
-  //if( !this.text ){ console.log('NO TEXT YA FOOL'); }
+  if( this.textChunk ){
+    this.text = new PhysicsText( this.textChunk );
+  }
+
+}
+
+
+
+Section.prototype._transitionIn = function(){
+
+  if( !this.prevSection ){
+    this.active = true;
+    this._start();
+  }else{
+    this.active = true;
+    this.transitionIn();
+  }
 
 }
 
@@ -41,7 +62,11 @@ Section.prototype._start = function(){
  
   this.start();
 
-  this.text.activate();
+  if( this.text ){
+    this.text.activate();
+  }
+
+  this.current = true;
 
   if( this.nextSection ){  
 
@@ -58,6 +83,15 @@ Section.prototype._start = function(){
 
 }
 
+Section.prototype._transitionOut = function(){
+  
+  if( this.text ){
+    this.text.kill( this.textDeathTime );
+  }
+  this.current = false;
+  this.transitionOut();
+
+}
 Section.prototype._end = function(){
 
   this.active = false;
@@ -65,24 +99,6 @@ Section.prototype._end = function(){
 
 }
 
-Section.prototype._transitionOut = function(){
-  this.text.kill( this.textDeathTime );
-
-  this.transitionOut();
-
-}
-
-Section.prototype._transitionIn = function(){
-
-  if( !this.prevSection ){
-    this.active = true;
-    this._start();
-  }else{
-    this.active = true;
-    this.transitionIn();
-  }
-
-}
 
 Section.prototype.createTransitionInCallback = function(){
 
@@ -107,11 +123,18 @@ Section.prototype.createTransitionInCallback = function(){
 
     }
 
-    this.page.tweenCamera( this.cameraPosition , transitionTime  , function(){
+    this.page.tweenCamera( this.cameraPosition , transitionTime ,  function(){
 
       this.prevSection._end();
       this._start();
         
+    }.bind( this ),
+    this.lookPosition,
+    function( t ){
+      
+      this.transitioningIn( t );
+      this.prevSection.transitioningOut( t );
+      
     }.bind( this ));
     
   }.bind( this );
@@ -122,9 +145,19 @@ Section.prototype.createTransitionInCallback = function(){
 
 }
 
-Section.prototype.update = function(){
+Section.prototype._update = function(){
 
-  this.text.update();
+  if( this.text ){
+    this.text.update();
+  }
+  
+  if( this.active ){
+    this.activeUpdate();
+  }
+
+  if( this.current ){
+    this.currentUpdate();
+  }
 
 }
 

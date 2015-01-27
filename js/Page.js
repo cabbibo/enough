@@ -111,6 +111,12 @@ Page.prototype.update = function(){
 
   if( this.started ){
 
+    for( var i = 0; i < this.sections.length; i++ ){
+
+      this.sections[i]._update();
+
+    }
+
     this.frame ++;
 
     if( this.addingStartArray === true ){
@@ -193,12 +199,17 @@ Page.prototype.update = function(){
 // Used to begin all the loading needed
 Page.prototype.init = function(){
 
-  //console.log( 'PAGE INITILIZED  ' + this.name );
+  console.log( 'PAGE INITILIZED  ' + this.name );
   this.initialized = true;
 
   for( var i = 0; i < this.initArray.length; i++ ){
     this.initArray[i]( this );
   }
+
+  console.log('INITS');
+  console.log( this.sectionParams );
+  this.createSections( this.sectionParams );
+  this.assignSections();
 
 }
 
@@ -247,20 +258,6 @@ Page.prototype.start = function(){
   this.addingStartArray = true;
 
 
-  console
-  this.createText( this.textChunks );
-  this.createSections( this.sectionParams );
-  this.assignSections();
-
-  console.log('STARS');
-  /*
-
-  for( var i = 0; i < this.startArray.length; i++ ){
-    this.startArray[i]();
-  }
-*/
-
-
   G.scene.add( this.scene );
 
 
@@ -293,7 +290,8 @@ Page.prototype.deactivate = function(){
     this.deactivateArray[i]( this );
   }
 
-  this.sections[ this.sections.length -1 ].text.kill();
+  this.sections[ this.sections.length - 1 ].text.kill();
+
 }
 
 Page.prototype.end = function(){
@@ -404,8 +402,6 @@ Page.prototype.assignSections = function(){
 
   for( var i = 0; i < this.sections.length; i++ ){
 
-    this.sections[i].text = this.text[i];
-    this.sections[i].cameraPosition = this.cameraPositions[i];
     if( i > 0 ){
       this.sections[i].prevSection = this.sections[i-1];
     }
@@ -417,13 +413,7 @@ Page.prototype.assignSections = function(){
 
 }
 
-Page.prototype.createText = function(){
-  
-  for( var i = 0; i < this.textChunks.length; i++ ){
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-  }
 
-}
 
 
 
@@ -438,7 +428,7 @@ Page.prototype.createText = function(){
 
 // Some extra functions 
 
-Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos ){
+Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos , updateFunction ){
 
 
   var lookAt = G.position;
@@ -451,12 +441,13 @@ Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos ){
 
   var tween = new G.tween.Tween( this.cameraPos ).to( newPos , length );
 
-  tween.onUpdate( function(){
+  tween.onUpdate( function( t ){
 
     G.camera.position.copy( this.cameraPos );
     G.objectControls.unprojectMouse();
 
-    G.camera.lookAt( lookAt );
+    G.camera.lookAt( G.lookAt );
+    updateFunction( t );
 
 
   }.bind( this ));
@@ -469,6 +460,8 @@ Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos ){
 
   tween.start();
 
+  var tween = new G.tween.Tween( G.lookAt ).to( lookAt , length );
+  tween.start();
 }
 
 
