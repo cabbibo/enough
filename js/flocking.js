@@ -2,47 +2,58 @@ var flocking = new Page( 'flocking' );
 
 flocking.addToInitArray( function(){
 
-  this.text = [];
-  this.textChunks = [];
-  this.textChunks.push([ 
-    "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and though he found movement was soothing, he still felt an ultimate dispair."
-  ].join("\n"));
-
-  this.textChunks.push([ 
-    "The small ribbons of light moved gently around Mani, but he could only imagine them as ghosts of his golden friends. As angelic as their song seemed, it was not enough, and Mani resigned himself to a well of sorrow",
-    "","",
-    "As Mani came to the realization that he would never find what he was missing, would never fill that void in his soul, he settled down on the floor beneath the fish, ready for the quiet to come, and waited."
-  ].join("\n"));
-
-
-  this.textChunks.push([ 
-    "Mani could feel the darkness inch in around him, winding its icy grip around the deepest part of his being, and he lay, paralyzed with heartache.",
-    "","",
-    "In his final moments, Mani remembered fondly the crystals , tendrils and tree. He thought of Sol and her compassionate movements and  of his friends circling the glowing planets.  The ground found him and he sank slowly into a dreamless sleep."
-  ].join("\n"));
-
- this.textChunks.push([ 
-    "Then, as he began his descent into nothingness, Mani saw a sparkle.",
-    "","",
-    "At first he thought of it with disdain. It was sparkles distracted him, that had made him lose his first and only friends, but as more and more fell upon his melancholy form, he felt compelled to rise and follow."
-  ].join("\n"));
-
+  
   // Position relative to previous page
   this.position.set(  2000 , -2000 , 0 );
-  
-  
-  this.cameraPositions = [];
-  this.cameraPositions.push( new THREE.Vector3(  100 , 2000 , 100 ) );
-  //this.cameraPositions.push( new THREE.Vector3(  0 , 1200 , 100 ) );
-  this.cameraPositions.push( new THREE.Vector3( -200 , 800 ,1400 ) );
-  
-  this.cameraPositions.push( new THREE.Vector3( 0 , 400 , 1000 ) );
-  this.cameraPositions.push( new THREE.Vector3( 0 , 600 , 300 ) );
-  
-  //this.cameraPositions.push( new THREE.Vector3( -2000 , 1500 ,2400 ) );
-  //this.cameraPositions.push( new THREE.Vector3(  -3000 , 3000 , 3000 ) );
-  this.cameraPos =  this.cameraPositions[0];
 
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  100 , 2000 , 100 ) ,
+    textChunk:[
+      "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and though he found movement was soothing, he still felt an ultimate dispair."
+    ].join("\n" ), 
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( -200 , 800 ,1400 )  ,
+    textChunk:[
+      "The small ribbons of light moved gently around Mani, but he could only imagine them as ghosts of his golden friends. As angelic as their song seemed, it was not enough, and Mani resigned himself to a well of sorrow",
+      "","",
+      "As Mani came to the realization that he would never find what he was missing, would never fill that void in his soul, he settled down on the floor beneath the fish, ready for the quiet to come, and waited."
+    ].join("\n" ),
+
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 400 , 1000 ) ,
+    textChunk:[
+      "Mani could feel the darkness inch in around him, winding its icy grip around the deepest part of his being, and he lay, paralyzed with heartache.",
+      "","",
+      "In his final moments, Mani remembered fondly the crystals , tendrils and tree. He thought of Sol and her compassionate movements and  of his friends circling the glowing planets.  The ground found him and he sank slowly into a dreamless sleep."
+    ].join("\n" ),
+    start:function(){
+      G.tmpV3.set( 0 , 100 , 0 );
+      G.iPlane.position.copy( this.page.position.clone().add(G.tmpV3 ));
+      G.tmpV3.set( 0 , 101 , 0 )
+      G.iPlane.lookAt( this.page.position.clone().add( G.tmpV3 ) );
+    },
+    transitionOut:function(){
+      G.tmpV3.set( 0 ,  200 , 0 );
+      G.iPlane.position.copy( this.page.position.clone().add(G.tmpV3 ));
+      G.tmpV3.set( 0 , 209 , 0 )
+      G.iPlane.lookAt( this.page.position.clone().add( G.tmpV3 ) )
+    }
+  });
+
+  
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(   0 , 600 , 300 ) ,
+    textChunk:[
+      "Then, as he began his descent into nothingness, Mani saw a sparkle.",
+      "","",
+      "At first he thought of it with disdain. It was sparkles distracted him, that had made him lose his first and only friends, but as more and more fell upon his melancholy form, he felt compelled to rise and follow."
+    ].join("\n" ), 
+  });
 
 
   this.iPlaneDistance = 2000;
@@ -145,11 +156,6 @@ flocking.addToStartArray( function(){
 
 flocking.addToStartArray( function(){
 
-   for( var i = 0; i < this.textChunks.length; i++ ){
-
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-
-  }
 
   this.looper = new Looper( G.audio , G.timer , {
 
@@ -225,99 +231,13 @@ flocking.addToStartArray( function(){
 
 }.bind( flocking ) );
 
-flocking.addToActivateArray( function(){
 
-  this.text[0].activate();
-
-
-  var offset = G.pageTurnerOffset;
-
-  var percentTilEnd = 1 - this.looper.percentOfMeasure;
-  var timeTilEnd = percentTilEnd * this.looper.measureLength;
-
-   var callback = function(){
-
-    this.text[0].kill( 5000 );
-
-    this.tweenCamera( this.cameraPositions[1] , (timeTilEnd-.01) * 1000 , function(){
-
-      this.text[1].activate();
-
-      var offset = G.pageTurnerOffset;
-
-      var callback = function(){
-
-        this.text[1].kill( 3000 );
-
-
-
-
-        var percentTilEnd = 1 - this.looper.percentOfMeasure;
-        var timeTilEnd = percentTilEnd * this.looper.measureLength;
-
-        this.tweenCamera( this.cameraPositions[2],  (timeTilEnd-.01) * 1000 , function(){
-
-
-          G.tmpV3.set( 0 , 100 , 0 );
-          G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
-          G.tmpV3.set( 0 , 101 , 0 )
-          G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
-
-          this.text[2].activate();
-
-          var callback = function(){
-
-            this.text[2].kill( 3000 );
-
-
-            var percentTilEnd = 1 - this.looper.percentOfMeasure;
-            var timeTilEnd = percentTilEnd * this.looper.measureLength;
-
-            G.tmpV3.set( 0 ,  200 , 0 );
-            G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
-            G.tmpV3.set( 0 , 209 , 0 )
-            G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) )
-            this.tweenCamera( this.cameraPositions[3],  (timeTilEnd-.01) * 1000 , function(){
-
-
-              this.text[3].activate();
-              this.endMesh.add( this );
-              
-            }.bind( this ));
-          }.bind( this);
-
-          var offset =  G.pageTurnerOffset;          
-          this.transitionMesh3 = this.createTurnerMesh( offset , callback );
-          this.scene.add( this.transitionMesh3 );
-
-
-        }.bind( this ));
-      }.bind( this);
-
-      var offset =  G.pageTurnerOffset;      
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this  ));
-  }.bind( this );
-
-  var offset =  G.pageTurnerOffset;   
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );
-
-}.bind( flocking ));
 
 
 flocking.addToAllUpdateArrays( function(){
 
   this.flock.update();
     
-  for( var i = 0; i < this.text.length; i++ ){
-
-    this.text[i].update();
-
-  }
-
   for( var i = 0; i < this.coral.length; i++ ){
     this.coral[i].update();
   }
@@ -327,8 +247,6 @@ flocking.addToAllUpdateArrays( function(){
 
 
 flocking.addToDeactivateArray( function(){
-
-  this.text[3].kill();
 
   G.iPlane.faceCamera = true;
 

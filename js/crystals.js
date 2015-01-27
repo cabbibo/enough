@@ -3,7 +3,6 @@ var crystals = new Page( 'crystals' );
 
 crystals.addToInitArray( function(){
 
-  this.sectionParams = [];
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3(  500 , 1000 , 1400 ),
     textChunk:[
@@ -62,8 +61,6 @@ crystals.addToInitArray( function(){
   this.position.set(  500 , -2000 , 1400 );
   
   this.iPlaneDistance = 1200;
-
-  this.cameraPos =  this.sectionParams[0].cameraPosition;
 
 
   this.crystalParams = [

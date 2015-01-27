@@ -3,8 +3,6 @@ var tree = new Page( 'tree' );
 
 tree.addToInitArray( function(){
 
-  this.sectionParams = [];
-
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 2000 , 1000 , 3000 ),
     textChunk:[
@@ -23,22 +21,22 @@ tree.addToInitArray( function(){
       "But Mani could not tell what his truth was."
     ].join("\n" ),
     start:function(){
-      for( var i =0 ; i < this.lights.length; i++ ){
+      for( var i =0 ; i < this.page.lights.length; i++ ){
 
-        if( this.lights[i].playing ){
-          this.lights[i].select();
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
         }
 
         if( 
-          this.lights[i].name === 'snare' ||
-          //this.lights[i].name === 'startingOver' ||
-          this.lights[i].name === 'lup' ||
-         // this.lights[i].name === 'glo' ||
-          this.lights[i].name === 'allRight' //||
-          //this.lights[i].name === 'tongue' //||
-          //this.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'snare' ||
+          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'lup' ||
+         // this.page.lights[i].name === 'glo' ||
+          this.page.lights[i].name === 'allRight' //||
+          //this.page.lights[i].name === 'tongue' //||
+          //this.page.lights[i].name === 'startingOver' ||
         ){
-          this.lights[i].select();
+          this.page.lights[i].select();
         }
 
       }
@@ -51,21 +49,21 @@ tree.addToInitArray( function(){
       "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe the tree and the crystals would be the only friends he would have.",
     ].join("\n" ),
     start:function(){
-      for( var i =0 ; i < this.lights.length; i++ ){
+      for( var i =0 ; i < this.page.lights.length; i++ ){
 
-        if( this.lights[i].playing ){
-          this.lights[i].select();
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
         }
 
         if( 
-          //this.lights[i].name === 'snare' ||
-         // this.lights[i].name === 'startingOver' ||
-          this.lights[i].name === 'lup' ||
-          this.lights[i].name === 'glo' ||
-          this.lights[i].name === 'tongue' //||
-          //this.lights[i].name === 'startingOver' ||
+          //this.page.lights[i].name === 'snare' ||
+         // this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'lup' ||
+          this.page.lights[i].name === 'glo' ||
+          this.page.lights[i].name === 'tongue' //||
+          //this.page.lights[i].name === 'startingOver' ||
         ){
-          this.lights[i].select();
+          this.page.lights[i].select();
         }
 
       }
@@ -81,22 +79,22 @@ tree.addToInitArray( function(){
 
     ].join("\n" ),
     start:function(){
-      for( var i =0 ; i < this.lights.length; i++ ){
+      for( var i =0 ; i < this.page.lights.length; i++ ){
 
-        if( this.lights[i].playing ){
-          this.lights[i].select();
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
         }
 
         if( 
-          //this.lights[i].name === 'snare' ||
-         // this.lights[i].name === 'startingOver' ||
-          //this.lights[i].name === 'lup' ||
-          this.lights[i].name === 'glo'// ||
-          //this.lights[i].name === 'tongue' //||
+          //this.page.lights[i].name === 'snare' ||
+         // this.page.lights[i].name === 'startingOver' ||
+          //this.page.lights[i].name === 'lup' ||
+          this.page.lights[i].name === 'glo'// ||
+          //this.page.lights[i].name === 'tongue' //||
 
-          //this.lights[i].name === 'startingOver' ||
+          //this.page.lights[i].name === 'startingOver' ||
         ){
-          this.lights[i].select();
+          this.page.lights[i].select();
         }
 
       }
@@ -115,25 +113,25 @@ tree.addToInitArray( function(){
 
       G.tmpV3.set( 0 , 2000 , 0 );
       G.sol.transport( G.tmpV3.add( G.position ));
-      this.text[3].activate();
-      for( var i =0 ; i < this.lights.length; i++ ){
+      
+      for( var i =0 ; i < this.page.lights.length; i++ ){
 
-        if( this.lights[i].playing ){
-          this.lights[i].select();
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
         }
 
         if( 
-          this.lights[i].name === 'snare' ||
-          //this.lights[i].name === 'startingOver' ||
-          this.lights[i].name === 'lup' ||
-          this.lights[i].name === 'glo' ||
-          //this.lights[i].name === 'allRight' ||
-          this.lights[i].name === 'game' ||
-          this.lights[i].name === 'tongue' //||
+          this.page.lights[i].name === 'snare' ||
+          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'lup' ||
+          this.page.lights[i].name === 'glo' ||
+          //this.page.lights[i].name === 'allRight' ||
+          this.page.lights[i].name === 'game' ||
+          this.page.lights[i].name === 'tongue' //||
           
-          //this.lights[i].name === 'startingOver' ||
+          //this.page.lights[i].name === 'startingOver' ||
         ){
-          this.lights[i].select();
+          this.page.lights[i].select();
         }
 
       }
@@ -148,10 +146,6 @@ tree.addToInitArray( function(){
  // this.position.set(  0 , -3000 , 0 );
   this.position.set(  -1000 , -3000 , 2500 );
   
-  this.cameraPos =  this.sectionParams[0].cameraPosition;
-
-
-
 
   this.iPlaneDistance = 1000
 

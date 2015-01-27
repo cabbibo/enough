@@ -3,31 +3,31 @@ var sparkles = new Page( 'sparkles' );
 
 sparkles.addToInitArray( function(){
 
-  this.text = [];
-  this.textChunks = [];
 
-  this.textChunks.push( [
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
+    textChunk:[
+      "How glorious these shapes were. As they stoically drifted past him, Mani examined their infinitely precise textures. How Sol must love these objects! he thought, and turned to see the sense of wonder emanating from her being."
+    ].join("\n" ), 
+  });
 
-    "How glorious these shapes were. As they stoically drifted past him, Mani examined their infinitely precise textures. How Sol must love these objects! he thought, and turned to see the sense of wonder emanating from her being."
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 ,900 ),
+    textChunk:[
+      "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
+      "","",
+      "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be scene."
+    ].join("\n" ), 
+  });
 
-  ].join("\n" ));
-
-  this.textChunks.push([
-
-    "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
-    "","",
-    "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be scene."
-
-  ].join("\n" ));
-
-  this.textChunks.push([
-
-    "The devastating weight of the abyss returned. Crashing over him like a wave of silence. He could have never comprehended this loneliness. Now that he had seen the beauty of his friends, to have lost them was too much.",
-    "","",
-    "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
-
-  ].join("\n" ));
-
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 ,1100 ),
+    textChunk:[
+      "The devastating weight of the abyss returned. Crashing over him like a wave of silence. He could have never comprehended this loneliness. Now that he had seen the beauty of his friends, to have lost them was too much.",
+      "","",
+      "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
+    ].join("\n" ), 
+  });
 
   this.position.set(  1000 , 2000 , 1000 );
 
@@ -91,14 +91,6 @@ sparkles.addToStartArray( function(){
 
 sparkles.addToStartArray( function(){
   //G.mani.deactivate();
-
-   for( var i = 0; i < this.textChunks.length; i++ ){
-
-    this.text.push( new PhysicsText( this.textChunks[i] )); 
-
-  }
-
-
   this.sparkles = new Sparkles( this , 64 );
 
   this.looper = new Looper( G.audio , G.timer , {
@@ -138,37 +130,6 @@ sparkles.addToStartArray( function(){
 }.bind( sparkles ) );
 
 
-sparkles.addToActivateArray( function(){
-
-
-  this.text[0].activate();
-  var offset =  G.pageTurnerOffset;
-
-  var callback = function(){
-
-    this.text[0].kill();
-    this.text[1].activate();
-
-    var callback = function(){
-
-      this.text[1].kill();
-      this.text[2].activate();
-    
-      this.endMesh.add( this );
-
-    }.bind( this );
-
-    this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-    this.scene.add( this.transitionMesh2 );
-
-  }.bind( this );
-
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-
-  this.scene.add( this.transitionMesh1 );
-  
-
-}.bind( sparkles ) );
 
 sparkles.addToActivateArray( function(){
 
@@ -195,12 +156,6 @@ sparkles.addToAllUpdateArrays( function(){
  
   this.sparkles.update();
 
-  for( var i = 0; i < this.text.length; i++ ){
-
-    this.text[i].update();
-
-  }
-
 
 }.bind( sparkles));
 
@@ -219,7 +174,6 @@ sparkles.addToActiveArray( function(){
 
 sparkles.addToDeactivateArray( function(){
 
-  this.text[2].kill();
 
 }.bind( sparkles) );
 

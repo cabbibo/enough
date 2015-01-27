@@ -75,7 +75,7 @@ function Page( name , params ){
 
   // SECTIONS
   this.sections       = [];
-  this.text           = [];
+  this.sectionParams  = [];
 
 
   this.frame          = 0;
@@ -206,10 +206,10 @@ Page.prototype.init = function(){
     this.initArray[i]( this );
   }
 
-  console.log('INITS');
-  console.log( this.sectionParams );
   this.createSections( this.sectionParams );
   this.assignSections();
+
+  this.cameraPos.copy( this.sections[0].cameraPosition );
 
 }
 

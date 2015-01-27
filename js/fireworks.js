@@ -17,67 +17,32 @@ fireworks.addToInitArray( function(){
   ];
 
 
-
-  this.textChunks = [];
-  this.textChunks.push([
-
-    "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
+  
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 1000 , 2000 ),
+    textChunk:[
+      "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
   "","",
-    "Like a small fire in the distance, whispered its goodbuys, leaving Sol and Mani to circle a seemingly lonesome lake. They're reflections kept them company, as they danced in the darkness, as they had danced in the light."
+    "Like a small fire in the distance, whispered its goodbuys, leaving Sol and Mani to circle a seemingly lonesome lake. They're reflections kept them company, as they danced in the darkness, as they had danced in the light." 
+    ].join("\n" ),
+  });
 
-  ].join("\n" ));
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 500 , 1000 , 2200 ),
+    textChunk:[
+      "In front of them glorious fireworks rose above the shimmering surface. They're golden sparkles reminded Mani of the first sparkles he had seen, coming from the crystals.",    "","",
+    "He remembered his lonliness, his confusion, as well as each wonder he had discovered. Even the lonely tree he circled was now firmly etched into his memory." 
+    ].join("\n" ),
+  });
 
-  this.textChunks.push([
-
-    "In front of them glorious fireworks rose above the shimmering surface. They're golden sparkles reminded Mani of the first sparkles he had seen, coming from the crystals.",    "","",
-    "He remembered his lonliness, his confusion, as well as each wonder he had discovered. Even the lonely tree he circled was now firmly etched into his memory."
-
-  ].join("\n" ));
-
-
-
-  this.textChunks.push([
-
-    "Even as the two spiraled together, Mani remembered the Golden Diety that had invited him towards the light. He thought, heart filled with meloncholy, that maybe he was mistaken. That maybe he should have learned what was True, and become one with life.",
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( -500 , 2000 , 2200 ),
+    textChunk:[
+      "Even as the two spiraled together, Mani remembered the Golden Diety that had invited him towards the light. He thought, heart filled with meloncholy, that maybe he was mistaken. That maybe he should have learned what was True, and become one with life.",
     "","",
-    "But next to him, Sol swam. In the distance the sparkles shimmered. The water glistened below them, and Mani realized, this was Enough."
-    
-  ].join("\n" ));
-
-
-
-  this.cameraPositions = [
-    new THREE.Vector3(    0 , 1000 , 2000 ),
-    new THREE.Vector3(  500 , 1000 , 2200 ),
-    new THREE.Vector3( -500 , 2000 , 2200 )
-  ]
-  this.cameraPos =  this.cameraPositions[0];
-
-  this.sectionParams = [
-
-    {
-      transitionIn: function(){ console.log('First tran in');},
-      transitionOut: function(){ console.log('first tran out');},
-      start: function(){ console.log('first start');},
-      end: function(){ console.log('first end');}
-    },
-
-    {
-      transitionIn: function(){ console.log('Second tran in');},
-      transitionOut: function(){ console.log('Second tran out');},
-      start: function(){ console.log('Second start');},
-      end: function(){ console.log('Second end');}
-    },
-    
-    {
-      transitionIn: function(){ console.log('Third tran in');},
-      transitionOut: function(){ console.log('Third tran out');},
-      start: function(){ console.log('Third start');},
-      end: function(){ console.log('Third end'); }
-    }
-
-  ];
-    
+    "But next to him, Sol swam. In the distance the sparkles shimmered. The water glistened below them, and Mani realized, this was Enough." 
+    ].join("\n" ),
+  });
 
 
 }.bind( fireworks ) );
@@ -267,11 +232,6 @@ fireworks.addToActivateArray( function(){
 
 fireworks.addToActiveArray( function(){
 
-  //this.fireworks.update();
-  for( var i = 0; i < this.text.length; i++ ){
-    this.text[i].update();
-  }
- 
   for( var i=0; i < this.fireworks.length; i++ ){
 
     this.fireworks[i].update();

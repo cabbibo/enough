@@ -6,7 +6,6 @@ alone.addToInitArray( function(){
   console.log( 'INAT');
   this.title = "Real Time Is Now";
 
-  this.sectionParams = [];
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3(  0 , 800 , 100 ),
@@ -54,8 +53,6 @@ alone.addToInitArray( function(){
  
   this.position.set(  0 , 0 , 0 );
   
-  this.cameraPos =  this.sectionParams[0].cameraPosition;
-
   this.iPlaneDistance = 1000
 
 }.bind( alone ) );

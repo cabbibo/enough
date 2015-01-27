@@ -86,7 +86,6 @@ sun.addToInitArray( function(){
   });
   
   
-  this.cameraPos =  this.sectionParams[0].cameraPosition;
   
   this.position.set(  9000 , 0 , 0 );
   this.iPlaneDistance = 1000;

@@ -9,7 +9,14 @@ Page will take these 3 things and make the sections!
 - TODO: Make it so we can have a look pos too!
 
 
+
+
 THINGS TO DO:
+
+PLANETS Level. Text creation shoudl be able to pass in the repel array for all of the object, but right now nothing repels the text but intersect point!!!
+
+SAME AS ABOVE FOR CREDITT!
+
 
 SUN level.
 CREDITS level.

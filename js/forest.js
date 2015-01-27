@@ -2,8 +2,6 @@ var forest = new Page( 'forest' );
 
 forest.addToInitArray( function(){
 
-  this.sectionParams = [];
-
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 3500 ),
     textChunk:[
@@ -26,7 +24,7 @@ forest.addToInitArray( function(){
 
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( -1000 , -1000 , 2500),
+    cameraPosition: new THREE.Vector3( -1000 , -1000 , 2500 ),
     textChunk:[
       "Mani almost envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but still it seemed as though they had found some sort of purpose in they shimmering sanctuary. For them, to sing, no matter if others were listening, was enough.",
       "","",
@@ -54,9 +52,6 @@ forest.addToInitArray( function(){
  // this.position.set(  0 , 0 , -2500 );
 
   this.position.set(  500 , 2000 , -3900 );
-  
-  this.cameraPos =  this.sectionParams[0].cameraPosition;
-
   
   
   this.iPlaneDistance = 3000

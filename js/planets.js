@@ -4,45 +4,36 @@ planets.addToInitArray( function(){
 
   this.planetGeo = new THREE.IcosahedronGeometry( 100 , 5 );
   
-  this.text = [];
-  this.textChunks = [];
-
-  this.textChunks.push( [
-
-    "There wasn’t just one more of him. There was a myriad.",
-    "","",
-    "Mani had never felt so right for being so wrong. He would never be lonely again."
-
-  ].join("\n"));
-
-  this.textChunks.push( [
-
-    "The creatures swam through the infinity together. It no longer mattered to Mani that he didn’t have the answers. It didn’t matter that he still surrounded by darkness. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in mysterious Eden they inhabited."
-
-  ].join("\n"));
-
-  this.textChunks.push([
-
-    "Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his golden community.",
-    "","",
-    "In the distance he saw soft sparkles and motioned for his companions to follow him, triumphantly, to their next destination."
-
-  ].join("\n"));
-
-
   this.position.set(  -1000 ,  2000 ,  -1000 );
-  /*this.cameraPos.set( -1000 , 2000 , 0 );
-
-  this.cameraPos2 = new THREE.Vector3( 0 , 2000 , -500 );
-  this.cameraPos3 = new THREE.Vector3( -2000 , 2000 , -500 );*/
  
-  this.cameraPositions = [];
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 1000 ) ,
+    textChunk:[
+      "There wasn’t just one more of him. There was a myriad.",
+      "","",
+      "Mani had never felt so right for being so wrong. He would never be lonely again."
+    ].join("\n" ), 
+  });
 
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
-  this.cameraPositions.push( new THREE.Vector3(  1000 , 0 , 500 ) );
-  this.cameraPositions.push( new THREE.Vector3(  -1000 , 0 , 500 ) );
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 1000 , 0 , 500 ) ,
+    textChunk:[
+      "The creatures swam through the infinity together. It no longer mattered to Mani that he didn’t have the answers. It didn’t matter that he still surrounded by darkness. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in mysterious Eden they inhabited."
+    ].join("\n" ), 
+  });
 
-  this.cameraPos =  this.cameraPositions[0];
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( -1000 , 0 , 500 ),
+    textChunk:[
+      "Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his golden community.",
+      "","",
+      "In the distance he saw soft sparkles and motioned for his companions to follow him, triumphantly, to their next destination." 
+    ].join("\n" ), 
+  });
+
+
+
+
 
 
   this.iPlaneDistance = 1200;
@@ -295,6 +286,10 @@ planets.addToStartArray( function(){
 
   }
 
+  /*
+   
+     TODO: PASS IN THIS TO TEXT CREATION
+
   for( var i = 0; i < this.textChunks.length; i++ ){
 
     this.text.push( new PhysicsText( this.textChunks[i],{
@@ -303,6 +298,8 @@ planets.addToStartArray( function(){
     })); 
 
   }
+
+  */
 
 }.bind( planets ));
 
@@ -330,69 +327,8 @@ planets.addToStartArray( function(){
 }.bind( planets ));
 
 
-
-
-
-
-/*
-
-   END BUTTON
-
-*/
-
-planets.addToActivateArray( function(){
-
-  this.text[0].activate();
-
-  var offset = G.pageTurnerOffset;
-
-  var callback = function(){
-
-    this.text[0].kill( 10000 );
-
-    this.tweenCamera( this.cameraPositions[1] , 5000 , function(){
-
-      this.text[1].activate();
-
-      var offset =  G.pageTurnerOffset;
-
-      //this.
-
-      var callback = function(){
-
-        this.text[1].kill( 10000 );
-
-        this.tweenCamera( this.cameraPositions[2] , 5000 , function(){
-
-          this.text[2].activate();
-          this.endMesh.add( this );
-
-        }.bind( this ) );
-
-      }.bind( this );
-
-      this.transitionMesh2 = this.createTurnerMesh( offset , callback );
-      this.scene.add( this.transitionMesh2 );
-
-    }.bind( this ) );
-  }.bind( this );
-
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-  this.scene.add( this.transitionMesh1 );
-
-
-
- 
-}.bind( planets ));
-
-
 planets.addToAllUpdateArrays( function(){
 
-  for( var i = 0; i < this.text.length; i++ ){
-
-    this.text[i].update();
-
-  }
   
   for( var i = 0; i < this.furryTails.length; i++ ){
 
@@ -413,15 +349,7 @@ planets.addToAllUpdateArrays( function(){
 }.bind( planets ) );
 
 
-planets.addToDeactivateArray( function(){
-
-  this.text[2].kill();
-
-}.bind( planets ));
-
-
 planets.addToEndArray( function(){
-
 
   this.looper.end();
 

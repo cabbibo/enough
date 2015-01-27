@@ -15,21 +15,34 @@ credits.addToInitArray( function(){
 
   ].join("\n" ));
 
-  this.textChunks.push( [
-    "THANKS:","","",
-    "Jaume Sanchez   Ricardo Cabello   Eddie Lee  Reza Ali  Robbie Tilton  Nicole Campos  Julia Sills    Luke Ishmael   Alex Dotter   Andrew Benson   Grant Marr   Erica Gibbons  Andrew West   Kristi Upson-Saia   Malek   Dale Wright   George Schmiedeschoff  Sally Visher  Joseph Cohen    Abe Cohen   Xochitl Garcia   Luke Abbott   Holy Other   Tielsie  Susanna and the Magical Orchestra    Pantha Du Prince"
-  ].join("\n" ));
 
 
-  this.position.set(  0 , 1000 , 0 );
-  this.cameraPos.set( 0 , 1000 , 1000 );
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1000 ),
+    textChunk:[
+      "                 Who could be so lucky?                      ",
+    "","",
+    "Who comes to a lake for water and sees the reflection of moon.",
+  "","",
 
-  this.cameraPositions = [];
+    "                         - Rumi                                 "
+    ].join("\n" ), 
+  });
 
-  this.cameraPositions.push( new THREE.Vector3(  0 , 0 , 1000 ) );
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
+    textChunk:[
+     "THANKS:","","",
+      "Jaume Sanchez   Ricardo Cabello   Eddie Lee  Reza Ali  Robbie Tilton  Nicole Campos  Julia Sills    Luke Ishmael   Alex Dotter   Andrew Benson   Grant Marr   Erica Gibbons  Andrew West   Kristi Upson-Saia   Malek   Dale Wright   George Schmiedeschoff  Sally Visher  Joseph Cohen    Abe Cohen   Xochitl Garcia   Luke Abbott   Holy Other   Tielsie  Susanna and the Magical Orchestra    Pantha Du Prince"
+    ].join("\n" ), 
+  });
 
-  this.cameraPos =  this.cameraPositions[0];
 
+
+
+
+
+  this.position.set(  0 , 2000 , 0 );
 
   this.iPlaneDistance = 1000;
 
@@ -65,10 +78,6 @@ credits.addToInitArray( function(){
 
 credits.addToStartArray( function(){
 
-  /*G.position.copy( this.position );
-  G.camera.position.copy( this.cameraPos );
-  G.camera.lookAt( this.position );//= 1000;*/
-
   G.iPlaneDistance = this.iPlaneDistance;
 
 }.bind( credits ));
@@ -76,7 +85,10 @@ credits.addToStartArray( function(){
 
 credits.addToStartArray( function(){
 
- 
+  /*
+  
+     TODO make passable in section
+
   for( var i = 0; i < this.textChunks.length; i++ ){
 
     this.text.push( new PhysicsText( this.textChunks[i] , { 
@@ -84,6 +96,8 @@ credits.addToStartArray( function(){
     } )); 
 
   }
+
+  */
 
   this.looper = new Looper( G.audio , G.timer , {
 
@@ -107,45 +121,6 @@ credits.addToStartArray( function(){
 
 }.bind( credits ) );
 
-
-credits.addToActivateArray( function(){
-
- // this.endMesh.add( this );
-  this.text[0].activate();
-
-  var offset = new THREE.Vector3( 0 , -100 , -900 );
-
-  var callback = function(){
-
-    this.text[0].kill();
-
-    this.text[1].activate();
-
-    //this.endMesh.add( this );
-
-  }.bind( this );
-
-  this.transitionMesh1 = this.createTurnerMesh( offset , callback );
-
-  this.scene.add( this.transitionMesh1 );
-
-}.bind( credits ));
-
-
-credits.addToAllUpdateArrays( function(){
-    
-  for( var i = 0; i < this.text.length; i++ ){
-    this.text[i].update();
-  }
-
-}.bind( credits ));
-
-
-credits.addToDeactivateArray( function(){
-
-  this.text[2].kill();
-
-}.bind( credits) );
 
 credits.addToEndArray( function(){
 
