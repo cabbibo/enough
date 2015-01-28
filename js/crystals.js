@@ -3,6 +3,9 @@ var crystals = new Page( 'crystals' );
 
 crystals.addToInitArray( function(){
 
+  this.mani = true;
+  this.sol  = false;
+
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3(  500 , 1000 , 1400 ),
     textChunk:[

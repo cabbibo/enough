@@ -3,6 +3,8 @@ var sun = new Page( 'sun' );
 
 sun.addToInitArray( function(){
 
+  this.mani = true;
+  this.sol  = false;
 
   /*  
 
@@ -20,16 +22,21 @@ sun.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(   -6000 ,    0 ,    0 ),
+    cameraPosition: new THREE.Vector3(   -8000 ,    0 ,   3000 ),
     textChunk:[
       "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
       "","",
       "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
     ].join("\n" ),
+    transitionIn:function(){
+      this.page.iPlaneDistance = 2000 ;
+      G.iPlaneDistance = this.page.iPlaneDistance;
+    },
   });
     
   this.sectionParams.push({
-    cameraPosition:  new THREE.Vector3(   -4000 ,    0 , 1000 ),
+    cameraPosition: new THREE.Vector3(   -4000 ,    0 , 4000 ),
+    lookPosition:   new THREE.Vector3(   -4000 ,  0 , 0 ),
     textChunk: [
       "Further and further Mani swam, approaching the loving behemoth.",
       "","",
@@ -38,10 +45,18 @@ sun.addToInitArray( function(){
       "So inwards Mani went."
 
     ].join("\n" ),
+    transitionIn:function(){
+      this.page.iPlaneDistance = 4000 ;
+      G.iPlaneDistance = this.page.iPlaneDistance;
+    },
+    transitionOut:function(){
+      this.page.iPlaneDistance = 1200 ;
+      G.iPlaneDistance = this.page.iPlaneDistance;
+    }
   });
 
   this.sectionParams.push({
-    cameraPosition:new THREE.Vector3( 0 , 4000 , 4000 ),
+    cameraPosition:new THREE.Vector3( -1000 , 0 , 1000 ),
     textChunk:[
     
      "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
@@ -53,7 +68,7 @@ sun.addToInitArray( function(){
 
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 1000 , 1000 ),
+    cameraPosition: new THREE.Vector3( -200 , 0 , 1400 ),
     textChunk:["The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
        "","",
        "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
@@ -62,19 +77,33 @@ sun.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 ,    0 ,  100 ),
+    cameraPosition: new THREE.Vector3( 1000 ,    0 ,  1000 ),
+    lookPosition: new THREE.Vector3( 500 , 0 , 0 ),
     textChunk: [
       "It was Sol!",
       "","",
       "She swam to him. And he towards her.",
       "","",
       "The being sang in the background of the world Beyond, urging Mani to return towards its arms. But there was Sol, so sweetly she swam, and Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
-    ].join("\n" )
+    ].join("\n" ),
+    transitionIn:function(){
+
+      G.sol.activate();
+      G.v1.copy( this.page.position );
+      G.v2.set( 3000 , 0 , 0 );
+      G.v1.add( G.v2 );
+      G.sol.transport( G.v1 );
+      G.solAttractor.copy( G.mani.position );
+      
+
+
+    }
 
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 1000 ,  100 ), 
+    cameraPosition: new THREE.Vector3( 1000 , 500 ,  1000 ), 
+    lookPosition: new THREE.Vector3( 1000 , 500 ,  0 ), 
     textChunk:[
       "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
       "","",
@@ -149,9 +178,6 @@ sun.addToStartArray( function(){
   //G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = this.iPlaneDistance;
-
-  G.mani.activate();
-  G.sol.activate();
 
 }.bind( sun ));
 
@@ -277,14 +303,6 @@ sun.addToStartArray( function(){
 
 
 
-sun.addToActivateArray( function(){
-
-  G.mani.transport( G.position );
-  G.sol.transport( G.position );
-  //this.text[0].activate();
-
-}.bind( sun ));
-
 
 sun.addToAllUpdateArrays( function(){
 
@@ -315,5 +333,4 @@ sun.addToEndArray( function(){
   this.looper.end();
 
 }.bind( sun) );
-
 

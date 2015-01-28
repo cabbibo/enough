@@ -2,6 +2,8 @@ var flocking = new Page( 'flocking' );
 
 flocking.addToInitArray( function(){
 
+  this.mani = true;
+  this.sol  = false;
   
   // Position relative to previous page
   this.position.set(  2000 , -2000 , 0 );
@@ -146,10 +148,6 @@ flocking.addToStartArray( function(){
   G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
   G.tmpV3.set( 0 , 201 , 0 )
   G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
-
-  G.mani.activate();
-
-  G.mani.transport( G.position );
 
 }.bind( flocking ));
 

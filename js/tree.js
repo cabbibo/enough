@@ -3,6 +3,9 @@ var tree = new Page( 'tree' );
 
 tree.addToInitArray( function(){
 
+  this.mani = true;
+  this.sol  = false;
+
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 2000 , 1000 , 3000 ),
     textChunk:[

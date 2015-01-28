@@ -3,6 +3,8 @@ var sparkles = new Page( 'sparkles' );
 
 sparkles.addToInitArray( function(){
 
+  this.mani = true;
+  this.sol  = false;
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),

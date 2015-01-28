@@ -2,6 +2,8 @@ var alone = new Page( 'alone' );
 
 alone.addToInitArray( function(){
 
+  this.mani = false;
+  this.sol  = false;
 
   console.log( 'INAT');
   this.title = "Real Time Is Now";
@@ -16,9 +18,23 @@ alone.addToInitArray( function(){
     }
     
   });
+
   this.sectionParams.push({
     
-    cameraPosition: new THREE.Vector3(  0 , 0 , 1000 ),
+    cameraPosition: new THREE.Vector3(  500  , 800 , 2000 ),
+    lookPosition: new THREE.Vector3(  500  , 0 , -500 ),
+    transitionTime: 3000,
+    textChunk:[
+      "For My Teachers",
+      "","",
+      "Who somehow always managed to put up with me."
+    ].join("\n" ),
+
+  });
+
+  this.sectionParams.push({
+    
+    cameraPosition: new THREE.Vector3(  0 , -50 , 1000 ),
     transitionTime: 3000,
     textChunk:[
       "When Mani awoke, he had no idea where he was.",

@@ -2,7 +2,10 @@ var fireworks = new Page( 'fireworks' );
 
 
 fireworks.addToInitArray( function(){
-  
+ 
+  this.mani = true;
+  this.sol  = true;
+
   this.position.set(  0 , -6000 , 0 )
 
   this.iPlaneDistance = 1100;
@@ -23,7 +26,7 @@ fireworks.addToInitArray( function(){
     textChunk:[
       "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
   "","",
-    "Like a small fire in the distance, whispered its goodbuys, leaving Sol and Mani to circle a seemingly lonesome lake. They're reflections kept them company, as they danced in the darkness, as they had danced in the light." 
+    "Like a small fire in the distance, it whispered its goodbyes, leaving Sol and Mani to circle a seemingly lonesome lake. Their reflections kept them company, and they danced in the darkness, as they had danced in the light." 
     ].join("\n" ),
   });
 
@@ -88,11 +91,6 @@ fireworks.addToInitArray( function(){
 
 
 fireworks.addToStartArray( function(){
-  //G.mani.deactivate();
-
-  G.mani.activate();
-  G.sol.activate();
-
  // var h = 
   /*this.water  = new Water(this , 0);
   this.water.body.rotation.x = -Math.PI / 2;*/

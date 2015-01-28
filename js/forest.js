@@ -1,6 +1,9 @@
 var forest = new Page( 'forest' );
 
 forest.addToInitArray( function(){
+  
+  this.mani = true;
+  this.sol  = false;
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 3500 ),

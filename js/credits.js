@@ -2,6 +2,9 @@ var credits = new Page( 'credits' );
 
 credits.addToInitArray( function(){
 
+  this.mani = true;
+  this.sol  = false;
+
   this.text = [];
   this.textChunks = [];
   this.textChunks.push( [

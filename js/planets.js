@@ -2,6 +2,9 @@ var planets = new Page( 'planets' );
 
 planets.addToInitArray( function(){
 
+  this.mani = true;
+  this.sol  = true;
+
   this.planetGeo = new THREE.IcosahedronGeometry( 100 , 5 );
   
   this.position.set(  -1000 ,  2000 ,  -1000 );
