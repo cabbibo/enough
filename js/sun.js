@@ -221,7 +221,7 @@ sun.addToStartArray( function(){
       mesh.scale.multiplyScalar( 10 );
       this.repelers.push( mesh );
 
-      this.scene.add( mesh );
+      //this.scene.add( mesh );
 
       mesh.position.x = (Math.random() - .5 ) * 2000;
       mesh.position.z = (Math.random() - .5 ) * 2000;

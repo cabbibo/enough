@@ -7,6 +7,7 @@ forest.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 3500 ),
+    transitionTime:3000,    
     textChunk:[
       "After leaving the crystals, Mani swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. Powerful as they were, they made way for his slender form, bowing out of his way as if he were royalty."
     ].join("\n" ), 
@@ -14,6 +15,7 @@ forest.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 1000 , 1000 , 2500 ),
+    transitionTime:3000,
     textChunk:[
       "Mani was mesmerized by their song. It felt old and wise, full of love and sadness. He tried to comprehend, and by doing so recognized his own loneliness. He loved the forest, and how it proclaimed its hymn to the darkness, but knew it could not fill the void he was beginning to feel in his heart."
     ].join("\n" ),
@@ -28,6 +30,7 @@ forest.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -1000 , -1000 , 2500 ),
+    transitionTime:3000,    
     textChunk:[
       "Mani almost envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but still it seemed as though they had found some sort of purpose in they shimmering sanctuary. For them, to sing, no matter if others were listening, was enough.",
       "","",

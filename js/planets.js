@@ -351,10 +351,17 @@ planets.addToAllUpdateArrays( function(){
 
 }.bind( planets ) );
 
+planets.addToDeactivateArray( function(){
+
+  G.v1.set( -100000 , 0 , 0 );
+  G.solAttractor.add( G.v1 );
+
+}.bind( planets ));
 
 planets.addToEndArray( function(){
 
   this.looper.end();
+  G.sol.deactivate();
 
 }.bind( planets ));
 
