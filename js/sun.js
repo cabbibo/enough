@@ -45,13 +45,46 @@ sun.addToInitArray( function(){
       "So inwards Mani went."
 
     ].join("\n" ),
-    transitionIn:function(){
-      this.page.iPlaneDistance = 4000 ;
-      G.iPlaneDistance = this.page.iPlaneDistance;
+    start:function(){
+     
+      G.iPlane.faceCamera = false;
+  
+    
+      G.v1.copy( G.camera.position );
+     // G.v1.normalize();
+     // G.v1.multiplyScalar( 300 );
+
+      G.v2.set( 0 , 0 , -1 );
+      G.v2.applyQuaternion( G.camera.quaternion );
+      G.v2.multiplyScalar( 3000 );
+      
+      G.v1.add( G.v2 );
+
+     // G.iPlane.position.copy( G.camera.position );
+      G.iPlane.position.copy( G.v1 );
+
+
+      G.v2.copy( G.lookAt );
+      G.v2.sub( G.camera.position );
+      G.v2.normalize();
+      G.v2.multiplyScalar( -1 );
+      G.v1.add( G.v2 );
+
+      G.v2.set( -1 , 0 , 0 );
+      G.v2.applyQuaternion( G.camera.quaternion );
+      G.v2.multiplyScalar( 1 );
+      G.v1.add( G.v2 );
+
+
+
+      G.iPlane.lookAt( G.v1 );
+      //G.iPlane.visible = true;
+
     },
     transitionOut:function(){
       this.page.iPlaneDistance = 1200 ;
       G.iPlaneDistance = this.page.iPlaneDistance;
+      G.iPlane.faceCamera = true;
     }
   });
 

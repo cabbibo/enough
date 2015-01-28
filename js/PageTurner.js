@@ -87,7 +87,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   // 
 
-  this.sceneStartPos = page.position.clone();
+  this.sceneStartPos = G.lookAt.clone(); //page.position.clone();
 
   page.nextPage.position.add( page.position );
 
