@@ -62,6 +62,7 @@ Section.prototype._start = function(){
   this.start();
 
   if( this.text ){
+    console.log('ACTIVATINGS');
     this.text.activate();
   }
 

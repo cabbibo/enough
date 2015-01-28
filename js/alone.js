@@ -13,21 +13,26 @@ alone.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  0 , 800 , 100 ),
     transitionTime: 1000000,
     transitioningOut:function(){ 
-      console.log('HELLOS'); 
      // this.page.titleOpacity = 1 - t
-    }
+    },
+    textChunk:[
+      "For My Teachers",
+   
+    ].join("\n" ),
     
   });
 
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3(  500  , 800 , 2000 ),
-    lookPosition: new THREE.Vector3(  500  , 0 , -500 ),
+    //lookPosition: new THREE.Vector3(  500  , 0 , -500 ),
     transitionTime: 3000,
     textChunk:[
       "For My Teachers",
       "","",
-      "Who somehow always managed to put up with me."
+      "Who somehow always managed to put up with me.",
+      "Especially the two who had it the worst:",
+      "Mom & Dad."
     ].join("\n" ),
 
   });
@@ -122,9 +127,6 @@ alone.addToStartArray( function(){
   var tt = this.titleTexture
   var scale = new THREE.Vector2( .5 , (.5 * tt.scaledHeight) / tt.scaledWidth );
  
-console.log('SCALED')
-  console.log( scale );
-
   var titleGeo = new THREE.PlaneGeometry( 2000 , 2000 , 100 , 100 );
 
 
