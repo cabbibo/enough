@@ -147,11 +147,53 @@ PhysicsText.prototype.instant = function(){
 
 }
 
+PhysicsText.prototype.transport = function( position ){
+
+  var data = new Float32Array( this.size * this.size * 4 );
+  var positionsTexture = new THREE.DataTexture(
+    data, 
+    this.size, 
+    this.size, 
+    THREE.RGBAFormat, 
+    THREE.FloatType 
+  );
+
+  positionsTexture.minFilter = THREE.NearestFilter;
+  positionsTexture.magFilter = THREE.NearestFilter;
+  positionsTexture.generateMipmaps = false;
+  positionsTexture.needsUpdate = true;
+
+  // giving some randomness, so that objects splay out properly
+  for( var i = 0; i < data.length; i += 4 ){
+
+    data[ i + 0 ] = position.x + Math.random() * 100;
+    data[ i + 1 ] = position.y + Math.random() * 100;
+    data[ i + 2 ] = position.z + Math.random() * 100;
+
+    data[ i + 3 ] = 0;
+
+  }
+
+  positionsTexture.needsUpdate = true;
+
+  this.physics.reset( positionsTexture );
+
+
+}
+
+
 
 PhysicsText.prototype.activate = function(){
 
   this.active = true;
   this.alive.value = 1;
+
+
+  G.v1.copy( G.camera.position  );
+  G.v2.set( 0 , 3000 , -2000 );
+  G.v2.applyQuaternion(G.camera.quaternion);
+  G.v1.add( G.v2 );
+  this.transport( G.v1 );
   G.scene.add( this.particles );
 
 }

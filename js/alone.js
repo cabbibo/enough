@@ -15,23 +15,24 @@ alone.addToInitArray( function(){
     transitioningOut:function(){ 
      // this.page.titleOpacity = 1 - t
     },
-    textChunk:[
-      "For My Teachers",
-   
-    ].join("\n" ),
+   /* start:function(){
+      G.mani.activate();
+      G.mani.deactivate();
+    }*/
     
   });
 
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3(  500  , 800 , 2000 ),
-    //lookPosition: new THREE.Vector3(  500  , 0 , -500 ),
+    lookPosition: new THREE.Vector3(  500  , 0 , -500 ),
     transitionTime: 3000,
     textChunk:[
       "For My Teachers",
       "","",
       "Who somehow always managed to put up with me.",
       "Especially the two who had it the worst:",
+      "","",
       "Mom & Dad."
     ].join("\n" ),
 
