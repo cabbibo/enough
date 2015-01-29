@@ -19,13 +19,15 @@ sparkles.addToInitArray( function(){
     textChunk:[
       "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
       "","",
-      "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be scene."
+      "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
     ].join("\n" ),
     transitionIn:function(){
 
       console.log('TANSL');
       this.cameraPosition.copy( G.camera.position );
-      this.page.cameraPos.copy( G.camera.position );
+      this.page.cameraPos.x =  G.camera.position.x;
+      this.page.cameraPos.y =  G.camera.position.y;
+      this.page.cameraPos.z =  G.camera.position.z
       this.lookPosition.copy( this.page.position );
       //G.lookAt.copy( this.page.position );
      // G.camera.position.copy( this.page.position );
@@ -51,6 +53,8 @@ sparkles.addToInitArray( function(){
       this.page.cameraPos.x =  G.camera.position.x;
       this.page.cameraPos.y =  G.camera.position.y;
       this.page.cameraPos.z =  G.camera.position.z;
+     // this.page.cameraPos.copy( G.camera.position );
+      
       this.lookPosition.copy( this.page.position );
 
 
@@ -193,6 +197,7 @@ sparkles.addToActiveArray( function(){
   this.position.x     += this.movementRate;
   G.camera.position.x += this.movementRate;
   G.position.copy( this.position );
+  G.lookAt.copy( this.position );
   G.camera.lookAt( this.position );//= 1000;
 
 
@@ -201,7 +206,8 @@ sparkles.addToActiveArray( function(){
 
 sparkles.addToDeactivateArray( function(){
 
-
+//  G.position.copy( this.position );
+//  G.camera.lookAt( this.position );
 }.bind( sparkles) );
 
 

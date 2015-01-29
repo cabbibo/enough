@@ -216,8 +216,8 @@ tree.addToInitArray( function(){
     
     radius:                 100,
     height:                1000,
-    sides:                    8,
-    numOf:                   18, 
+    sides:                    6,
+    numOf:                   14, 
     randomness:             180,
     slices:                 100,
     startingChance:          4.,
@@ -227,7 +227,7 @@ tree.addToInitArray( function(){
     numOfReducer:            .8,
     progressionPower:        1.4,
     lengthReduction:         .5,
-    maxIterations:            3,
+    maxIterations:           3,
     material:             null,
     createTree: function(){
       this.createTree();
@@ -257,6 +257,7 @@ tree.addToInitArray( function(){
     bumpSize: { type:"f" , value:.001 } ,
     bumpSpeed: { type:"f" , value:.1 } ,
     bumpCutoff: { type:"f" , value:.5 } ,
+    t_audio: G.t_audio
 
   }
 
@@ -509,6 +510,7 @@ tree.addToStartArray( function(){
 
     uniforms:{
       timer:G.timer,
+      t_audio:G.t_audio,
       t_normal:{ type:"t" , value: G.TEXTURES.sand },
       normalScale:  this.floorParams.normalScale,
       texScale:     this.floorParams.texScale,
@@ -521,7 +523,8 @@ tree.addToStartArray( function(){
       lightPositions: this.lightParams.positions, 
       lightTextures:  this.lightParams.textures,
       lightColors:    this.lightParams.colors,
-      cameraPos:{ type:"v3" , value: G.camera.position }
+      cameraPos:{ type:"v3" , value: G.camera.position },
+      lightPos:{ type:"v3" , value: G.mani.position }
     },
 
     vertexShader: G.shaders.vs.treeFloor,
@@ -549,6 +552,7 @@ tree.addToStartArray( function(){
     uniforms:{
       timer:G.timer,
       t_normal:{ type:"t" , value: G.TEXTURES.sand },
+      t_audio:G.t_audio,
       t_iri:{ type:"t" , value: G.TEXTURES.iriTurq },
       normalScale:  this.treeRenderParams.normalScale,
       texScale:     this.treeRenderParams.texScale,
@@ -557,6 +561,7 @@ tree.addToStartArray( function(){
       lightPositions: this.lightParams.positions,
       lightTextures: this.lightParams.textures,
       lightColors: this.lightParams.colors,
+      lightPos:{type:"v3" , value:G.mani.position },
       cameraPos:{ type:"v3" , value: G.camera.position }
     },
     vertexShader: G.shaders.vs.tree,

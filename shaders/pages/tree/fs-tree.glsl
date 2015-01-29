@@ -3,10 +3,13 @@
 uniform float timer;
 uniform sampler2D t_normal;
 uniform sampler2D t_iri;
+uniform sampler2D t_audio;
+
 
 uniform vec3 lightPositions[7];
 uniform sampler2D lightTextures[7];
 uniform vec3 lightColors[7];
+
 
 uniform vec3 cameraPos;
 
@@ -21,6 +24,7 @@ varying vec2 vUv;
 varying vec3 vLightDir[7];
 varying float vDistMultiplier[7];
 varying vec3 vCamDir;
+varying vec3 vManiDir;
 
 
 varying vec3 vView;
@@ -78,16 +82,20 @@ void main(){
     vec3 refl = reflect( -vLightDir[i] , fNorm );
     float reflFR = dot( -refl , vCamDir );
 
-    vec3 iri = texture2D( lightTextures[i] , vec2( reflFR*reflFR , 0. ) ).xyz;
-
-    totalIri +=  lightColors[i] * iri * vDistMultiplier[i] * fr * fr *fr;
+    //vec3 iri = texture2D( lightTextures[i] , vec2( reflFR*reflFR , 0. ) ).xyz;
+    //totalIri +=  lightColors[i] * iri * vDistMultiplier[i] * fr * fr *fr;
+    totalIri +=  lightColors[i] *  vDistMultiplier[i] * fr * fr *fr;
 
 
   }
 
+vec3 refl = reflect( -vManiDir , fNorm );
+    float reflFR = dot( -refl , vCamDir );
 
+
+  vec3 aCol = texture2D( t_audio , vec2( reflFR , 0. ) ).xyz;
     
-  gl_FragColor = vec4( totalIri , 1. );
+  gl_FragColor = vec4( aCol *totalIri , 1. );
 
 
 }

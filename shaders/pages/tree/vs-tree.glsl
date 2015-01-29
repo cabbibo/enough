@@ -1,7 +1,7 @@
 
 uniform vec3 cameraPos;
 uniform vec3 lightPositions[7];
-
+uniform vec3 lightPos;
 uniform float lightCutoff;
 uniform float lightPower;
 
@@ -9,6 +9,8 @@ uniform float lightPower;
 varying vec3 vNorm;
 varying vec3 vPos;
 varying vec3 vMPos;
+
+varying vec3 vManiDir;
 
 varying vec3 vLightDir[7];
 varying float vDistMultiplier[7];
@@ -32,6 +34,7 @@ void main(){
 
   }
 
+  vManiDir   = normalize( vMPos - lightPos);
    
   vCamDir   = normalize( vMPos - cameraPos);
 

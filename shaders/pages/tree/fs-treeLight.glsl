@@ -49,8 +49,6 @@ void main(){
 
   vec3 fColor = color * aFR.xyz + color * .4 * facingRatio + color * .9 * ( 1. - facingRatio ) * hovered;
 
-
- 
   gl_FragColor = vec4( fColor , 1. );
 
 }

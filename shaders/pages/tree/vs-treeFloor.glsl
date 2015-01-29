@@ -10,6 +10,7 @@ uniform vec3 lightPositions[7];
 uniform float lightCutoff;
 uniform float lightPower;
 
+uniform vec3 lightPos;
 varying vec3 vNorm;
 varying vec3 vPos;
 varying vec3 vMPos;
@@ -18,6 +19,7 @@ varying vec2 vUv;
 varying vec3 vLightDir[7];
 varying float vDistMultiplier[7];
 varying vec3 vCamDir;
+varying vec3 vManiDir;
 
 $simplex
 
@@ -72,6 +74,7 @@ void main(){
 
 
   vCamDir   = normalize( vMPos - cameraPos);
+  vManiDir   = normalize( vMPos - lightPos);
  
 
 

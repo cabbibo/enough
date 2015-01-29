@@ -551,7 +551,8 @@ G.updateAttractor = function(){
 
     G.tmpV3.copy( this.solVelocity );
     G.tmpV3.normalize();
-    G.tmpV3.multiplyScalar( 2.4 );
+    G.tmpV3.multiplyScalar( 3.4 );
+    G.tmpV3.multiplyScalar( G.dT.value * 60 );
     this.solAttractor.add( G.tmpV3 );
 
     this.solVelocity.multiplyScalar( .995 );
