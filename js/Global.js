@@ -105,6 +105,7 @@ G.paused  = false;
 
 G.renderer.setSize( G.w , G.h );
 G.container.appendChild( G.renderer.domElement );
+G.composer = new WAGNER.Composer( G.renderer, { useRGBA: false } );
   
 G.stats.domElement.id = 'stats';
 //document.body.appendChild( G.stats.domElement );
@@ -128,6 +129,8 @@ G.startArray = [];
 
 
 G.init = function(){
+
+
 
   this.pageTurner    = new PageTurner();
   
@@ -170,6 +173,56 @@ G.init = function(){
   G.GEOS[ 'icosahedronDense' ]  = new THREE.IcosahedronGeometry( 1 , 3 );
   G.GEOS[ 'sun' ]               = new THREE.IcosahedronGeometry( 3000 , 6 );
   G.MATS[ 'normal'      ]  = new THREE.MeshNormalMaterial();
+
+
+
+  /*
+
+     WAGNER SETUP
+
+  */
+
+	this.invertPass = new WAGNER.InvertPass();
+	this.sepiaPass = new WAGNER.SepiaPass();
+	this.noisePass = new WAGNER.NoisePass();
+	this.boxBlurPass = new WAGNER.BoxBlurPass();
+	this.fullBoxBlurPass = new WAGNER.FullBoxBlurPass();
+	this.zoomBlurPass = new WAGNER.ZoomBlurPass();
+	this.multiPassBloomPass = new WAGNER.MultiPassBloomPass();
+	this.denoisePass = new WAGNER.DenoisePass();
+	this.noisePass = new WAGNER.NoisePass();
+	this.vignettePass = new WAGNER.VignettePass();
+	this.vignette2Pass = new WAGNER.Vignette2Pass();
+	this.CGAPass = new WAGNER.CGAPass();
+	this.sobelEdgeDetectionPass = new WAGNER.SobelEdgeDetectionPass();
+	this.dirtPass = new WAGNER.DirtPass();
+	this.blendPass = new WAGNER.BlendPass();
+	this.guidedBoxPass = new WAGNER.GuidedBoxBlurPass();
+	this.guidedFullBoxBlurPass = new WAGNER.GuidedFullBoxBlurPass();
+	this.pixelatePass = new WAGNER.PixelatePass();
+	this.rgbSplitPass = new WAGNER.RGBSplitPass();
+	this.chromaticAberrationPass = new WAGNER.ChromaticAberrationPass();
+	this.barrelBlurPass = new WAGNER.BarrelBlurPass();
+	this.oldVideoPass = new WAGNER.OldVideoPass();
+	this.dotScreenPass = new WAGNER.DotScreenPass();
+	this.circularBlur = new WAGNER.CircularBlurPass();
+	this.poissonDiscBlur = new WAGNER.PoissonDiscBlurPass();
+	this.freiChenEdgeDetectionPass = new WAGNER.FreiChenEdgeDetectionPass();
+	this.toonPass = new WAGNER.ToonPass();
+	this.fxaaPass = new WAGNER.FXAAPass();
+	this.highPassPass = new WAGNER.HighPassPass();
+	this.grayscalePass = new WAGNER.GrayscalePass();
+	this.asciiPass = new WAGNER.ASCIIPass();
+	this.ledPass = new WAGNER.LEDPass();
+	this.halftonePass = new WAGNER.HalftonePass();
+	
+  this.ssaoPass = new WAGNER.SSAOPass();
+
+	this.multiPassBloomPass.params.blurAmount = 2;
+	this.guidedFullBoxBlurPass.params.amount = 20;
+  this.guidedFullBoxBlurPass.params.invertBiasMap = true;
+
+
 
 
   /*
@@ -366,6 +419,7 @@ G.init = function(){
   this.sol.addDistanceSquaredForce( this.solAttractor , 100 );
   
 
+  this.onResize();
 
 }
 
@@ -484,7 +538,34 @@ G.animate = function(){
     }
 
     this.stats.update();
-    this.renderer.render( this.scene , this.camera );
+
+
+    /*
+
+       WAGNER
+
+    */
+    this.composer.reset();
+
+		//model.material = depthMaterial;
+		//composer.render( scene, camera, null, depthTexture );
+
+		//model.material = modelMaterial;
+		this.composer.render( this.scene, this.camera );
+
+		//guidedFullBoxBlurPass.params.tBias = depthTexture;
+		
+		this.composer.pass( this.multiPassBloomPass );
+		//this.composer.pass( this.guidedFullBoxBlurPass );
+		//this.composer.pass( this.dirtPass );
+
+		this.composer.pass( this.vignette2Pass );
+		this.composer.pass( this.fxaaPass );
+    //this.composer.pass( this.CGAPass );
+
+    this.composer.pass( this.chromaticAberrationPass );
+		this.composer.toScreen();
+    //this.renderer.render( this.scene , this.camera );
 
   }
 
@@ -578,6 +659,7 @@ G.onResize = function(){
   
   this.w = window.innerWidth;
   this.h = window.innerHeight;
+  this.dpr = window.devicePixelRatio || 1;
 
   this.windowSize.x = this.w;
   this.windowSize.y = this.h;
@@ -589,8 +671,12 @@ G.onResize = function(){
   this.camera.aspect = this.ratio;
   this.camera.fov    = 60 / Math.pow(this.ratio,.7);   
   this.camera.updateProjectionMatrix();
-  this.renderer.setSize( this.w , this.h );
+  this.renderer.setSize( this.w , this.h);
 
+  //renderer.setSize( s * w, s * h );
+	//camera.projectionMatrix.makePerspective( fov, w / h, camera.near, camera.far );
+	this.composer.setSize( this.w *  this.dpr , this.h * this.dpr);
+//	depthTexture = WAGNER.Pass.prototype.getOfflineTexture( w, h, true );
 }
 
 G.onKeyDown = function( e ){
