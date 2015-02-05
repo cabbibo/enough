@@ -1,8 +1,9 @@
 function LightRays(){
 
   console.log( G.shaders );
-  var geo = G.GEOS.planeBuffer;
+  var geo = new THREE.CylinderGeometry( 1 , 2 , 1 , 20 , 1 );//G.GEOS.planeBuffer;
 
+  this.strength = { type:"f" , value: .5 }
 
   //this.body = new THREE.Object3D();
 
@@ -15,7 +16,8 @@ function LightRays(){
       uniforms:{
         t_audio: G.t_audio,
         time: G.timer,
-        offset: { type:"f" , value: i }
+        offset: { type:"f" , value: i },
+        strength: this.strength
       },
       vertexShader: G.shaders.vs.lightRays,
       fragmentShader: G.shaders.fs.lightRays,
@@ -30,7 +32,7 @@ function LightRays(){
     mesh.rotation.z = (Math.random() - .5)*.4;
     mesh.rotation.y = (Math.random() - .5)*.4;
     mesh.scale.multiplyScalar( 1000.3 );
-    mesh.scale.y *= 3;
+    mesh.scale.y *= 10;
     //mesh.position.x = (Math.random() - .5) * 2;
     //mesh.position.z = (Math.random() - .5) * 2;
     //this.body.add( mesh );
@@ -85,6 +87,50 @@ LightRays.prototype.update = function(){
   }
 
 
+}
+
+LightRays.prototype.fadeOut = function( time ){
+
+  var t = time || 1000;
+
+
+  var s = { x: this.strength.value };
+  var e = { x: 0 };
+
+  this.ogStart = this.strength.value;
+
+  var tween = new G.tween.Tween( s ).to( e , t );
+  tween.onUpdate( function(t){
+
+    this.strength.value = (1 - t) * this.ogStart;
+
+  }.bind( this ));
+
+  tween.start();
 
 
 }
+
+LightRays.prototype.fadeIn = function( value , time ){
+
+  var v = value || .5;
+  var t = time || 1000;
+
+  this.toValue = v;
+
+  var tween = new G.tween.Tween( s ).to( e , t );
+  tween.onUpdate( function(t){
+
+    this.strength.value = t * this.toValue;
+
+  }.bind( this ));
+
+  tween.start();
+
+
+
+
+}
+
+
+
