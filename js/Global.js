@@ -545,27 +545,53 @@ G.animate = function(){
        WAGNER
 
     */
-    this.composer.reset();
 
-		//model.material = depthMaterial;
-		//composer.render( scene, camera, null, depthTexture );
+  //  this.renderer.autoClear = false;
+   this.composer.reset();
 
-		//model.material = modelMaterial;
-		this.composer.render( this.scene, this.camera );
 
-		//guidedFullBoxBlurPass.params.tBias = depthTexture;
-		
-		this.composer.pass( this.multiPassBloomPass );
-		//this.composer.pass( this.guidedFullBoxBlurPass );
-		//this.composer.pass( this.dirtPass );
+   this.composer.render( this.scene, this.camera );
+//	this.composer.pass( this.sepiaPass );
+	
 
-		this.composer.pass( this.vignette2Pass );
-		this.composer.pass( this.fxaaPass );
-    //this.composer.pass( this.CGAPass );
 
-    this.composer.pass( this.chromaticAberrationPass );
+ // this.multiPassBloomPass.params.applyZoomBlur = true;
+	this.composer.pass( this.multiPassBloomPass ); 
+  
+  
+	
+  //this.composer.pass( this.denoisePass ); 
+	//this.composer.pass( this.vignettePass  );
+
+	this.composer.pass( this.vignette2Pass );
+  this.noisePass.params.speed = 1;
+  this.composer.pass( this.noisePass );
+	
+  
+  /*this.composer.pass( this.CGAPass ); 
+	this.composer.pass( this.sobelEdgeDetectionPass ); 
+	this.composer.pass( this.dirtPass ); 
+	this.composer.pass( this.blendPass ); 
+	this.composer.pass( this.guidedBoxPass ); 
+	this.composer.pass( this.guidedFullBoxBlurPass ); 
+	this.composer.pass( this.pixelatePass ); 
+	this.composer.pass( this.rgbSplitPass ); 
+	this.composer.pass( this.chromaticAberrationPass ); 
+	this.composer.pass( this.barrelBlurPass ); 
+	this.composer.pass( this.oldVideoPass ); 
+	this.composer.pass( this.dotScreenPass ); 
+	this.composer.pass( this.circularBlur ); 
+	this.composer.pass( this.poissonDiscBlur ); 
+	this.composer.pass( this.freiChenEdgeDetectionPass ); 
+	this.composer.pass( this.toonPass ); 
+	this.composer.pass( this.fxaaPass ); 
+	this.composer.pass( this.highPassPass ); 
+	this.composer.pass( this.grayscalePass ); 
+	this.composer.pass( this.asciiPass ); 
+	this.composer.pass( this.ledPass ); 
+	this.composer.pass( this.halftonePass );*/
 		this.composer.toScreen();
-    //this.renderer.render( this.scene , this.camera );
+   // this.renderer.render( this.scene , this.camera );
 
   }
 
@@ -659,7 +685,7 @@ G.onResize = function(){
   
   this.w = window.innerWidth;
   this.h = window.innerHeight;
-  this.dpr = window.devicePixelRatio || 1;
+  //this.dpr = window.devicePixelRatio || 1;
 
   this.windowSize.x = this.w;
   this.windowSize.y = this.h;
@@ -673,9 +699,11 @@ G.onResize = function(){
   this.camera.updateProjectionMatrix();
   this.renderer.setSize( this.w , this.h);
 
+  console.log( this.dpr );
   //renderer.setSize( s * w, s * h );
 	//camera.projectionMatrix.makePerspective( fov, w / h, camera.near, camera.far );
-	this.composer.setSize( this.w *  this.dpr , this.h * this.dpr);
+  //TODO: Make this work for dpr!
+	this.composer.setSize( this.w * 2, this.h* 2);
 //	depthTexture = WAGNER.Pass.prototype.getOfflineTexture( w, h, true );
 }
 
