@@ -54,6 +54,8 @@
     <script src="js/global/FurryHead.js"></script>
     <script src="js/global/PhysicsText.js"></script>
     <script src="js/global/HandParticles.js"></script>
+    <script src="js/global/LightRays.js"></script>
+    <script src="js/global/RandomParticles.js"></script>
     
     <script src="js/pages/crystals/Crystal.js"></script>
     <script src="js/pages/crystals/CrystalGeo.js"></script>
@@ -83,7 +85,6 @@
     <script src="js/pages/fireworks/Water.js"></script>
     <script src="js/pages/fireworks/Mirror.js"></script>
     <script src="js/pages/fireworks/Mountains.js"></script>
-
 
     <!-- THESE ALWAYS GOES LAST -->
     <script src="js/Global.js"></script>
@@ -117,7 +118,7 @@
       // TODO: 
       // Write shaders for hands
 
-      //G.audio.mute.gain.value = 0;
+      G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -144,6 +145,11 @@
       G.shaders.load(  f + 'furryTailSim'      , 'furryTailSim'   , 'ss' );
       G.shaders.load(  f + 'furryHeadSim'      , 'furryHeadSim'   , 'ss' );
 
+      
+      // For light rays
+      G.shaders.load(  f + 'vs-lightRays' , 'lightRays' , 'vs' );
+      G.shaders.load(  f + 'fs-lightRays' , 'lightRays' , 'fs' );
+      
 
       // For text
       G.shaders.load( 'global/vs-text' , 'text' , 'vertex'    );

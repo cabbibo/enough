@@ -127,6 +127,7 @@ planets.addToInitArray( function(){
 
 planets.addToStartArray( function(){
 
+
   
   /*G.position.copy( this.position );
   G.camera.position.copy( this.cameraPos );

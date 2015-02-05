@@ -166,10 +166,11 @@ G.init = function(){
   this.iPlaneDistance = 600;
 
 
-  G.GEOS[ 'icosahedron' ]       = new THREE.IcosahedronGeometry( 1 , 2 );
-  G.GEOS[ 'icosahedronDense' ]  = new THREE.IcosahedronGeometry( 1 , 3 );
-  G.GEOS[ 'sun' ]               = new THREE.IcosahedronGeometry( 3000 , 6 );
-  G.MATS[ 'normal'      ]  = new THREE.MeshNormalMaterial();
+  G.GEOS[ 'icosahedron'       ] = new THREE.IcosahedronGeometry( 1 , 2 );
+  G.GEOS[ 'icosahedronDense'  ] = new THREE.IcosahedronGeometry( 1 , 3 );
+  G.GEOS[ 'sun'               ] = new THREE.IcosahedronGeometry( 3000 , 6 );
+  G.GEOS[ 'planeBuffer'       ] = new THREE.PlaneBufferGeometry( 1 , 1 );
+  G.MATS[ 'normal'            ] = new THREE.MeshNormalMaterial();
 
 
   /*
@@ -185,6 +186,22 @@ G.init = function(){
   this.solAttractor = new THREE.Vector3();
   this.solVelocity  = new THREE.Vector3();
 
+
+  /*
+  
+    LIGHT RAYS 
+
+  */
+
+
+  this.lightRays = new LightRays();
+  //this.lightRays.body.scale.multiplyScalar( 2000 );
+  for( var i = 0; i < this.lightRays.rays.length; i++ ){
+
+    this.scene.add( this.lightRays.rays[i] );
+
+  }
+//  this.scene.add( this.lightRays.body );
 
   /*var g = G.GEOS[ 'icosahedron' ];
   var m = G.MATS[ 'normal'      ];
@@ -429,6 +446,9 @@ G.animate = function(){
   this.pageMarker.position.copy( this.position );
   
   if( !this.paused ){
+
+
+    this.lightRays.update();
 
      this.dT.value = this.clock.getDelta();  
   this.timer.value += G.dT.value;
