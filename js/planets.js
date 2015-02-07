@@ -138,23 +138,42 @@ planets.addToInitArray( function(){
 
   this.colorSchemes = [
 
+  /*  A52433
+    F2C633
+    9CA6DB
+    8B060D
+
+    149100
+    F5B43E
+    F06810
+    DC4108
+
+    C1EBC7
+    EDC6F1
+    51C6F1
+    864273
+   
+    066CF4
+    FFFFCC
+    77894D
+    F00501 */
     
-     [ 
+    [ 
       'Friend1',
       1,
-      new THREE.Color( '#fa0202' ),
-      new THREE.Color( '#faef42' ),
-      new THREE.Color( '#ff0000' ),
-      new THREE.Color( '#ff7800' ),
+      new THREE.Color( '#00FFAC' ),
+      new THREE.Color( '#00CBF2' ),
+      new THREE.Color( '#0066FF' ),
+      new THREE.Color( '#684BD4' ),
     ],
     
      [ 
       'Friend3',
         1,
-      new THREE.Color( '#ff0000' ),
-      new THREE.Color( '#ffd100' ),
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#ffc818' ),
+      new THREE.Color( '#4E0059' ),
+      new THREE.Color( '#CC43AB' ),
+      new THREE.Color( '#FF52A8' ),
+      new THREE.Color( '#FF0B7F' ),
     ],
 
     [ 
@@ -178,10 +197,10 @@ planets.addToInitArray( function(){
     [
       'Friend2',
        1,
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#fff000' ),
-      new THREE.Color( '#de9f07' ),
-      new THREE.Color( '#ff8700' ), 
+      new THREE.Color( '#00CD73' ),
+      new THREE.Color( '#008148' ),
+      new THREE.Color( '#2D9668' ),
+      new THREE.Color( '#3ECDBD' ), 
     ],
 
 
@@ -323,7 +342,7 @@ planets.addToStartArray( function(){
 
     var bait = this.center.clone();
     bait.scale.multiplyScalar( 5.3 );
-    this.scene.add( bait );
+    //this.scene.add( bait );
 
     var c = this.colorSchemes[i];
 
@@ -333,6 +352,29 @@ planets.addToStartArray( function(){
     var col2 = new THREE.Vector3( c[3].r , c[3].g , c[3].b );
     var col3 = new THREE.Vector3( c[4].r , c[4].g , c[4].b );
     var col4 = new THREE.Vector3( c[5].r , c[5].g , c[5].b );
+
+    var color = new THREE.Color();
+
+    color.setHSL( Math.pow( i/ this.colorSchemes.length , 3. ) , 1. , .3 );
+
+    var col = new THREE.Vector3( color.r , color.g , color.b );
+    var col1 = col.clone().add(
+       new THREE.Vector3( Math.random() * .6 , Math.random() * .6 , Math.random() * .6 )
+    );
+
+    var col2 = col.clone().add(
+       new THREE.Vector3( Math.random() * .6 , Math.random() * .6 , Math.random() * .6 )
+    );
+
+    var col3 = col.clone().add(
+       new THREE.Vector3( Math.random() * .6 , Math.random() * .6 , Math.random() * .6 )
+    );
+
+    var col4 = col.clone().add(
+       new THREE.Vector3( Math.random() * .6 , Math.random() * .6 , Math.random() * .6 )
+    );
+
+    
 
     var audio = this.audio[i];
     audio.reconnect( this.gain );
@@ -352,6 +394,7 @@ planets.addToStartArray( function(){
 
     this.planets.push( planet );*/
 
+   
     var f = new FurryGroup( this , c[0] , audio , 2, {
             
       center: this.center,
@@ -477,7 +520,6 @@ planets.addToStartArray( function(){
     furryTail.activate();
 
   }
-
 
 }.bind( planets ));
 

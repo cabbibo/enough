@@ -3,7 +3,7 @@ var together = new Page( 'together' );
 together.addToInitArray( function(){
 
   this.mani = true;
-  this.sol  = false;
+  this.sol  = true;
 
   this.sectionParams.push({
     
