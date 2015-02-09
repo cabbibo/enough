@@ -1,4 +1,4 @@
-function LightRays(numOf){
+function LightRays( start , end , spread , numOf){
 
   var numOf = numOf || 39;
 
@@ -8,7 +8,7 @@ function LightRays(numOf){
   var pos = new Float32Array( numOf * 3 * 2 * 3 );
   var uv = new Float32Array( numOf * 3 * 2 * 2 );
 
-  var startingPoint = new THREE.Vector3( 100 , 400 , 0 );
+  var startingPoint = start.clone();
   var centerPos = new THREE.Vector3(100 , floor , 0);
 
   for( var i = 0; i < numOf; i++ ){

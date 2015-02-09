@@ -49,14 +49,19 @@
     
     <script src="js/Section.js"></script>
      
+
     <script src="js/global/FurryGroup.js"></script>
     <script src="js/global/FurryTail.js"></script>
     <script src="js/global/FurryHead.js"></script>
-    <script src="js/global/PhysicsText.js"></script>
-    <script src="js/global/HandParticles.js"></script>
-    <script src="js/global/LightRays.js"></script>
-    <script src="js/global/RandomParticles.js"></script>
     
+    <script src="js/global/PhysicsText.js"></script>
+    
+    <script src="js/global/HandParticles.js"></script>
+   
+    <script src="js/global/LightRays.js"></script>
+    <script src="js/global/DustMotes.js"></script>
+   
+
     <script src="js/pages/crystals/Crystal.js"></script>
     <script src="js/pages/crystals/CrystalGeo.js"></script>
     <script src="js/pages/crystals/CrystalHalo.js"></script>
@@ -149,6 +154,10 @@
       // For light rays
       G.shaders.load(  f + 'vs-lightRays' , 'lightRays' , 'vs' );
       G.shaders.load(  f + 'fs-lightRays' , 'lightRays' , 'fs' );
+
+      // For light rays
+      G.shaders.load(  f + 'vs-dustMote' , 'dustMote' , 'vs' );
+      G.shaders.load(  f + 'fs-dustMote' , 'dustMote' , 'fs' );
       
 
       // For text

@@ -7,7 +7,8 @@ together.addToInitArray( function(){
 
   this.sectionParams.push({
     
-    cameraPosition: new THREE.Vector3( 0 , 0 , 3000 ),
+    cameraPosition: new THREE.Vector3( -1000 , 0 , 400 ),
+    
     transitionTime: 3000,
     textChunk:[
       "Mani now knew joy.",
@@ -33,7 +34,7 @@ together.addToInitArray( function(){
 
 
 
-  this.position.set(  0 , 4000 , 0 );
+  this.position.set(  0 , 2000 , 0 );
 
   this.iPlaneDistance = 1000;
 

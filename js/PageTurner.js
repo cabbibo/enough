@@ -150,8 +150,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
     G.position.y = this.sceneStartPos.y;
     G.position.z = this.sceneStartPos.z;
     
-    G.lookAt.copy( G.position );
-    G.camera.lookAt( G.lookAt );
+
 
   }.bind( this ));
 
@@ -171,10 +170,25 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   }.bind( this ));
 
+  this.lookStart = G.lookAt.clone();
+  this.lookEnd = this.sceneEndPos.clone();
+  if( page.nextPage.sections[0].lookPosition ){
+    this.lookEnd.copy( page.nextPage.sections[0].lookPosition);
+  }
+
+  tween3 = new G.tween.Tween( this.lookStart ).to( this.lookEnd  , l );
+
+  tween3.onUpdate( function( t ){
+    
+    G.lookAt.copy( this.lookStart);
+    G.camera.lookAt( G.lookAt );
+
+  }.bind( this ));
 
   tween.start();
   tween1.start();
   tween2.start();
+  tween3.start();
 
 
 }

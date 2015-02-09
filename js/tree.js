@@ -8,6 +8,8 @@ tree.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 2000 , 1000 , 3000 ),
+    lookPosition: new THREE.Vector3( 1000, 00 , 00 ),
+
     textChunk:[
       "By now Mani was growing tired. He had been traveling forever, but still did not know where he was, who he was, why he was. The crystals were majestic, and the forest filled with dignity, but still the darkness was overwhelming, and the hole in his heart reminded.",
       "","",
@@ -18,6 +20,8 @@ tree.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 1000 , 1200 , 2000 ),
+    lookPosition: new THREE.Vector3( 1000, 00 , -1000 ),
+
     textChunk:[
       "The haunting tree that stood before him mirrored the sadness Mani felt. How could he be part of this world without a purpose. Crystals hummed and the trees murmured. They knew their task and performed it with a quiet nobility.",
       "","",
@@ -48,6 +52,8 @@ tree.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -1000 , 200 , 2000 ),
+    lookPosition: new THREE.Vector3( 1000, 200 , -300 ),
+    
     textChunk:[
       "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe the tree and the crystals would be the only friends he would have.",
     ].join("\n" ),
@@ -74,7 +80,7 @@ tree.addToInitArray( function(){
   });
     
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  -3000 , 0 , 100  ),
+    cameraPosition: new THREE.Vector3(  -4000 , 0 , 100  ),
     textChunk:[
       "Mani was ready to give up. What was the point of his existence if it was to be spent, alone in the dark that would eventually consume him.",
     "","",
@@ -105,7 +111,8 @@ tree.addToInitArray( function(){
   });
 
    this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  -3000 , 0 , -300  ),
+    cameraPosition: new THREE.Vector3(  -2000 , -400 , -300  ),
+    lookPosition: new THREE.Vector3(  0 , 400 ,600  ),
     textChunk:[
       "Then, Mani heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another frail attempt to extinguish the lonliness which consumed him?",
     "","",

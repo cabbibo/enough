@@ -44,6 +44,8 @@ crystals.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3( 2500 , 1000 , -400  ),
+    lookPosition:new THREE.Vector3( 0 , 00 , -600  ),
+
     textChunk:[
       "He felt a certain camaraderie with the crystals, the simple fact that they were not the darkness made him approach them with a sense of reverence.",
       "","",
@@ -213,12 +215,12 @@ crystals.addToStartArray( function(){
 
   G.iPlaneDistance = 1200;
 
-  this.lightRays = new LightRays();
+  //this.lightRays = new LightRays();
   //this.lightRays.body.scale.multiplyScalar( 2000 );
-  this.scene.add( this.lightRays);
+  //this.scene.add( this.lightRays);
 
  
-  this.motes = new RandomParticles();
+  this.motes = new DustMotes();
   this.scene.add( this.motes.body );
 
 
@@ -511,7 +513,6 @@ crystals.addToStartArray( function(){
 
 }.bind( crystals ) );
 
-
 crystals.addToActivateArray( function(){
 
     
@@ -530,6 +531,8 @@ crystals.addToAllUpdateArrays( function(){
   for( var i = 0; i < this.crystals.length; i++ ){
     this.crystals[i].update();
   }
+
+  this.motes.update();
   
 }.bind( crystals ));
 
