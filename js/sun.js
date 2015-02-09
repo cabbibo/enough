@@ -19,6 +19,7 @@ sun.addToInitArray( function(){
     "","",
       "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
     ].join("\n" ),
+    
   });
 
   this.sectionParams.push({
@@ -28,10 +29,21 @@ sun.addToInitArray( function(){
       "","",
       "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
     ].join("\n" ),
+    transitionTime: 10000,
+
     transitionIn:function(){
       this.page.iPlaneDistance = 2000 ;
       G.iPlaneDistance = this.page.iPlaneDistance;
     },
+    transitionIn:function(){
+  
+      for( var i = 0; i < this.audio.array.length; i++ ){
+        if( i == 5 ){
+          this.audio.array[i].fadeIn( 10 , 1 );
+        }
+      }
+
+    }.bind( sun )
   });
     
   this.sectionParams.push({
@@ -45,8 +57,24 @@ sun.addToInitArray( function(){
       "So inwards Mani went."
 
     ].join("\n" ),
+    transitionTime:10000,
+
+    transitionIn:function(){
+
+      for( var i = 0; i < this.audio.array.length; i++ ){
+        if( i == 4  ){
+          this.audio.array[i].fadeIn( 10 , 1 );
+        }
+         if( i == 0  ){
+          this.audio.array[i].fadeOut( 10 );
+        }
+      }
+
+
+    }.bind( sun ),
     start:function(){
-     
+
+      
       G.iPlane.faceCamera = false;
   
     
@@ -80,7 +108,7 @@ sun.addToInitArray( function(){
       G.iPlane.lookAt( G.v1 );
       //G.iPlane.visible = true;
 
-    },
+    }.bind( sun ),
     transitionOut:function(){
       this.page.iPlaneDistance = 1200 ;
       G.iPlaneDistance = this.page.iPlaneDistance;
@@ -90,6 +118,8 @@ sun.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3( -1000 , 0 , 1000 ),
+    transitionTime:30000,
+
     textChunk:[
     
      "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
@@ -97,21 +127,45 @@ sun.addToInitArray( function(){
      "The song continued and urged Mani towards its center. The shining essence of life lay before him and he yearned to be one with it, experience the world and the truths that lay beyond."
 
     ].join("\n"),
+    transitionIn:function(){
+
+      for( var i = 0; i < this.audio.array.length; i++ ){
+        if( i == 3 || i == 2 || i == 1  ){
+          this.audio.array[i].fadeIn( 10 , 1 );
+        }
+      }
+
+     }.bind( sun )
+
   });
 
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -200 , 0 , 1400 ),
+    transitionTime:10000,
+
     textChunk:["The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
        "","",
        "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
        "","",
         "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
+    transitionIn:function(){
+
+      for( var i = 0; i < this.audio.array.length; i++ ){
+        if(i == 4 || i == 5 || i == 6 ){
+          this.audio.array[i].fadeOut( 10 );
+        }
+      }
+
+     }.bind( sun )
+
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 1000 ,    0 ,  1000 ),
     lookPosition: new THREE.Vector3( 500 , 0 , 0 ),
+    transitionTime: 10000,
+
     textChunk: [
       "It was Sol!",
       "","",
@@ -122,26 +176,44 @@ sun.addToInitArray( function(){
     transitionIn:function(){
 
       G.sol.activate();
-      G.v1.copy( this.page.position );
+      G.v1.copy( this.position );
       G.v2.set( 3000 , 0 , 0 );
       G.v1.add( G.v2 );
       G.sol.transport( G.v1 );
       G.solAttractor.copy( G.mani.position );
       
 
+      for( var i = 0; i < this.audio.array.length; i++ ){
+        if(i == 4 ||  i == 5 || i == 0 ){
+          this.audio.array[i].fadeIn( 10 , 1 );
+        }
+      }
 
-    }
+     }.bind( sun )
+
 
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 1000 , 500 ,  1000 ), 
-    lookPosition: new THREE.Vector3( 1000 , 500 ,  0 ), 
+    lookPosition: new THREE.Vector3( 1000 , 500 ,  0 ),
+    transitionTime:10000,
     textChunk:[
       "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
       "","",
       "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
-    ].join("\n" )
+    ].join("\n" ),
+
+    transitionIn:function(){
+
+      for( var i = 0; i < this.audio.array.length; i++ ){
+        if( i == 5 || i == 6 ){
+          this.audio.array[i].fadeIn( 10 , 1 );
+        }
+      }
+
+    }.bind( sun )
+
 
   });
   
@@ -198,6 +270,7 @@ sun.addToInitArray( function(){
 
     this.audio.array.push( this.audio[ name ] );
 
+
   }
 
 
@@ -211,6 +284,23 @@ sun.addToStartArray( function(){
   //G.camera.lookAt( this.position );//= 1000;
 
   G.iPlaneDistance = this.iPlaneDistance;
+
+   //console.log('HELLLOAAA');
+     // console..lg( this.audio );
+  for( var i = 0; i < this.audio.array.length; i++ ){
+
+    console.log('yes');
+    this.audio.array[i].fadeOut( .001 );
+
+  }
+
+   for( var i = 0; i < this.audio.array.length; i++ ){
+      if( i == 6 || i == 0 ){
+        this.audio.array[i].fadeIn( 10 , 1 );
+      }
+    }
+
+
 
 }.bind( sun ));
 

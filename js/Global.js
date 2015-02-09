@@ -3,7 +3,7 @@
 var G = {};
 
 
-G.pageTransitionLength = 10;
+G.pageTransitionLength = 20;
 
 
 
@@ -144,6 +144,20 @@ G.init = function(){
   this.scene.add( this.iPlane );
   this.iPlane.visible = false;
   this.iPlane.faceCamera = true;
+
+
+  // Intersection plane for just the text
+  this.iTextPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry( 100000 , 100000 ),
+    new THREE.MeshNormalMaterial()
+  );
+  this.scene.add( this.iTextPlane );
+  this.iTextPlane.visible = false;
+  this.iTextPlaneDistance = 1000;
+
+  this.iTextPoint = new THREE.Vector3();
+
+  //this.iTextPlane.faceCamera = true;
 
   var l = 1000000000;
 
@@ -392,9 +406,9 @@ G.updateIntersection = function(){
   if( this.iPlane.faceCamera == true ){
     
     this.iPlane.position.copy( this.camera.position );
-    var vector = new THREE.Vector3( 0 , 0 , -this.iPlaneDistance );
-    vector.applyQuaternion( this.camera.quaternion );
-    this.iPlane.position.add( vector );
+    G.tmpV3.set( 0 , 0 , -this.iPlaneDistance );
+    G.tmpV3.applyQuaternion( this.camera.quaternion );
+    this.iPlane.position.add( G.tmpV3 );
     this.iPlane.lookAt( this.camera.position );
 
     this.iObj.lookAt( this.camera.position );
@@ -409,6 +423,14 @@ G.updateIntersection = function(){
     this.iObj.lookAt( lookat ); 
 
   }
+
+
+  //console.log('YERPS');
+  this.iTextPlane.position.copy( this.camera.position );
+  G.tmpV3.set( 0 , 0 , -this.iTextPlaneDistance );
+  G.tmpV3.applyQuaternion( this.camera.quaternion );
+  this.iTextPlane.position.add( G.tmpV3);
+  this.iTextPlane.lookAt( this.camera.position );
 
 
   G.tmpV3.copy( this.mouse );
@@ -437,6 +459,16 @@ G.updateIntersection = function(){
   }else{
     //console.log('NOT HITTING IPLANE!');
   }
+
+
+  var intersects = this.raycaster.intersectObject( this.iTextPlane );
+
+  if( intersects.length > 0 ){
+    this.iTextPoint.copy( intersects[0].point );
+  }else{
+    console.log('NOT HITTING IPLANE!');
+  }
+
 
 
 }

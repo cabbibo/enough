@@ -54,7 +54,7 @@ function PhysicsText( string , params ){
 
   gRepelPos.push( G.rHand.hand.position );
   gRepelPos.push( G.lHand.hand.position );
-  gRepelPos.push( G.iPoint );
+  gRepelPos.push( G.iTextPoint );
   gRepelPos.push( G.mani.position );
 
   var uGRepelPos = {
