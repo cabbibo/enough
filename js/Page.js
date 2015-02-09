@@ -119,6 +119,8 @@ Page.prototype.update = function(){
 
     this.frame ++;
 
+    this.motes.update();
+
     if( this.addingStartArray === true ){
 
 
@@ -193,7 +195,6 @@ Page.prototype.update = function(){
 
   }
 
-
 }
 
 // Used to begin all the loading needed
@@ -205,6 +206,10 @@ Page.prototype.init = function(){
   for( var i = 0; i < this.initArray.length; i++ ){
     this.initArray[i]( this );
   }
+
+  
+  this.motes = new DustMotes();
+  this.scene.add( this.motes.body );
 
   this.createSections( this.sectionParams );
   this.assignSections();

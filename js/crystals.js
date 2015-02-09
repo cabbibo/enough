@@ -219,9 +219,7 @@ crystals.addToStartArray( function(){
   //this.lightRays.body.scale.multiplyScalar( 2000 );
   //this.scene.add( this.lightRays);
 
- 
-  this.motes = new DustMotes();
-  this.scene.add( this.motes.body );
+
 
 
   //G.iPlane.visible = true;
@@ -532,8 +530,6 @@ crystals.addToAllUpdateArrays( function(){
     this.crystals[i].update();
   }
 
-  this.motes.update();
-  
 }.bind( crystals ));
 
 crystals.addToEndArray( function(){

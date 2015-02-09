@@ -7,6 +7,7 @@ uniform vec3 uVel;
 
 varying vec2 vUv;
 varying vec4 vAudio;
+varying float vID;
 
 void main(){
 
@@ -15,8 +16,8 @@ void main(){
   vec4 s = texture2D( t_sprite , uv );
  
   float lu = length( uv - vec2( .5 , .5 ) );
-  vec4 aCol = texture2D( t_audio , vec2( lu , 0. ) ); 
+  vec4 aCol = texture2D( t_audio , vec2( vID + lu*.1 , 0. ) ); 
    
-  gl_FragColor =   1.4 *(.5 - lu * lu ) * s;
+  gl_FragColor =   aCol * 2. *(.5 - lu * lu ) * s;
 
 }
