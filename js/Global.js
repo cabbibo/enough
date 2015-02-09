@@ -19,6 +19,7 @@ G.texturesToLoad = [
 
   ['sprite_flare'     , 'img/sprite/flare.png'            ],
   ['sprite_cabbibo'   , 'img/sprite/cabbibo.png'          ],
+  ['sprite_mote'      , 'img/sprite/mote.png'             ],
 
   ['logo'             , 'img/icons/cabbibo.png'           ],
 
@@ -201,22 +202,10 @@ G.init = function(){
   this.solVelocity  = new THREE.Vector3();
 
 
-  /*
-  
-    LIGHT RAYS 
 
-  */
-
-
-  this.lightRays = new LightRays();
-  //this.lightRays.body.scale.multiplyScalar( 2000 );
-  for( var i = 0; i < this.lightRays.rays.length; i++ ){
-
-    this.scene.add( this.lightRays.rays[i] );
-
-  }
-//  this.scene.add( this.lightRays.body );
-
+ 
+ 
+ 
   /*var g = G.GEOS[ 'icosahedron' ];
   var m = G.MATS[ 'normal'      ];
 
@@ -480,10 +469,8 @@ G.animate = function(){
   if( !this.paused ){
 
 
-    this.lightRays.update();
-
-     this.dT.value = this.clock.getDelta();  
-  this.timer.value += G.dT.value;
+    this.dT.value = this.clock.getDelta();  
+    this.timer.value += G.dT.value;
 
     this.tween.update();
 

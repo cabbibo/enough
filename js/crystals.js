@@ -213,6 +213,13 @@ crystals.addToStartArray( function(){
 
   G.iPlaneDistance = 1200;
 
+  this.lightRays = new LightRays();
+  //this.lightRays.body.scale.multiplyScalar( 2000 );
+  this.scene.add( this.lightRays);
+
+ 
+  this.motes = new RandomParticles();
+  this.scene.add( this.motes.body );
 
 
   //G.iPlane.visible = true;

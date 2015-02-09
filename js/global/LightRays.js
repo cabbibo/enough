@@ -1,136 +1,109 @@
-function LightRays(){
+function LightRays(numOf){
 
-  console.log( G.shaders );
-  var geo = new THREE.CylinderGeometry( 1 , 2 , 1 , 20 , 1 );//G.GEOS.planeBuffer;
+  var numOf = numOf || 39;
 
-  this.strength = { type:"f" , value: .5 }
+  var floor = -400;
+  var width = 100;
+  var totalVerts = numOf * 3 * 2;
+  var pos = new Float32Array( numOf * 3 * 2 * 3 );
+  var uv = new Float32Array( numOf * 3 * 2 * 2 );
 
-  //this.body = new THREE.Object3D();
+  var startingPoint = new THREE.Vector3( 100 , 400 , 0 );
+  var centerPos = new THREE.Vector3(100 , floor , 0);
 
-  this.rays = [];
+  for( var i = 0; i < numOf; i++ ){
 
-  for( var i = 0; i < 5; i++ ){
+    var pos2 = new THREE.Vector3();
 
-     var mat = new THREE.ShaderMaterial({
+    pos2.x = (Math.random() - .5 ) * 800;
+    pos2.z = (Math.random() - .5 ) * 150;
+    pos2.y = floor;
+
+    dir = pos2.clone();
+    dir.sub( startingPoint );
+
+    up = pos2.clone();
+    up.sub( centerPos );
+
     
-      uniforms:{
-        t_audio: G.t_audio,
-        time: G.timer,
-        offset: { type:"f" , value: i },
-        strength: this.strength
-      },
-      vertexShader: G.shaders.vs.lightRays,
-      fragmentShader: G.shaders.fs.lightRays,
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      side: THREE.DoubleSide
-    });
-    var mesh = new THREE.Mesh( geo , mat );
+   // var upVector = new THREE.Vector3( 0 , 0 ,1);
 
-    //mesh.rotation.x = Math.random() - .5;
-    mesh.rotation.z = (Math.random() - .5)*.4;
-    mesh.rotation.y = (Math.random() - .5)*.4;
-    mesh.scale.multiplyScalar( 1000.3 );
-    mesh.scale.y *= 10;
-    //mesh.position.x = (Math.random() - .5) * 2;
-    //mesh.position.z = (Math.random() - .5) * 2;
-    //this.body.add( mesh );
-    this.rays.push( mesh );
+    var upVectorProj = up.dot( dir );
+    var upVectorPara = dir.clone().multiplyScalar( upVectorProj );
+    var upVectorPerp = up.clone().sub( upVectorPara );
 
-  }
+    var basisX = upVectorPerp.normalize();
+    var basisY = dir.clone().cross( basisX );
+   
+
+    var point1 = startingPoint;
+    var point2 = startingPoint;
+
+    var point3 = pos2.clone().add( basisY.multiplyScalar(  width));
+    var point4 = pos2.clone().add( basisY.multiplyScalar( -width));  
+
+    var index = i * 3 * 2;
+
+    // Tri 1
+    pos[ index * 3 + 0  ] = point1.x;
+    pos[ index * 3 + 1  ] = point1.y;
+    pos[ index * 3 + 2  ] = point1.z;
+
+    pos[ index * 3 + 3  ] = point4.x;
+    pos[ index * 3 + 4  ] = point4.y;
+    pos[ index * 3 + 5  ] = point4.z;
+
+    pos[ index * 3 + 6  ] = point2.x;
+    pos[ index * 3 + 7  ] = point2.y;
+    pos[ index * 3 + 8  ] = point2.z;
 
 
-}
+    // Tri2
+    pos[ index * 3 + 9  ] = point4.x;
+    pos[ index * 3 + 10 ] = point4.y;
+    pos[ index * 3 + 11 ] = point4.z;
 
-LightRays.prototype.update = function(){
+    pos[ index * 3 + 12 ] = point1.x;
+    pos[ index * 3 + 13 ] = point1.y;
+    pos[ index * 3 + 14 ] = point1.z;
 
+    pos[ index * 3 + 15 ] = point3.x;
+    pos[ index * 3 + 16 ] = point3.y;
+    pos[ index * 3 + 17 ] = point3.z;
 
-  for( var i = 0; i < this.rays.length; i ++ ){
-
-    var r = this.rays[i];
-
-    r.rotation.x = Math.sin(i + 5 * Math.sin( G.timer.value * .01 )) * .3;
-    r.rotation.y = Math.sin(i + 5 * Math.sin( G.timer.value * .01 )) * .3;
-    r.rotation.z = Math.sin(i + 5 * Math.sin( G.timer.value * .01 )) * .3;
-
-    var d = Math.abs( Math.sin( i + 4 + Math.sin( G.timer.value * .001 ) )  ) * 2000 + 500;
-    var x = Math.sin( i + 8.124 + Math.sin( G.timer.value * .001 ) ) * 2000;
-
-   // console.log( d );
-    G.v1.copy( G.camera.position );
-
-    G.v2.set( 0 , 0 , -1 );
-    G.v2.applyQuaternion( G.camera.quaternion );
-    G.v2.multiplyScalar( d );
-
-    G.v1.add( G.v2 );
-
-    G.v2.set( 1 , 0 , 0 );
-    G.v2.applyQuaternion( G.camera.quaternion );
-    G.v2.multiplyScalar( x );
-
-  
-
-    G.v1.add( G.v2 );
-
-   // G.v1.sub( r.position );
-    //G.v1.multiplyScalar( .5 );
-
-  
-   // console.log( G.v1 );
-    r.position.copy( G.v1 );
-
-    //r.position.add( G.v1 );
+    uv[ index * 2 + 0 ] = i / numOf;
+    uv[ index * 2 + 1 ] = 0;
+    uv[ index * 2 + 2 ] = i / numOf;
+    uv[ index * 2 + 3 ] = 1;
 
 
   }
+ 
 
 
+  
+  
+  var geo = new THREE.BufferGeometry();
+
+  var posA = new THREE.BufferAttribute( pos , 3 );
+  var uvA = new THREE.BufferAttribute( uv , 2 );
+  //var normA = new THREE.BufferAttribute( norm , 3 );
+
+  geo.addAttribute( 'position' , posA );
+  //geo.addAttribute( 'uv' , uvA );
+  //geo.addAttribute( 'normal' , normA );
+
+  var mat = new THREE.MeshBasicMaterial({
+    color:0xffddaa,
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    depthWrite:false,
+    opacity: .06,
+    map: G.t_audio.value,
+    side: THREE.DoubleSide
+  });
+
+
+  var mesh = new THREE.Mesh( geo , mat );
+  return mesh;
 }
-
-LightRays.prototype.fadeOut = function( time ){
-
-  var t = time || 1000;
-
-
-  var s = { x: this.strength.value };
-  var e = { x: 0 };
-
-  this.ogStart = this.strength.value;
-
-  var tween = new G.tween.Tween( s ).to( e , t );
-  tween.onUpdate( function(t){
-
-    this.strength.value = (1 - t) * this.ogStart;
-
-  }.bind( this ));
-
-  tween.start();
-
-
-}
-
-LightRays.prototype.fadeIn = function( value , time ){
-
-  var v = value || .5;
-  var t = time || 1000;
-
-  this.toValue = v;
-
-  var tween = new G.tween.Tween( s ).to( e , t );
-  tween.onUpdate( function(t){
-
-    this.strength.value = t * this.toValue;
-
-  }.bind( this ));
-
-  tween.start();
-
-
-
-
-}
-
-
-

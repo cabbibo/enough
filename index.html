@@ -111,7 +111,7 @@
 
       var url = document.URL;
       var stringArray = url.split("#");
-      if( stringArray[1] ){ startingPage = stringArray[1] }
+      if( stringArray[1] ){ startingPage = stringArray[1]; }
 
 
 
@@ -163,37 +163,36 @@
       G.loadTextures();
 
 
-      G.pages.alone.nextPage = G.pages.crystals;
+      G.pages.alone.nextPage      = G.pages.crystals;
       
-      G.pages.crystals.prevPage = G.pages.alone;
-      G.pages.crystals.nextPage = G.pages.forest;
+      G.pages.crystals.prevPage   = G.pages.alone;
+      G.pages.crystals.nextPage   = G.pages.forest;
 
-      G.pages.forest.prevPage = G.pages.crystal;
-      G.pages.forest.nextPage = G.pages.tree;
+      G.pages.forest.prevPage     = G.pages.crystal;
+      G.pages.forest.nextPage     = G.pages.tree;
 
-      G.pages.tree.prevPage   = G.pages.forest;
-      G.pages.tree.nextPage   = G.pages.together;
+      G.pages.tree.prevPage       = G.pages.forest;
+      G.pages.tree.nextPage       = G.pages.together;
 
-      G.pages.together.prevPage = G.pages.tree;
-      G.pages.together.nextPage = G.pages.planets;
+      G.pages.together.prevPage   = G.pages.tree;
+      G.pages.together.nextPage   = G.pages.planets;
      
-      G.pages.planets.prevPage   = G.pages.together;
-      G.pages.planets.nextPage   = G.pages.sparkles;
+      G.pages.planets.prevPage    = G.pages.together;
+      G.pages.planets.nextPage    = G.pages.sparkles;
 
-      G.pages.sparkles.prevPage = G.pages.planets;
-      G.pages.sparkles.nextPage = G.pages.flocking;
+      G.pages.sparkles.prevPage   = G.pages.planets;
+      G.pages.sparkles.nextPage   = G.pages.flocking;
 
-      G.pages.flocking.prevPage = G.pages.sparkles;
-      G.pages.flocking.nextPage = G.pages.sun;
+      G.pages.flocking.prevPage   = G.pages.sparkles;
+      G.pages.flocking.nextPage   = G.pages.sun;
 
-      G.pages.sun.prevPage = G.pages.flocking;
-      G.pages.sun.nextPage = G.pages.fireworks;
+      G.pages.sun.prevPage        = G.pages.flocking;
+      G.pages.sun.nextPage        = G.pages.fireworks;
       
-      G.pages.fireworks.prevPage = G.pages.sun;
-      G.pages.fireworks.nextPage = G.pages.credits;
+      G.pages.fireworks.prevPage  = G.pages.sun;
+      G.pages.fireworks.nextPage  = G.pages.credits;
      
-      
-      G.pages.credits.nextPage = G.pages.fireworks;
+      G.pages.credits.nextPage    = G.pages.fireworks;
 
 
 

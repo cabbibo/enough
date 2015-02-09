@@ -115,6 +115,7 @@
     this.steeringForces = [];
     this.springForces = [];
     this.collisionForces = [];
+    this.circleForces = [];
 
 
     this.renderer     = G.renderer; 
@@ -344,6 +345,19 @@
 
     }
 
+    for( var i = 0; i < this.circleForces.length; i++ ){
+
+      var pos = this.circleForces[i][0];
+      var dir = this.circleForces[i][1];
+      var rad = this.circleForces[i][2];
+      var pow = this.circleForces[i][0];
+      var radius = this.steeringForces[i][1];
+      this.applySteeringForce( pos , dir , rad , pow ); 
+
+    }
+
+
+
 
     var finalForce = this.force.multiplyScalar( pp.forceMultiplier );
     this.velocity.add( finalForce );
@@ -451,7 +465,7 @@
     this.springForces                   = [];
     this.collisionForces                = [];
     this.steeringForces                 = [];
-
+    this.circleForces                   = [];
   }
 
   FurryTail.prototype.addDistanceForce = function( pos , power ){
@@ -472,6 +486,27 @@
     this.force.add( dif );
     
   }
+
+  FurryTail.prototype.addCircleForce = function( pos , dir , rad , power ){
+
+    this.circleForces.push( [ pos , dir , rad  , power ] );
+
+  }
+
+
+  FurryTail.prototype.applyCircleForce = function( pos , dir , rad , power ){
+
+    var dif = pos.clone().sub( this.position );
+    var l   = dif.length();
+    
+    dif.normalize();
+    dif.multiplyScalar( l * power );
+
+    this.force.add( dif );
+    
+  }
+
+
 
   FurryTail.prototype.addDistanceInverseForce = function( pos , power ){
 
