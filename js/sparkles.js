@@ -116,6 +116,7 @@ sparkles.addToStartArray( function(){
   G.camera.position.copy( this.cameraPos );
   G.camera.lookAt( this.position );//= 1000;*/
 
+  this.scene.remove( this.motes.body );
   G.iPlaneDistance = this.iPlaneDistance;
 
 }.bind( sparkles ));

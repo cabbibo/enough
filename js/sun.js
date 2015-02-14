@@ -245,8 +245,9 @@ sun.addToInitArray( function(){
   this.loadShader( 'sun' , f + 'vs-sun' , 'vertex' ); 
   this.loadShader( 'sun' , f + 'fs-sun' , 'fragment' ); 
 
-  this.loadShader( 'akira' , f + 'vs-akira' , 'vertex' ); 
-  this.loadShader( 'akira' , f + 'fs-akira' , 'fragment' ); 
+  this.loadShader( 'cloth' , f + 'vs-cloth' , 'vertex' ); 
+  this.loadShader( 'cloth' , f + 'fs-cloth' , 'fragment' ); 
+  this.loadShader( 'cloth' , f + 'ss-cloth' , 'simulation' ); 
 
 }.bind( sun ) );
 
@@ -256,6 +257,8 @@ sun.addToInitArray( function(){
   
   var f = 'img/matcap/';
   this.loadTexture( 'matcapMetal' , f + 'metal.jpg');
+  this.loadTexture( 'sand' , 'img/normals/sand.png' );
+  
 
   var f = 'audio/pages/sun/'
 
@@ -273,12 +276,14 @@ sun.addToInitArray( function(){
 
   }
 
+  
 
 }.bind( sun ) );
 
 
 sun.addToStartArray( function(){
 
+  this.scene.remove( this.motes.body );
   //G.position.copy( this.position );
   //G.camera.position.copy( this.cameraPos );
   //G.camera.lookAt( this.position );//= 1000;
@@ -389,38 +394,9 @@ sun.addToStartArray( function(){
 
   
   
-  var mesh = new THREE.Mesh( new THREE.CubeGeometry( 3000 , 3000 , 3000 , 5,5,5 ));
-  mesh.rotation.x = Math.PI / 2;
-  mesh.rotation.y = -Math.PI / 4;
-  mesh.rotation.z = Math.PI / 1.6;
-  mesh.updateMatrix();
-  this.akira = new RepelerMesh( 'Parameters' , mesh , this.repelers , {
+  this.flower = new Sunflower();
 
-        
-    vs: G.shaders.vs.akira,
-    fs: G.shaders.fs.akira,
-
-    soul:{
-
-      repulsionPower:     { type:"f" , value: 1000000, constraints:[-300  , 0] },
-      repulsionRadius:     { type:"f" , value:10000 , constraints:[ 0  , 1000] },
-    },
-
-    body:{
-      //t_refl:{type:"t" , value:reflectionCube},
-      //t_refr:{type:"t" , value:reflectionCube },
-      custom1:{type:"f" , value:.9 , constraints:[ .8 , 1 ]},
-      t_sem:{type:"t" , value: G.TEXTURES.matcapMetal }
-
-    }
-
-  }); 
-
-  this.akira.soul.reset( this.akira.t_og.value );
-  this.akira.toggle( this.scene );
-
-  this.akira.body.scale.multiplyScalar( .05 );
-  this.akira.debug( this.scene , 1 , 100 );
+  this.flower.toggle( this.scene );
 
 }.bind( sun ));
 
@@ -431,7 +407,7 @@ sun.addToAllUpdateArrays( function(){
 
   
   this.gem.update();
-  this.akira.update();
+  this.flower.update();
 
   for( var i = 0; i < this.repelers.length; i++ ){
 

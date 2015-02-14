@@ -66,11 +66,21 @@ alone.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  0 , 0 , 1500 ),
     transitionTime: 3000,
     textChunk:[
-      "The nothing was so complete, Mani could not tell if he moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
+      "The world surrounding Mani was so vast, she could not tell if she even moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
       "","",
-      "Mani was curious, and though he was scared, decided that he would explore, even if the conquest ended in darkness"
+      "As Mani moved further into the night around him, he grew more questioning. Where was he? And what else was out there?"
     ].join("\n" )
   });
+
+    this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  1000 , 0 , 4500 ),
+    lookPosition: new THREE.Vector3(  1000 , 100 , 500 ),
+    transitionTime: 3000,
+    textChunk:[
+      "He moved further and further into the darkness, until the soft seabed where he awoke was just a glimmer in the distance. he thought for a moment of turning back, but the unknown lay in front of him, and he was excited to discover it."
+    ].join("\n" )
+  });
+
 
  
   this.position.set(  0 , 0 , 0 );

@@ -11,7 +11,7 @@ crystals.addToInitArray( function(){
     textChunk:[
       "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
       "","",
-      "They spewed sparkles into the world around him."
+      "They spewed sparkles into the world around him, and Mani’s entire being shimmered with glee. So splendid they stood, stoic yet playful, each with its own voice and melody."
     ].join("\n" ),
 
   });

@@ -85,6 +85,7 @@
 
     <script src="js/pages/sun/GEM.js"></script>
     <script src="js/pages/sun/RepelerMesh.js"></script>
+    <script src="js/pages/sun/Sunflower.js"></script>
 
     <script src="js/pages/fireworks/Firework.js"></script>
     <script src="js/pages/fireworks/Water.js"></script>
@@ -123,7 +124,7 @@
       // TODO: 
       // Write shaders for hands
 
-      G.audio.mute.gain.value = 0;
+     // G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -158,6 +159,10 @@
       // For light rays
       G.shaders.load(  f + 'vs-dustMote' , 'dustMote' , 'vs' );
       G.shaders.load(  f + 'fs-dustMote' , 'dustMote' , 'fs' );
+     
+      // For frame
+      G.shaders.load(  f + 'vs-frame' , 'frame' , 'vs' );
+      G.shaders.load(  f + 'fs-frame' , 'frame' , 'fs' );
       
 
       // For text

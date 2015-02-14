@@ -1,7 +1,5 @@
 function Section( id , page , params ){
 
-  console.log('PARAMS');
-  console.log( params );
   this.page = page;
   this.id = id;
 
@@ -20,10 +18,10 @@ function Section( id , page , params ){
     cameraPosition:   G.position.relative,
     lookPosition:     new THREE.Vector3(),
 
-    transitionIn:     function(){ console.log( 'tranIn'   );},
-    start:            function(){ console.log( 'start'    );},
-    transitionOut:    function(){ console.log( 'tranOut'  );},
-    end:              function(){ console.log( 'end'      );},
+    transitionIn:     function(){},
+    start:            function(){},
+    transitionOut:    function(){},
+    end:              function(){},
     transitioningOut: function(){},
     transitioningIn:  function(){},
     currentUpdate:    function(){},
@@ -40,6 +38,53 @@ function Section( id , page , params ){
   if( this.textChunk ){
     this.text = new PhysicsText( this.textChunk );
   }
+
+
+   this.frameUniforms = {
+
+    opacity: { type:"f" , value:1 },
+    scale: { type:"v2" , value:G.windowSize},
+    t_audio: G.t_audio
+
+  }
+
+
+  var geo = new THREE.PlaneBufferGeometry(1,1);
+  var mat = new THREE.ShaderMaterial({
+    uniforms: this.frameUniforms,
+    vertexShader: G.shaders.vs.frame,
+    fragmentShader: G.shaders.fs.frame,
+
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    transparent: true,
+  });
+
+
+ /* var mat = new THREE.MeshBasicMaterial({
+    color:0xffffff,
+   // side: THREE.DoubleSide
+    wireframe: true,
+    depthWrite: false,
+    transparent: true,
+    opacity: 1.
+  });*/
+  this.frame = new THREE.Mesh( geo , mat );
+
+  this.page.scene.add( this.frame );
+
+  this.frame.position.copy( this.params.cameraPosition );
+  this.frame.scale.x = G.windowSize.x - 200;
+  this.frame.scale.y = G.windowSize.y - 200;
+  this.frame.lookAt( this.params.lookPosition );
+  G.v1.copy( this.params.cameraPosition );
+  G.v1.sub( this.params.lookPosition );
+  G.v1.normalize();
+  G.v1.multiplyScalar( -1000 );
+  this.frame.position.add( G.v1 );
+
+
 
 }
 
