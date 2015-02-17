@@ -7,7 +7,9 @@ crystals.addToInitArray( function(){
   this.sol  = false;
 
   this.sectionParams.push({
-    cameraPosition:new THREE.Vector3(  500 , 1000 , 1400 ),
+    cameraPosition:new THREE.Vector3(  2000 , 2000 , -2000 ),
+    lookPosition:new THREE.Vector3(  00 , 00 , -500 ),
+    
     textChunk:[
       "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
       "","",
@@ -63,7 +65,7 @@ crystals.addToInitArray( function(){
     }
   });
 
-  this.position.set(  500 , -2000 , 1400 );
+  this.position.set(  -2500 , -2000 , 3400 );
   
   this.iPlaneDistance = 1200;
 

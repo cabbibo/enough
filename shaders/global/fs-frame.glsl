@@ -1,6 +1,7 @@
 uniform float opacity;
 uniform vec2 scale;
 uniform sampler2D t_audio;
+uniform float width;
 
 varying vec2 vUv;
 
@@ -11,9 +12,10 @@ void main(){
 
   float r = scale.x / scale.y;
 
-  if( vUv.x > 0.1 / r && vUv.x < 1. - (.1 / r)  && vUv.y > (.1 / r) && vUv.y < 1. - (.1 / r)  ){
+  if( vUv.x > width / r && vUv.x < 1. - ( width / r)  && vUv.y > ( width / r) && vUv.y < 1. - ( width  / r)  ){
     discard;
   }
-  gl_FragColor = aX * aY * 3.;
+
+  gl_FragColor = vec4((aX * aY * 3.).xyz , opacity );
 
 }

@@ -167,10 +167,10 @@ forest.addToStartArray( function(){
 
   repelPositions.push( G.mani.position.relative );
   repelVelocities.push( G.mani.velocity );
-  repelRadii.push( 300 );
+  repelRadii.push( 500 );
 
 
-  repelPositions.push( G.iPoint.relative );
+ /* repelPositions.push( G.iPoint.relative );
   repelVelocities.push( new THREE.Vector3() );
   repelRadii.push( 500 );
 
@@ -181,7 +181,7 @@ forest.addToStartArray( function(){
 
   repelPositions.push( G.rHand.relative  );
   repelVelocities.push( new THREE.Vector3()  );
-  repelRadii.push( 500 );
+  repelRadii.push( 500 );*/
 
 
   this.forest = new Forest(

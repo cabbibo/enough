@@ -129,6 +129,9 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
     G.objectControls.unprojectMouse();
 
+    // Calling transition in and out from next page section
+    this.fromPage.sections[ this.fromPage.sections.length -1 ]._transitioningOut( t );
+    this.toPage.sections[ 0 ]._transitioningIn( t );
 
   }.bind( this ));
 

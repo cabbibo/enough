@@ -40,10 +40,12 @@ function Section( id , page , params ){
   }
 
 
+
    this.frameUniforms = {
 
-    opacity: { type:"f" , value:1 },
+    opacity: { type:"f" , value:0 },
     scale: { type:"v2" , value:G.windowSize},
+    width:{type:"f" , value:.01},
     t_audio: G.t_audio
 
   }
@@ -137,6 +139,23 @@ Section.prototype._transitionOut = function(){
   this.transitionOut();
 
 }
+
+
+Section.prototype._transitioningOut = function(t){
+  
+  this.frameUniforms.opacity.value = 1-t;
+  this.transitioningOut();
+
+}
+
+Section.prototype._transitioningIn = function(t){
+  
+  this.frameUniforms.opacity.value = t;
+  this.transitioningIn();
+
+}
+
+
 Section.prototype._end = function(){
 
   this.active = false;
@@ -178,8 +197,8 @@ Section.prototype.createTransitionInCallback = function(){
     this.lookPosition,
     function( t ){
       
-      this.transitioningIn( t );
-      this.prevSection.transitioningOut( t );
+      this._transitioningIn( t );
+      this.prevSection._transitioningOut( t );
       
     }.bind( this ));
     
