@@ -72,20 +72,7 @@ function Section( id , page , params ){
     transparent: true,
     opacity: 1.
   });*/
-  this.frame = new THREE.Mesh( geo , mat );
-
-  this.page.scene.add( this.frame );
-
-  this.frame.position.copy( this.params.cameraPosition );
-  this.frame.scale.x = G.windowSize.x - 200;
-  this.frame.scale.y = G.windowSize.y - 200;
-  this.frame.lookAt( this.params.lookPosition );
-  G.v1.copy( this.params.cameraPosition );
-  G.v1.sub( this.params.lookPosition );
-  G.v1.normalize();
-  G.v1.multiplyScalar( -1000 );
-  this.frame.position.add( G.v1 );
-
+  this.frame = new Frame( this );
 
 
 }
@@ -96,8 +83,10 @@ Section.prototype._transitionIn = function(){
 
   if( !this.prevSection ){
     this.active = true;
+    //this.frame.add();
     this._start();
   }else{
+    //this.frame.add();
     this.active = true;
     this.transitionIn();
   }
@@ -143,14 +132,14 @@ Section.prototype._transitionOut = function(){
 
 Section.prototype._transitioningOut = function(t){
   
-  this.frameUniforms.opacity.value = 1-t;
+  this.frame.uniforms.opacity.value = 1-t;
   this.transitioningOut();
 
 }
 
 Section.prototype._transitioningIn = function(t){
   
-  this.frameUniforms.opacity.value = t;
+  this.frame.uniforms.opacity.value = t;
   this.transitioningIn();
 
 }

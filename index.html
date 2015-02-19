@@ -60,6 +60,7 @@
    
     <script src="js/global/LightRays.js"></script>
     <script src="js/global/DustMotes.js"></script>
+    <script src="js/global/Frame.js"></script>
    
 
     <script src="js/pages/crystals/Crystal.js"></script>
@@ -124,7 +125,7 @@
       // TODO: 
       // Write shaders for hands
 
-     // G.audio.mute.gain.value = 0;
+      //G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -230,6 +231,8 @@
           }
 
           this.cameraPos.copy(  this.sections[0].cameraPosition ); //page.nextPage.position );
+
+          this.sections[0].frame.uniforms.opacity.value = 1;
           G.lookAt.copy(  this.sections[0].lookPosition );
           // this.cameraPos.add( this.position );
           G.camera.position.copy( this.cameraPos );

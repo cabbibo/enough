@@ -12,10 +12,15 @@ void main(){
 
   float r = scale.x / scale.y;
 
-  if( vUv.x > width / r && vUv.x < 1. - ( width / r)  && vUv.y > ( width / r) && vUv.y < 1. - ( width  / r)  ){
+
+  float x = width / scale.x;
+  float y = width / scale.y;
+
+  if( vUv.x > x && vUv.x < 1. - x  && vUv.y > y && vUv.y < 1. - y  ){
     discard;
   }
 
-  gl_FragColor = vec4((aX * aY * 3.).xyz , opacity );
+ // gl_FragColor = vec4((aX * aY * 3.).xyz , opacity );
+  gl_FragColor = vec4(vec3(1.) , opacity );
 
 }
