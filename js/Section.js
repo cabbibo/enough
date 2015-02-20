@@ -40,38 +40,6 @@ function Section( id , page , params ){
   }
 
 
-
-   this.frameUniforms = {
-
-    opacity: { type:"f" , value:0 },
-    scale: { type:"v2" , value:G.windowSize},
-    width:{type:"f" , value:.01},
-    t_audio: G.t_audio
-
-  }
-
-
-  var geo = new THREE.PlaneBufferGeometry(1,1);
-  var mat = new THREE.ShaderMaterial({
-    uniforms: this.frameUniforms,
-    vertexShader: G.shaders.vs.frame,
-    fragmentShader: G.shaders.fs.frame,
-
-    blending: THREE.AdditiveBlending,
-    side: THREE.DoubleSide,
-    depthWrite: false,
-    transparent: true,
-  });
-
-
- /* var mat = new THREE.MeshBasicMaterial({
-    color:0xffffff,
-   // side: THREE.DoubleSide
-    wireframe: true,
-    depthWrite: false,
-    transparent: true,
-    opacity: 1.
-  });*/
   this.frame = new Frame( this );
 
 
@@ -90,6 +58,8 @@ Section.prototype._transitionIn = function(){
     this.active = true;
     this.transitionIn();
   }
+
+  this.frame.fish.activate( this.page.scene );
 
 }
 
@@ -207,6 +177,7 @@ Section.prototype._update = function(){
   
   if( this.active ){
     this.activeUpdate();
+    this.frame.update();
   }
 
   if( this.current ){

@@ -26,7 +26,7 @@ function Frame(section){
 
   this.body = new THREE.Mesh( geo , mat );
 
-    this.section.page.scene.add( this.body );
+  this.section.page.scene.add( this.body );
 
   this.body.position.copy( this.section.params.cameraPosition );
  
@@ -51,7 +51,58 @@ function Frame(section){
   this.body.position.add( G.v1 );
 
 
+  var lineGeo = new THREE.Geometry();
+  var startPoints = [];
+  var endPoints = [];
+
+  var s = this.body.scale;
+
+  var v1 = new THREE.Vector3( -s.x / 2 , -s.y / 2 , 1000 );
+  var v2 = new THREE.Vector3( -s.x / 2 ,  s.y / 2 , 1000 );
+
+  lineGeo.vertices.push( v1 );
+  lineGeo.vertices.push( v2 );
+
+  startPoints.push( v1 );
+  endPoints.push(   v2 );
+
+  var v1 = new THREE.Vector3( s.x / 2 , -s.y / 2 , 1000 );
+  var v2 = new THREE.Vector3( s.x / 2 ,  s.y / 2 , 1000 );
+
+  lineGeo.vertices.push( v1 );
+  lineGeo.vertices.push( v2 );
+
+  startPoints.push( v1 );
+  endPoints.push(   v2 );
+
+  var v1 = new THREE.Vector3( -s.x / 2 , -s.y / 2 , 1000 );
+  var v2 = new THREE.Vector3(  s.x / 2 , -s.y / 2 , 1000 );
+
+  lineGeo.vertices.push( v1 );
+  lineGeo.vertices.push( v2 );
+
+  startPoints.push( v1 );
+  endPoints.push(   v2 );
+   
+  var v1 = new THREE.Vector3( -s.x / 2 , s.y / 2 , 1000 );
+  var v2 = new THREE.Vector3(  s.x / 2 , s.y / 2 , 1000 );
+
+  lineGeo.vertices.push( v1 );
+  lineGeo.vertices.push( v2 );
+
+  startPoints.push( v1 );
+  endPoints.push(   v2 );
+
+  this.fish = new FrameFish( this , startPoints , endPoints );
+ // this.fish.activate( this.section.page.scene );
   
+}
+
+
+Frame.prototype.update = function(){
+
+  this.fish.update();
+
 }
 
 Frame.prototype.add = function(){
@@ -80,7 +131,6 @@ Frame.prototype.add = function(){
   G.v1.normalize();
   G.v1.multiplyScalar( -1000 );
   this.body.position.add( G.v1 );
-
 
 
 

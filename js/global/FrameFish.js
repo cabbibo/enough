@@ -1,9 +1,8 @@
-function FrameFish( frame , params ){
+function FrameFish( frame , startPoints , endPoints , params ){
  
   this.counter = { type:"f" , value: 0 };
   this.simulationActive = false;
   this.textureArray = [];
-
 
   this.params = _.defaults( params || {} , {
 
@@ -22,6 +21,8 @@ function FrameFish( frame , params ){
   this.soulUniforms = {
 
     resolution:           { type: "v2", value: new THREE.Vector2() },
+    testing:              { type: "f" , value: 1.0 },
+    freedomFactor:        { type: "f" , value: 1000000000000000.0 },
     maxVel:               { type: "f" , value: 20 },
     velMultiplier:        { type: "f" , value: 5. },
     forceMultiplier:      { type: "f" , value: 8000. },
@@ -32,12 +33,9 @@ function FrameFish( frame , params ){
     predatorRepelRadius:  { type: "f" , value: 300 },
     predatorRepelPower:   { type: "f" , value: .1 },
     attractor:            { type: "v3", value: new THREE.Vector3() },
-    attractionCoral :     { type: "f" , value: 3 },
-    coralRepelRadius:     { type: "f" , value:10 },
-    coralAttractRadius:   { type: "f" , value:100 },
-    coralAttractPower:    { type: "f" , value:2000000 },
-    coralRepelPower:      { type: "f" , value:10 },
 
+    startPoints : { type:"v3v" , value: startPoints },
+    endPoints : { type:"v3v" , value: endPoints },
 
   }
 
@@ -50,6 +48,7 @@ function FrameFish( frame , params ){
     t_normal:     { type:"t" , value: G.TEXTURES.ribbonNorm},
     t_matcap:     { type:"t" , value: G.TEXTURES.matcapMetal},
     t_ribbon:     { type:"t" , value: G.TEXTURES.ribbon},
+
     lightPos:     { type: "v3", value: G.mani.position },
     maniPos:      { type: "v3", value: G.mani.position },
     
@@ -73,7 +72,8 @@ function FrameFish( frame , params ){
   this.soulUniforms.resolution.value.set( s , s );
   //this.soulUniforms.predator.value.set( 10000000000 , 0 , 0 );
 
-  var simulation = G.shaders.setValue( G.shaders.ss.frameFish , 'NUM_OF_LINES' ,  4 );
+  var simulation = G.shaders.setValue( G.shaders.ss.frameFish , 'NUM_OF_LINES' ,  startPoints.length );
+    simulation = G.shaders.setValue(simulation ,  'SIZE' , s + "." );
 
   this.soul = new PhysicsArrayRenderer( 
     this.params.size,
@@ -82,13 +82,13 @@ function FrameFish( frame , params ){
     G.renderer
   );
 
-  for( var propt in this.uniforms ){
-    this.soul.uniform( propt , this.uniforms[ propt ] );
+  for( var propt in this.soulUniforms ){
+    this.soul.setUniform( propt , this.soulUniforms[ propt ] );
   }
 
   this.soul.setUniform( 'dT'   , G.dT    );
-  this.soul.setUniform( 'time' , G.time  );
-  this.soul.resetRand( 100 );
+  this.soul.setUniform( 'time' , G.timer  );
+  this.soul.resetRand( 500 );
 
 
 
@@ -114,12 +114,7 @@ function FrameFish( frame , params ){
     this.params.joints  
   );
 
-  var fs = G.shaders.setValue( 
-    G.shaders.fs.frameFish, 
-    'SIZE' ,
-    this.coral.length  
-  );
-
+  var fs = G.shaders.fs.frameFish; 
   
   var ribbonMat = new THREE.ShaderMaterial({
     uniforms: this.bodyUniforms,
@@ -140,35 +135,26 @@ function FrameFish( frame , params ){
 
 FrameFish.prototype.activate = function( scene ){
 
-  //scene.add( this.fish );
-  //scene.add( this.eel );
   scene.add( this.ribbon );
-
   this.simulationActive = true;
 
 }
 
 FrameFish.prototype.deactivate = function( scene ){
 
-  // scene.remove( this.fish );
-  // scene.remove( this.eel );
   scene.remove( this.ribbon );
-
   this.simulationActive = false;
 
 }
 
 FrameFish.prototype.update = function(){
 
-  this.counter ++;
+  this.counter.value ++;
 
   if( this.simulationActive ){
 
-    this.soulUniforms.seperationDistance.value = Math.abs(Math.sin( G.timer.value * 1 ) * 20);
-    this.soulUniforms.alignmentDistance.value = Math.abs(Math.sin( G.timer.value * .5 ) * 40);
-    this.soulUniforms.cohesionDistance.value = Math.abs(Math.sin( G.timer.value * .8 ) * 60);
     this.soul.update();
-
+    
     for( var i =0;i< this.params.joints; i++ ){
       this.textureArray[i] = this.soul.output[i * this.params.jointSize];
     }

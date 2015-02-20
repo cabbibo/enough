@@ -12,7 +12,7 @@
     <div id="container"></div>
 
     <script src="lib/leap.min.js"></script>
-    <script src="lib/three.min.js"></script>
+    <script src="lib/three.js"></script>
     <script src="lib/jquery.min.js"></script>
     <script src="lib/stats.min.js"></script>
     <script src="lib/dat.gui.min.js"></script>
@@ -61,6 +61,7 @@
     <script src="js/global/LightRays.js"></script>
     <script src="js/global/DustMotes.js"></script>
     <script src="js/global/Frame.js"></script>
+    <script src="js/global/FrameFish.js"></script>
    
 
     <script src="js/pages/crystals/Crystal.js"></script>
@@ -125,7 +126,7 @@
       // TODO: 
       // Write shaders for hands
 
-      //G.audio.mute.gain.value = 0;
+      G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -164,6 +165,10 @@
       // For frame
       G.shaders.load(  f + 'vs-frame' , 'frame' , 'vs' );
       G.shaders.load(  f + 'fs-frame' , 'frame' , 'fs' );
+      
+      G.shaders.load(  f + 'vs-frameFish' , 'frameFish' , 'vs' );
+      G.shaders.load(  f + 'fs-frameFish' , 'frameFish' , 'fs' );
+      G.shaders.load(  f + 'ss-frameFish' , 'frameFish' , 'ss' );
       
 
       // For text

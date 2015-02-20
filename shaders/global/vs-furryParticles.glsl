@@ -58,7 +58,7 @@ void main(){
     }
   }
 
-  gl_PointSize *= dpr;
+  gl_PointSize *= dpr * 2.;
 
   vec3 c;
 

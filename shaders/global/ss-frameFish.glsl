@@ -21,9 +21,6 @@ uniform vec3 startPoints[ numOfLines ];
 uniform vec3 endPoints[ numOfLines ];
 
 
-const float width = @SIZE;
-const float height = width;
-
 const float PI = 3.141592653589793;
 const float PI_2 = PI * 2.0;
 // const float VISION = PI * 0.55;
@@ -50,9 +47,6 @@ void main()	{
     float dist;
     vec3 dir; // direction
     float distSquared;
-
-    float seperationSquared = seperationDistance * seperationDistance;
-    float cohesionSquared = cohesionDistance * cohesionDistance;
 
     float f;
     float percent;
@@ -90,8 +84,9 @@ void main()	{
               
 
         }else{
-        
-          //force -= lineToPoint * .001;
+       
+        force -= normalize( lineTangent - .1 * abs(sin( time * abs(sin( float( i + 5)) )))* normalize(lineToPoint) ); 
+          //force += lineToPoint * .1;
 
         }
 

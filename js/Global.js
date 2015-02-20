@@ -76,8 +76,6 @@ G.scene         = new THREE.Scene();
 G.renderer      = new THREE.WebGLRenderer();
 G.clock         = new THREE.Clock();
 
-
-
 G.position      = new THREE.Vector3();
 G.lookAt        = new THREE.Vector3();
 
@@ -99,12 +97,14 @@ G.dT      = { type:"f" , value: 0               }
 G.timer   = { type:"f" , value: 0               }
 G.t_audio = { type:"t" , value: G.audio.texture }
 G.dpr     = { type:"f" , value: window.devicePixelRatio || 1 }
+G.time    = G.timer // because this has destroyed me too many times
 
 G.paused  = false;
 
 // Get all the fun stuff started
 
 G.renderer.setSize( G.w , G.h );
+G.renderer.setPixelRatio( G.dpr.value );
 G.container.appendChild( G.renderer.domElement );
   
 G.stats.domElement.id = 'stats';
