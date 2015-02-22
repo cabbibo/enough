@@ -1,5 +1,7 @@
 
-uniform sampler2D t_pos;
+const int depth = @DEPTH;
+uniform sampler2D t_posArray[ depth ];
+
 uniform sampler2D t_oPos;
 uniform sampler2D t_audio;
 uniform float alive;
@@ -15,8 +17,8 @@ varying vec4 vAudio;
 void main(){
 
   vUv = position.xy;
-  vec4 pos = texture2D( t_pos , vUv );
-  vec4 oPos = texture2D( t_oPos , vUv );
+  vec4 pos = texture2D( t_posArray[0] , vUv );
+  vec4 oPos = texture2D( t_posArray[1] , vUv );
 
 
   vVel = pos.xyz - oPos.xyz;

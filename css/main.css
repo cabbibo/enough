@@ -255,7 +255,7 @@ display:none;
 
   position:absolute;
   left:0px;
-  bottom:0px;
+  bottom:-30px;
   z-index:999;
 
 }

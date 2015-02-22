@@ -23,6 +23,7 @@ fireworks.addToInitArray( function(){
   
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 1000 , 2000 ),
+    lookPosition: new THREE.Vector3( 500 , 0 , 0 ),
     textChunk:[
       "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
   "","",
@@ -104,7 +105,7 @@ fireworks.addToStartArray( function(){
   this.mirrorMesh.rotateX( - Math.PI / 2 );
   this.mirrorMesh.position.y = -100;
  
-  this.scene.add( this.mirrorMesh );
+  //this.scene.add( this.mirrorMesh );
 
  // this.water.body.position.y = -320;
   //console.log( this.water.body );
@@ -152,11 +153,8 @@ fireworks.addToStartArray( function(){
 
     var firework = new Firework( this ,{
       looper: this.looper,
-      size: 64,
+      size: 32,
       audio: audio,
-      vs: G.shaders.vs.firework,
-      fs: G.shaders.fs.firework,
-      ss: G.shaders.ss.firework,
       start: start,
     });
 

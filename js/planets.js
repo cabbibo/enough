@@ -9,6 +9,52 @@ planets.addToInitArray( function(){
   
   this.position.set(  -1000 ,  2000 ,  -1000 );
  
+
+/*this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 2000 ) ,
+    textChunk:[
+      "There wasn’t just one more of him. There was a myriad.",
+      "","",
+      "Mani had never felt so right for being so wrong. He would never be lonely again."
+    ].join("\n" ),
+   start:function(){
+      
+    "As Sol and Mani swam onwards, another creature joined them. ",
+    "","",
+    "It greeted mani with its own song, and just as he had danced with Sol, Mani danced with another new friend.",
+
+   },
+
+
+
+----
+
+The three of them moved on and found two more creatures. They too had their own song, and Mani marveled at the serenity of their voices. 
+
+We watched the way they moved, and marveled how different , yet elegant, their bodies were.
+
+----
+
+Two more friends entered the entourage, letting their songs join the flourishing melody. 
+ 
+What miracle was this? To simply dance to the song of one’s friend
+
+----
+
+
+There wasn’t just one more of him. There was a myriad.
+
+Mani had never felt so right for being so wrong. He would never be lonely again.
+
+
+----
+
+The creatures swam through the infinity together. It no longer mattered to Mani that he didn’t have the answers. It didn’t matter that he still surrounded by darkness. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in mysterious Eden they inhabited. 
+
+---- 
+
+Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his iridescent community.*/
+  
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 2000 ) ,
     textChunk:[
@@ -17,6 +63,7 @@ planets.addToInitArray( function(){
       "Mani had never felt so right for being so wrong. He would never be lonely again."
     ].join("\n" ),
    start:function(){
+
 
 
     

@@ -5,58 +5,59 @@ function Firework( page , params ){
 
     size: 32,
     audio: null,
-    vs: null,
-    fs: null,
-    ss: null,
     looper: null,
     start: new THREE.Vector3(),
     speedUp:1000,
-    speedDown: 20000
+    speedDown: 20000,
+   
+    // for array renderer1
+    depth: 64,
+    joints: 8,
+   // size: 16,
+    sides: 6,
+    time: G.dT,
+
 
 
   });
 
   this.p = this.params;
 
-
   if( !this.params.audio ){ console.log('NO AUDIO' ); }
-  if( !this.params.vs ){ console.log('NO Vertex' ); }
-  if( !this.params.fs ){ console.lo+ this.p.speedUp;
-g('NO Fragment' ); }
-  if( !this.params.ss ){ console.log('NO Simulation' ); }
-
 
 
   this.size   = this.params.size;
   this.audio  = this.params.audio;
  
-  this.vs = this.params.vs;
-  this.fs = this.params.fs;
-  this.ss = this.params.ss;
+
 
   this.start = this.params.start;
 
-
-  this.soul = new PhysicsRenderer( this.size , this.ss , G.renderer );
-
-  this.soul.setUniform( 'dT' , G.dT );
-  this.soul.setUniform( 'timer' , G.timer );
-
   var geo = this.createGeometry();
 
+
+  /*
+   
+     HOVER OVER OBJECT
+
+
+   */
+
+  //TODO: inefficient geometry
   this.targetMarker = new THREE.Mesh( new THREE.IcosahedronGeometry( 2 , 2 ) , new THREE.MeshNormalMaterial() );
 
-  //scene.add( this.targetMarker );
-  //
-  //
   this.baseMaterial = new THREE.ShaderMaterial({
 
     uniforms:{
+      
       t_normal:     { type:"t" , value: G.TEXTURES['normal_water'] },
       t_audio:      { type:"t" , value:this.audio.texture },
+     
       dpr:          G.dpr,//value: new THREE.Vector2( w*dpr , h*dpr ) },
       timer:        G.timer,
+      
       alive: { type:"f" , value: 0 }
+
     },
 
     vertexShader: G.shaders.vs.fireworkBase,
@@ -64,10 +65,9 @@ g('NO Fragment' ); }
 
 
   });
-  this.base =new THREE.Mesh(  new THREE.IcosahedronGeometry( 50 , 2 ) , this.baseMaterial );
 
-  console.log( this.base );
-  // new THREE.Mesh(  new THREE.IcosahedronGeometry( 20 , 2 ) , new THREE.MeshNormalMaterial() );
+  //TODO: inefficient geometry
+  this.base =new THREE.Mesh( new THREE.IcosahedronGeometry( 50 , 2 ) , this.baseMaterial );
 
   this.base.position.copy( this.start );
 
@@ -77,7 +77,8 @@ g('NO Fragment' ); }
  
   G.objectControls.add( this.base );
 
- 
+
+  // Setting up the direction of the firework 
   this.base.add( this.targetMarker );
   this.target = this.targetMarker.position;
   this.direction = new THREE.Vector3();
@@ -87,14 +88,27 @@ g('NO Fragment' ); }
       new THREE.MeshBasicMaterial()
   );
 
-  //this.base.add( marker );
-  console.log( 'THAIS');
-  console.log( this.audio );
- 
+
+
+  
+
+
+    /*
+   
+     
+
+      ACTUAL FIREWORK
+
+   */
+   
+  this.textureArray = [];
+
+  // 
   this.uniforms = {
 
     time:           G.timer,
     t_pos:          { type:"t"  , value: null },
+    t_posArray :    { type:"tv" , value: this.textureArray },
     t_oPos:         { type:"t"  , value: null },
     t_audio:        { type:"t"  , value: this.audio.texture },
     t_sprite:       { type:"t"  , value: G.TEXTURES.sprite_flare},
@@ -106,17 +120,109 @@ g('NO Fragment' ); }
     direction:      { type:"v3" , value: this.direction },
 
     alive:          { type:"f"  , value: 0 },
-    instant:        { type:"f"  , value: 0 }
+    instant:        { type:"f"  , value: 0 },
+
+    resolution:     { type:"v2" , value: new THREE.Vector2() },
+
+
 
   }
 
-this.baseMaterial.uniforms.alive = this.uniforms.alive;
- 
+
+  var s = this.size;
+  this.uniforms.resolution.value.set( s , s );
+  //this.soulUniforms.predator.value.set( 10000000000 , 0 , 0 );
+
+
+
+  var ss = G.shaders.ss.firework
+  this.soul = new PhysicsArrayRenderer(
+    this.size , 
+    this.params.depth,
+    ss,
+    G.renderer 
+  );
+
+  this.soul.setUniform( 'dT' , G.dT );
+  this.soul.setUniform( 'timer' , G.timer );
+  
+  this.soul.setUniform( 'target'        , this.uniforms.target        );
+  this.soul.setUniform( 'exploded'      , this.uniforms.exploded      );
+  this.soul.setUniform( 'alive'         , this.uniforms.alive         );
+  this.soul.setUniform( 'direction'     , this.uniforms.direction     );
+  this.soul.setUniform( 'explosion'     , this.uniforms.explosion     );
+  this.soul.setUniform( 'explosionType' , this.uniforms.explosionType );
+  this.soul.setUniform( 'instant'       , this.uniforms.instant       );
+
+
+  this.alive = false;
+
+  for( var i = 0; i < this.params.joints; i++ ){
+
+    this.textureArray.push( this.soul.rt[i] );
+
+  }
+
+  var size    = this.params.size;
+  var joints  = this.params.joints;
+  var sides   = this.params.sides;
+
+  this.geometries = CreateFlockingGeometry( size , joints , sides );
+
+
+
+  
+  var t_start = { type:"t" , value: posTexture };
+  this.soul.setUniform( 't_start' , t_start );
+
+
+ /* var vs = G.shaders.setValue( 
+    G.shaders.vs.frameFish, 
+    'DEPTH' ,
+    this.params.joints  
+  );
+
+
+ *var vs = G.shaders.vs.fireworkTail;
+  var fs = G.shaders.fs.fireworkTail; 
+  
+  var lineMat = new THREE.ShaderMaterial({
+    uniforms: this.uniforms,
+    vertexShader: vs,
+    fragmentShader:fs,
+    side: THREE.DoubleSide,
+    transparent: true,
+    depthWrite:false,
+    blending: THREE.AdditiveBlending
+  });
+
+
+  var geo = this.geometries.line( this.params.size , this.params.joints * 8 );
+  this.ribbon = new THREE.Line( geo , lineMat );
+  this.ribbon.frustumCulled = false;*/
+
+
+  this.baseMaterial.uniforms.alive = this.uniforms.alive;
+
+  
+  /*
+    
+     GETTING 
+
+  */
+  console.log( 'HAGS');
+  var vs = G.shaders.setValue( 
+    G.shaders.vs.firework, 
+    'DEPTH' ,
+    this.params.joints  
+  );
+
+  var fs = G.shaders.fs.firework; 
   var mat = new THREE.ShaderMaterial({
 
     uniforms: this.uniforms,
-    vertexShader: this.vs , 
-    fragmentShader: this.fs,
+    vertexShader: vs, 
+    fragmentShader: fs,
     transparent: true,
     blending: THREE.AdditiveBlending,
     depthWrite: false
@@ -124,10 +230,16 @@ this.baseMaterial.uniforms.alive = this.uniforms.alive;
   });
  
   this.body = new THREE.PointCloud( geo , mat );
-  
-  this.soul.addBoundTexture( this.body , 't_pos' , 'output' );
-  this.soul.addBoundTexture( this.body , 't_oPos' , 'oOutput' );
 
+  
+
+  
+
+  /*
+   
+     Setting up the original position for the firework.
+
+  */
   var mesh = new THREE.Mesh( new THREE.BoxGeometry(1,1,1,10 ,10,10) );
   
   mesh.rotation.x = Math.PI / 2;
@@ -135,21 +247,8 @@ this.baseMaterial.uniforms.alive = this.uniforms.alive;
   
   this.soul.reset( posTexture );
 
-  var t_start = { type:"t" , value: posTexture };
-  
-  this.soul.setUniform( 't_start'       , t_start );
-  this.soul.setUniform( 'target'        , this.uniforms.target    );
-  this.soul.setUniform( 'exploded'      , this.uniforms.exploded  );
-  this.soul.setUniform( 'alive'         , this.uniforms.alive     );
-  this.soul.setUniform( 'direction'     , this.uniforms.direction );
-  this.soul.setUniform( 'explosion'     , this.uniforms.explosion );
-  this.soul.setUniform( 'explosionType' , this.uniforms.explosionType );
-  this.soul.setUniform( 'instant'       , this.uniforms.instant );
 
-
-  this.alive = false;
-
-  //this.base.add( this.body );
+  this.base.add( this.body );
 
 
 }
@@ -282,7 +381,15 @@ Firework.prototype.debug = function( reducer ){
 Firework.prototype.update = function(){
 
   if( this.alive ){
-    this.soul.update();
+
+     this.soul.update();
+    
+    for( var i =0;i< this.params.joints; i++ ){
+      this.textureArray[i] = this.soul.output[i * this.params.jointSize];
+    }
+
+
+   /// this.soul.update();
     
     if( this.uniforms.explosion.value == 1. ){
       
