@@ -158,8 +158,8 @@ void main(){
   
 
  // p = centerOfCircle + basisY * (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
-  p = centerOfCircle + basisY * 10. *(uv.y * abs(sin( pow( uv.x * 20. , .3) *4.+3.14)) + .4);// * length( aColor );//* (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
-  p = centerOfCircle + basisY * 10. * uv.y * pow( uv.x-.1 , .3); 
+ // p = centerOfCircle + basisY * 10. *(uv.y * abs(sin( pow( uv.x * 20. , .3) *4.+3.14)) + .4);// * length( aColor );//* (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
+  p = centerOfCircle + basisY * 4. * uv.y; //*  (.3  - (uv.x -.3)) *  sin( uv.x * 3.14159 ); 
 
 
 

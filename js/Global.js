@@ -21,6 +21,9 @@ G.texturesToLoad = [
   ['sprite_cabbibo'   , 'img/sprite/cabbibo.png'          ],
   ['sprite_mote'      , 'img/sprite/mote.png'             ],
 
+  ['ribbonNorm'       , 'img/normals/ribbon.jpg'          ],
+  ['matcapMetal'      , 'img/matcap/metal.jpg'            ],
+
   ['logo'             , 'img/icons/cabbibo.png'           ],
 
 ]
@@ -157,6 +160,7 @@ G.init = function(){
   this.iTextPlaneDistance = 1000;
 
   this.iTextPoint = new THREE.Vector3();
+  this.iTextPoint.relative = new THREE.Vector3();
 
   //this.iTextPlane.faceCamera = true;
 
@@ -421,7 +425,6 @@ G.updateIntersection = function(){
   this.iTextPlane.position.add( G.tmpV3);
   this.iTextPlane.lookAt( this.camera.position );
 
-
   G.tmpV3.copy( this.mouse );
 
   if( this.objectControls.leap === true ){
@@ -455,8 +458,12 @@ G.updateIntersection = function(){
   if( intersects.length > 0 ){
     this.iTextPoint.copy( intersects[0].point );
   }else{
-    console.log('NOT HITTING IPLANE!');
+   // console.log('NOT HITTING IPLANE!');
   }
+
+  this.iTextPoint.relative.copy( this.iTextPoint );
+  this.iTextPoint.relative.sub( this.position );
+
 
 
 

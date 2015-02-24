@@ -3,6 +3,7 @@ uniform float time;
 uniform float dT; // about 0.016
 uniform float freedomFactor;
 uniform float maxVel;
+uniform vec3 centerPosition;
 uniform float centerPower;
 uniform float forceMultiplier;
 uniform float velMultiplier;
@@ -51,9 +52,17 @@ void main()	{
     float f;
     float percent;
 
+    //force += .01 *  normalize(centerPosition - pos);
 
 
-    for( int i = 0; i < numOfLines; i++ ){
+    vec3 c_sp = vec3( 0. );
+    vec3 c_ep = vec3( 0. );
+    vec3 c_lineDir = vec3( 0. );
+    vec3 c_lineToPoint = vec3( 0. );
+
+    float c_lineDist = 100000.;
+
+    for( int i = 0; i < 4; i++ ){
 
       vec3 sp = startPoints[i];
       vec3 ep = endPoints[i];
@@ -73,45 +82,48 @@ void main()	{
         vec3 lineToPoint = pos-linePos - proj;
 
         float lineDist = length( lineToPoint );
-        vec3 lineTangent = cross( normalize(lineToPoint) , lineDir );
 
-        // getting position along line:
-        float line =  length( proj ) / length( sp - ep );
+        if( lineDist < c_lineDist ){
 
-        if( lineDist < (10. * abs( sin( line * 2. + time) )) +2. ){
-
-          force += normalize( lineTangent - .1 * abs(sin( time * abs(sin( float( i + 5)) )))* normalize(lineToPoint) );
-              
-
-        }else{
-       
-        force -= normalize( lineTangent - .1 * abs(sin( time * abs(sin( float( i + 5)) )))* normalize(lineToPoint) ); 
-          //force += lineToPoint * .1;
+          c_lineDist = lineDist;
+          c_lineToPoint = lineToPoint;
+          c_lineDir = lineDir;
 
         }
 
       }
-  
-
-
-
-
+     
     }
+ 
+    vec3 lineTangent = cross( normalize(c_lineToPoint) , c_lineDir );
+
+
+    // Inside the frame
+    if( c_lineDist < 100000. ){
+      if( c_lineDist < 20. ){
+        force += ( .1 * sin( uv.x * 20. ) * c_lineDir +  .04 *  normalize( lineTangent  ) + .01  * normalize( c_lineToPoint ) );
+      }else{
+        force -= normalize( c_lineToPoint ) * .1 ;
+      }
+    
+    // Bring inside the frame
+    }else{
+      force += .01 *  normalize(centerPosition - pos);
+    } 
     
    
     vec3 randForce =vec3( sin( time  * 1. * length(uv)+4. ) , sin( time  * 3. * length(uv)+4. ) ,sin( time  * 5. * length(uv)+4. )  );
    // randForce -= vec3( .5 );
 
-    randForce = normalize( randForce ) * .04;
+    randForce = normalize( randForce ) * .0004;
 
     force += randForce;
 
     // Attract flocks to the center
-   /* vec3 central = predator;
+    vec3 central = predator;
     dir = pos - central;
     dist = length( dir );
-    //dir.y *= 2.5;
-    force -= normalize( dir ) * centerPower * 1.;
+   
 
 
     // making sure that object travels perpendicular to 
@@ -121,26 +133,26 @@ void main()	{
 
       vec3 tangent = cross( normalize( dir ) , normalize(vec3( 0 , 1 , 0)) );
       force += normalize( tangent * .1 ) * .001;
-      force += .000001 *  dir * pow(abs(( dist - predatorRepelRadius)),1.) * predatorRepelPower;
+      force += .001 *  dir * pow(abs(( dist - predatorRepelRadius)),1.) * predatorRepelPower;
+    
+ // force += normalize( dir) * predatorRepelPower;
 
 
-     // force += normalize( dir) * predatorRepelPower;
 
-
-
-    }*/
+    }
 
     // this make tends to fly around than down or up
     // if (velocity.y > 0.) velocity.y *= (1. - 0.2 * delta);
 
-    vel += force * forceMultiplier * dT;
+    vel += force ;
 
 
+    vel *= .99;
     // Speed Limits
     if ( length( vel ) > maxVel ) {
       vel = normalize( vel ) * maxVel;
     }
 
-    gl_FragColor = vec4( pos + vel * velMultiplier * dT, 1. );
+    gl_FragColor = vec4( pos + vel, 1. );
 
 }

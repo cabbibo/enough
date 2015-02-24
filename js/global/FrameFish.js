@@ -6,8 +6,8 @@ function FrameFish( frame , startPoints , endPoints , params ){
 
   this.params = _.defaults( params || {} , {
 
-    depth: 64,
-    joints: 8,
+    depth: 32,
+    joints: 4,
     size: 16,
     sides: 6,
     time: G.dT,
@@ -18,21 +18,22 @@ function FrameFish( frame , startPoints , endPoints , params ){
   this.params.jointSize = this.params.depth / this.params.joints;
 
 
+  this.startPoints = startPoints;
+  this.endPoints = endPoints;
   this.soulUniforms = {
 
     resolution:           { type: "v2", value: new THREE.Vector2() },
     testing:              { type: "f" , value: 1.0 },
-    freedomFactor:        { type: "f" , value: 1000000000000000.0 },
-    maxVel:               { type: "f" , value: 20 },
+    maxVel:               { type: "f" , value: 1 },
     velMultiplier:        { type: "f" , value: 5. },
     forceMultiplier:      { type: "f" , value: 8000. },
     centerPower:          { type: "f" , value: 2 },
-    centerPosition:       { type: "v3", value: new THREE.Vector3(0,200,0) },
+    centerPosition:       { type: "v3", value: frame.body.position },
    // prsdator:             { type: "v3", value: new THREE.Vector3(0 , 400 , 0) },
-    predator:             { type: "v3", value: G.mani.position.relative },
+    predator:             { type: "v3", value: G.iTextPoint.relative },
     predatorRepelRadius:  { type: "f" , value: 300 },
     predatorRepelPower:   { type: "f" , value: .1 },
-    attractor:            { type: "v3", value: new THREE.Vector3() },
+    attractor:            { type: "v3", value: G.camera.position.relative },
 
     startPoints : { type:"v3v" , value: startPoints },
     endPoints : { type:"v3v" , value: endPoints },
@@ -49,6 +50,7 @@ function FrameFish( frame , startPoints , endPoints , params ){
     t_matcap:     { type:"t" , value: G.TEXTURES.matcapMetal},
     t_ribbon:     { type:"t" , value: G.TEXTURES.ribbon},
 
+    opacity:      frame.uniforms.opacity,
     lightPos:     { type: "v3", value: G.mani.position },
     maniPos:      { type: "v3", value: G.mani.position },
     
@@ -60,6 +62,7 @@ function FrameFish( frame , startPoints , endPoints , params ){
   this.bodyUniforms.predatorRepelPower   = this.soulUniforms.predatorRepelPower;
   this.bodyUniforms.predatorRepelRadius  = this.soulUniforms.predatorRepelRadius;
 
+  console.log( this.startPoints );
 
 
   /*
@@ -70,6 +73,9 @@ function FrameFish( frame , startPoints , endPoints , params ){
 
   var s = this.params.size;
   this.soulUniforms.resolution.value.set( s , s );
+
+  this.s2 = s * s;
+  this.size = s;
   //this.soulUniforms.predator.value.set( 10000000000 , 0 , 0 );
 
   var simulation = G.shaders.setValue( G.shaders.ss.frameFish , 'NUM_OF_LINES' ,  startPoints.length );
@@ -88,7 +94,9 @@ function FrameFish( frame , startPoints , endPoints , params ){
 
   this.soul.setUniform( 'dT'   , G.dT    );
   this.soul.setUniform( 'time' , G.timer  );
-  this.soul.resetRand( 500 );
+ 
+ 
+  this.resetPositions();
 
 
 
@@ -130,6 +138,52 @@ function FrameFish( frame , startPoints , endPoints , params ){
   this.ribbon = new THREE.Mesh( geo , ribbonMat );
   this.ribbon.frustumCulled = false;
 
+
+}
+
+FrameFish.prototype.resetPositions = function(){
+
+  var data = new Float32Array( this.s2 * 4 );
+
+
+  for( var i =0; i < data.length; i += 4 ){
+
+    var l = Math.floor( Math.random() * 4 );
+
+
+    G.v1.copy( this.startPoints[l] );
+    G.v2.copy( this.startPoints[l] );
+    G.v2.sub( this.endPoints[l] );
+    G.v2.multiplyScalar( -Math.random() );
+
+    G.v1.add( G.v2 );
+    
+
+    data[ i + 0 ] = G.v1.x ; 
+    data[ i + 1 ] = G.v1.y ; 
+    data[ i + 2 ] = G.v1.z ;
+    data[ i + 3 ] = 1; 
+
+    
+  }
+
+  var texture = new THREE.DataTexture( 
+    data,
+    this.size,
+    this.size,
+    THREE.RGBAFormat,
+    THREE.FloatType
+  );
+
+  texture.minFilter =  THREE.NearestFilter,
+  texture.magFilter = THREE.NearestFilter,
+
+  texture.needsUpdate = true;
+
+  this.soul.reset( texture );
+  this.soul.reset( texture );
+  this.soul.reset( texture );
+ 
 
 }
 

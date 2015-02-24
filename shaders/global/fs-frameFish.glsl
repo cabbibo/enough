@@ -1,5 +1,6 @@
 uniform vec3 lightPos;
 
+uniform float opacity;
 uniform sampler2D t_audio;
 uniform sampler2D t_normal;
 uniform sampler2D t_ribbon;
@@ -82,13 +83,13 @@ void main(){
 
   if( (vRibbonUV.x , .3) * .2 > vRibbonUV.y * vRibbonUV.y * vRibbonUV.y* vRibbonUV.y ){
 
-    discard;
+    //discard;
   }
 
 
   //gl_FragColor = nCol;
-  gl_FragColor = semCol * vec4(aColor.xyz, 1.);  //gl_FragColor = vec4( lambert * lambert * lambert , spec * spec * spec * spec , lightDist / 100., 1. );
-  gl_FragColor = vec4( 1. );  //gl_FragColor = vec4( lambert * lambert * lambert , spec * spec * spec * spec , lightDist / 100., 1. );
+  gl_FragColor = semCol * vec4(aColor.xyz, opacity);  //gl_FragColor = vec4( lambert * lambert * lambert , spec * spec * spec * spec , lightDist / 100., 1. );
+  //////////////////gl_FragColor = vec4( vNormal * .5 + .5 , 1. );  //gl_FragColor = vec4( lambert * lambert * lambert , spec * spec * spec * spec , lightDist / 100., 1. );
 
  // gl_FragColor =   vec4( uv.x , .3 , uv.y , 1. );
   //gl_FragColor =   vec4( offset.x , .3 , offset.y , 1. );

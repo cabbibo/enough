@@ -101,12 +101,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
     page.nextPage.sections[i].lookPosition.add( page.nextPage.position );
 
   }
-  console.log('OLD POS' );
-
-  console.log( page.nextPage.cameraPos );
   page.nextPage.cameraPos.copy( page.nextPage.sections[0].cameraPosition ); //page.nextPage.position );
-
-  console.log( page.nextPage.cameraPos );
 
   this.camEndPos     = page.nextPage.sections[0].cameraPosition;
 

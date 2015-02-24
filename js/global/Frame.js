@@ -50,6 +50,7 @@ function Frame(section){
   G.v1.multiplyScalar( -1000 );
   this.body.position.add( G.v1 );
 
+  this.body.updateMatrix();
 
   var lineGeo = new THREE.Geometry();
   var startPoints = [];
@@ -57,8 +58,8 @@ function Frame(section){
 
   var s = this.body.scale;
 
-  var v1 = new THREE.Vector3( -s.x / 2 , -s.y / 2 , 1000 );
-  var v2 = new THREE.Vector3( -s.x / 2 ,  s.y / 2 , 1000 );
+  var v1 = new THREE.Vector3( -1 / 2 , -1 / 2 , 0 );
+  var v2 = new THREE.Vector3( -1 / 2 ,  1 / 2 , 0 );
 
   lineGeo.vertices.push( v1 );
   lineGeo.vertices.push( v2 );
@@ -66,8 +67,8 @@ function Frame(section){
   startPoints.push( v1 );
   endPoints.push(   v2 );
 
-  var v1 = new THREE.Vector3( s.x / 2 , -s.y / 2 , 1000 );
-  var v2 = new THREE.Vector3( s.x / 2 ,  s.y / 2 , 1000 );
+  var v1 = new THREE.Vector3( 1 / 2 , -1 / 2 , 0 );
+  var v2 = new THREE.Vector3( 1 / 2 ,  1 / 2 , 0 );
 
   lineGeo.vertices.push( v1 );
   lineGeo.vertices.push( v2 );
@@ -75,8 +76,8 @@ function Frame(section){
   startPoints.push( v1 );
   endPoints.push(   v2 );
 
-  var v1 = new THREE.Vector3( -s.x / 2 , -s.y / 2 , 1000 );
-  var v2 = new THREE.Vector3(  s.x / 2 , -s.y / 2 , 1000 );
+  var v1 = new THREE.Vector3( -1 / 2 , -1 / 2 , 0 );
+  var v2 = new THREE.Vector3(  1 / 2 , -1 / 2 , 0 );
 
   lineGeo.vertices.push( v1 );
   lineGeo.vertices.push( v2 );
@@ -84,14 +85,21 @@ function Frame(section){
   startPoints.push( v1 );
   endPoints.push(   v2 );
    
-  var v1 = new THREE.Vector3( -s.x / 2 , s.y / 2 , 1000 );
-  var v2 = new THREE.Vector3(  s.x / 2 , s.y / 2 , 1000 );
+  var v1 = new THREE.Vector3( -1 / 2 , 1 / 2 , 0 );
+  var v2 = new THREE.Vector3(  1 / 2 , 1 / 2 , 0 );
 
   lineGeo.vertices.push( v1 );
   lineGeo.vertices.push( v2 );
 
   startPoints.push( v1 );
   endPoints.push(   v2 );
+
+  for( var i = 0; i < startPoints.length; i++ ){
+
+    startPoints[i].applyMatrix4( this.body.matrix );
+    endPoints[i].applyMatrix4( this.body.matrix );
+
+  }
 
   this.fish = new FrameFish( this , startPoints , endPoints );
  // this.fish.activate( this.section.page.scene );
