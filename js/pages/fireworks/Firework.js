@@ -23,6 +23,8 @@ function Firework( page , params ){
 
   this.p = this.params;
 
+  this.p.jointSize = this.p.depth / this.p.joints;
+
   if( !this.params.audio ){ console.log('NO AUDIO' ); }
 
 
@@ -135,7 +137,7 @@ function Firework( page , params ){
 
 
 
-  var ss = G.shaders.ss.firework
+  var ss = G.shaders.ss.firework;
   this.soul = new PhysicsArrayRenderer(
     this.size , 
     this.params.depth,
@@ -228,7 +230,11 @@ function Firework( page , params ){
     depthWrite: false
  
   });
- 
+
+  console.log( 'GW');
+  console.log( this.geometries );
+
+  var geo = this.geometries.particle( size ); 
   this.body = new THREE.PointCloud( geo , mat );
 
   
@@ -241,13 +247,15 @@ function Firework( page , params ){
 
   */
   var mesh = new THREE.Mesh( new THREE.BoxGeometry(1,1,1,10 ,10,10) );
+
+
   
   mesh.rotation.x = Math.PI / 2;
   var posTexture = ParticleUtils.createPositionsTexture( this.size , mesh );
   
   this.soul.reset( posTexture );
 
-
+  
   this.base.add( this.body );
 
 
@@ -382,7 +390,7 @@ Firework.prototype.update = function(){
 
   if( this.alive ){
 
-     this.soul.update();
+    this.soul.update();
     
     for( var i =0;i< this.params.joints; i++ ){
       this.textureArray[i] = this.soul.output[i * this.params.jointSize];

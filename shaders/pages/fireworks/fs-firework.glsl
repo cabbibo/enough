@@ -1,4 +1,11 @@
 
+void main(){
+
+  gl_FragColor = vec4( 1. );
+
+}
+
+/*
 uniform float alive;
 uniform float time;
 uniform sampler2D t_sprite;
@@ -25,4 +32,4 @@ void main(){
  
   //gl_FragColor =  aC ; //* vec4(  1000. - vMPos.y , 100. / vMPos.y , .3, 1. );
 
-}
+}*/
