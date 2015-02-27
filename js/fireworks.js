@@ -65,6 +65,9 @@ fireworks.addToInitArray( function(){
   this.loadShader( 'firework' , f + 'vs-firework' , 'vertex'     );
   this.loadShader( 'firework' , f + 'fs-firework' , 'fragment'   );
 
+  this.loadShader( 'fireworkLine' , f + 'vs-fireworkLine' , 'vertex'     );
+  this.loadShader( 'fireworkLine' , f + 'fs-fireworkLine' , 'fragment'   );
+
   this.loadShader( 'water' , f + 'vs-water' , 'vertex'     );
   this.loadShader( 'water' , f + 'fs-water' , 'fragment'   );
   this.loadShader( 'mirror' , f + 'vs-mirror' , 'vertex'     );
@@ -105,7 +108,7 @@ fireworks.addToStartArray( function(){
   this.mirrorMesh.rotateX( - Math.PI / 2 );
   this.mirrorMesh.position.y = -100;
  
-  //this.scene.add( this.mirrorMesh );
+  this.scene.add( this.mirrorMesh );
 
  // this.water.body.position.y = -320;
   //console.log( this.water.body );
@@ -210,7 +213,7 @@ fireworks.addToActivateArray( function(){
 
   }
 
-  this.fireworks[0].randomExplosion();
+ // this.fireworks[0].randomExplosion();
   //this.fireworks.activate();
     
   for( var i = 0; i < this.audioArray.length; i++ ){

@@ -1,11 +1,5 @@
 
-void main(){
 
-  gl_FragColor = vec4( 1. );
-
-}
-
-/*
 uniform float alive;
 uniform float time;
 uniform sampler2D t_sprite;
@@ -24,7 +18,7 @@ void main(){
   vec4 s = texture2D( t_sprite , vec2( gl_PointCoord.x , 1.0 - gl_PointCoord.y) );
  
   float l =  100. / vMPos.y;
-  vec4 aC = texture2D( t_audio , vec2( vLife , 0. ) );
+  vec4 aC = texture2D( t_audio , vec2( vUv.x, 0. ) );
  // aC *= texture2D( t_audio , vec2( vUv.x , 0. ) );
  // aC *= texture2D( t_audio , vec2( vUv.y , 0. ) );
 
@@ -32,4 +26,4 @@ void main(){
  
   //gl_FragColor =  aC ; //* vec4(  1000. - vMPos.y , 100. / vMPos.y , .3, 1. );
 
-}*/
+}

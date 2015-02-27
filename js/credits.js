@@ -7,16 +7,7 @@ credits.addToInitArray( function(){
 
   this.text = [];
   this.textChunks = [];
-  this.textChunks.push( [
 
-    "                 Who could be so lucky?                      ",
-    "","",
-    "Who comes to a lake for water and sees the reflection of moon.",
-  "","",
-
-    "                         - Rumi                                 "
-
-  ].join("\n" ));
 
 
 
@@ -35,8 +26,15 @@ credits.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
     textChunk:[
-     "THANKS:","","",
+      "THANKS:","","",
       "Jaume Sanchez   Ricardo Cabello   Eddie Lee  Reza Ali  Robbie Tilton  Nicole Campos  Julia Sills    Luke Ishmael   Alex Dotter   Andrew Benson   Grant Marr   Erica Gibbons  Andrew West   Kristi Upson-Saia   Malek   Dale Wright   George Schmiedeschoff  Sally Visher  Joseph Cohen    Abe Cohen   Xochitl Garcia   Luke Abbott   Holy Other   Tielsie  Susanna and the Magical Orchestra    Pantha Du Prince"
+    ].join("\n" ), 
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
+    textChunk:[
+     "Extra Thanks goes to:"
     ].join("\n" ), 
   });
 

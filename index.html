@@ -69,7 +69,6 @@
     <script src="js/pages/crystals/CrystalHalo.js"></script>
     <script src="js/pages/crystals/CrystalParticles.js"></script>
     
-    <script src="js/pages/planets/Planet.js"></script>
     
     <script src="js/pages/tree/Tree.js"></script>
     <script src="js/pages/tree/TreeLight.js"></script>
@@ -98,16 +97,16 @@
     <script src="js/Global.js"></script>
 
     <!-- The Pages -->
-    <script src="js/planets.js"></script>
-    <script src="js/forest.js"></script>
-    <script src="js/crystals.js"></script>
     <script src="js/alone.js"></script>
-    <script src="js/together.js"></script>
+    <script src="js/crystals.js"></script>
+    <script src="js/forest.js"></script>
     <script src="js/tree.js"></script>
+    <script src="js/together.js"></script>
+    <script src="js/friends.js"></script>
     <script src="js/sparkles.js"></script>
     <script src="js/flocking.js"></script>
-    <script src="js/fireworks.js"></script>
     <script src="js/sun.js"></script>
+    <script src="js/fireworks.js"></script>
     <script src="js/credits.js"></script>
 
 
@@ -126,7 +125,7 @@
       // TODO: 
       // Write shaders for hands
 
-      G.audio.mute.gain.value = 0;
+      //G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -195,12 +194,12 @@
       G.pages.tree.nextPage       = G.pages.together;
 
       G.pages.together.prevPage   = G.pages.tree;
-      G.pages.together.nextPage   = G.pages.planets;
+      G.pages.together.nextPage   = G.pages.friends;
      
-      G.pages.planets.prevPage    = G.pages.together;
-      G.pages.planets.nextPage    = G.pages.sparkles;
+      G.pages.friends.prevPage    = G.pages.together;
+      G.pages.friends.nextPage    = G.pages.sparkles;
 
-      G.pages.sparkles.prevPage   = G.pages.planets;
+      G.pages.sparkles.prevPage   = G.pages.friends;
       G.pages.sparkles.nextPage   = G.pages.flocking;
 
       G.pages.flocking.prevPage   = G.pages.sparkles;

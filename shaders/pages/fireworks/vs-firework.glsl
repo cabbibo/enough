@@ -5,6 +5,8 @@ uniform sampler2D t_posArray[ depth ];
 uniform sampler2D t_oPos;
 uniform sampler2D t_audio;
 uniform float alive;
+uniform float exploded;
+uniform float dpr;
 
 varying vec2 vUv;
 varying vec3 vVel;
@@ -28,7 +30,7 @@ void main(){
   vMPos = ( modelMatrix * vec4( pos.xyz , 1. ) ).xyz;
 
   vAudio = texture2D( t_audio , vec2( vUv.x , 0. ) );
-  gl_PointSize = alive * 5. * length( vAudio ) * length( vAudio );
+  gl_PointSize = alive * 8. * (exploded * .2 + .5) * length( vAudio ) * length( vAudio ) * dpr;
   gl_Position = projectionMatrix * modelViewMatrix * vec4( pos.xyz , 1. );
 
 

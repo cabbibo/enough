@@ -1,90 +1,123 @@
-var planets = new Page( 'planets' );
+var friends = new Page( 'friends' );
 
-planets.addToInitArray( function(){
+friends.activateTail = function( n ){
+
+  G.v1.copy( G.camera.position.relative );
+  G.v2.set(
+     Math.random() - .5  * 10,
+     Math.random() - .5  * 10,
+     -1
+  );
+  G.v2.applyQuaternion( G.camera.quaternion );
+  G.v1.add( G.v1 ); 
+   
+  this.furryTails[ n ].activate( G.v1 );
+  this.audio[n].gain.gain.value = .4;
+
+}.bind( friends );
+
+friends.addToInitArray( function(){
 
   this.mani = true;
   this.sol  = true;
 
-  this.planetGeo = new THREE.IcosahedronGeometry( 100 , 3 );
   
   this.position.set(  -1000 ,  2000 ,  -1000 );
  
 
-/*this.sectionParams.push({
+this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 2000 ) ,
     textChunk:[
-      "There wasn’t just one more of him. There was a myriad.",
+      "As Sol and Mani swam onwards, another creature joined them.",
       "","",
-      "Mani had never felt so right for being so wrong. He would never be lonely again."
-    ].join("\n" ),
-   start:function(){
-      
-    "As Sol and Mani swam onwards, another creature joined them. ",
-    "","",
-    "It greeted mani with its own song, and just as he had danced with Sol, Mani danced with another new friend.",
-
-   },
-
-
-
-----
-
-The three of them moved on and found two more creatures. They too had their own song, and Mani marveled at the serenity of their voices. 
-
-We watched the way they moved, and marveled how different , yet elegant, their bodies were.
-
-----
-
-Two more friends entered the entourage, letting their songs join the flourishing melody. 
- 
-What miracle was this? To simply dance to the song of one’s friend
-
-----
-
-
-There wasn’t just one more of him. There was a myriad.
-
-Mani had never felt so right for being so wrong. He would never be lonely again.
-
-
-----
-
-The creatures swam through the infinity together. It no longer mattered to Mani that he didn’t have the answers. It didn’t matter that he still surrounded by darkness. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in mysterious Eden they inhabited. 
-
----- 
-
-Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his iridescent community.*/
-  
-  this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  0 , 0 , 2000 ) ,
-    textChunk:[
-      "There wasn’t just one more of him. There was a myriad.",
-      "","",
-      "Mani had never felt so right for being so wrong. He would never be lonely again."
+      "It greeted mani with its own song, and just as he had danced with Sol, Mani danced with another new friend.",
     ].join("\n" ),
    start:function(){
 
+       this.activateTail( 1 );
+       this.activateTail( 0 );
 
-
-    
-     for( var i = 0; i < this.furryTails.length; i++ ){
+      for( var i = 0; i < this.furryTails.length; i++ ){
 
         var fT = this.furryTails[i];
-        console.log('FT');
+       /* console.log('FT');
         console.log( fT );
 
         for( var j = 0; j < fT.brethren.length; j++ ){
 
 
           fT.addNormalForce( fT.brethren[j].position , -.8 );
-        }
+        }*/
 
         fT.addDistanceForce( G.mani.position.relative , .004 );
       
       }
 
-    }.bind( planets ) 
-  });
+
+   }.bind(friends)
+
+});
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 2100 ) ,
+    textChunk:[
+      "The three of them moved on and found two more creatures. They too had their own song, and Mani marveled at the serenity of their voices.",
+  "","",
+  "He watched the way they moved, and marveled how different , yet elegant, their bodies were.",
+    ].join("\n" ),
+   start:function(){
+             
+       this.activateTail( 2 );
+   }.bind( friends )
+             
+     
+});
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 2200 ) ,
+    textChunk:[
+      "Two more friends entered the entourage, letting their songs join the flourishing melody.",
+      "","",
+      "What miracle was this? To simply dance to the song of one’s friend",
+    ].join("\n" ),
+   start:function(){
+       this.activateTail( 3 );
+       this.activateTail( 4 );
+   }.bind(friends)
+});
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 2300 ) ,
+    textChunk:[
+      "Mani could feel his sense of self slowly receding, as he basked in the light of his iridescent friends.",
+      "","",
+      "As more creatures approached, Mani felt a force he had never felt before.",
+      "","",
+      "Something not even the forest could convey."
+    ].join("\n" ),
+   start:function(){
+
+     this.activateTail( 5 );
+     this.activateTail( 6 );
+
+   }.bind(friends)
+});
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 3300 ) ,
+    textChunk:[
+      "There wasn’t just one more of him. There was a myriad.",
+      "","",
+      "Mani had never felt so right for being so wrong. He would never be lonely again.",
+    ].join("\n" ),
+   start:function(){
+     this.activateTail( 7 );
+     this.activateTail( 8 );
+     this.activateTail( 9 ); 
+   }.bind(friends)
+});
+
+
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 1000 , 0 , 500 ) ,
@@ -95,6 +128,8 @@ Overjoyed Mani continued swimming. The chirps of his brethren were more satisfyi
 
    start:function(){
 
+     this.activateTail( 10 );   
+     this.activateTail( 11 );
 
       G.iPlaneDistance = 500;
       for( var i = 0; i < this.furryTails.length; i++ ){
@@ -129,7 +164,7 @@ Overjoyed Mani continued swimming. The chirps of his brethren were more satisfyi
       }
 
 
-    }.bind( planets )
+    }.bind( friends )
 
 
   });
@@ -150,6 +185,7 @@ Overjoyed Mani continued swimming. The chirps of his brethren were more satisfyi
     
     start:function(){
       
+      this.activateTail( 12 );
       G.iPlaneDistance = 2000;
       for( var i = 0; i < this.furryTails.length; i++ ){
 
@@ -167,7 +203,7 @@ Overjoyed Mani continued swimming. The chirps of his brethren were more satisfyi
       }
 
 
-    }.bind( planets ) 
+    }.bind( friends ) 
 
 
   });
@@ -179,147 +215,44 @@ Overjoyed Mani continued swimming. The chirps of his brethren were more satisfyi
 
   this.iPlaneDistance = 1200;
 
-  this.planets = [];
+  this.friends = [];
   this.furryGroups = [];
   this.furryTails = [];
 
-  this.colorSchemes = [
-
-  /*  A52433
-    F2C633
-    9CA6DB
-    8B060D
-
-    149100
-    F5B43E
-    F06810
-    DC4108
-
-    C1EBC7
-    EDC6F1
-    51C6F1
-    864273
-   
-    066CF4
-    FFFFCC
-    77894D
-    F00501 */
-    
-    [ 
-      'Friend1',
-      1,
-      new THREE.Color( '#00FFAC' ),
-      new THREE.Color( '#00CBF2' ),
-      new THREE.Color( '#0066FF' ),
-      new THREE.Color( '#684BD4' ),
-    ],
-    
-     [ 
-      'Friend3',
-        1,
-      new THREE.Color( '#4E0059' ),
-      new THREE.Color( '#CC43AB' ),
-      new THREE.Color( '#FF52A8' ),
-      new THREE.Color( '#FF0B7F' ),
-    ],
-
-    [ 
-      'Loki',
-      1,
-      new THREE.Color( '#ff0000' ),
-      new THREE.Color( '#f7b5b5' ),
-      new THREE.Color( '#de0808' ),
-      new THREE.Color( '#f78585' ),            
-    ],
-
-    [
-      'Friend2',
-       1,
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#fff000' ),
-      new THREE.Color( '#de9f07' ),
-      new THREE.Color( '#ff8700' ), 
-     ],
-
-    [
-      'Friend2',
-       1,
-      new THREE.Color( '#00CD73' ),
-      new THREE.Color( '#008148' ),
-      new THREE.Color( '#2D9668' ),
-      new THREE.Color( '#3ECDBD' ), 
-    ],
-
-
-     [
-      'Friend2',
-       1,
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#fff000' ),
-      new THREE.Color( '#de9f07' ),
-      new THREE.Color( '#ff8700' ), 
-     ],
-
-     
-     [
-      'Friend2',
-       1,
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#fff000' ),
-      new THREE.Color( '#de9f07' ),
-      new THREE.Color( '#ff8700' ), 
-     ],
-
-     
-     [
-      'Friend2',
-       1,
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#fff000' ),
-      new THREE.Color( '#de9f07' ),
-      new THREE.Color( '#ff8700' ), 
-     ],
-
-     
-     [
-      'Friend2',
-       1,
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#fff000' ),
-      new THREE.Color( '#de9f07' ),
-      new THREE.Color( '#ff8700' ), 
-     ],
-
-     [
-      'Friend2',
-       1,
-      new THREE.Color( '#ffa400' ),
-      new THREE.Color( '#fff000' ),
-      new THREE.Color( '#de9f07' ),
-      new THREE.Color( '#ff8700' ), 
-     ],
-
-
-  ]
-
   this.audio = [];
 
-}.bind( planets ));
+}.bind( friends ));
 
 
-planets.addToInitArray( function(){
+friends.addToInitArray( function(){
   
-  var f = 'audio/pages/planets/';
+  var f = 'audio/pages/friends/';
 
-  for( var i = 0; i < 10; i++ ){
+  // purposefully ordered!
+ 
+  this.choreography = [ 
+    'plipPlop1',
+    'plipPlop2',
+    'melody3',
+    'melody2',
+    'melody4',
+    'melody1',
+    'melody5',
+    'tenor',
+    'bass',
+    'shuffle',
+    'atmosphere',
+    'heartbeat',
+    'burial'
+  ];
+
+
+  for( var i = 0; i < this.choreography.length  ; i++ ){
 
     var num = i+1;
-    var string = "planets"+num;
-    var file = f + string +".mp3"
+    var file = f + this.choreography[i] +".mp3"
 
- 
-    this.audio.push( this.loadAudio(string , file ) ) ;
-
+    this.audio.push( this.loadAudio( this.choreography[i] , file ) ) ;
 
   }
 
@@ -348,15 +281,15 @@ planets.addToInitArray( function(){
   this.loadShader( 'furryTailSim'   , f + 'furryTailSim' , 'ss' );
   this.loadShader( 'furryHeadSim'   , f + 'furryHeadSim' , 'ss' );
 
-  var f = 'pages/planets/';
+/*  var f = 'pages/friends/';
   
   this.loadShader( 'planet' , f + 'vs-planet' , 'vs' );
   this.loadShader( 'planet' , f + 'fs-planet' , 'fs' );
+*/
+}.bind( friends) );
 
-}.bind( planets) );
 
-
-planets.addToStartArray( function(){
+friends.addToStartArray( function(){
 
 
   
@@ -366,7 +299,7 @@ planets.addToStartArray( function(){
 
   G.iPlaneDistance = this.iPlaneDistance;
 
-}.bind( planets ));
+}.bind( friends ));
 
 /*
 
@@ -374,7 +307,7 @@ planets.addToStartArray( function(){
 
 */
 
-planets.addToStartArray( function(){
+friends.addToStartArray( function(){
 
 
   this.center = new THREE.Mesh(
@@ -385,24 +318,24 @@ planets.addToStartArray( function(){
 
   //this.scene.add( this.center );
 
-  for( var i= 0; i< this.colorSchemes.length; i++ ){
+  for( var i= 0; i< this.choreography.length; i++ ){
 
     var bait = this.center.clone();
     bait.scale.multiplyScalar( 5.3 );
     //this.scene.add( bait );
 
-    var c = this.colorSchemes[i];
-
-    var numOf = c[1]; //+ Math.floor( Math.random() * 10 );
-
-    var col1 = new THREE.Vector3( c[2].r , c[2].g , c[2].b );
+    var col1 = new THREE.Vector3();
+    var col2 = new THREE.Vector3();
+    var col3 = new THREE.Vector3();
+    var col4 = new THREE.Vector3();
+    /*var col1 = new THREE.Vector3( c[2].r , c[2].g , c[2].b );
     var col2 = new THREE.Vector3( c[3].r , c[3].g , c[3].b );
     var col3 = new THREE.Vector3( c[4].r , c[4].g , c[4].b );
-    var col4 = new THREE.Vector3( c[5].r , c[5].g , c[5].b );
+    var col4 = new THREE.Vector3( c[5].r , c[5].g , c[5].b );*/
 
     var color = new THREE.Color();
 
-    color.setHSL( Math.pow( i/ this.colorSchemes.length , 3. ) , 1. , .3 );
+    color.setHSL( Math.pow( i/ this.choreography.length , 3. ) , 1. , .3 );
 
     var col = new THREE.Vector3( color.r , color.g , color.b );
     var col1 = col.clone().add(
@@ -426,23 +359,10 @@ planets.addToStartArray( function(){
     var audio = this.audio[i];
     audio.reconnect( this.gain );
 
-   /* var planet = new Planet( this , c[0] ,  audio , col1 , col2 , col3 , col4 );
 
-
-    var r = 500;
-    var t = (i / this.colorSchemes.length ) * Math.PI * 2;
-    planet.position.x = r * Math.sin( t );// -200 * ( this.colorSchemes.length - i );
-    planet.position.z = 0;
-    planet.position.y = r* Math.cos( t );
-    
-    console.log( planet.position.x );// (((i+.5)/this.colorSchemes.length) -.5) * 500;
-//G.iPlaneDis//(Math.random() - .5 ) * 1000;
-
-
-    this.planets.push( planet );*/
 
    
-    var f = new FurryGroup( this , c[0] , audio , 2, {
+    var f = new FurryGroup( this , this.choreography[i] , audio , 1, {
             
       center: this.center,
       bait: bait,
@@ -469,7 +389,7 @@ planets.addToStartArray( function(){
 
   }
 
- }.bind( planets ));
+ }.bind( friends ));
 
 
 
@@ -480,17 +400,20 @@ planets.addToStartArray( function(){
   TODO: Make into looper
 
 */
-planets.addToStartArray( function(){
+friends.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
   
-    beatsPerMinute: 96.4,
+    beatsPerMinute: 96,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
   });
 
 
+  for( var i = 0; i < this.choreography.length  ; i++ ){
+    this.audio[i].gain.gain.value = 0;
+  }
   this.looper.everyLoop( function(){
     for( var i = 0; i < this.audio.length; i++ ){
       this.audio[i].play();
@@ -498,15 +421,15 @@ planets.addToStartArray( function(){
   }.bind( this ) );
 
    
-  /*for( var i = 0; i < this.planets.length; i++ ){
-    this.planets[i].updateAudio();
+  /*for( var i = 0; i < this.friends.length; i++ ){
+    this.friends[i].updateAudio();
    }*/
 
   this.looper.start();
   
 
 
-}.bind( planets ));
+}.bind( friends ));
 
 
 /*
@@ -514,7 +437,7 @@ planets.addToStartArray( function(){
    Text
 
 */
-planets.addToStartArray( function(){
+friends.addToStartArray( function(){
 
   
   var repelPosArray = [];
@@ -525,9 +448,9 @@ planets.addToStartArray( function(){
 
   }
 
-  for( var i = 0; i < this.planets.length; i++ ){
+  for( var i = 0; i < this.friends.length; i++ ){
 
-    repelPosArray.push( this.planets[i].position );
+    repelPosArray.push( this.friends[i].position );
 
   }
 
@@ -546,32 +469,30 @@ planets.addToStartArray( function(){
 
   */
 
-}.bind( planets ));
+}.bind( friends ));
 
 
-planets.addToStartArray( function(){
+friends.addToStartArray( function(){
 
 
   for( var i = 0; i < this.furryTails.length; i++ ){
 
     var furryTail = this.furryTails[i];
-
-    furryTail.position.x = ( Math.random() - .5 ) * 1000;
-    furryTail.position.y = ( Math.random() - .5 ) * 1000;
-    furryTail.position.z = ( Math.random() - .5 ) * 1000;
+/*
+    furryTail.position.x = ( Math.random() - .5 ) * 500;
+    furryTail.position.y = ( Math.random() - .5 ) * 500;
+    furryTail.position.z = ( Math.random() - .5 ) * 500;
     
     furryTail.velocity.x = ( Math.random() - .5 ) * 1000;
     furryTail.velocity.y = ( Math.random() - .5 ) * 1000;
-    furryTail.velocity.z = ( Math.random() - .5 ) * 1000;
-
-    furryTail.activate();
+    furryTail.velocity.z = ( Math.random() - .5 ) * 1000;*/
 
   }
 
-}.bind( planets ));
+}.bind( friends ));
 
 
-planets.addToAllUpdateArrays( function(){
+friends.addToAllUpdateArrays( function(){
 
   
   for( var i = 0; i < this.furryTails.length; i++ ){
@@ -589,9 +510,9 @@ planets.addToAllUpdateArrays( function(){
 
   }
 
-  for( var i =0; i < this.furryTails.length; i+=2 ){
+  for( var i =0; i < this.furryTails.length; i+=1 ){
 
-    G.v1.copy( G.mani.position.relative   );
+    /*G.v1.copy( G.mani.position.relative   );
     G.v1.sub(  this.furryTails[i].position );
 
     var l = G.v1.length();
@@ -604,25 +525,25 @@ planets.addToAllUpdateArrays( function(){
     var l = G.v1.length();
     a += 1/l
 
-    a *= 40;
-    this.audio[ Math.floor( i / 2 ) ].gain.gain.value = Math.min( 1. , a );
+    a *= 40;*/
+    //this.audio[ Math.floor( i / 2 ) ].gain.gain.value = Math.min( 1. , a );
 
   }
 
 
-}.bind( planets ) );
+}.bind( friends ) );
 
-planets.addToDeactivateArray( function(){
+friends.addToDeactivateArray( function(){
 
   G.v1.set( -100000 , 0 , 0 );
   G.solAttractor.add( G.v1 );
 
-}.bind( planets ));
+}.bind( friends ));
 
-planets.addToEndArray( function(){
+friends.addToEndArray( function(){
 
   this.looper.end();
   G.sol.deactivate();
 
-}.bind( planets ));
+}.bind( friends ));
 

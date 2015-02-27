@@ -243,13 +243,15 @@
 
   }
 
-  FurryTail.prototype.activate = function(){
+  FurryTail.prototype.activate = function( position ){
 
+    if( position ){ this.transport( position ); }
     this.page.scene.add( this.leader );
     this.page.scene.add( this.physicsParticles );
     this.page.scene.add( this.line );
     this.page.scene.add( this.leader );
     this.page.scene.add( this.head.mesh );    
+
 
     this.active = true;
 

@@ -3,16 +3,16 @@ function Firework( page , params ){
   this.page = page;
   this.params = _.defaults( params || {} , {
 
-    size: 32,
+    size: 16,
     audio: null,
     looper: null,
     start: new THREE.Vector3(),
-    speedUp:1000,
-    speedDown: 20000,
+    speedUp:500,
+    speedDown: 6000,
    
     // for array renderer1
     depth: 64,
-    joints: 8,
+    joints: 4,
    // size: 16,
     sides: 6,
     time: G.dT,
@@ -35,7 +35,6 @@ function Firework( page , params ){
 
   this.start = this.params.start;
 
-  var geo = this.createGeometry();
 
 
   /*
@@ -108,6 +107,7 @@ function Firework( page , params ){
   // 
   this.uniforms = {
 
+    dpr:            G.dpr,
     time:           G.timer,
     t_pos:          { type:"t"  , value: null },
     t_posArray :    { type:"tv" , value: this.textureArray },
@@ -123,7 +123,7 @@ function Firework( page , params ){
 
     alive:          { type:"f"  , value: 0 },
     instant:        { type:"f"  , value: 0 },
-
+     
     resolution:     { type:"v2" , value: new THREE.Vector2() },
 
 
@@ -171,48 +171,14 @@ function Firework( page , params ){
 
   this.geometries = CreateFlockingGeometry( size , joints , sides );
 
-
-
-  
-  var t_start = { type:"t" , value: posTexture };
-  this.soul.setUniform( 't_start' , t_start );
-
-
- /* var vs = G.shaders.setValue( 
-    G.shaders.vs.frameFish, 
-    'DEPTH' ,
-    this.params.joints  
-  );
-
-
- *var vs = G.shaders.vs.fireworkTail;
-  var fs = G.shaders.fs.fireworkTail; 
-  
-  var lineMat = new THREE.ShaderMaterial({
-    uniforms: this.uniforms,
-    vertexShader: vs,
-    fragmentShader:fs,
-    side: THREE.DoubleSide,
-    transparent: true,
-    depthWrite:false,
-    blending: THREE.AdditiveBlending
-  });
-
-
-  var geo = this.geometries.line( this.params.size , this.params.joints * 8 );
-  this.ribbon = new THREE.Line( geo , lineMat );
-  this.ribbon.frustumCulled = false;*/
-
-
   this.baseMaterial.uniforms.alive = this.uniforms.alive;
 
   
   /*
-    
-     GETTING 
 
+     Firework tips
+        
   */
-  console.log( 'HAGS');
   var vs = G.shaders.setValue( 
     G.shaders.vs.firework, 
     'DEPTH' ,
@@ -231,11 +197,41 @@ function Firework( page , params ){
  
   });
 
-  console.log( 'GW');
-  console.log( this.geometries );
-
   var geo = this.geometries.particle( size ); 
   this.body = new THREE.PointCloud( geo , mat );
+
+
+
+
+  /*
+
+     Firework tails
+        
+  */
+
+
+  var vs = G.shaders.setValue( 
+    G.shaders.vs.fireworkLine, 
+    'DEPTH' ,
+    joints  
+  );
+
+  var fs = G.shaders.fs.fireworkLine
+
+
+  var geo = this.geometries.line( size , joints );
+  var mat  = new THREE.ShaderMaterial({
+
+    uniforms: this.uniforms,
+    vertexShader: vs, 
+    fragmentShader: fs,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+ 
+  });
+ 
+  this.lines = new THREE.Line( geo , mat , THREE.LinePieces );
 
   
 
@@ -246,16 +242,20 @@ function Firework( page , params ){
      Setting up the original position for the firework.
 
   */
-  var mesh = new THREE.Mesh( new THREE.BoxGeometry(1,1,1,10 ,10,10) );
+  var mesh = new THREE.Mesh( new THREE.IcosahedronGeometry(10,2) );
 
-
-  
   mesh.rotation.x = Math.PI / 2;
-  var posTexture = ParticleUtils.createPositionsTexture( this.size , mesh );
   
-  this.soul.reset( posTexture );
+  this.posTexture = ParticleUtils.createPositionsTexture( this.size , mesh );
+  
+  this.soul.reset( this.posTexture );
+   
+  var t_start = { type:"t" , value: this.posTexture };
+  this.soul.setUniform( 't_start' , t_start );
 
-  
+
+ 
+  this.base.add( this.lines ); 
   this.base.add( this.body );
 
 
@@ -284,15 +284,15 @@ Firework.prototype.randomExplosion = function( callback ){
  // G.tmpV3.x -= (Math.random()) * 300;
  // G.tmpV3.z += (Math.random() -.5 ) * 300;
 
-  G.tmpV3.x = -this.start.x * Math.random() * .1;
-  G.tmpV3.z =-this.start.z * Math.random() * .1;
+  G.tmpV3.x = -this.start.x * Math.random() * .3;
+  G.tmpV3.z =-this.start.z * Math.random() * .3;
 
   var e = new THREE.Vector3();
   e.copy( G.tmpV3 );
 
 
-  var eTime = Math.random() * this.p.speedUp * .3 + this.p.speedUp;
-  var dTime = Math.random() * this.p.speedDown * .3 + this.p.speedUp;
+  var eTime = Math.random() * this.p.speedUp * .2 + this.p.speedUp;
+  var dTime = Math.random() * this.p.speedDown * .2 + this.p.speedDown;
   this.explode( e , eTime , dTime , callback );
 
 
@@ -303,13 +303,9 @@ Firework.prototype.explode = function( end , timeToExplode , timeToDissolve , ca
 
   this.base.add( this.body );
 
-  this.target.set( 0 , 0 , 0);
+  this.target.set( 0 , 0 , 0 );
 
-  this.uniforms.instant.value = 1;
-  this.soul.update();
-  this.soul.update();
-  this.soul.update();
-  this.uniforms.instant.value = 0;  
+  this.soul.reset( this.posTexture );
 
   this.uniforms.exploded.value  = 0.;
   this.uniforms.explosion.value = 0.;
@@ -423,9 +419,6 @@ Firework.prototype.hoverOver = function(){
 
 Firework.prototype.select = function(){
 
-  console.log('sss');
-  console.log( this );
-   
   if( this.alive === false ){
     
     this.randomExplosion();
@@ -435,35 +428,6 @@ Firework.prototype.select = function(){
 }
 
 Firework.prototype.hoverOut = function(){
-
-}
-
-
-Firework.prototype.createGeometry = function(){
-
-  var geo = new THREE.BufferGeometry();
-  var positions = new Float32Array( this.size * this.size * 3 );
-  var pos = new THREE.BufferAttribute( positions , 3 );
-
-  geo.addAttribute( 'position' , pos );
-
-  var hSize = .5 / this.size;
-  for( var i =0; i < this.size; i++ ){
-    for( var j = 0; j < this.size; j++ ){
-
-      var index = ((i * this.size ) + j) * 3;
-
-      var x = (i / this.size) + hSize;
-      var y = (j / this.size) + hSize;
-
-      positions[ index + 0 ] = x;
-      positions[ index + 1 ] = y;
-      positions[ index + 2 ] = index / 3;
-
-    }
-  }
-
-  return geo;
 
 }
 
