@@ -126,7 +126,7 @@ sun.addToInitArray( function(){
     cameraPosition:new THREE.Vector3( -1000 , 0 , 1000 ),
     cameraPosition:new THREE.Vector3( -500 , 0 , 1000 ),
     transitionTime:30000,
-
+    
     textChunk:[
     
      "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
@@ -141,6 +141,8 @@ sun.addToInitArray( function(){
           this.audio.array[i].fadeIn( 10 , 1 );
         }
       }*/
+
+      this.page.iPlaneDistance = -500 ;
 
       
       for( var i = 0; i < this.audio.array.length; i++ ){
@@ -260,6 +262,9 @@ sun.addToInitArray( function(){
 
   this.loadShader( 'hologram' , f + 'vs-hologram' , 'vertex' ); 
   this.loadShader( 'hologram' , f + 'fs-hologram' , 'fragment' ); 
+
+  this.loadShader( 'holoborder' , f + 'vs-holoborder' , 'vertex' ); 
+  this.loadShader( 'holoborder' , f + 'fs-holoborder' , 'fragment' ); 
 
   this.loadShader( 'cloth' , f + 'vs-cloth' , 'vertex' ); 
   this.loadShader( 'cloth' , f + 'fs-cloth' , 'fragment' ); 
@@ -417,8 +422,36 @@ sun.addToStartArray( function(){
   this.hypercube  = new Hypercube( 30 );
   //this.holocubeC = new Holocube( 100 , 2 );
   //this.holocube.add( this.scene );
+  //this.scene.add( this.hypercube.body );
   this.scene.add( this.hypercube.body );
- // this.scene.add( this.holocubeC.body );
+ 
+  this.hyperborder = new Hyperborder( 200 );
+  this.hyperdots = new Hyperdots( 250 );
+  this.hyperlines = new Hyperlines( 300 );
+
+  console.log( this.hyperborder );
+  this.hyperborder.body.position.z = 100
+  this.hyperdots.body.position.z = 130
+  this.hyperlines.body.position.z = 80
+
+ 
+  this.scene.add( this.hyperborder.body );
+  this.scene.add( this.hyperdots.body );
+  this.scene.add( this.hyperlines.body );
+
+
+  this.hyperborder2 = new Hyperborder( 80 );
+  this.hyperborder2.body.position.x = 200;
+  this.hyperborder2.body.position.y = 300;
+  this.hyperborder2.body.position.z = 100;
+  this.scene.add( this.hyperborder2.body );
+
+  this.hyperlines2 = new Hyperdots( 100 );
+  this.hyperlines2.body.position.x = 200;
+  this.hyperlines2.body.position.y = 300;
+  this.hyperlines2.body.position.z = 100;
+  this.scene.add( this.hyperlines2.body );
+
 
 }.bind( sun ));
 
@@ -433,6 +466,10 @@ sun.addToAllUpdateArrays( function(){
   
   //this.holocube.body.lookAt( G.mani.position.relative );
   this.hypercube.update();
+  this.hyperdots.update();
+  this.hyperborder.update();
+  this.hyperborder2.update();
+  this.hyperlines.update();
 
   for( var i = 0; i < this.repelers.length; i++ ){
 

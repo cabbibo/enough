@@ -1,4 +1,4 @@
-function Hyperborder( size ){
+function Hyperlines( size ){
 
 
   var u = {
@@ -46,11 +46,13 @@ function Hyperborder( size ){
 }
 
 
-Hyperborder.prototype.update = function(){
+Hyperlines.prototype.update = function(){
 
  // this.body.rotation.x += G.dT.value * .13;
  // this.body.rotation.y += G.dT.value * -.27;
-  this.body.rotation.z -= G.dT.value * .04;
+  this.body.rotation.z = 1.9; //G.dT.value * .07;
+ // this.body.rotation.z += G.dT.value * .137;
+  
   this.body.updateMatrixWorld();
   this.body.material.uniforms.iModelMat.value.getInverse( this.body.matrixWorld );
 
@@ -59,51 +61,50 @@ Hyperborder.prototype.update = function(){
 
 
 
-Hyperborder.prototype.createGeometry = function( size ){
+Hyperlines.prototype.createGeometry = function( size ){
 
-  var innerR = size * .8;
-  var outerR = size;
+  var innerR = size * 1.;
+  var outerR = size * 1.4;
   var faces = [];
 
-  var segments = 40;
+  var segments = 4;
 
   for( var i  = 0; i < segments; i++ ){
 
-    var t = 2 * Math.PI * i  / segments;
-    var tU =  2 * Math.PI * (i +.4) / segments;
+    for( var j = 0; j < 2; j ++ ){
+      var t = 2 * Math.PI * (i + (segments*4* j))  / (segments * 8);
+      var tU =  2 * Math.PI * (i +(segments*4 * j)+.2) /( segments *8);
 
-    var xDoIn = Math.sin( t  ) * innerR;
-    var xUpIn = Math.sin( tU ) * innerR;
-    var yDoIn = Math.cos( t  ) * innerR;
-    var yUpIn = Math.cos( tU ) * innerR;
+      var xDoIn = Math.sin( t  ) * innerR;
+      var xUpIn = Math.sin( tU ) * innerR;
+      var yDoIn = Math.cos( t  ) * innerR;
+      var yUpIn = Math.cos( tU ) * innerR;
 
-    var xDoOu = Math.sin( t  ) * outerR;
-    var xUpOu = Math.sin( tU ) * outerR;
-    var yDoOu = Math.cos( t  ) * outerR;
-    var yUpOu = Math.cos( tU ) * outerR;
+      var xDoOu = Math.sin( t  ) * outerR;
+      var xUpOu = Math.sin( tU ) * outerR;
+      var yDoOu = Math.cos( t  ) * outerR;
+      var yUpOu = Math.cos( tU ) * outerR;
 
-    var f = [
-      [ xUpIn , yUpIn , 0 ],
-      [ xDoIn , yDoIn , 0 ],
-      [ xDoOu , yDoOu , innerR - outerR ],
-      [ xUpOu , yUpOu , innerR - outerR ]
-    ]
+      var f = [
+        [ xUpIn , yUpIn , 0 ],
+        [ xDoIn , yDoIn , 0 ],
+        [ xDoOu , yDoOu , (innerR - outerR) / 20],
+        [ xUpOu , yUpOu , (innerR - outerR) / 20 ]
+      ]
 
-    faces.push( f );
-
-    console.log( i );
-    console.log( f );
-    console.log( 'pysh' );
+      faces.push( f );
+    }
 
   }
 
 
 
-  var s = size * .35;
-  for( var i  = 0; i < segments * 2; i++ ){
+  /*var s = size * .35;
+  for( var i  = 0; i < segments ; i++ ){
 
-    var t = 2 * Math.PI * i  / (segments * 2);
-    var tU =  2 * Math.PI * (i+1) / (segments * 2);
+    var t = 2 * Math.PI * (i+4)  / (segments * 3);
+
+    var tU =  2 * Math.PI * (i+5) / (segments * 3);
 
     var xDoIn = Math.sin( t  ) * s * 2;
     var xUpIn = Math.sin( tU ) * s * 2;
@@ -116,10 +117,10 @@ Hyperborder.prototype.createGeometry = function( size ){
     var yUpOu = Math.cos( tU ) * s * 2.1;
 
     var f = [
-      [ xUpIn , yUpIn , -s * .3 ],
-      [ xDoIn , yDoIn , -s * .3 ],
-      [ xDoOu , yDoOu , -s * .4 ],
-      [ xUpOu , yUpOu , -s * .4 ]
+      [ xUpIn , yUpIn , s * .3 ],
+      [ xDoIn , yDoIn , s * .3 ],
+      [ xDoOu , yDoOu , s * .4 ],
+      [ xUpOu , yUpOu , s * .4 ]
     ]
 
     faces.push( f );
@@ -128,7 +129,7 @@ Hyperborder.prototype.createGeometry = function( size ){
     console.log( f );
     console.log( 'pysh' );
 
-  }
+  }*/
 
 
 
@@ -268,7 +269,7 @@ Hyperborder.prototype.createGeometry = function( size ){
 
 }
 
-Hyperborder.prototype.assignBufVec3 = function( buf , index , vec ){
+Hyperlines.prototype.assignBufVec3 = function( buf , index , vec ){
 
   buf[ index + 0 ] = vec.x;
   buf[ index + 1 ] = vec.y;
@@ -276,14 +277,14 @@ Hyperborder.prototype.assignBufVec3 = function( buf , index , vec ){
 
 }
 
-Hyperborder.prototype.assignBufVec2 = function( buf , index , vec ){
+Hyperlines.prototype.assignBufVec2 = function( buf , index , vec ){
 
   buf[ index + 0 ] = vec.x;
   buf[ index + 1 ] = vec.y;
 
 }
 
-Hyperborder.prototype.assignBufFloat = function( buf , index , f ){
+Hyperlines.prototype.assignBufFloat = function( buf , index , f ){
 
   buf[ index ] = f;
 

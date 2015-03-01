@@ -20,7 +20,7 @@ varying mat3 vINormMat;
 $hsv
 $triNoise3D
 
-#define STEPS 5
+#define STEPS 3
 vec4 volumeColor( vec3 ro , vec3 rd  , mat3 iBasis){
 
   vec3 col = vec3( 0. );
@@ -39,7 +39,7 @@ vec4 volumeColor( vec3 ro , vec3 rd  , mat3 iBasis){
     //p = iBasis * p;
 
     //lum += abs(sin( p.x * oscillationSize ) +sin( p.y * oscillationSize ))/2.; 
-    lum += pow(triNoise3D( p * .002, float( i ) / float( STEPS ), time),.3);//lu / 5.;
+    lum += pow(triNoise3D( p * .02, float( i ) / float( STEPS ), time),.3);//lu / 5.;
     vec4 aCol = texture2D( t_audio , vec2( abs( sin(lum)) , 0.));
 
     //col +=  aCol.xyz * hsv( lum * 4. + sin( time * .1 ) , 1. , 1. );
@@ -64,7 +64,7 @@ void main(){
   vec3 lightDir = normalize( lightPos - vMPos );
   vec3 reflDir = reflect( lightDir , vNorm );
   
-  float lambMatch = max( 0. , -dot(lightDir ,  vNorm ) );
+  float lambMatch = max( 0. , dot(lightDir ,  vNorm ) );
   float reflMatch = max( 0. , -dot(normalize(reflDir) ,  normalize(vEye)) );
 
   reflMatch = pow( reflMatch , 2. );
@@ -79,15 +79,17 @@ void main(){
   col = volCol.xyz;// * lambMatch  + vec3(1. ) * (1.-lambMatch ) ;
 
   float size = .04;
-  if( vUv.x < size || vUv.x > 1. - size || vUv.y < size || vUv.y > 1. - size ){
-    col *= 2.;// lambCol * 3.;
-  }
+ /* if( vUv.x < size || vUv.x > 1. - size || vUv.y < size || vUv.y > 1. - size ){
+    col = lambCol * 3.;
+  }*/
 
   //if(abs( vFaceType -2.)< .01 ){ alpha = 1.; }
  
   //col = vec3( vUv.x , .3 , vUv.y ) * .5; 
-  gl_FragColor =  vec4( col *2. * brightness , volCol.w  * brightness  );
+  //gl_FragColor =  vec4( col *2. * brightness , volCol.w  * brightness  );
+  gl_FragColor =  vec4( (lambCol + col ) * 2. * brightness  , volCol.w  * brightness  );
 
+  //gl_FragColor = vec4(1.);
   //gl_FragColor = vec4( normalize( lightDir ) * .5 + .5 , 1. );
 
   //gl_FragColor = vec4( normalize( vEye ) * .5 + .5 , 1. );
