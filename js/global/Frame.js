@@ -1,4 +1,4 @@
-function Frame(section){
+function Frame(section , fish ){
 
   this.section = section;
 
@@ -101,7 +101,9 @@ function Frame(section){
 
   }
 
-  this.fish = new FrameFish( this , startPoints , endPoints );
+  if( fish ){
+    this.fish = new FrameFish( this , startPoints , endPoints );
+  }
  // this.fish.activate( this.section.page.scene );
   
 }
@@ -109,7 +111,9 @@ function Frame(section){
 
 Frame.prototype.update = function(){
 
-  this.fish.update();
+  if( this.fish ){
+    this.fish.update();
+  }
 
 }
 

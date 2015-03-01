@@ -11,7 +11,7 @@ sun.addToInitArray( function(){
       SECTIONS
 
   */
-
+/*
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  -10000 , 0 , 5000 ),
     textChunk:[
@@ -45,6 +45,8 @@ sun.addToInitArray( function(){
 
     }.bind( sun )
   });
+
+ 
     
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(   -4000 ,    0 , 4000 ),
@@ -115,9 +117,14 @@ sun.addToInitArray( function(){
       G.iPlane.faceCamera = true;
     }
   });
+*/
+
+
+  // INSIDE
 
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3( -1000 , 0 , 1000 ),
+    cameraPosition:new THREE.Vector3( -500 , 0 , 1000 ),
     transitionTime:30000,
 
     textChunk:[
@@ -129,11 +136,17 @@ sun.addToInitArray( function(){
     ].join("\n"),
     transitionIn:function(){
 
-      for( var i = 0; i < this.audio.array.length; i++ ){
+     /* for( var i = 0; i < this.audio.array.length; i++ ){
         if( i == 3 || i == 2 || i == 1  ){
           this.audio.array[i].fadeIn( 10 , 1 );
         }
+      }*/
+
+      
+      for( var i = 0; i < this.audio.array.length; i++ ){
+          this.audio.array[i].fadeIn( 10 , 1 );
       }
+
 
      }.bind( sun )
 
@@ -244,6 +257,9 @@ sun.addToInitArray( function(){
 
   this.loadShader( 'sun' , f + 'vs-sun' , 'vertex' ); 
   this.loadShader( 'sun' , f + 'fs-sun' , 'fragment' ); 
+
+  this.loadShader( 'hologram' , f + 'vs-hologram' , 'vertex' ); 
+  this.loadShader( 'hologram' , f + 'fs-hologram' , 'fragment' ); 
 
   this.loadShader( 'cloth' , f + 'vs-cloth' , 'vertex' ); 
   this.loadShader( 'cloth' , f + 'fs-cloth' , 'fragment' ); 
@@ -395,8 +411,14 @@ sun.addToStartArray( function(){
   
   
   this.flower = new Sunflower();
+  this.flower.add( this.scene );
 
-  this.flower.toggle( this.scene );
+
+  this.hypercube  = new Hypercube( 30 );
+  //this.holocubeC = new Holocube( 100 , 2 );
+  //this.holocube.add( this.scene );
+  this.scene.add( this.hypercube.body );
+ // this.scene.add( this.holocubeC.body );
 
 }.bind( sun ));
 
@@ -408,6 +430,9 @@ sun.addToAllUpdateArrays( function(){
   
   this.gem.update();
   this.flower.update();
+  
+  //this.holocube.body.lookAt( G.mani.position.relative );
+  this.hypercube.update();
 
   for( var i = 0; i < this.repelers.length; i++ ){
 

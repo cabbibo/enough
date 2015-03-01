@@ -19,7 +19,7 @@
       lineGeo:            this.createLineGeo,
       audio:              this.group.audio,
 
-      particleSprite:     G.TEXTURES.sprite_flare,
+      particleSprite:     G.TEXTURES.sprite_cabbibo,
       //THREE.ImageUtils.loadTexture('img/sprite/cabbibo.png'),
       color1:             new THREE.Vector3( 1 , 1 , 1 ),
       color2:             new THREE.Vector3( 1 , 1 , 1 ),

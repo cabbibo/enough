@@ -59,7 +59,9 @@ Section.prototype._transitionIn = function(){
     this.transitionIn();
   }
 
-  this.frame.fish.activate( this.page.scene );
+  if( this.frame.fish ){
+    this.frame.fish.activate( this.page.scene );
+  }
 
 }
 

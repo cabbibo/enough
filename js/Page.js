@@ -265,8 +265,11 @@ Page.prototype.start = function(){
 
   G.scene.add( this.scene );
 
-  this.sections[0].frame.fish.activate( this.scene );
+  if( this.sections[0].frame.fish ){
+    this.sections[0].frame.fish.activate( this.scene );
+  }
   this.sections[0].active = true;
+  
 
 }
 

@@ -196,28 +196,29 @@ void main(){
 
  //+= windDirection * windSpeed * .0001 * windMultiplier / sample;
  
- // p += vel;//* min( .1 , dT );/// sample;
+  vel += f;
+  vel *= dampening;
+  p += vel;//* min( .1 , dT );/// sample;
 
 
   //vel = min( length(maxVel) , length(vel) )*normalize(vel) / 1.1;
   // Verlet integration 
-  p = pos.xyz + (pos.xyz - oPos.xyz) * (.99 + .01*dampening);  //+ min( .01 , dT * dT );
+  //p = pos.xyz + (pos.xyz - oPos.xyz) * (.99 + .01*dampening);  //+ min( .01 , dT * dT );
 
   vec3 difP = p - pos.xyz;
 
   if( length( difP ) > maxVel * (3.-vUv.x) ){
     p = pos.xyz + normalize( difP ) * maxVel * .9* (3.-vUv.x);
-
   }
 
-if( vUv.x < iSize  ){
+  if( vUv.x < iSize  ){
 
-  float aPow = length( texture2D( t_audio , vec2( abs( vUv.y-.5), 0. ) ) );
-  p = og.xyz - .0001 * vec3( 3.1 * aPow , sin( aPow * 20.) * 4. , cos( aPow * 6. ) * 5. );
+    float aPow = length( texture2D( t_audio , vec2( abs( vUv.y-.5), 0. ) ) );
+    p = og.xyz - .0001 * vec3( 3.1 * aPow , sin( aPow * 20.) * 4. , cos( aPow * 6. ) * 5. );
 
 
 
-}
+  }
 
 
   /*if( vUv.x < iSize  ){//|| vUv.y < iSize || vUv.x > 1.- iSize ||vUv.y > 1. -iSize   ){

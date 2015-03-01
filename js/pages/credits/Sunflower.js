@@ -1,8 +1,7 @@
 function Sunflower( title , mesh , extraParams ){
 
   var title = title || 'Cloth';
-  var mesh = mesh || new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ,  31 , 31) );
-
+  var mesh = mesh || new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ,  127 , 127) );
 
   //mesh.position.x = 10;
   mesh.updateMatrix();
@@ -52,22 +51,21 @@ function Sunflower( title , mesh , extraParams ){
 
     soul:{
       
-      windSpeed:     { type:"f" , value: .001  , constraints:[ 0 ,2] },
+      windSpeed:     { type:"f" , value: 1.9  , constraints:[ 0 ,2] },
 
-      windDepth:     { type:"f" , value: .6 , constraints:[ 0 , 10] },
-      windHeight:     { type:"f" , value: .6  , constraints:[ 0 , 10] },
+      windDepth:     { type:"f" , value: 1.4  , constraints:[ 0 , 10] },
+      windHeight:     { type:"f" , value: 1.8  , constraints:[ 0 , 10] },
       windDirection:      { type:"v3" ,value: dir  },
-      dampening:          { type:"f" , value: .8  , constraints:[ .0 , .9999 ] },
+      dampening:          { type:"f" , value: .999  , constraints:[ .0 , .9999 ] },
       
 
-      springLength:       { type:"f" , value: 1 / 31  , constraints:[ .01 ,.1 ] },
-      springMultiplier:   { type:"f" , value: 100. , constraints:[ 1000 ,10000 ] },
+      springLength:       { type:"f" , value: 1 / 127  , constraints:[ .01 ,.1 ] },
+      springMultiplier:   { type:"f" , value: 10000. , constraints:[ 1000 ,10000 ] },
       //returnMultiplier:   { type:"f" , value: 1000. , constraints:[ .001 ,2000 ] },
 
-      maxVel:             { type:"f" , value: .01   , constraints:[ .00001 , .01 ] },
-      noiseSize:          { type:"f" , value: 10.3   , constraints:[ .001 , 1. ] },
+      maxVel:             { type:"f" , value: .5   , constraints:[ .00001 , .01 ] },
+      noiseSize:          { type:"f" , value: .3   , constraints:[ .001 , 1. ] },
 
-      maniPos:            { type:"v3" , value: G.mani.position.relative },
       time:               G.timer,
 
       t_audio:            G.t_audio,
@@ -77,13 +75,12 @@ function Sunflower( title , mesh , extraParams ){
     body:{
           
       t_audio:           G.t_audio,
-      lightPos:{type:"v3" , value: G.mani.position},
+      lightPos:{type:"v3" , value: new THREE.Vector3( 10 , 10 , 20 )},
       audioDisplacement: { type:"f" , value: 0   , constraints:[ 0 , .1 ] },
-      texScale: { type:"f" , value: 4.   , constraints:[ 0 , 10 ] },
+      texScale: { type:"f" , value: 10.   , constraints:[ 0 , 10 ] },
 
-      normalScale: { type:"f" , value: .4   , constraints:[ 0 , 1. ] },
-
-      t_normal: { type:"t" , value: G.TEXTURES["ribbonNorm"] }, 
+      normalScale: { type:"f" , value: 0.2   , constraints:[ 0 , 1. ] },
+      t_normal: { type:"t" , value: G.TEXTURES["sand"] }, 
       t_matcap: { type:"t" , value: G.TEXTURES["matcapMetal"] },//matcapTexture}, 
     },
 
@@ -155,43 +152,7 @@ function Sunflower( title , mesh , extraParams ){
 
   gem.soul.reset( gem.t_og.value );
  
-  //gem.body.scale.multiplyScalar( 100 );
-
-  var body = new THREE.Object3D();
-
-  body.meshes = []; 
-
-  var rad = 1.2;
-  gem.body.position.x = rad;
-  body.add( gem.body );
-
-  for( var i =1; i < 24; i++ ){
-
-    var n = gem.body.clone();
-
-    var t = 2 * Math.PI * i / 24
-    n.position.x = rad * Math.cos( t );
-    n.position.y = rad * Math.sin( t );
-    n.rotation.z = t;
-    body.add( n );
-
-    body.meshes.push( n );
-
-  }
-
-
-  body.update = function(){
-     this.gem.update();
-  }
-
-  body.add = function( scene ){
-    scene.add( this );
-    this.gem.active = true;
-  }
-
-  body.scale.multiplyScalar( 200 );
-  body.gem = gem;
-    
-  return body;
+  gem.body.scale.multiplyScalar( 1000 ); 
+  return gem;
 
 }

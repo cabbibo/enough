@@ -67,7 +67,14 @@ void main(){
 
 
 
-  gl_FragColor = sem * ( vec4( .4 , .3 , .2 , 1. ) + vec4( 1. , .6 , .0 , 1. ) * lamb + refl * vec4(  texture2D( t_audio , vec2( refl, 0. )) ));
+  if( gl_FrontFacing == true ){
+
+    gl_FragColor = sem * ( vec4( .4 , .3 , .2 , 1. ) + vec4( 1. , .6 , .0 , 1. ) * lamb + refl * vec4(  texture2D( t_audio , vec2( refl, 0. )) ));
+  }else{
+
+    gl_FragColor = sem * ( vec4( vNorm * .5 + .5 , 1. ) * vec4(  texture2D( t_audio , vec2( refl, 0. )) ));
+
+  }
     
     //pow( vFR, 30. ) * 1. * vAudio + vec4( 0.5 * normalize(vReflection ) + 0.7 , 1. ) *   sem; //vec4( vSEM.x , 0. , vSEM.y , 1. );
   //gl_FragColor = vec4( 0.5 * normalize(vReflection ) + 0.7 , 1. ); //vec4( vSEM.x , 0. , vSEM.y , 1. );

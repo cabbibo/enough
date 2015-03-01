@@ -32,7 +32,7 @@ uniform float texScale ;
 uniform float normalScale;
 
 
-
+$hsv
 $uvNormalMap
 $semLookup
 
@@ -52,7 +52,7 @@ void main(){
 
 
 
- /* vec2 offset = vec2( 0. );
+ vec2 offset = vec2( 0. );
   vec3 fNorm = uvNormalMap( t_normal , vPos , vUv , vNorm , texScale , normalScale , offset * 5.15123465);
 
 
@@ -66,35 +66,24 @@ void main(){
   float lambert = max( 0. , dot( vLightDir , fNorm ) );
 
   float reflFR = abs(dot( vCamVec , refl ));
+
+
+  vec3 reflCol = hsv( reflFR / 1.3 + sin( time ) , .5 , 1. );
 // float luf = abs(dot( vCamVec , fNorm ));
   vec4 aC = texture2D( t_audio , vec2( spec , 0. ));
   
 
  
-  if( vUv.x < .02 ){
+  /*if( vUv.x < .02 ){
 
     discard;
 
   }*/
 
- //// vec2 semUV = semLookup( normalize( vMVPos ) , normalize(vNormalMatrix * fNorm) );
-// vec4 semCol = texture2D( t_matcap , semUV );
+ vec2 semUV = semLookup( normalize( vMVPos ) , normalize(vNormalMatrix * fNorm) );
+ vec4 semCol = texture2D( t_matcap , semUV );
 
 
-gl_FragColor = vec4( vNorm * .5 + .5 , 1. ); // vec4((1. - lu * lu * lu ));
-//  gl_FragColor = aC * vec4( fNorm * .5 + .5 , 1. ) *   vec4((1. - luf * luf * luf ));
-  //gl_FragColor = vec4((1. - luf * luf * luf ));
-//  gl_FragColor = vec4(( pow(reflFR,20.))) * vec4( fNorm * .5 + .5 , 1. ) * aC + vec4((1. - luf * luf * luf ));
-//  gl_FragColor = semCol * aC;  //+  vec4(( pow(reflFR,20.))) * vec4( fNorm * .5 + .5 , 1. ) * aC;
-  
-   
-  
-  //* vec4(vUv.x , .1 , vUv.y , 1. );//c + aC;// c * aC * custom3;
- // gl_FragColor = vec4( iri* (abs(vMNorm)+vec3(.7)) + vec3( 1.-flag.r), 1. ) * (1. - lu * lu * lu ); //* vec4(vUv.x , .1 , vUv.y , 1. );//c + aC;// c * aC * custom3;
-
- // gl_FragColor = vec4( flag.xyz , 1. )* (1. - lu * lu * lu );
-
-
-//gl_FragColor = vec4( 1. );
+gl_FragColor = vec4(aC.xyz * semCol.xyz * reflCol, 1. ); 
   
 }
