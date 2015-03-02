@@ -11,7 +11,7 @@ sun.addToInitArray( function(){
       SECTIONS
 
   */
-/*
+
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  -10000 , 0 , 5000 ),
     textChunk:[
@@ -117,7 +117,6 @@ sun.addToInitArray( function(){
       G.iPlane.faceCamera = true;
     }
   });
-*/
 
 
   // INSIDE
@@ -142,7 +141,7 @@ sun.addToInitArray( function(){
         }
       }*/
 
-      this.page.iPlaneDistance = -500 ;
+      this.iPlaneDistance = 500 ;
 
       
       for( var i = 0; i < this.audio.array.length; i++ ){
