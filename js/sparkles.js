@@ -21,20 +21,30 @@ sparkles.addToInitArray( function(){
       "","",
       "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
     ].join("\n" ),
-    transitionIn:function(){
+    transitionIn:function( a ){
 
       console.log('TANSL');
+      console.log( a );
       this.cameraPosition.copy( G.camera.position );
       this.page.cameraPos.x =  G.camera.position.x;
       this.page.cameraPos.y =  G.camera.position.y;
       this.page.cameraPos.z =  G.camera.position.z
       this.lookPosition.copy( this.page.position );
-      //G.lookAt.copy( this.page.position );
-     // G.camera.position.copy( this.page.position );
-      //G.v1.set( 0 , 0 , 900 );
-      //this.cameraPosition.add( G.v1 );
 
-    }
+
+      for( var i = 0;i < this.page.audioArray.length; i++ ){
+
+        console.log(this.page.audioArray[i]);
+        var audio = G.AUDIO[  this.page.audioArray[i] ];
+
+        if( i == 3 ){
+          audio.fadeIn( 5 , 1 );
+        }
+
+      }
+
+    },
+   
   });
 
   this.sectionParams.push({
@@ -45,7 +55,7 @@ sparkles.addToInitArray( function(){
       "","",
       "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
     ].join("\n" ),
-    transitionIn:function(){
+    transitionIn:function( ){
 
       console.log('TANSL2');
       
@@ -56,6 +66,17 @@ sparkles.addToInitArray( function(){
      // this.page.cameraPos.copy( G.camera.position );
       
       this.lookPosition.copy( this.page.position );
+
+      for( var i = 0;i < this.page.audioArray.length; i++ ){
+
+        console.log(this.page.audioArray[i]);
+        var audio = G.AUDIO[  this.page.audioArray[i] ];
+
+        if( i == 4 ){
+          audio.fadeIn( 4 , 1 );
+        }
+
+      }
 
 
     }
@@ -72,11 +93,11 @@ sparkles.addToInitArray( function(){
 
 
   this.audioArray = [
-    'hueBoy',
-    'hueSparkles',
-    'hueAngel',
-    'hueHum',
-    'hueMids'
+    'ohoh',
+    'sparkleMelody1',
+    'sparkleMelody2',
+    'dolak',
+    'penny',
   ];
 
 
@@ -99,7 +120,7 @@ sparkles.addToInitArray( function(){
   this.loadShader( 'sparkles' , f + 'fs-sparkles' , 'fragment'   );
 
 
-  var f = 'audio/global/';
+  var f = 'audio/pages/sparkles/';
 
   for( var i = 0; i < this.audioArray.length; i++ ){
   
@@ -128,7 +149,7 @@ sparkles.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 122,
+    beatsPerMinute: 91,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
@@ -142,7 +163,7 @@ sparkles.addToStartArray( function(){
     var audio = G.AUDIO[  this.audioArray[i] ];
     audio.reconnect( this.gain );
 
-    if( i == 0 || i == 1 ){
+    if( i == 0 || i == 1 || i == 2 ){
       
       audio.gain.gain.value = 1;
 
@@ -173,7 +194,7 @@ sparkles.addToActivateArray( function(){
 
     console.log(this.audioArray[i]);
     var audio = G.AUDIO[  this.audioArray[i] ];
-    audio.gain.gain.value = 1;
+    //audio.gain.gain.value = 1;
 
   }
 

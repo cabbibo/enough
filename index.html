@@ -131,7 +131,7 @@
       // TODO: 
       // Write shaders for hands
 
-      G.audio.mute.gain.value = 0;
+      //G.audio.mute.gain.value = 0;
 
 
       G.loader.addLoad();
@@ -216,8 +216,9 @@
       
       G.pages.fireworks.prevPage  = G.pages.sun;
       G.pages.fireworks.nextPage  = G.pages.credits;
-     
-      G.pages.credits.nextPage    = G.pages.fireworks;
+
+      G.pages.credits.prevPage = G.pages.fireworks;     
+     // G.pages.credits.nextPage    = G.pages.fireworks;
 
 
 

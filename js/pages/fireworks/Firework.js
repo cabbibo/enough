@@ -80,7 +80,7 @@ function Firework( page , params ){
 
 
   // Setting up the direction of the firework 
-  this.base.add( this.targetMarker );
+  //this.base.add( this.targetMarker );
   this.target = this.targetMarker.position;
   this.direction = new THREE.Vector3();
 

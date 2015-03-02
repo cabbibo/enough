@@ -85,7 +85,9 @@ Section.prototype._start = function(){
 
   }else{
 
-    this.page.endMesh.add( this.page );
+    if( this.page.nextPage ){
+      this.page.endMesh.add( this.page );
+    }
 
   }
 
