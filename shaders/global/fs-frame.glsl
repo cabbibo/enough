@@ -20,7 +20,7 @@ void main(){
     discard;
   }
 
- // gl_FragColor = vec4((aX * aY * 3.).xyz , opacity );
-  gl_FragColor = vec4(vec3(1.) , opacity * .4 );
+ gl_FragColor = vec4((aX * aY * 3.).xyz , opacity );
+ // gl_FragColor = vec4(vec3(1.) , opacity * .4 );
 
 }

@@ -12,8 +12,11 @@ sun.addToInitArray( function(){
 
   */
 
-  this.sectionParams.push({
+  
+ /* this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  -10000 , 0 , 5000 ),
+    lookPosition: new THREE.Vector3(   00 ,    0 ,   2000 ),
+    
     textChunk:[
       "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
     "","",
@@ -23,7 +26,8 @@ sun.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(   -8000 ,    0 ,   3000 ),
+    cameraPosition: new THREE.Vector3(   -6000 ,    0 ,   5000 ),
+    lookPosition: new THREE.Vector3(   00 ,    0 ,   3000 ),
     textChunk:[
       "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
       "","",
@@ -123,7 +127,7 @@ sun.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3( -1000 , 0 , 1000 ),
-    cameraPosition:new THREE.Vector3( -500 , 0 , 1000 ),
+    lookPosition:new THREE.Vector3( 500 , 0 , 100 ),
     transitionTime:30000,
     
     textChunk:[
@@ -135,27 +139,26 @@ sun.addToInitArray( function(){
     ].join("\n"),
     transitionIn:function(){
 
-     /* for( var i = 0; i < this.audio.array.length; i++ ){
+     for( var i = 0; i < this.audio.array.length; i++ ){
         if( i == 3 || i == 2 || i == 1  ){
           this.audio.array[i].fadeIn( 10 , 1 );
         }
-      }*/
-
-      this.iPlaneDistance = 500 ;
-
-      
-      for( var i = 0; i < this.audio.array.length; i++ ){
-          this.audio.array[i].fadeIn( 10 , 1 );
       }
 
+      this.iPlaneDistance = 800 ;
+      G.iPlaneDistance = this.iPlaneDistance;
+      G.iPlane.faceCamera = true;
 
+      
+   
      }.bind( sun )
 
   });
 
+*/
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( -200 , 0 , 1400 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
     transitionTime:10000,
 
     textChunk:["The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
@@ -165,19 +168,23 @@ sun.addToInitArray( function(){
         "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
     transitionIn:function(){
 
+      this.flower.setValue( 'noiseSize' , 2 );
+      this.flower.setValue( 'springLength' , 2/31 );
       for( var i = 0; i < this.audio.array.length; i++ ){
         if(i == 4 || i == 5 || i == 6 ){
           this.audio.array[i].fadeOut( 10 );
         }
       }
 
+       this.iPlaneDistance = 800 ;
+      G.iPlaneDistance = this.iPlaneDistance;
      }.bind( sun )
 
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 1000 ,    0 ,  1000 ),
-    lookPosition: new THREE.Vector3( 500 , 0 , 0 ),
+    cameraPosition: new THREE.Vector3( 400 ,    0 ,  2000 ),
+    lookPosition: new THREE.Vector3( 400 , 0 , 0 ),
     transitionTime: 10000,
 
     textChunk: [
@@ -191,11 +198,16 @@ sun.addToInitArray( function(){
 
       G.sol.activate();
       G.v1.copy( this.position );
-      G.v2.set( 3000 , 0 , 0 );
+      G.v2.set( -500 , 0 , 2000 );
       G.v1.add( G.v2 );
       G.sol.transport( G.v1 );
       G.solAttractor.copy( G.mani.position );
-      
+     
+      this.iPlaneDistance = 1000 ;
+      G.iPlaneDistance = this.iPlaneDistance; 
+
+      this.flower.setValue( 'windDepth' , 3 );
+      this.flower.setValue( 'windHeight' , 3 );
 
       for( var i = 0; i < this.audio.array.length; i++ ){
         if(i == 4 ||  i == 5 || i == 0 ){
@@ -209,16 +221,21 @@ sun.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 1000 , 500 ,  1000 ), 
-    lookPosition: new THREE.Vector3( 1000 , 500 ,  0 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 ,  1200 ), 
+
+    lookPosition: new THREE.Vector3( 0 , 0 , 0 ),
     transitionTime:10000,
     textChunk:[
-      "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
+      "Mani knew he had to make a choice between the rainbow being and Sol.",
       "","",
-      "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
+      "But how could Mani choose."
     ].join("\n" ),
 
     transitionIn:function(){
+
+      this.flower.setValue( 'windSpeed' , .005 );
+      this.iPlaneDistance = 500 ;
+      G.iPlaneDistance = this.iPlaneDistance; 
 
       for( var i = 0; i < this.audio.array.length; i++ ){
         if( i == 5 || i == 6 ){
@@ -228,12 +245,41 @@ sun.addToInitArray( function(){
 
     }.bind( sun )
 
+  });
+
+  this.sectionParams.push({
+    
+    cameraPosition: new THREE.Vector3( 400 , -1000 ,  1600 ), 
+    lookPosition: new THREE.Vector3(  400 , -400 ,  0 ),
+    transitionTime:10000,
+    textChunk:[
+      "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
+      "","",
+      "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
+    ].join("\n" ),
+
+    transitionIn:function(){
+
+
+      this.flower.setValue( 'windSpeed' , .001 );
+      this.flower.setValue( 'springLength' , 3/31 );
+     // this.flower.setValue( 'dampening' , .0001 );
+      
+      /*for( var i = 0; i < this.audio.array.length; i++ ){
+        if( i == 5 || i == 6 ){
+          this.audio.array[i].fadeIn( 10 , 1 );
+        }
+      }*/
+
+    }.bind( sun )
+
 
   });
+
   
   
   
-  this.position.set(  9000 , 0 , 0 );
+  this.position.set(  10000 , 1000 , -5000 );
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -258,6 +304,9 @@ sun.addToInitArray( function(){
 
   this.loadShader( 'sun' , f + 'vs-sun' , 'vertex' ); 
   this.loadShader( 'sun' , f + 'fs-sun' , 'fragment' ); 
+
+  this.loadShader( 'lookingGlass' , f + 'vs-lookingGlass' , 'vertex' ); 
+  this.loadShader( 'lookingGlass' , f + 'fs-lookingGlass' , 'fragment' ); 
 
   this.loadShader( 'hologram' , f + 'vs-hologram' , 'vertex' ); 
   this.loadShader( 'hologram' , f + 'fs-hologram' , 'fragment' ); 
@@ -422,34 +471,46 @@ sun.addToStartArray( function(){
   //this.holocubeC = new Holocube( 100 , 2 );
   //this.holocube.add( this.scene );
   //this.scene.add( this.hypercube.body );
-  this.scene.add( this.hypercube.body );
+  //this.scene.add( this.hypercube.body );
  
   this.hyperborder = new Hyperborder( 200 );
   this.hyperdots = new Hyperdots( 250 );
   this.hyperlines = new Hyperlines( 300 );
 
   console.log( this.hyperborder );
-  this.hyperborder.body.position.z = 100
-  this.hyperdots.body.position.z = 130
-  this.hyperlines.body.position.z = 80
-
- 
-  this.scene.add( this.hyperborder.body );
-  this.scene.add( this.hyperdots.body );
-  this.scene.add( this.hyperlines.body );
-
+/* 
 
   this.hyperborder2 = new Hyperborder( 80 );
   this.hyperborder2.body.position.x = 200;
   this.hyperborder2.body.position.y = 300;
   this.hyperborder2.body.position.z = 100;
-  this.scene.add( this.hyperborder2.body );
 
   this.hyperlines2 = new Hyperdots( 100 );
   this.hyperlines2.body.position.x = 200;
   this.hyperlines2.body.position.y = 300;
-  this.hyperlines2.body.position.z = 100;
-  this.scene.add( this.hyperlines2.body );
+  this.hyperlines2.body.position.z = 100;*/
+ 
+  this.hypercircle = new Hypercircle( 150 );
+  //this.hypercircle.body.position.z = 30
+  
+ //this.scene.add( this.hypercircle.body );
+  this.scene.add( this.hyperborder.body );
+  this.scene.add( this.hyperdots.body );
+ // this.scene.add( this.hyperlines.body );
+
+
+  this.lookingGlass = new THREE.LookingGlass( G.renderer, G.camera, { clipBias: 0.3, textureWidth: G.windowSize.x * G.dpr.value, textureHeight:G.windowSize.y* G.dpr.value , color: 0x777777 } ); 
+
+  var g = new THREE.CircleGeometry( 150 , 32 );
+  this.mirrorMesh = new THREE.Mesh( g , this.lookingGlass.material );
+  this.mirrorMesh.add( this.lookingGlass );
+  //this.mirrorMesh.rotateX( - Math.PI / 2 );
+  this.mirrorMesh.position.z = 00;
+ 
+  this.scene.add( this.mirrorMesh );
+
+  this.lookingGlass.render();
+
 
 
 }.bind( sun ));
@@ -462,13 +523,49 @@ sun.addToAllUpdateArrays( function(){
   
   this.gem.update();
   this.flower.update();
-  
+ 
+  G.v2.copy( G.camera.position.relative  );
   //this.holocube.body.lookAt( G.mani.position.relative );
+  G.v1.set( 0, 0, 1 );
+  G.v1.applyQuaternion( G.camera.quaternion );
+  G.v1.multiplyScalar( 300 );
+  G.v2.add( G.v1 );
+  this.hypercube.body.position.copy( G.v2 );
+  this.hyperborder.body.position.copy( G.v2 );
+  this.hypercircle.body.position.copy( G.v2 );
+  this.hyperdots.body.position.copy( G.v2 );
+  this.hyperlines.body.position.copy( G.v2 );
+  
+  this.hyperborder.body.lookAt(G.mani.position.relative );
+  this.hypercube.body.lookAt(G.mani.position.relative );
+  this.hyperdots.body.lookAt( G.mani.position.relative )
+ 
   this.hypercube.update();
   this.hyperdots.update();
   this.hyperborder.update();
-  this.hyperborder2.update();
   this.hyperlines.update();
+  
+  this.hypercircle.update(); 
+  
+
+  /*
+  
+     Hiding some stuff before we render
+
+  */
+  for( var i = 0; i < this.sections.length; i++ ){
+     this.sections[i].text.particles.visible = false;
+     this.sections[i].frame.body.visible = false;
+  }
+  this.flower.visible = false;
+  this.lookingGlass.render();
+  this.flower.visible = true;
+   for( var i = 0; i < this.sections.length; i++ ){
+     this.sections[i].frame.body.visible = true;
+     this.sections[i].text.particles.visible = true;
+  }
+ 
+
 
   for( var i = 0; i < this.repelers.length; i++ ){
 

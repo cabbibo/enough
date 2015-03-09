@@ -4,12 +4,12 @@ friends.activateTail = function( n ){
 
   G.v1.copy( G.camera.position.relative );
   G.v2.set(
-     Math.random() - .5  * 10,
-     Math.random() - .5  * 10,
-     -1
+     Math.random() - .5  * 100,
+     Math.random() - .5  * 100,
+     200
   );
   G.v2.applyQuaternion( G.camera.quaternion );
-  G.v1.add( G.v1 ); 
+  G.v1.add( G.v2 ); 
    
   this.furryTails[ n ].activate( G.v1 );
   this.audio[n].gain.gain.value = .4;
@@ -40,16 +40,16 @@ this.sectionParams.push({
       for( var i = 0; i < this.furryTails.length; i++ ){
 
         var fT = this.furryTails[i];
-       /* console.log('FT');
+        console.log('FT');
         console.log( fT );
 
         for( var j = 0; j < fT.brethren.length; j++ ){
 
 
-          fT.addNormalForce( fT.brethren[j].position , -.8 );
-        }*/
+          fT.addNormalForce( fT.brethren[j].position , -20.8 );
+        }
 
-        fT.addDistanceForce( G.mani.position.relative , .004 );
+        fT.addDistanceForce( G.mani.position.relative , .0004 );
       
       }
 

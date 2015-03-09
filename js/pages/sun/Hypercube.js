@@ -44,9 +44,6 @@ function Hypercube( size ){
 
 Hypercube.prototype.update = function(){
 
-  this.body.rotation.x += G.dT.value * .13;
-  this.body.rotation.y += G.dT.value * -.27;
-  this.body.rotation.z += G.dT.value * .32;
   this.body.updateMatrixWorld();
   this.body.material.uniforms.iModelMat.value.getInverse( this.body.matrixWorld );
 

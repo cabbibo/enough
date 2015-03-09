@@ -373,7 +373,7 @@
 
 
 
-    this.position.add( this.velocity.clone().multiplyScalar( G.dT.value * 80 ));
+    this.position.add( this.velocity.clone().multiplyScalar( G.dT.value * 200 ));
     this.velocity.multiplyScalar( pp.dampening ); // turn to vector dampening
 
     this.force.set( 0 , 0 , 0);

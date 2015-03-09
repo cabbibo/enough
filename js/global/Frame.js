@@ -1,5 +1,6 @@
 function Frame(section , fish ){
 
+ // fish = true
   this.section = section;
 
   this.uniforms = {

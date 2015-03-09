@@ -23,8 +23,8 @@ function Hyperdots( size ){
 
     uniforms:       u,
     attributes:     a,
-    vertexShader:   G.shaders.vs.holoborder,
-    fragmentShader: G.shaders.fs.holoborder,
+    vertexShader:   G.shaders.vs.hologram,
+    fragmentShader: G.shaders.fs.hologram,
     side:           THREE.DoubleSide,
   //  transparent:    true,
   //  depthWrite:     false,
@@ -61,12 +61,12 @@ Hyperdots.prototype.update = function(){
 
 Hyperdots.prototype.createGeometry = function( size ){
 
-  var circleR = size ;
-  var polyR = size* .05;
+  var circleR = 0 ;
+  var polyR = 100;
   var faces = [];
 
-  var segments = 20;
-  var poly = 12;
+  var segments = 1;
+  var poly = 6;
 
   for( var i  = 0; i < segments; i++ ){
 
@@ -91,9 +91,9 @@ Hyperdots.prototype.createGeometry = function( size ){
       var yOutUp = cY + Math.cos( tU ) * polyR;
 
       var f = [
-        [ xCenter , yCenter , polyR /4],
-        [ xOutDo , yOutDo  , -polyR /4],
-        [ xOutUp , yOutUp  , -polyR /4],
+        [ xCenter , yCenter , polyR /2],
+        [ xOutDo , yOutDo  , -polyR /2],
+        [ xOutUp , yOutUp  , -polyR /2],
       ]
 
       faces.push( f );
@@ -128,7 +128,7 @@ Hyperdots.prototype.createGeometry = function( size ){
   for( var i = 0 ; i < faces.length; i++ ){
 
 
-    var faceIndex = i * 6;
+    var faceIndex = i * 3;
     var vertIndex = faceIndex * 3;
     var typeIndex = faceIndex * 1;
     var uvIndex   = faceIndex * 2;
@@ -183,13 +183,13 @@ Hyperdots.prototype.createGeometry = function( size ){
 
     var type ;
     if( i < 6 ){
-      console.log('TYPE: 0');
+      //console.log('TYPE: 0');
       type = 0;
     }else if( i >= 6 && i < 12 ){
-      console.log('TYPE: 1');
+     // console.log('TYPE: 1');
       type = 1;
     }else{
-      console.log('TYPE: 2');
+      //console.log('TYPE: 2');
       type = 2;
     }
 

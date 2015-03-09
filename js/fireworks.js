@@ -185,26 +185,7 @@ fireworks.addToStartArray( function(){
 
 
 
-
-}.bind( fireworks ) );
-
-
-fireworks.addToActivateArray( function(){
-
  
-  G.iPlane.faceCamera = false;
-  
-  G.tmpV3.set( 0 , 100 , 0 );
-
-  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
-  G.tmpV3.set( 0 , 101 , 0 )
-  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
-
-}.bind( fireworks ) );
-
-fireworks.addToActivateArray( function(){
-
-
   for( var i = 0; i < this.fireworks.length; i++ ){
 
     this.fireworks[i].add();
@@ -226,9 +207,34 @@ fireworks.addToActivateArray( function(){
 
  // this.endMesh.add( this );
 
+}.bind( fireworks ) );
+
+
+fireworks.addToActivateArray( function(){
+
+ 
+  G.iPlane.faceCamera = false;
+  
+  G.tmpV3.set( 0 , 100 , 0 );
+
+  G.iPlane.position.copy( this.position.clone().add(G.tmpV3 ));
+  G.tmpV3.set( 0 , 101 , 0 )
+  G.iPlane.lookAt( this.position.clone().add( G.tmpV3 ) );
+
+}.bind( fireworks ) );
+
+fireworks.addToActivateArray( function(){
+
+
 }.bind( fireworks ));
 
 
+fireworks.addToAllUpdateArrays( function(){
+
+    this.water.render();
+
+
+}.bind( fireworks ));
 fireworks.addToActiveArray( function(){
 
   for( var i=0; i < this.fireworks.length; i++ ){
@@ -237,7 +243,6 @@ fireworks.addToActiveArray( function(){
 
   }
   
-  this.water.render();
 
   /*(this.position.x += this.movementRate;
   G.camera.position.x += this.movementRate;

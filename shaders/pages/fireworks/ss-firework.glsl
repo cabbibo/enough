@@ -2,6 +2,7 @@ uniform sampler2D t_oPos;
 uniform sampler2D t_pos;
 uniform sampler2D t_start;
 uniform float dT;
+uniform float time;
 
 uniform float exploded;
 uniform float alive;
@@ -82,16 +83,39 @@ void main(){
   // We get 1 frame of explosion
   if( explosion > .1 ){
      
+    float type = abs(sin(sin( vUv.y * 75.89 + time ) * 1816. + 8962. * sin( vUv.x * 51.35 * time )));
 
     vec3 esp = direction;
+
+    vec3 curl = curlNoise( pos.xyz * .01 * sin(vUv.y) * cos(vUv.x));
      
+    vec3 di = vec3( 0. );
+    float c = floor( vUv.y * 20. );
+
+    if( c < 1. ){
+      di = vec3( 1. , 0. , 0. );
+    }else if( c < 2. && c >= 1. ){
+      di = vec3( -1. , 0. , 0. );
+    }else if( c < 3. && c >= 2. ){
+      di = vec3( 0. , 1. , 0. );
+    }else if( c < 4. && c >= 3. ){
+      di = vec3( 0. , -1. , 0. );
+    }else if( c < 5. && c >= 4. ){
+      di = vec3( 0. , 0. , 1. );
+    }else{
+      di = vec3( 0. , 0. , -1. );
+    }
 
     //wha:
     //vec3( vUv.x , vUv.y , length( vUv ) );
 
 
-    vel += esp * 3.; //+ direction;//vec3( vUv.x -.5, vUv.y-.5 , length( vUv )-1. ) * 3.;
-  
+    //vel += esp * 3.;
+    //vel += esp * 2. + vec3( vUv.x -.5, vUv.y-.5 , length( vUv )-1. ) * 5.;
+    //vel += esp * 2. + curl * 2.;
+    //vel = esp * 2. + 1. * vec3( sin( vUv.x * 20. ) , vUv.x * 10. , cos( vUv.x * 20. ) ) ;
+
+    vel += esp * 2. + di * 4.;
  
     life = 1.;
    // vel += vec3( 0. , 1. , 0. );

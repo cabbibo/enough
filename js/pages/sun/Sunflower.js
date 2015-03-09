@@ -52,10 +52,10 @@ function Sunflower( title , mesh , extraParams ){
 
     soul:{
       
-      windSpeed:     { type:"f" , value: .001  , constraints:[ 0 ,2] },
+      windSpeed:     { type:"f" , value: .003  , constraints:[ 0 ,2] },
 
-      windDepth:     { type:"f" , value: .6 , constraints:[ 0 , 10] },
-      windHeight:     { type:"f" , value: .6  , constraints:[ 0 , 10] },
+      windDepth:     { type:"f" , value: 1.6 , constraints:[ 0 , 10] },
+      windHeight:     { type:"f" , value: 1.6  , constraints:[ 0 , 10] },
       windDirection:      { type:"v3" ,value: dir  },
       dampening:          { type:"f" , value: .8  , constraints:[ .0 , .9999 ] },
       
@@ -65,7 +65,7 @@ function Sunflower( title , mesh , extraParams ){
       //returnMultiplier:   { type:"f" , value: 1000. , constraints:[ .001 ,2000 ] },
 
       maxVel:             { type:"f" , value: .01   , constraints:[ .00001 , .01 ] },
-      noiseSize:          { type:"f" , value: 10.3   , constraints:[ .001 , 1. ] },
+      noiseSize:          { type:"f" , value: 1.3   , constraints:[ .001 , 1. ] },
 
       maniPos:            { type:"v3" , value: G.mani.position.relative },
       time:               G.timer,
@@ -161,15 +161,17 @@ function Sunflower( title , mesh , extraParams ){
 
   body.meshes = []; 
 
+  body.params = params
+
   var rad = 1.2;
   gem.body.position.x = rad;
   body.add( gem.body );
 
-  for( var i =1; i < 24; i++ ){
+  for( var i =1; i < 12; i++ ){
 
     var n = gem.body.clone();
 
-    var t = 2 * Math.PI * i / 24
+    var t = 2 * Math.PI * i / 12
     n.position.x = rad * Math.cos( t );
     n.position.y = rad * Math.sin( t );
     n.rotation.z = t;
@@ -191,6 +193,13 @@ function Sunflower( title , mesh , extraParams ){
 
   body.scale.multiplyScalar( 200 );
   body.gem = gem;
+
+  body.setValue = function( name , v ){
+
+    this.params.soul[ name ].value = v;
+  }
+
+
     
   return body;
 

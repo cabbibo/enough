@@ -146,7 +146,7 @@ function Firework( page , params ){
   );
 
   this.soul.setUniform( 'dT' , G.dT );
-  this.soul.setUniform( 'timer' , G.timer );
+  this.soul.setUniform( 'time' , G.timer );
   
   this.soul.setUniform( 'target'        , this.uniforms.target        );
   this.soul.setUniform( 'exploded'      , this.uniforms.exploded      );
