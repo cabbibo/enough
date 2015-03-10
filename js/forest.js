@@ -86,7 +86,7 @@ forest.addToInitArray( function(){
 
     transitionTime:3000,    
     textChunk:[
-      "Mani envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but still they had found purpose in their shimmering sanctuary. For them, to sing, no matter if others were listening, was enough.",
+      "Mani envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but had found purpose in their shimmering sanctuary. For them, to sing, no matter if others listened, was enough.",
       "","",
       "For Mani it was not, so he continued onwards, yearning for more."
     ].join("\n" ),

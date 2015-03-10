@@ -387,7 +387,7 @@ G.init = function(){
 
   //this.mani.activate();
 
-  this.sol.addDistanceSquaredForce( this.solAttractor , 100 );
+  this.sol.addDistanceSquaredForce( this.solAttractor , 10 );
   
 
 

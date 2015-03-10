@@ -27,15 +27,16 @@ fireworks.addToInitArray( function(){
     textChunk:[
       "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
   "","",
-    "Like a small fire in the distance, it whispered its goodbyes, leaving Sol and Mani to circle a seemingly lonesome lake. Their reflections kept them company, and they danced in the darkness, as they had danced in the light." 
+    "Like a small fire in the distance, it whispered its goodbyes, leaving Sol and Mani to circle a golden lake. Their reflections kept them company as they danced in the darkness."  
     ].join("\n" ),
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 500 , 1000 , 2200 ),
     textChunk:[
-      "In front of them glorious fireworks rose above the shimmering surface. They're golden sparkles reminded Mani of the first sparkles he had seen, coming from the crystals.",    "","",
-    "He remembered his lonliness, his confusion, as well as each wonder he had discovered. Even the lonely tree he circled was now firmly etched into his memory." 
+      "In front of them glorious fireworks rose above the shimmering surface. Their golden sparkles reminded Mani of the first sparkles he had seen, coming from the crystals.",   
+     "","",
+    "He remembered his lonliness, his confusion, as well as each wonder he had discovered. Even the tree he circled was now firmly etched in his memory." 
     ].join("\n" ),
   });
 

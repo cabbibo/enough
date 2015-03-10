@@ -20,7 +20,7 @@ varying mat3 vINormMat;
 $hsv
 $triNoise3D
 
-#define STEPS 5
+#define STEPS 2
 vec4 volumeColor( vec3 ro , vec3 rd  , mat3 iBasis){
 
   vec3 col = vec3( 0. );

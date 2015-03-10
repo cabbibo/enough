@@ -4,12 +4,12 @@ credits.activateTail = function( n ){
 
   G.v1.copy( G.camera.position.relative );
   G.v2.set(
-     Math.random() - .5  * 10,
-     Math.random() - .5  * 10,
-     -1000
+     Math.random() - .5  * 300,
+     Math.random() - .5  * 300,
+     300
   );
   G.v2.applyQuaternion( G.camera.quaternion );
-  G.v1.add( G.v1 ); 
+  G.v1.add( G.v2 ); 
   
   this.furryTails[ n ].activate( G.v1 );
   //this.audio[n].gain.gain.value = .4;
@@ -53,12 +53,66 @@ credits.addToInitArray( function(){
     cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
     textChunk:[
       "THANKS:","","",
-      "Sally Visher  Joseph Cohen  Abe Cohen   Xochitl Garcia  Jaume Sanchez   Ricardo Cabello  West Langley  Ben Cerveny  Eddie Lee  Jono Brandel   Aki Rodic   Hugh Kennedy  Reza Ali  Robbie Tilton   Nicole Campos  Julia Sills  Luke Lannini  Alexandra Hay  Grant Marr   Erica Gibbons  Geoffery Logan  Leap"
+      "Sally Visher  Joseph Cohen  Abe Cohen   Xochitl Garcia  Jaume Sanchez   Ricardo Cabello  West Langley  Ben Cerveny  Eddie Lee  Jono Brandel   Aki Rodic   Hugh Kennedy  Reza Ali  Robbie Tilton   Nicole Campos  Julia Sills  Luke Iannini  Alexandra Hay  Grant Marr   Erica Gibbons  Geoffery Logan  Leap"
 
     ].join("\n" ),
 
     start:function(){
      
+      
+
+    }.bind( credits ) 
+
+  });
+
+
+  this.sectionParams.push({
+    
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
+    textChunk:[
+      "THANKS:","","",
+      "Holly Rubek Joan Sarratt  Jeff Belcher  Barb Murray  Andrew West  Malek Moazzam-Doulat   Kristi Upson-Saia  Dale Wright  Janet Scheel  Alec Schramm  Daniel Snowden-Ifft  Dennis Eggleston  Broderick Fox  George Schmiedeschoff "
+    ].join("\n" ),
+    
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1300 ),
+    textChunk:[
+      "Songs Sampled:","","",
+      "Susanna And The Magical Orchestra - Hallelujah",
+      "Holy Other - We Over",
+      "Tielsie - Hueboy ",
+      "Susanna And The Magical Orchestra - These Days",
+      "Luke Abbot - Modern Driveway",
+      "The Rice Twins - For Penny and Alexis",
+      "Typhoon - Starting Over",
+      "Sigur Ros - All Alright",
+      "Sigur Ros - Glosoli", 
+    ].join("\n" ),
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1500 ),
+    textChunk:[
+      "Infinite thanks to all the people who let that which they create belong to others.",
+      "","",
+      "Your gifts to the world help us all grow."
+    ].join("\n" ),
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 2200 ),
+    textChunk:[
+      "Thank You."
+    ].join("\n" ),
+    transitionTime:10000,
+    start:function(){
+
+      for( var i = 0; i < this.audio.length; i++){
+        this.audio[i].gain.gain.value = .4
+      }
+
       G.iPlaneDistance = 2000;
       
       for( var i = 0; i < this.furryTails.length; i++ ){
@@ -79,54 +133,9 @@ credits.addToInitArray( function(){
           fT.addDistanceForce( G.sol.position.relative, .004 );
         }
 
-     
-
       }
 
-
-    }.bind( credits ) 
-
-  });
-
-
-  this.sectionParams.push({
-    
-    cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
-    textChunk:[
-      "THANKS:","","",
-      "Holly Rubek Joan Sarratt  Jeff Belcher  Barb Murray  Andrew West  Malek Moazzam-Doulat   Kristi Upson-Saia  Dale Wright  Janet Scheel  Alec Schramm  Daniel Snowden-Ifft  Dennis Eggleston  Broderick Fox  George Schmiedeschoff "
-    ].join("\n" ),
-    
-  });
-
-  this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
-    textChunk:[
-      "Songs Sampled:","","",
-      "Susanna And The Magical Orchestra - Hallelujah",
-      "Holy Other - We Over",
-      "Tielsie - Hueboy ",
-      "Susanna And The Magical Orchestra - These Days",
-      "Luke Abbot - Modern Driveway",
-      "The Rice Twins - For Penny and Alexis",
-      "Typhoon - Starting Over",
-      "Sigur Ros - All Alright",
-      "Sigur Ros - Glosoli", 
-    ].join("\n" ),
-  });
-
-  this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
-    textChunk:[
-      "Infinite thanks to the three.js ,  , community, without which this wouldn't be possible."
-    ].join("\n" ),
-  });
-
-  this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 , 5200 ),
-    textChunk:[
-      "Thank You."
-    ].join("\n" ), 
+    }.bind( credits )  
   });
 
 

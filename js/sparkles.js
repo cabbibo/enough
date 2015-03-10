@@ -9,17 +9,19 @@ sparkles.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
     textChunk:[
-      "How glorious these shapes were. As they stoically drifted past him, Mani examined their infinitely precise textures. 'How Sol must love these objects!' he thought, and turned to see the sense of wonder emanating from her being."
+      "Mani led his friends to a sparkling expanse of stars.",
+      "","",
+      "How glorious these shapes were. As they drifted past him, Mani examined their infinitely precise textures. 'How Sol must love these objects!' he thought, and turned to see the sense of wonder emanating from her being."
     ].join("\n" ), 
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,900 ),
-    transitionTime:1000,
+    transitionTime:4000,
     textChunk:[
       "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
       "","",
-      "Mani felt a sense of dread he never before imagined. Where could they have gone? He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
+      "Where could they have gone? He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
     ].join("\n" ),
     transitionIn:function( a ){
 
@@ -49,11 +51,11 @@ sparkles.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1100 ),
-    transitionTime:1000,
+    transitionTime:4000,
     textChunk:[
-      "The devastating weight of the abyss returned. Crashing over him like a wave of silence. He could have never comprehended this loneliness. Now that he had seen the beauty of his friends, to have lost them was too much.",
+      "The cold mist washed over him. And he realized now what it meant to be lonely. He had felt the warmth of his friends. To be without it was too much.",
       "","",
-      "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
+      "He had to find them again! No matter what! So still he flew on, praying that the direction he traveled in would lead him again to light."
     ].join("\n" ),
     transitionIn:function( ){
       

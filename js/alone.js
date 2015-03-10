@@ -41,7 +41,7 @@ alone.addToInitArray( function(){
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3(  0 , -50 , 1000 ),
-    transitionTime: 3000,
+    transitionTime: 8000,
     textChunk:[
       "When Mani awoke, he had no idea where he was.",
       "","",

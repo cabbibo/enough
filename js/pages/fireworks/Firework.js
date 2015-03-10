@@ -117,7 +117,7 @@ function Firework( page , params ){
 
     exploded:       { type:"f"  , value: 0 },
     explosion:      { type:"f"  , value: 0 },
-    explosionType:  { type:"f"  , value: .5 },
+    explosionType:  { type:"f"  , value: Math.random() },
     target:         { type:"v3" , value: this.target },
     direction:      { type:"v3" , value: this.direction },
 
@@ -311,7 +311,7 @@ Firework.prototype.explode = function( end , timeToExplode , timeToDissolve , ca
   this.uniforms.explosion.value = 0.;
   this.uniforms.alive.value     = 1.;
 
-  this.uniforms.explosionType.value = 1.;//Math.random();
+  this.uniforms.explosionType.value = Math.random();
 
   this.alive = true;
 

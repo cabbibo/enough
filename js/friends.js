@@ -30,7 +30,7 @@ this.sectionParams.push({
     textChunk:[
       "As Sol and Mani swam onwards, two more creatures joined them!",
       "","",
-      "They greeted Mani with their own song, and just as he had danced with Sol, Mani danced more new friends.",
+      "They greeted Mani and Sol with their own songs, together they danced.",
     ].join("\n" ),
    start:function(){
 
@@ -66,7 +66,7 @@ this.sectionParams.push({
     textChunk:[
       "The four of them moved on and found another creature. It too had its own song, and Mani marveled at the serenity of the voices.",
   "","",
-  "He watched the way his friends moved, and marveled how differen , yet elegant, their bodies were.",
+  "He watched his friends move, and marveled how different, yet elegant, their bodies were.",
     ].join("\n" ),
    start:function(){
              
@@ -81,7 +81,7 @@ this.sectionParams.push({
     textChunk:[
       "Two more friends entered the entourage, letting their songs join the flourishing melody.",
       "","",
-      "What miracle was this? To simply dance to the song of one’s friend",
+      "What miracle was this? To simply swim in the song of one’s friend",
     ].join("\n" ),
    start:function(){
        this.activateTail( 3 );
@@ -201,7 +201,7 @@ this.sectionParams.push({
     textChunk:[
       "Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his golden community.",
       "","",
-      "Into the distance they would go, triumphantly, marveling at ever wonder they found. each immaculate miracle would be theirs to experience, together." 
+      "Into the distance they would go, triumphantly, marveling at ever wonder they found. Each immaculate miracle would be theirs to experience, together." 
     ].join("\n" ),
 
     

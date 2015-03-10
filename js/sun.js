@@ -18,7 +18,7 @@ sun.addToInitArray( function(){
     lookPosition: new THREE.Vector3(   00 ,    0 ,   2000 ),
     
     textChunk:[
-      "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the, darkness which lay unyielding , seemed to dance.",
+      "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the darkness, which lay unyielding, seemed to dance.",
     "","",
       "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
     ].join("\n" ),
@@ -132,9 +132,9 @@ sun.addToInitArray( function(){
     
     textChunk:[
     
-     "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and examined every inch of the shell that shielded him from the unknown.",
+     "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and stared at the shell that shielded him from the unknown.",
      "","",
-     "The song continued and urged Mani towards its center. The shining essence of life lay before him and he yearned to be one with it, experience the world and the truths that lay beyond."
+     "The song continued and urged Mani towards its center. A shining portal to life lay before him and he yearned to be one with it, experience the world and truths that lay on the other side."
 
     ].join("\n"),
     transitionIn:function(){
@@ -151,7 +151,16 @@ sun.addToInitArray( function(){
 
       
    
-     }.bind( sun )
+     }.bind( sun ),
+    
+    // adding the viewer
+    start:function(){
+      
+      this.scene.add( this.hyperborder.body );
+      this.scene.add( this.hyperdots.body );
+
+
+    }.bind( sun )
 
   });
 
@@ -159,13 +168,16 @@ sun.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
-    transitionTime:10000,
+    transitionTime:4000,
 
-    textChunk:["The soul of the creature reached out to embrace Mani, its loving tendrils moving with greatness and purpose.",
+    textChunk:[
+      "The soul of the creature seemed to embrace Mani.",
+      "","",
+      "He gazed into the gateway, which told him of a world beyond.",
        "","",
-       "They told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
-       "","",
-        "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
+       "It told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
+       
+    ].join("\n" ), 
     transitionIn:function(){
 
       this.flower.setValue( 'noiseSize' , 2 );
@@ -183,6 +195,33 @@ sun.addToInitArray( function(){
   });
 
   this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
+    transitionTime:4000,
+
+    textChunk:[
+      "He swam closer and closer to the center.",
+      "","",
+      "He knew this door was meant from him and no other. He would make the journey alone into the next dimension. He marched towards the opening with all the hosts of heaven urging him on.",
+        "","",
+      "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
+    transitionIn:function(){
+
+      this.flower.setValue( 'noiseSize' , 2 );
+      this.flower.setValue( 'springLength' , 2/31 );
+      /*for( var i = 0; i < this.audio.array.length; i++ ){
+        if(i == 4 || i == 5 || i == 6 ){
+          this.audio.array[i].fadeOut( 10 );
+        }
+      }*/
+
+       this.iPlaneDistance = 900 ;
+      G.iPlaneDistance = this.iPlaneDistance;
+     }.bind( sun )
+
+  });
+
+
+  this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 400 ,    0 ,  2000 ),
     lookPosition: new THREE.Vector3( 400 , 0 , 0 ),
     transitionTime: 10000,
@@ -192,7 +231,7 @@ sun.addToInitArray( function(){
       "","",
       "She swam to him. And he towards her.",
       "","",
-      "The being sang in the background of the world Beyond, urging Mani to return towards its arms. But there was Sol, so sweetly she swam, and Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
+      "The being sang in the background of the world Beyond as Mani approached Sol. So sweetly she swam. Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
     ].join("\n" ),
     transitionIn:function(){
 
@@ -210,7 +249,7 @@ sun.addToInitArray( function(){
       this.flower.setValue( 'windHeight' , 3 );
 
       for( var i = 0; i < this.audio.array.length; i++ ){
-        if(i == 4 ||  i == 5 || i == 0 ){
+        if(i == 4 ||  i == 5 || i == 0  || i == 6){
           this.audio.array[i].fadeIn( 10 , 1 );
         }
       }
@@ -220,7 +259,7 @@ sun.addToInitArray( function(){
 
   });
 
-  this.sectionParams.push({
+ /* this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,  1200 ), 
 
     lookPosition: new THREE.Vector3( 0 , 0 , 0 ),
@@ -245,7 +284,7 @@ sun.addToInitArray( function(){
 
     }.bind( sun )
 
-  });
+  });*/
 
   this.sectionParams.push({
     
@@ -253,9 +292,11 @@ sun.addToInitArray( function(){
     lookPosition: new THREE.Vector3(  400 , -400 ,  0 ),
     transitionTime:10000,
     textChunk:[
-      "The two circled each other, as the deity calmly continued its chorus. It knew of their choice before they had even made it, and could tell that neither would choose to leave the other for the sake of the infinite.",
+      "The two circled each other, as the deity calmly continued its chorus. It knew Mani would never make the passage now that Sol was there. What Truth could it promise that was more than friendship?",
       "","",
-      "They soon realized this too, and choose to turn away from the elegant essence of the creature and journey outwards."
+      "What happiness could it bring that was more than her?",
+      "","",
+      "They realized this too, and choose to turn away from the elegant essence to journey on together."
     ].join("\n" ),
 
     transitionIn:function(){
@@ -265,11 +306,11 @@ sun.addToInitArray( function(){
       this.flower.setValue( 'springLength' , 3/31 );
      // this.flower.setValue( 'dampening' , .0001 );
       
-      /*for( var i = 0; i < this.audio.array.length; i++ ){
+      for( var i = 0; i < this.audio.array.length; i++ ){
         if( i == 5 || i == 6 ){
           this.audio.array[i].fadeIn( 10 , 1 );
         }
-      }*/
+      }
 
     }.bind( sun )
 
@@ -279,7 +320,7 @@ sun.addToInitArray( function(){
   
   
   
-  this.position.set(  10000 , 1000 , -5000 );
+  this.position.set(  12000 , 3000 , -5000 );
   this.iPlaneDistance = 1000;
 
   this.audioArray = [
@@ -467,7 +508,7 @@ sun.addToStartArray( function(){
   this.flower.add( this.scene );
 
 
-  this.hypercube  = new Hypercube( 30 );
+ // this.hypercube  = new Hypercube( 30 );
   //this.holocubeC = new Holocube( 100 , 2 );
   //this.holocube.add( this.scene );
   //this.scene.add( this.hypercube.body );
@@ -475,9 +516,9 @@ sun.addToStartArray( function(){
  
   this.hyperborder = new Hyperborder( 200 );
   this.hyperdots = new Hyperdots( 250 );
-  this.hyperlines = new Hyperlines( 300 );
+ // this.hyperlines = new Hyperlines( 300 );
 
-  console.log( this.hyperborder );
+//  console.log( this.hyperborder );
 /* 
 
   this.hyperborder2 = new Hyperborder( 80 );
@@ -490,12 +531,12 @@ sun.addToStartArray( function(){
   this.hyperlines2.body.position.y = 300;
   this.hyperlines2.body.position.z = 100;*/
  
-  this.hypercircle = new Hypercircle( 150 );
+ // this.hypercircle = new Hypercircle( 150 );
   //this.hypercircle.body.position.z = 30
   
  //this.scene.add( this.hypercircle.body );
-  this.scene.add( this.hyperborder.body );
-  this.scene.add( this.hyperdots.body );
+ ///this.scene.add( this.hyperborder.body );
+ //this.scene.add( this.hyperdots.body );
  // this.scene.add( this.hyperlines.body );
 
 
@@ -530,22 +571,22 @@ sun.addToAllUpdateArrays( function(){
   G.v1.applyQuaternion( G.camera.quaternion );
   G.v1.multiplyScalar( 300 );
   G.v2.add( G.v1 );
-  this.hypercube.body.position.copy( G.v2 );
+  //this.hypercube.body.position.copy( G.v2 );
   this.hyperborder.body.position.copy( G.v2 );
-  this.hypercircle.body.position.copy( G.v2 );
+  //this.hypercircle.body.position.copy( G.v2 );
   this.hyperdots.body.position.copy( G.v2 );
-  this.hyperlines.body.position.copy( G.v2 );
+  //this.hyperlines.body.position.copy( G.v2 );
   
   this.hyperborder.body.lookAt(G.mani.position.relative );
-  this.hypercube.body.lookAt(G.mani.position.relative );
+  //this.hypercube.body.lookAt(G.mani.position.relative );
   this.hyperdots.body.lookAt( G.mani.position.relative )
  
-  this.hypercube.update();
+  //this.hypercube.update();
   this.hyperdots.update();
   this.hyperborder.update();
-  this.hyperlines.update();
+  //this.hyperlines.update();
   
-  this.hypercircle.update(); 
+  //his.hypercircle.update(); 
   
 
   /*

@@ -12,7 +12,9 @@ flocking.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  2000  , 2000 , 500 ) ,
     textChunk:[
-      "Mani could not believe that he had lost his friends. It was too much to bear. Too much to remember the love that he felt for them, that he felt for Sol. Around him the cold ribbons flocked, and though he found movement was soothing, dispair overcame this peace."
+      "Mani could not believe that he had lost his friends. It was too much to bear. Too much to remember the love that he felt for them, that he felt for Sol.",
+      "","",
+      "Around him small ribbons flocked, and though he found their movement soothing, it could not overcome his heartbreak."
     ].join("\n" ), 
   });
 

@@ -90,7 +90,7 @@ void main(){
     vec3 curl = curlNoise( pos.xyz * .01 * sin(vUv.y) * cos(vUv.x));
      
     vec3 di = vec3( 0. );
-    float c = floor( vUv.y * 20. );
+    float c = floor( vUv.y * 6. );
 
     if( c < 1. ){
       di = vec3( 1. , 0. , 0. );
@@ -106,16 +106,27 @@ void main(){
       di = vec3( 0. , 0. , -1. );
     }
 
-    //wha:
-    //vec3( vUv.x , vUv.y , length( vUv ) );
+  
+
+    float v = 1. / 6.;
+    if( explosionType < v ){ 
+      vel += esp * 2. + di * 4.;
+    }else if( explosionType >= v * 1. && explosionType < v * 2. ){ 
+      vel += esp * 2. + vec3( vUv.x -.5, vUv.y-.5 , length( vUv )-1. ) * 5.;
+    }else if( explosionType >= v * 2. && explosionType < v * 3. ){ 
+      vel += esp * 2. + curl * 2.;
+    }else if( explosionType >= v * 3. && explosionType < v * 4. ){ 
+      vel += esp * 2. + 1. * vec3( sin( vUv.x * 20. ) , vUv.x * 10. , cos( vUv.x * 20. ) ) ;
+    }else if( explosionType >= v * 4. && explosionType < v * 5. ){ 
+      vel += esp * 3.;
+    }else if( explosionType >= v * 5. && explosionType < v * 6. ){ 
+      vel += esp * 2. + di * 4.;
+    }else{
 
 
-    //vel += esp * 3.;
-    //vel += esp * 2. + vec3( vUv.x -.5, vUv.y-.5 , length( vUv )-1. ) * 5.;
-    //vel += esp * 2. + curl * 2.;
-    //vel = esp * 2. + 1. * vec3( sin( vUv.x * 20. ) , vUv.x * 10. , cos( vUv.x * 20. ) ) ;
+    }
 
-    vel += esp * 2. + di * 4.;
+   
  
     life = 1.;
    // vel += vec3( 0. , 1. , 0. );
