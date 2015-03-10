@@ -9,6 +9,7 @@ function Coral( page , audio , position ){
     hovered:{type:"f" ,value:0 },
     timer:G.timer,
     t_audio:{type:"t" , value: audio.audioTexture.texture },
+    t_matcap:{type:"t" , value: G.TEXTURES[ "matcapMetal" ] },
     lightPos:{ type:"v3" , value: G.mani.position }
 
   }
@@ -20,7 +21,8 @@ function Coral( page , audio , position ){
     vertexShader:   G.shaders.vs.coral,
     fragmentShader: G.shaders.fs.coral,
     transparent: true,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
+   // depthWrite:false
   });
 
   this.body = new THREE.Mesh( geo , mat );
@@ -66,7 +68,7 @@ function Coral( page , audio , position ){
   }
 
   var geometry = new THREE.Geometry();
-  for( var i = 0; i < 10; i++ ){
+  for( var i = 0; i < 3; i++ ){
     geometry.vertices.push( new THREE.Vector3(5 , 0 , 0));
   }
 
@@ -76,7 +78,7 @@ function Coral( page , audio , position ){
     fragmentShader: G.shaders.fs.coralEmanator,
     blending: THREE.AdditiveBlending,
     transparent: true,
-    depthWrite: false
+    //depthWrite: false
   });
 
   this.emanator = new THREE.PointCloud( geometry, material );

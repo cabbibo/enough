@@ -13,7 +13,7 @@ sun.addToInitArray( function(){
   */
 
   
- /* this.sectionParams.push({
+  this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  -10000 , 0 , 5000 ),
     lookPosition: new THREE.Vector3(   00 ,    0 ,   2000 ),
     
@@ -155,7 +155,7 @@ sun.addToInitArray( function(){
 
   });
 
-*/
+
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),

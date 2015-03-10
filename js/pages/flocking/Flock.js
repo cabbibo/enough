@@ -17,12 +17,15 @@ function Flock( coral , params ){
 
   this.params = _.defaults( params || {} , {
 
-    depth: 64,
+    depth: 32,
     joints: 8,
     size: 32,
     sides: 6,
     time: G.dT,
-    matcap: G.TEXTURES.blood
+    matcap: G.TEXTURES.blood,
+
+    pos: new THREE.Vector3()
+
 
   });
 
@@ -36,7 +39,7 @@ function Flock( coral , params ){
     alignmentDistance:    { type: "f" , value: 40.0 },
     cohesionDistance:     { type: "f" , value: 60.0 },
     freedomFactor:        { type: "f" , value: 1000000000000000.0 },
-    maxVel:               { type: "f" , value: 20 },
+    maxVel:               { type: "f" , value: 3 },
     velMultiplier:        { type: "f" , value: 5. },
     forceMultiplier:      { type: "f" , value: 8000. },
     centerPower:          { type: "f" , value: 2 },
@@ -52,8 +55,10 @@ function Flock( coral , params ){
     coralAttractPower:    { type: "f" , value:2000000 },
     coralRepelPower:      { type: "f" , value:10 },
     coral:                { type: "v3v" , value:this.coralPositions },
-    coralData:            { type: "v4v" , value:this.coralData }
+    coralData:            { type: "v4v" , value:this.coralData },
 
+    t_vortex: G.mani.lineUniforms.t_pos,
+    scenePos: {type:"v3", value: params.pos }
   };
 
 

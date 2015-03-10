@@ -212,7 +212,7 @@ void main(){
    // force += vec3( columnDif.xy * 10. , 0. )*10.;
     force += flow * slice * uFlowMultiplier;// *( ( current * 5.)+1.);
 
-    force += floating * upwardsForce * uFloatForce * selected; //(( selected * 5.)+1.);
+    force += floating * upwardsForce * uFloatForce * ( .2 + selected );// * selected; //(( selected * 5.)+1.);
 
     force += getRepelForce( pos );
 

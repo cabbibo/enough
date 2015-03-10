@@ -9,7 +9,7 @@ sparkles.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
     textChunk:[
-      "How glorious these shapes were. As they stoically drifted past him, Mani examined their infinitely precise textures. How Sol must love these objects! he thought, and turned to see the sense of wonder emanating from her being."
+      "How glorious these shapes were. As they stoically drifted past him, Mani examined their infinitely precise textures. 'How Sol must love these objects!' he thought, and turned to see the sense of wonder emanating from her being."
     ].join("\n" ), 
   });
 
@@ -19,7 +19,7 @@ sparkles.addToInitArray( function(){
     textChunk:[
       "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
       "","",
-      "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
+      "Mani felt a sense of dread he never before imagined. Where could they have gone? He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
     ].join("\n" ),
     transitionIn:function( a ){
 
@@ -56,8 +56,6 @@ sparkles.addToInitArray( function(){
       "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
     ].join("\n" ),
     transitionIn:function( ){
-
-      console.log('TANSL2');
       
       this.cameraPosition.copy( G.camera.position );
       this.page.cameraPos.x =  G.camera.position.x;

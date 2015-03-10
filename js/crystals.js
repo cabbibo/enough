@@ -64,7 +64,7 @@ crystals.addToInitArray( function(){
     lookPosition:new THREE.Vector3( -300 , 00 , -600  ),
 
     textChunk:[
-      "He felt a certain camaraderie with the crystals, the simple fact that they were not the darkness made him approach them with a sense of reverence.",
+      "He felt a certain camaraderie with the crystals, the simple fact of their existance made him approach them with a sense of reverence.",
       "","",
       "But as Mani wondered, so he wandered, and after he determined the crystals to be thoroughly explored, he moved onwards."
     ].join("\n"),

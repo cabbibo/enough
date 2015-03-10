@@ -4,8 +4,8 @@ friends.activateTail = function( n ){
 
   G.v1.copy( G.camera.position.relative );
   G.v2.set(
-     Math.random() - .5  * 100,
-     Math.random() - .5  * 100,
+     Math.random() - .5  * 500,
+     Math.random() - .5  * 500,
      200
   );
   G.v2.applyQuaternion( G.camera.quaternion );
@@ -28,9 +28,9 @@ friends.addToInitArray( function(){
 this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 2000 ) ,
     textChunk:[
-      "As Sol and Mani swam onwards, another creature joined them.",
+      "As Sol and Mani swam onwards, two more creatures joined them!",
       "","",
-      "It greeted mani with its own song, and just as he had danced with Sol, Mani danced with another new friend.",
+      "They greeted Mani with their own song, and just as he had danced with Sol, Mani danced more new friends.",
     ].join("\n" ),
    start:function(){
 
@@ -45,11 +45,14 @@ this.sectionParams.push({
 
         for( var j = 0; j < fT.brethren.length; j++ ){
 
+          console.log('adds ');
 
-          fT.addNormalForce( fT.brethren[j].position , -20.8 );
+          console.log( fT.brethren[j].position );
+          fT.addSpringForce( fT.brethren[j].position , .008 , 300 );
         }
 
-        fT.addDistanceForce( G.mani.position.relative , .0004 );
+        fT.addSpringForce( G.mani.position.relative , .004 , 100 );
+
       
       }
 
@@ -61,9 +64,9 @@ this.sectionParams.push({
 this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 2100 ) ,
     textChunk:[
-      "The three of them moved on and found two more creatures. They too had their own song, and Mani marveled at the serenity of their voices.",
+      "The four of them moved on and found another creature. It too had its own song, and Mani marveled at the serenity of the voices.",
   "","",
-  "He watched the way they moved, and marveled how different , yet elegant, their bodies were.",
+  "He watched the way his friends moved, and marveled how differen , yet elegant, their bodies were.",
     ].join("\n" ),
    start:function(){
              
@@ -120,7 +123,7 @@ this.sectionParams.push({
 
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 1000 , 0 , 500 ) ,
+    cameraPosition: new THREE.Vector3( 500 , 0 , 2500 ) ,
     textChunk:[
       "The creatures swam through the infinity together. It no longer mattered to Mani that he didn’t have the answers. It didn’t matter that he still surrounded by darkness. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in mysterious Eden they inhabited."
     ].join("\n" ), 
@@ -131,8 +134,28 @@ this.sectionParams.push({
      this.activateTail( 10 );   
      this.activateTail( 11 );
 
-      G.iPlaneDistance = 500;
+      G.iPlaneDistance = 1000;
+
       for( var i = 0; i < this.furryTails.length; i++ ){
+
+        var fT = this.furryTails[i];
+        console.log('FT');
+        console.log( fT );
+
+        for( var j = 0; j < fT.brethren.length; j++ ){
+
+          console.log('adds ');
+
+          console.log( fT.brethren[j].position );
+          fT.addSpringForce( fT.brethren[j].position , .0008 , 5000 );
+        }
+
+        fT.addSpringForce( G.mani.position.relative , .00004 , 1000 );
+
+      
+      }
+
+     /* for( var i = 0; i < this.furryTails.length; i++ ){
 
         var fT = this.furryTails[i];
         fT.removeAllForces();
@@ -147,7 +170,7 @@ this.sectionParams.push({
         for( var j = 0; j < fT.brethren.length; j++ ){
 
 
-          fT.addNormalForce( fT.brethren[j].position , -1.5 );
+          fT.addNormalForce( fT.brethren[j].position , -10.5 );
         }
 
 
@@ -161,7 +184,7 @@ this.sectionParams.push({
 
      
 
-      }
+      }*/
 
 
     }.bind( friends )
@@ -170,7 +193,7 @@ this.sectionParams.push({
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 1000 , 0 , 500 ),
+    cameraPosition: new THREE.Vector3( 500 , 0 , 2500 ),
     lookPosition: new THREE.Vector3( 1000 , 0 , 0 ),
    // lookAtPosition: new THREE.Vector3( 1000 , 0 , 0 ),
 
@@ -178,7 +201,7 @@ this.sectionParams.push({
     textChunk:[
       "Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his golden community.",
       "","",
-      "In the distance he saw soft sparkles and motioned for his companions to follow him, triumphantly, to their next destination." 
+      "Into the distance they would go, triumphantly, marveling at ever wonder they found. each immaculate miracle would be theirs to experience, together." 
     ].join("\n" ),
 
     
@@ -193,9 +216,10 @@ this.sectionParams.push({
         fT.removeAllForces();
 
         if( i !== 0 ){
-          fT.addDistanceForce( this.furryTails[i-1].position , .0004 );
+          fT.addSpringForce( this.furryTails[i-1].position , .0004, 200 );
         }else{
-          fT.addDistanceForce( G.sol.position.relative, .004 );
+          fT.addSpringForce( G.sol.position.relative , .0004, 200 );
+          
         }
 
      
@@ -252,7 +276,9 @@ friends.addToInitArray( function(){
     var num = i+1;
     var file = f + this.choreography[i] +".mp3"
 
-    this.audio.push( this.loadAudio( this.choreography[i] , file ) ) ;
+    this.audio.push( this.loadAudio( this.choreography[i] , file ,{
+     texture:true 
+    }) ) ;
 
   }
 
@@ -370,6 +396,23 @@ friends.addToStartArray( function(){
       color2: col2,
       color3: col3,
       color4: col4,
+      dist_spineAttract     : .9    * (0.5 + (i/this.choreography.length) * 2 ),
+      force_spineAttract    : .1    * (0.5 + (i/this.choreography.length) * 2 ),
+      dist_bundleAttract    : 21.1  * (0.5 + (i/this.choreography.length) * 2 ),
+      force_bundleAttract   : .1    * (0.5 + (i/this.choreography.length) * 2 ),
+      dist_bundleRepel      : 100   * (0.5 + (i/this.choreography.length) * 2 ),
+      force_bundleRepel     : .018  * (0.5 + (i/this.choreography.length) * 2 ),
+      dist_subAttract       : 58.1  * (0.5 + (i/this.choreography.length) * 2 ),
+      force_subAttract      : .5    * (0.5 + (i/this.choreography.length) * 2 ),
+      dist_subRepel         : 88.1  * (0.5 + (i/this.choreography.length) * 2 ),
+      force_subRepel        : .3    * (0.5 + (i/this.choreography.length) * 2 ),
+      dist_subSubAttract    : 12.1  * (0.5 + (i/this.choreography.length) * 2 ),
+      force_subSubAttract   : .5    * (0.5 + (i/this.choreography.length) * 2 ),
+      dist_subSubRepel      : 100   * (0.5 + (i/this.choreography.length) * 2 ),
+      force_subSubRepel     : .2    * (0.5 + (i/this.choreography.length) * 2 ),
+
+      audioAmount           :.5 -(i/this.choreography.length)*.4,
+      audioPower            :1 //* (.5 + Math.random() )
 
     });
 
@@ -383,9 +426,9 @@ friends.addToStartArray( function(){
 
 
 
-  for( var i = 0; i < this.furryGroups.length; i++ ){
+  for( var i = 0; i < this.furryTails.length; i++ ){
 
-    this.furryGroups[i].updateBrethren();
+    this.furryTails[i].brethren = this.furryTails;
 
   }
 

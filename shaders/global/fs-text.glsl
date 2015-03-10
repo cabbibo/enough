@@ -85,27 +85,35 @@ void main(){
   if( distance < .6 ){
 
     col = vec3( 0. , 0. , 0. );
-
+    discard;
   }
 
 
   if( gl_PointCoord.x < xP + wOPercent ){
     alpha = 0.; //discard;
+    discard;
+
   }
 
 
   if( gl_PointCoord.x > xP + wP + wOPercent){
     alpha = 0.; //discard;
+    discard;
+
   }
 
   if( (1.-gl_PointCoord.y) > yP + belowP  ){
     alpha = 0.; //discard;
+    discard;
+
   }
 
   float lowerBound = (yO - h + glyphBelow)/totalSize;
   
   if( (1.-gl_PointCoord.y) < lowerBound  ){
     alpha = 0.; //discard;
+    discard;
+
   }
 
 

@@ -130,11 +130,13 @@ void main(){
 
   vec3 centerOfCircle = cubicCurve( amount , c0 , c1 , c2 , c3 );
   vec3 forNormal      = cubicCurve( amount - .001 , c0 , c1 , c2 , c3 );
-  vec3 forTangent      = cubicCurve( amount + .001 , c0 , c1 , c2 , c3 );
+  vec3 forTangent     = cubicCurve( amount + .001 , c0 , c1 , c2 , c3 );
 
 
   vec3 dirVec = forNormal - centerOfCircle;
   vec3 dirNorm = normalize( forNormal - centerOfCircle );
+
+  vec3 tang = normalize( cross( forNormal , forTangent ));
   //vec3 columnPos = centerOfCircle;
   //vec3 columnToPos = pos.xyz - columnPos;
 
@@ -158,8 +160,8 @@ void main(){
   
 
  // p = centerOfCircle + basisY * (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
-  p = centerOfCircle + basisY * 10. *(uv.y * abs(sin( pow( uv.x * 20. , .3) *4.+3.14)) + .4);// * length( aColor );//* (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
-  p = centerOfCircle + basisY * 10. * uv.y * pow( uv.x-.1 , .3); 
+ // p = centerOfCircle + basisY * 10. *(uv.y * abs(sin( pow( uv.x * 20. , .3) *4.+3.14)) + .4);// * length( aColor );//* (uv.y * abs(sin( uv.x *4.+3.14)) + .4) * 4.;
+  p = centerOfCircle + tang * 10. * uv.y * pow( uv.x-.1 , .3); 
 
 
 

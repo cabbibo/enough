@@ -373,7 +373,7 @@
 
 
 
-    this.position.add( this.velocity.clone().multiplyScalar( G.dT.value * 200 ));
+    this.position.add( this.velocity.clone().multiplyScalar( G.dT.value * 80 ));
     this.velocity.multiplyScalar( pp.dampening ); // turn to vector dampening
 
     this.force.set( 0 , 0 , 0);
@@ -405,6 +405,8 @@
       type:"t",
       value: this.audio.texture
     });
+
+   //this.physicsRenderer.setUniform( 't_audio' ,G.t_audio );
 
     this.physicsRenderer.setUniform( 'leader' , { 
       type:"v3" , 
