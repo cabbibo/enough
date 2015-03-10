@@ -296,7 +296,7 @@ sun.addToInitArray( function(){
       "","",
       "What happiness could it bring that was more than her?",
       "","",
-      "They realized this too, and choose to turn away from the elegant essence to journey on together."
+      "They realized this too, and choose to turn away from the elegant essence to continue their journey, together."
     ].join("\n" ),
 
     transitionIn:function(){
