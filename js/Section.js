@@ -26,6 +26,8 @@ function Section( id , page , params ){
     transitioningIn:  function(){},
     currentUpdate:    function(){},
     activeUpdate:     function(){},
+
+    fish:             false
     
   });
 
@@ -40,7 +42,7 @@ function Section( id , page , params ){
   }
 
 
-  this.frame = new Frame( this );
+  this.frame = new Frame( this , this.params.fish );
 
 
 }

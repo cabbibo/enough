@@ -96,6 +96,8 @@ function Coral( page , audio , position ){
   this.data.y = G.tmpV3.y;
   this.data.z = G.tmpV3.z;
   this.data.w = this.average;
+
+  this.audio.turnOnFilter();
   
 }
 
@@ -141,11 +143,38 @@ Coral.prototype.hoverOver = function(){
   this.center.material.color.setRGB( 1 , 1,1);
   this.uniforms.hovered.value = 1.;
   if( !this.active ){
-    this.audio.turnOffFilter();
+
+    this.filterUp();
+   // this.audio.turnOffFilter();
   }
 
 
 }
+
+Coral.prototype.tweenFilter = function( newValue , l ){
+
+  var s = { v : this.audio.filter.frequency.value } 
+  var e = { v : newValue }
+  var tween = new G.tween.Tween( s ).to( e , l );
+
+  this.tweenTMP = s;
+  tween.audio = this.audio
+  tween.onUpdate(function(){
+    this.audio.filter.frequency.value = this.tweenTMP.v;
+  }.bind( this));
+
+  tween.start();
+
+}
+
+Coral.prototype.filterDown = function(){
+  this.tweenFilter( 350 , 100 );
+}
+
+Coral.prototype.filterUp = function(){
+  this.tweenFilter( 3000 , 100 );
+}
+
 
 Coral.prototype.hoverOut = function(){
   this.uniforms.hovered.value = 0.;
@@ -153,7 +182,7 @@ Coral.prototype.hoverOut = function(){
   this.center.material.color.setRGB( .3 , .3,.3);
 
   if( !this.active ){
-    this.audio.turnOnFilter();
+    this.filterDown(); 
   }
 
 
@@ -174,7 +203,10 @@ Coral.prototype.activate = function(){
 
   this.active = true;
   this.uniforms.active.value = 1;
-  this.audio.turnOffFilter();
+  //this.audio.turnOffFilter();
+  
+    this.filterUp(); 
+  
 
 }
 
@@ -183,7 +215,8 @@ Coral.prototype.deactivate = function(){
   
   this.active = false;
   this.uniforms.active.value = 0;
-  this.audio.turnOnFilter();
+  //this.audio.turnOnFilter();
+  this.filterDown();
 
 
 }

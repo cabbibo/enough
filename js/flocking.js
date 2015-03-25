@@ -15,7 +15,9 @@ flocking.addToInitArray( function(){
       "Mani could not believe that he had lost his friends. It was too much to bear. Too much to remember the love that he felt for them, that he felt for Sol.",
       "","",
       "Around him small ribbons flocked, and though he found their movement soothing, it could not overcome his heartbreak."
-    ].join("\n" ), 
+    ].join("\n" ),
+    
+   fish: true 
   });
 
   this.sectionParams.push({
@@ -25,6 +27,20 @@ flocking.addToInitArray( function(){
       "","",
       "Mani was ready for the quiet to come. For this melancholy fantasy to finally end."
     ].join("\n" ),
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        if( i == 1 ||  i == 3 ){
+          this.coral[i].deactivate();
+        }else{
+          this.coral[i].activate();
+        }
+
+      }
+
+    }.bind(this),
+   fish: true 
 
   });
 
@@ -46,7 +62,23 @@ flocking.addToInitArray( function(){
       G.iPlane.position.copy( this.page.position.clone().add(G.tmpV3 ));
       G.tmpV3.set( 0 , 209 , 0 )
       G.iPlane.lookAt( this.page.position.clone().add( G.tmpV3 ) )
-    }
+    },
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        if( i == 0 || i == 1 || i == 2 || i == 3 ){
+          this.coral[i].activate();
+        }else{
+          this.coral[i].deactivate();
+        }
+
+      }
+
+    }.bind(this),
+
+   fish: true 
+    
   });
 
   
@@ -59,6 +91,17 @@ flocking.addToInitArray( function(){
       "","",
       "With every ounce of remaining light in his broken soul, Mani swam onwards."
     ].join("\n" ), 
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+                this.coral[i].deactivate();
+       }
+
+    }.bind(this),
+
+   fish: true 
+    
   });
 
 
@@ -215,7 +258,8 @@ flocking.addToStartArray( function(){
     
     this.coral.push( coral );
 
-    coral.deactivate();
+    coral.activate();
+    
   }
 
 
