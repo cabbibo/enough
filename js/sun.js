@@ -20,7 +20,7 @@ sun.addToInitArray( function(){
     textChunk:[
       "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the darkness, which lay unyielding, seemed to dance.",
     "","",
-      "Drawn by its sheer holiness, Mani began to approach the diety, examining every inch of its movement." 
+      "Drawn by its sheer holiness, Mani began to approach the deity, examining every inch of its movement." 
     ].join("\n" ),
     
   });
@@ -29,7 +29,7 @@ sun.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(   -6000 ,    0 ,   5000 ),
     lookPosition: new THREE.Vector3(   00 ,    0 ,   3000 ),
     textChunk:[
-      "He could not understand the beings size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
+      "He could not understand the being's size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
       "","",
       "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
     ].join("\n" ),
@@ -134,7 +134,7 @@ sun.addToInitArray( function(){
     
      "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and stared at the shell that shielded him from the unknown.",
      "","",
-     "The song continued and urged Mani towards its center. A shining portal to life lay before him and he yearned to be one with it, experience the world and truths that lay on the other side."
+     "The song continued and urged Mani towards its center. A shining portal to life lay before him and he yearned to enter, experience the world and truths that lay on the other side."
 
     ].join("\n"),
     transitionIn:function(){
@@ -203,7 +203,7 @@ sun.addToInitArray( function(){
       "","",
       "He knew this door was meant from him and no other. He would make the journey alone into the next dimension. He marched towards the opening with all the hosts of heaven urging him on.",
         "","",
-      "Then, at that moment, of estatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
+      "Then, at that moment, of ecstatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
     transitionIn:function(){
 
       this.flower.setValue( 'noiseSize' , 2 );
@@ -231,7 +231,7 @@ sun.addToInitArray( function(){
       "","",
       "She swam to him. And he towards her.",
       "","",
-      "The being sang in the background of the world Beyond as Mani approached Sol. So sweetly she swam. Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to sight of seeing her."
+      "The being sang in the background of the world Beyond as Mani approached Sol. So sweetly she swam. Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to the sight of seeing her."
     ].join("\n" ),
     transitionIn:function(){
 

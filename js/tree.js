@@ -24,7 +24,7 @@ tree.addToInitArray( function(){
     lookPosition: new THREE.Vector3( 1000, 00 , -1000 ),
 
     textChunk:[
-      "The haunting tree that stood before him mirrored the sadness Mani felt. How could he be part of this world without a purpose? Crystals hummed and the trees murmured. They knew their task and performed it with a quiet nobility.",
+      "The haunting tree that stood before him mirrored the sadness Mani felt. How could he be part of this world without a purpose? Crystals hummed and the trees murmured. They knew their tasks and performed it with a quiet nobility.",
       "","",
       "But Mani could not tell what his truth was.",
       "","",
@@ -60,7 +60,7 @@ tree.addToInitArray( function(){
     textChunk:[
       "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness.",
       "","",
-      "But even they could not quell the feeling that maybe the tree and the crystals would be the only friends he would have.",
+      "But even they could not quell the feeling that maybe the forest and the crystals would be the only friends he would have.",
     ].join("\n" ),
     start:function(){
       for( var i =0 ; i < this.page.lights.length; i++ ){
@@ -88,10 +88,10 @@ tree.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  -4000 , 0 , 100  ),
     textChunk:[
       "Mani was ready to give up. What was the point of his existence if it was to be spent, alone in the dark that would eventually consume him.",
-    "","",
-    "He wanted to share, to play, to explore, but even more, he wanted a friend to do it with.",
-    "","",
-    "He wished he was the tree. Even it had companions."
+      "","",
+      "He wanted to share, to play, to explore, but even more, he wanted a friend to do it with.",
+      "","",
+      "He wished he was the tree. Even it had companions."
 
     ].join("\n" ),
     start:function(){
@@ -121,9 +121,9 @@ tree.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  -2000 , -400 , -300  ),
     lookPosition: new THREE.Vector3(  0 , 400 ,600  ),
     textChunk:[
-      "Then, Mani heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his solitude? Another frail distraction from his sadness?",
-    "","",
-    "Or was it a creature, like him? Another friend, lost in the darkness, yearning for truth?"
+      "Then, Mani heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was it just another sparkling object, coming to remind him of his solitude? Another frail distraction from his sadness?",
+      "","",
+      "Or was it a creature, like him? Another friend, lost in the darkness, yearning for truth?"
     ].join("\n" ),
     start:function(){
       G.sol.activate();

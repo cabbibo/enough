@@ -41,7 +41,7 @@ together.addToInitArray( function(){
     textChunk:[
       "Sol was her name, Mani knew.",
       "","",
-      "The way she shown told him of a world filled with light, a land without darkness or fear.",
+      "The way she glimmered told him of a world filled with light, a land without darkness or fear.",
     ].join("\n" ),
     
   });

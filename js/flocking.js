@@ -23,7 +23,7 @@ flocking.addToInitArray( function(){
     textChunk:[
       "The small ribbons of light moved gently around Mani, but he could only imagine them as ghosts of his glimmering friends. As angelic as the ghosts' song seemed, it was not enough, and Mani resigned himself to the well of sorrow.",
       "","",
-      "Mani was ready for the quiet to come. For this meloncholy fantasy to finally end."
+      "Mani was ready for the quiet to come. For this melancholy fantasy to finally end."
     ].join("\n" ),
 
   });

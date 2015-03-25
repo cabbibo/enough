@@ -11,7 +11,7 @@ sparkles.addToInitArray( function(){
     textChunk:[
       "Mani led his friends to a sparkling expanse of stars.",
       "","",
-      "How glorious these shapes were. As they drifted past him, Mani examined their infinitely precise textures. 'How Sol must love these objects!' he thought, and turned to see the sense of wonder emanating from her being."
+      "How glorious these shapes were. As they drifted past him, Mani examined their infinitely precise textures. 'How Sol must love these sequins!' he thought, and turned to see the sense of wonder emanating from her being."
     ].join("\n" ), 
   });
 

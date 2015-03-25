@@ -43,7 +43,7 @@ fireworks.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -500 , 2000 , 2200 ),
     textChunk:[
-      "Even as the two spiraled together, Mani remembered the Golden Diety that had invited him towards the light. He thought, heart filled with meloncholy, that maybe he was mistaken. That maybe he should have learned what was True, and become one with life.",
+      "Even as the two spiraled together, Mani remembered the Golden Deity that had invited him towards the light. He thought, heart filled with meloncholy, that maybe he was mistaken. That maybe he should have learned what was True, and become one with life.",
     "","",
     "But next to him, Sol swam. In the distance the sparkles shimmered. The water glistened below them, and Mani realized, this was Enough." 
     ].join("\n" ),
