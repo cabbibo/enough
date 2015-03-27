@@ -76,13 +76,18 @@ forest.addToInitArray( function(){
         [ 12 , 10 ], 
         [ 14 ,  8 ]
        ]);
+
+
+  
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 60000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 400       
   
     }
   });
 
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( -4000 , -500 , 2500 ),
+    cameraPosition: new THREE.Vector3( -2000 , -500 , 3500 ),
     lookPosition: new THREE.Vector3( 1000 , 00 , 1000 ),
 
     transitionTime:3000,    
@@ -112,6 +117,11 @@ forest.addToInitArray( function(){
         [ 13 , 12 ], 
         [ 14 ,  8 ]
        ]);
+
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 10000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 1000       
+        
+
     }
   });
 
