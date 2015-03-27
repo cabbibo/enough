@@ -265,13 +265,13 @@ flocking.addToStartArray( function(){
 
   this.flock = new Flock( this.coral , {
     pos: this.scene.position,
-    size: 16
+    size:16
   });
 
   this.flock.activate( this.scene );
 
-  this.floor = new CoralFloor( this.coral );
-  this.scene.add( this.floor.body );
+//  this.floor = new CoralFloor( this.coral );
+ // this.scene.add( this.floor.body );
   /*var debugScene = this.flock.soul.createDebugScene();
   debugScene.scale.multiplyScalar( 20. );
   this.scene.add( debugScene );*/

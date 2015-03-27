@@ -10,6 +10,6 @@ void main(){
   vec3 col = vec3( 1. );
  // if( abs(noise) > (vDisplacement+10.) * .05 ){ col = vec3( 0. ); }
 
-  gl_FragColor = vec4(  vDisplacement * col ,1. );
+  gl_FragColor = vec4( col ,1. );
 
 }
