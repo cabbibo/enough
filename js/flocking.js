@@ -265,7 +265,7 @@ flocking.addToStartArray( function(){
 
   this.flock = new Flock( this.coral , {
     pos: this.scene.position,
-    size:16
+    size:8
   });
 
   this.flock.activate( this.scene );

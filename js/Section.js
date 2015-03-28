@@ -27,7 +27,8 @@ function Section( id , page , params ){
     currentUpdate:    function(){},
     activeUpdate:     function(){},
 
-    fish:             false
+    fish:             false,
+    frameShown:          true
     
   });
 
@@ -43,7 +44,11 @@ function Section( id , page , params ){
 
 
   this.frame = new Frame( this , this.params.fish );
+  if( this.frameShown ){
 
+    this.page.scene.add( this.frame.body );
+
+  }
 
 }
 
@@ -57,6 +62,7 @@ Section.prototype._transitionIn = function(){
     this._start();
   }else{
     //this.frame.add();
+
     this.active = true;
     this.transitionIn();
   }

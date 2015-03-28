@@ -27,7 +27,7 @@ function Frame(section , fish ){
 
   this.body = new THREE.Mesh( geo , mat );
 
-  this.section.page.scene.add( this.body );
+  //this.section.page.scene.add( this.body );
 
   this.body.position.copy( this.section.params.cameraPosition );
  
