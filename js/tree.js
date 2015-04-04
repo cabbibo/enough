@@ -17,6 +17,23 @@ tree.addToInitArray( function(){
 
 
     ].join("\n" ), 
+    start:function(){
+      for( var i =0 ; i < this.page.lights.length; i++ ){
+
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
+        }
+
+        if( 
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeChant1' 
+        ){
+          this.page.lights[i].select();
+        }
+
+      }
+    }
+
   });
 
   this.sectionParams.push({
@@ -38,13 +55,10 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          this.page.lights[i].name === 'snare' ||
-          //this.page.lights[i].name === 'startingOver' ||
-          this.page.lights[i].name === 'lup' ||
-         // this.page.lights[i].name === 'glo' ||
-          this.page.lights[i].name === 'allRight' //||
-          //this.page.lights[i].name === 'tongue' //||
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeChant1'  || 
+          this.page.lights[i].name === 'treeChant2'  
         ){
           this.page.lights[i].select();
         }
@@ -70,12 +84,13 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          //this.page.lights[i].name === 'snare' ||
-         // this.page.lights[i].name === 'startingOver' ||
-          this.page.lights[i].name === 'lup' ||
-          this.page.lights[i].name === 'glo' ||
-          this.page.lights[i].name === 'tongue' //||
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeChant1'  || 
+          this.page.lights[i].name === 'treeChant2'  ||
+          this.page.lights[i].name === 'treeHalleBounce'  ||
+          this.page.lights[i].name === 'treeVoices'  
+
         ){
           this.page.lights[i].select();
         }
@@ -102,13 +117,7 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          //this.page.lights[i].name === 'snare' ||
-         // this.page.lights[i].name === 'startingOver' ||
-          //this.page.lights[i].name === 'lup' ||
-          this.page.lights[i].name === 'glo'// ||
-          //this.page.lights[i].name === 'tongue' //||
-
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' 
         ){
           this.page.lights[i].select();
         }
@@ -138,15 +147,15 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          this.page.lights[i].name === 'snare' ||
-          //this.page.lights[i].name === 'startingOver' ||
-          this.page.lights[i].name === 'lup' ||
-          this.page.lights[i].name === 'glo' ||
-          //this.page.lights[i].name === 'allRight' ||
-          this.page.lights[i].name === 'game' ||
-          this.page.lights[i].name === 'tongue' //||
-          
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeChant1'  || 
+          this.page.lights[i].name === 'treeChant2'  ||
+          this.page.lights[i].name === 'treeHalleBounce'  ||
+          this.page.lights[i].name === 'treeVoices'  ||
+          this.page.lights[i].name === 'treeMelody'  ||
+          this.page.lights[i].name === 'treeBounce'  
+
         ){
           this.page.lights[i].select();
         }
@@ -172,14 +181,14 @@ tree.addToInitArray( function(){
   this.lightParamArray = [
       
     {
-      audio:"lup",
+      audio:"treeHalleBounce",
       color: new THREE.Vector3( .2  , 0. , .9 ),
       position: new THREE.Vector3(),
       early: true
     },
 
     { 
-      audio:"snare",
+      audio:"treeVoices",
       color: new THREE.Vector3( 0. , .4 , .8 ),
       position: new THREE.Vector3(),
       early: true
@@ -187,7 +196,7 @@ tree.addToInitArray( function(){
     },
 
     { 
-      audio:"glo",
+      audio:"treeMurmur1",
       color: new THREE.Vector3( .2 , .3 , .9 ),
       position: new THREE.Vector3(),
       early: true
@@ -195,33 +204,43 @@ tree.addToInitArray( function(){
     },
 
     { 
-      audio:"allRight",
+      audio:"treeMurmur2",
       color: new THREE.Vector3( .3 , .5 , 1 ),
       position: new THREE.Vector3(),
       early: true
     },
 
     { 
-      audio:"startingOver",
+      audio:"treeChant1",
       color: new THREE.Vector3( .4 , .5 , .8 ),
       position: new THREE.Vector3(),
       early: true
     },
 
     { 
-      audio:"tongue",
+      audio:"treeChant2",
       color: new THREE.Vector3( .1 , .4 , .9  ),
       position: new THREE.Vector3(),
       early: true 
     },
 
      { 
-      audio:"game",
+      audio:"treeBounce",
+      color: new THREE.Vector3( .1 , .5 , .8 ),
+      position: new THREE.Vector3(),
+      early:true 
+
+    },
+
+    { 
+    
+      audio:"treeMelody",
       color: new THREE.Vector3( 1. , .4 , .1 ),
       position: new THREE.Vector3(),
       early: false
 
     },
+
 
   ]
 
@@ -436,9 +455,9 @@ tree.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 120,
+    beatsPerMinute:  85,
     beatsPerMeasure: 4,
-    measuresPerLoop: 8
+    measuresPerLoop: 4
 
   });
 
@@ -498,11 +517,8 @@ tree.addToStartArray( function(){
 
     console.log( this.lights[i].name );
     if( 
-      this.lights[i].name === 'snare'       ||
-      this.lights[i].name === 'glo'         ||
-      this.lights[i].name === 'allRight'    ||
-      this.lights[i].name === 'startingOver'  
-
+      this.lights[i].name === 'treeMurmur1'
+      
     ){
 
       this.lights[i].select();
