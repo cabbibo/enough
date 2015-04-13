@@ -171,6 +171,9 @@ var f = 'img/matcap/';
   this.loadShader( 'coralFloor' , f + 'fs-coralFloor' , 'fragment' );
   this.loadShader( 'coralFloor' , f + 'vs-coralFloor' , 'vertex' );
 
+  this.loadShader( 'coralBase' , f + 'fs-coralBase' , 'fragment' );
+  this.loadShader( 'coralBase' , f + 'vs-coralBase' , 'vertex' );
+
   this.loadShader( 'coral' , f + 'fs-coral' , 'fragment' );
   this.loadShader( 'coral' , f + 'vs-coral' , 'vertex' );
 
@@ -257,6 +260,12 @@ flocking.addToStartArray( function(){
     var coral = new Coral( this , audio , p );  
     
     this.coral.push( coral );
+
+    var base = new CoralBase( coral );
+    coral.base = base;
+    base.body.position.x = p.x;
+    base.body.position.z = p.z;
+    this.scene.add( base.body );
 
     coral.activate();
     

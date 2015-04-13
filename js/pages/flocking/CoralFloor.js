@@ -11,7 +11,7 @@ function CoralFloor( coral ){
   
 
  // var geo = new THREE.PlaneBufferGeometry( 2000 , 2000 , 100 , 100 );
-  var geo = this.createGeometry( 10 , 1000 , 200 , 200 );
+  var geo = this.createGeometry( 100 , 200 , 200 );
     
   this.uniforms = {
 
@@ -48,10 +48,13 @@ function CoralFloor( coral ){
 
 }
 
-CoralFloor.prototype.createGeometry = function( innerRadius , outerRadius , radialSegments , tanSegments ){
+CoralFloor.prototype.createGeometry = function( radius  , radialSegments , tanSegments ){
 
   var totalVerts=  radialSegments * tanSegments * 3 * 2;
   var positions = new Float32Array( totalVerts * 3 );
+
+  var innerRadius = 0;
+  var outRadius = radius;
 
   var geo = new THREE.BufferGeometry();
 
@@ -80,7 +83,7 @@ CoralFloor.prototype.createGeometry = function( innerRadius , outerRadius , radi
         var index = (( tanSegments * i ) + j) * 3  * 2 * 3
         
         positions[ index + 0 ] = x1;
-        positions[ index + 1 ] = 0;
+        positions[ index + 1 ] = rIn / outerRAdi;
         positions[ index + 2 ] = z1;
 
         positions[ index + 3 ] = x2;
