@@ -106,7 +106,7 @@ function Global(){
   this.leap.connect();
   this.gui.close();
   this.scene.add( this.camera );
-  //G.onResize();
+  this.onResize();
 
   this.tween = TWEEN;
 

@@ -115,16 +115,16 @@ LoadBar.prototype.onMouseMove = function( e ){
 
 LoadBar.prototype.start = function(){
 
-	G.v1.set( 0 , 0 , -4 );
+	G.v1.set( 0 , 0 , -400 );
 	G.v1.applyQuaternion( G.camera.quaternion );
 	G.v1.add( G.camera.position );
   G.v2.set( -200 , 0 , 0 );
+  G.v2.applyQuaternion( G.camera.quaternion )
   G.v1.add( G.v2 );
 
 	this.ring.position.copy( G.v1 );
 	this.ring.lookAt( G.camera.position );
 
-	
   this.center.position.copy( G.v1 );
   this.center.lookAt( G.camera.position );
 
@@ -185,13 +185,26 @@ LoadBar.prototype.update = function(){
 	this.time.value += .1
 
   if( !this.ending ){
+
+
+    G.v1.set( 0 , 0 , -600 );
+    G.v1.applyQuaternion( G.camera.quaternion );
+    G.v1.add( G.camera.position );
+    G.v2.set( -200 , 0 , 0 );
+    G.v2.applyQuaternion( G.camera.quaternion )
+    G.v1.add( G.v2 );
+
+    this.ring.position.copy( G.v1 );
+    this.center.position.copy( G.v1 );
+
     G.v1.copy( this.lookPosition );
     G.v1.add( G.camera.position )
 
-  	this.ring.lookAt( G.v1 )
-    this.center.lookAt( G.v1 )
-   // this.percentMesh.lookAt( G.v1 )
+    this.ring.lookAt( G.v1 );
+    this.center.lookAt( G.v1 );
+
     this.updatePercentMesh();
+
   }
 
 }
