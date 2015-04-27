@@ -1,137 +1,159 @@
 // TODO: Global Loki Character
 
-var G = {};
+function Global(){
+
+  this.pageTransitionLength = 20;
+
+  this.texturesToLoad = [
+   
+    ['ubuntuMono'       , 'img/extras/ubuntuMono.png'       ],
+    
+    ['iri_red'          , 'img/iri/red.png'                 ],
+    ['iri_gold'         , 'img/iri/gold.png'                ],
+    ['iri_blue'         , 'img/iri/blue.png'                ],
+
+    ['norm_moss'        , 'img/normals/moss_normal_map.jpg' ],
+
+    ['sprite_flare'     , 'img/sprite/flare.png'            ],
+    ['sprite_cabbibo'   , 'img/sprite/cabbibo.png'          ],
+    ['sprite_mote'      , 'img/sprite/mote.png'             ],
+
+    ['ribbonNorm'       , 'img/normals/ribbon.jpg'          ],
+    ['matcapMetal'      , 'img/matcap/metal.jpg'            ],
+
+    ['logo'             , 'img/icons/cabbibo.png'           ],
+
+  ]
+
+  this.pages   = {};
+
+  // Loaded objects that may be
+  // Used across pages
+  this.AUDIO     = {};
+  this.TEXTURES  = {};
+  this.GEOS      = {};
+  this.MATS      = {};
+
+  this.loaded = false;
+
+  this.audio   = new AudioController();
+  this.shaders = new ShaderLoader( 'shaders' , 'shaders' );
+  this.leap    = new Leap.Controller();
+  this.gui     = new dat.GUI({autoPlace:false});
+
+  this.loader  = new Loader();
 
 
-G.pageTransitionLength = 20;
+  // Assigning load bar af
+  this.loadBar = new LoadBar();
+
+  this.stats   = new Stats();
+
+  this.tmpV3   = new THREE.Vector3();
+  this.v1      = this.tmpV3;
+  this.v2      = this.v1.clone();         // for typing sake
+  this.tmpV2   = new THREE.Vector2();
+
+
+  // Just something to make things flow
+  this.flow = new THREE.Vector3();
+
+
+  this.w             = window.innerWidth;
+  this.h             = window.innerHeight;
+  this.windowSize    = new THREE.Vector2( this.w , this.h );
+  this.dpr           = window.devicePixelRatio || 1;
+  this.ratio         = this.w / this.h * this.ratio 
+  this.camera        = new THREE.PerspectiveCamera( 45 * this.ratio  , this.ratio , 10 , 20000 );
+  this.scene         = new THREE.Scene();
+  this.renderer      = new THREE.WebGLRenderer();
+  this.clock         = new THREE.Clock();
+
+  this.position      = new THREE.Vector3();
+  this.lookAt        = new THREE.Vector3();
+
+  this.pageMarker    = new THREE.Mesh(
+    new THREE.IcosahedronGeometry( 40,2 ),
+    new THREE.MeshBasicMaterial({color:0xffffff})
+  );
+  this.pageTurnerOffset = new THREE.Vector3(  400 , -150 , -1000 );
+  //G.scene.add( G.pageMarker );
+
+  this.camera.position.relative = new THREE.Vector3().copy( this.camera.position );
+
+  this.container     = document.getElementById('container' );
+
+
+  // Some Global Uniforms
+
+  this.dT      = { type:"f" , value: 0               } 
+  this.timer   = { type:"f" , value: 0               }
+  this.t_audio = { type:"t" , value: this.audio.texture }
+  this.dpr     = { type:"f" , value: window.devicePixelRatio || 1 }
+  this.time    = this.timer // because this has destroyed me too many times
+
+  this.paused  = false;
+
+  // Get all the fun stuff started
+
+  this.renderer.setSize( this.w , this.h );
+  this.renderer.setPixelRatio( this.dpr.value );
+  this.container.appendChild( this.renderer.domElement );
+    
+  this.stats.domElement.id = 'stats';
+  document.body.appendChild( this.stats.domElement );
+
+  this.leap.connect();
+  this.gui.close();
+  this.scene.add( this.camera );
+  //G.onResize();
+
+  this.tween = TWEEN;
+
+  TWEEN.origTween = TWEEN.Tween;
+  TWEEN.Tween = function (options){
+    var res = new TWEEN.origTween(options);
+    res.easing(TWEEN.Easing.Quadratic.InOut);
+    return res;
+  };
+
+  // Need something to call when started
+  this.startArray = [];
 
 
 
-G.texturesToLoad = [
- 
-  ['ubuntuMono'       , 'img/extras/ubuntuMono.png'       ],
-  
-  ['iri_red'          , 'img/iri/red.png'                 ],
-  ['iri_gold'         , 'img/iri/gold.png'                ],
-  ['iri_blue'         , 'img/iri/blue.png'                ],
-
-  ['norm_moss'        , 'img/normals/moss_normal_map.jpg' ],
-
-  ['sprite_flare'     , 'img/sprite/flare.png'            ],
-  ['sprite_cabbibo'   , 'img/sprite/cabbibo.png'          ],
-  ['sprite_mote'      , 'img/sprite/mote.png'             ],
-
-  ['ribbonNorm'       , 'img/normals/ribbon.jpg'          ],
-  ['matcapMetal'      , 'img/matcap/metal.jpg'            ],
-
-  ['logo'             , 'img/icons/cabbibo.png'           ],
-
-]
-
-G.pages   = {};
-
-// Loaded objects that may be
-// Used across pages
-G.AUDIO     = {};
-G.TEXTURES  = {};
-G.GEOS      = {};
-G.MATS      = {};
-
-G.audio   = new AudioController();
-G.shaders = new ShaderLoader( 'shaders' , 'shaders' );
-G.leap    = new Leap.Controller();
-G.gui     = new dat.GUI({autoPlace:false});
-G.loader  = new Loader();
-G.stats   = new Stats();
-
-G.tmpV3   = new THREE.Vector3();
-G.v1      = G.tmpV3;
-G.v2      = G.v1.clone();         // for typing sake
-G.tmpV2   = new THREE.Vector2();
 
 
+  this.loader.loadUpdate = function( percent ){
 
-// Just something to make things flow
-G.flow = new THREE.Vector3();
+    //console.log( 'hello : ' + percent )
+    this.loadBar.onLoad( percent )
 
+  }.bind( this )
 
-G.loader.onStart = function(){
+  this.loader.onStart = function(){
+    
+    console.log( this.loadBar)
 
-  this.onResize();
-  this.init();
-  this.animate();
+    this.onResize();
+    this.init();
 
-  for( var i = 0; i < this.startArray.length; i++ ){
+    for( var i = 0; i < this.startArray.length; i++ ){
 
-    this.startArray[i]();
+      this.startArray[i]();
 
-  }
-
-}.bind( G );
-
-G.w             = window.innerWidth;
-G.h             = window.innerHeight;
-G.windowSize    = new THREE.Vector2( G.w , G.h );
-G.dpr           = window.devicePixelRatio || 1;
-G.ratio         = G.w / G.h * G.ratio 
-G.camera        = new THREE.PerspectiveCamera( 45 * G.ratio  , G.ratio , 10 , 20000 );
-G.scene         = new THREE.Scene();
-G.renderer      = new THREE.WebGLRenderer();
-G.clock         = new THREE.Clock();
-
-G.position      = new THREE.Vector3();
-G.lookAt        = new THREE.Vector3();
-
-G.pageMarker    = new THREE.Mesh(
-  new THREE.IcosahedronGeometry( 40,2 ),
-  new THREE.MeshBasicMaterial({color:0xffffff})
-);
-G.pageTurnerOffset = new THREE.Vector3(  400 , -150 , -1000 );
-//G.scene.add( G.pageMarker );
-
-G.camera.position.relative = new THREE.Vector3().copy( G.camera.position );
-
-G.container     = document.getElementById('container' );
+    }
 
 
-// Some Global Uniforms
+    this.loadBar.onFinishedLoad();
 
-G.dT      = { type:"f" , value: 0               } 
-G.timer   = { type:"f" , value: 0               }
-G.t_audio = { type:"t" , value: G.audio.texture }
-G.dpr     = { type:"f" , value: window.devicePixelRatio || 1 }
-G.time    = G.timer // because this has destroyed me too many times
+    //this.loaded = true;
 
-G.paused  = false;
+  }.bind( this );
 
-// Get all the fun stuff started
+}
 
-G.renderer.setSize( G.w , G.h );
-G.renderer.setPixelRatio( G.dpr.value );
-G.container.appendChild( G.renderer.domElement );
-  
-G.stats.domElement.id = 'stats';
-document.body.appendChild( G.stats.domElement );
-
-G.leap.connect();
-G.gui.close();
-G.scene.add( G.camera );
-//G.onResize();
-
-G.tween = TWEEN;
-
-TWEEN.origTween = TWEEN.Tween;
-TWEEN.Tween = function (options){
-  var res = new TWEEN.origTween(options);
-  res.easing(TWEEN.Easing.Quadratic.InOut);
-  return res;
-};
-
-// Need something to call when started
-G.startArray = [];
-
-
-G.init = function(){
+Global.prototype.init = function(){
 
   this.pageTurner    = new PageTurner();
   
@@ -185,11 +207,11 @@ G.init = function(){
   this.iPlaneDistance = 600;
 
 
-  G.GEOS[ 'icosahedron'       ] = new THREE.IcosahedronGeometry( 1 , 2 );
-  G.GEOS[ 'icosahedronDense'  ] = new THREE.IcosahedronGeometry( 1 , 3 );
-  G.GEOS[ 'sun'               ] = new THREE.IcosahedronGeometry( 3000 , 6 );
-  G.GEOS[ 'planeBuffer'       ] = new THREE.PlaneBufferGeometry( 1 , 1 );
-  G.MATS[ 'normal'            ] = new THREE.MeshNormalMaterial();
+  this.GEOS[ 'icosahedron'       ] = new THREE.IcosahedronGeometry( 1 , 2 );
+  this.GEOS[ 'icosahedronDense'  ] = new THREE.IcosahedronGeometry( 1 , 3 );
+  this.GEOS[ 'sun'               ] = new THREE.IcosahedronGeometry( 3000 , 6 );
+  this.GEOS[ 'planeBuffer'       ] = new THREE.PlaneBufferGeometry( 1 , 1 );
+  this.MATS[ 'normal'            ] = new THREE.MeshNormalMaterial();
 
 
   /*
@@ -337,7 +359,7 @@ G.init = function(){
   var bait = center.clone();
 
 
-  this.maniGroup = new FurryGroup( this ,  'mani' , G.audio , 1 ,{
+  this.maniGroup = new FurryGroup( this ,  'mani' , this.audio , 1 ,{
     center:center,
     bait: bait,
     color1: col1,
@@ -370,7 +392,7 @@ G.init = function(){
   var col3 = new THREE.Vector3( c[2].r , c[2].g , c[2].b );
   var col4 = new THREE.Vector3( c[3].r , c[3].g , c[3].b );
 
-  this.solGroup = new FurryGroup( this ,  'sol' , G.audio , 1 ,{
+  this.solGroup = new FurryGroup( this ,  'sol' , this.audio , 1 ,{
     center:center,
     bait: bait,
     color1: col1,
@@ -394,24 +416,24 @@ G.init = function(){
 }
 
 
-G.updateIntersection = function(){
+Global.prototype.updateIntersection = function(){
 
   if( this.iPlane.faceCamera == true ){
     
     this.iPlane.position.copy( this.camera.position );
-    G.tmpV3.set( 0 , 0 , -this.iPlaneDistance );
-    G.tmpV3.applyQuaternion( this.camera.quaternion );
-    this.iPlane.position.add( G.tmpV3 );
+    G.v1.set( 0 , 0 , -this.iPlaneDistance );
+    G.v1.applyQuaternion( this.camera.quaternion );
+    this.iPlane.position.add( G.v1 );
     this.iPlane.lookAt( this.camera.position );
 
     this.iObj.lookAt( this.camera.position );
 
   }else{
 
-    G.tmpV3.set( 0 , 0 , 1 );
-    G.tmpV3.applyQuaternion( this.iPlane.quaternion );
+    G.v1.set( 0 , 0 , 1 );
+    G.v1.applyQuaternion( this.iPlane.quaternion );
 
-    var lookat =this.iObj.position.clone().add( G.tmpV3 );
+    var lookat =this.iObj.position.clone().add( G.v1 );
 
     this.iObj.lookAt( lookat ); 
 
@@ -420,21 +442,21 @@ G.updateIntersection = function(){
 
   //console.log('YERPS');
   this.iTextPlane.position.copy( this.camera.position );
-  G.tmpV3.set( 0 , 0 , -this.iTextPlaneDistance );
-  G.tmpV3.applyQuaternion( this.camera.quaternion );
-  this.iTextPlane.position.add( G.tmpV3);
+  G.v1.set( 0 , 0 , -this.iTextPlaneDistance );
+  G.v1.applyQuaternion( this.camera.quaternion );
+  this.iTextPlane.position.add( G.v1);
   this.iTextPlane.lookAt( this.camera.position );
 
-  G.tmpV3.copy( this.mouse );
+  G.v1.copy( this.mouse );
 
   if( this.objectControls.leap === true ){
 
-    G.tmpV3.copy(this.rHand.hand.position);
+    G.v1.copy(this.rHand.hand.position);
  
   }
   
-  G.tmpV3.sub( this.camera.position );
-  G.tmpV3.normalize();
+  G.v1.sub( this.camera.position );
+  G.v1.normalize();
 
   
   this.raycaster.set( this.camera.position ,  G.tmpV3 );
@@ -469,70 +491,81 @@ G.updateIntersection = function(){
 
 }
 
-G.animate = function(){
+Global.prototype.animate = function(){
 
-  this.pageMarker.position.copy( this.position );
-  
-  if( !this.paused ){
+  this.tween.update();
 
+  if( !this.loaded ){
 
-    this.dT.value = this.clock.getDelta();  
-    this.timer.value += G.dT.value;
+    this.loadBar.update();
 
-    this.tween.update();
+  }else{
 
-    this.objectControls.update();
-    this.updateIntersection();
-
-    this.audio.update();
-
-    this.rHand.update( 0 );
-    this.lHand.update( 1 );
-
-    this.rHand.particles.update();
-    //this.lHand.particles.update();
-
-
-    this.rHand.relative.copy( this.rHand.hand.position );
-    this.rHand.relative.sub( this.position );
+    this.pageMarker.position.copy( this.position );
     
-    this.lHand.relative.copy( this.lHand.hand.position );
-    this.lHand.relative.sub( this.position );
+    if( !this.paused ){
 
-    this.iPoint.relative.copy( this.iPoint );
-    this.iPoint.relative.sub( this.position );
-   
-    this.camera.position.relative.copy( this.camera.position );
-    this.camera.position.relative.sub( this.position );
 
-    if( this.mani.active == true ){
-      this.mani.updateTail();
-      this.mani.updatePhysics();
-      this.mani.position.relative.copy( this.mani.position );
-      this.mani.position.relative.sub( this.position );
+
+      this.dT.value = this.clock.getDelta();  
+      this.timer.value += this.dT.value;
+      
+      this.objectControls.update();
+      this.updateIntersection();
+
+      this.audio.update();
+
+      this.rHand.update( 0 );
+      this.lHand.update( 1 );
+
+      this.rHand.particles.update();
+      //this.lHand.particles.update();
+
+
+      this.rHand.relative.copy( this.rHand.hand.position );
+      this.rHand.relative.sub( this.position );
+      
+      this.lHand.relative.copy( this.lHand.hand.position );
+      this.lHand.relative.sub( this.position );
+
+      this.iPoint.relative.copy( this.iPoint );
+      this.iPoint.relative.sub( this.position );
+     
+      this.camera.position.relative.copy( this.camera.position );
+      this.camera.position.relative.sub( this.position );
+
+      if( this.mani.active == true ){
+        this.mani.updateTail();
+        this.mani.updatePhysics();
+        this.mani.position.relative.copy( this.mani.position );
+        this.mani.position.relative.sub( this.position );
+      }
+
+
+      if( this.sol.active == true ){
+        this.sol.updateTail();
+        this.sol.updatePhysics();
+        this.sol.position.relative.copy( this.sol.position );
+        this.sol.position.relative.sub( this.position );
+      }
+
+
+      this.updateAttractor();
+
+      for( var propt  in this.pages ){
+
+        this.pages[ propt ].update();
+
+      }
+
+      this.stats.update();
+     
+
     }
-
-
-    if( this.sol.active == true ){
-      this.sol.updateTail();
-      this.sol.updatePhysics();
-      this.sol.position.relative.copy( this.sol.position );
-      this.sol.position.relative.sub( this.position );
-    }
-
-
-    this.updateAttractor();
-
-    for( var propt  in this.pages ){
-
-      this.pages[ propt ].update();
-
-    }
-
-    this.stats.update();
-    this.renderer.render( this.scene , this.camera );
 
   }
+
+  this.renderer.render( this.scene , this.camera );
 
   //this.stats.update();
   //this.renderer.render( this.scene , this.camera );
@@ -542,7 +575,7 @@ G.animate = function(){
 
 }
 
-G.updateAttractor = function(){
+Global.prototype.updateAttractor = function(){
 
    if( this.attracting === true ){
 
@@ -550,7 +583,7 @@ G.updateAttractor = function(){
 
   }
 
-  if( (G.timer.value - this.attractionTimer ) > 2.5 ){
+  if( (this.timer.value - this.attractionTimer ) > 2.5 ){
   
     this.attracting = true;
 
@@ -565,16 +598,16 @@ G.updateAttractor = function(){
 
       this.attractor.copy( this.iPoint );
 
-      G.tmpV3.set( 
+      this.v1.set( 
         (Math.random()-.5) * 1000  , 
         (Math.random()-.5) * 1000  ,
         Math.random() * 500
       );
 
-      G.tmpV3.applyQuaternion( this.iPlane.quaternion );
-     // G.tmpV3.multiplyScalar( Math.random() * 500 );
+      this.v1.applyQuaternion( this.iPlane.quaternion );
+     // G.v1.multiplyScalar( Math.random() * 500 );
       
-      this.attractor.add( G.tmpV3 );
+      this.attractor.add( G.v1 );
 
 
       this.attracting = false;
@@ -587,19 +620,19 @@ G.updateAttractor = function(){
 
   if( this.sol.maniAttracting === true ){
     
-    G.tmpV3.copy( this.mani.position );
+    this.v1.copy( this.mani.position );
 
-    G.tmpV3.sub( this.solAttractor );
+    this.v1.sub( this.solAttractor );
 
-   // G.tmpV3.normalize();
+   // G.v1.normalize();
 
-    this.solVelocity.add( G.tmpV3 );
+    this.solVelocity.add( this.v1 );
 
-    G.tmpV3.copy( this.solVelocity );
-    G.tmpV3.normalize();
-    G.tmpV3.multiplyScalar( 3.4 );
-    G.tmpV3.multiplyScalar( G.dT.value * 60 );
-    this.solAttractor.add( G.tmpV3 );
+    this.v1.copy( this.solVelocity );
+    this.v1.normalize();
+    this.v1.multiplyScalar( 3.4 );
+    this.v1.multiplyScalar( this.dT.value * 60 );
+    this.solAttractor.add( this.v1 );
 
     this.solVelocity.multiplyScalar( .995 );
 
@@ -612,14 +645,14 @@ G.updateAttractor = function(){
 }
 
 
-G.addToStartArray = function( callback ){
+Global.prototype.addToStartArray = function( callback ){
 
   this.startArray.push( callback );
 
 }
 
 
-G.onResize = function(){
+Global.prototype.onResize = function(){
 
   
   this.w = window.innerWidth;
@@ -639,7 +672,7 @@ G.onResize = function(){
 
 }
 
-G.onKeyDown = function( e ){
+Global.prototype.onKeyDown = function( e ){
 
   console.log( e.which );
   if( e.which == 32 ){
@@ -663,14 +696,13 @@ G.onKeyDown = function( e ){
   }*/
 
 
-
-
 }
-G.loadTextures = function(){
 
-  for( var i = 0; i < G.texturesToLoad.length; i++ ){
+Global.prototype.loadTextures = function(){
 
-    var t = G.texturesToLoad[i];
+  for( var i = 0; i < this.texturesToLoad.length; i++ ){
+
+    var t = this.texturesToLoad[i];
 
     this.loadTexture( t[0] , t[1] );
 
@@ -678,7 +710,7 @@ G.loadTextures = function(){
 
 }
 
-G.loadTexture = function( name , file ){
+Global.prototype.loadTexture = function( name , file ){
 
   var cb = function(){
     this.loader.onLoad(); 
@@ -688,13 +720,16 @@ G.loadTexture = function( name , file ){
 
   var l = THREE.ImageUtils.loadTexture;
 
-  G.loader.addLoad();
-  G.TEXTURES[ name ] = THREE.ImageUtils.loadTexture( file , m , cb );
-  G.TEXTURES[ name ].wrapS = THREE.RepeatWrapping;
-  G.TEXTURES[ name ].wrapT = THREE.RepeatWrapping;
+  this.loader.addLoad();
+  this.TEXTURES[ name ] = THREE.ImageUtils.loadTexture( file , m , cb );
+  this.TEXTURES[ name ].wrapS = THREE.RepeatWrapping;
+  this.TEXTURES[ name ].wrapT = THREE.RepeatWrapping;
 
 }
 
+
+var G = new Global();
+console.log( G );
 //G.createNextPage
 
 // Some Event Listeners

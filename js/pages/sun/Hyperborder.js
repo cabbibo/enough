@@ -131,9 +131,6 @@ Hyperborder.prototype.createGeometry = function( size ){
   }
 
 
-
-
-
   var positions  = new Float32Array( faces.length * 6 * 3 );
   var normals    = new Float32Array( faces.length * 6 * 3 );
   var tangents   = new Float32Array( faces.length * 6 * 3 );
