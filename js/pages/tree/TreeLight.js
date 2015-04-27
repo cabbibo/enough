@@ -97,7 +97,9 @@ function TreeLight( page , params){
       if( this.page.lights[i] !== this ){
 
         var f =  this.page.lights[i].audio.filter;
-        f.frequency.value = f.frequency.maxValue;
+        console.log('MAXV')
+        console.log( f.frequency.maxValue )
+        f.frequency.value = 40000//f.frequency.maxValue;
 
       }
 

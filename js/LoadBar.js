@@ -277,7 +277,7 @@ LoadBar.prototype.createPercentMesh = function(){
 
 
     var fullSize = 30000;
-    var margin = 10;
+    var margin = 40;
 
     var ctx     = canvas.getContext( '2d' ); 
 
