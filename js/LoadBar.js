@@ -41,7 +41,7 @@ function LoadBar(){
 		"void main(){",
 		"	vec3 col = vNorm * .5 + .5 ;",
     "  if( vType > 0.5){",
-    "    col *= sin( (( vID /80.) * 6. * 3.14195  )+ time * percentLoaded * 10.);",
+    "    col *= sin( (( vID /80.) * 6. * 3.14195  )+ time * percentLoaded * 5.);",
     "  }else{",
     "    if( vUv.x < .1 || vUv.x > .9 || vUv.y < .2 || vUv.y > .8 ){",
     "    }else{",

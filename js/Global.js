@@ -729,10 +729,6 @@ Global.prototype.loadTexture = function( name , file ){
 
 
 var G = new Global();
-console.log( G );
-//G.createNextPage
-
-// Some Event Listeners
 
 window.addEventListener( 'resize'   , G.onResize.bind( G )  , false );
 window.addEventListener( 'keydown'  , G.onKeyDown.bind( G ) , false );
