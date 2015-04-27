@@ -48,7 +48,8 @@ forest.addToInitArray( function(){
     textChunk:[
       "After leaving the crystals, Mani swam through the darkness and came upon another beautiful play place.",
    "","",
-   "Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. Tall as they were, they made way for his slender form, bowing out of his way as if he were royalty."
+   "Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums they created. Strong as they were, they made way for his slender form, bowing, as if he were royalty."
+
     ].join("\n" ), 
   });
 
@@ -57,9 +58,9 @@ forest.addToInitArray( function(){
     lookPosition: new THREE.Vector3( 1000 , 500 , 00 ),
     transitionTime:3000,
     textChunk:[
-      "Mani was mesmerized by their song. Every sound he heard calmed him.",
+      "Mani was mesmerized by their song.",
       "","",
-      "Though it not be heard by anyone but themselves, the hymn the forest proclaimed seemed valiant to Mani."
+      "Though it could not be heard by anyone but themselves, the hymn the forest proclaimed seemed valiant to Mani."
     ].join("\n" ),
     transitionIn:function(){
     
@@ -75,18 +76,23 @@ forest.addToInitArray( function(){
         [ 12 , 10 ], 
         [ 14 ,  8 ]
        ]);
+
+
+  
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 60000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 400       
   
     }
   });
 
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( -4000 , -500 , 2500 ),
+    cameraPosition: new THREE.Vector3( -2000 , -500 , 3500 ),
     lookPosition: new THREE.Vector3( 1000 , 00 , 1000 ),
 
     transitionTime:3000,    
     textChunk:[
-      "Mani envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but had found purpose in their shimmering sanctuary. For them, to sing, no matter if others listened, was enough.",
+      "Mani envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but they had found purpose in their shimmering sanctuary. For them, to sing, no matter if others listened, was enough.",
       "","",
       "For Mani it was not, so he continued onwards, yearning for more."
     ].join("\n" ),
@@ -111,6 +117,11 @@ forest.addToInitArray( function(){
         [ 13 , 12 ], 
         [ 14 ,  8 ]
        ]);
+
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 10000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 1000       
+        
+
     }
   });
 

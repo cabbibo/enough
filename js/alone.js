@@ -66,7 +66,7 @@ alone.addToInitArray( function(){
     textChunk:[
       "The world surrounding Mani was so vast, he could not tell if he even moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
       "","",
-      "As Mani moved further into the night around him, he grew more questioning. Where was he? And what else was out there?"
+      "As Mani moved into the night around him, he grew more questioning. Where was he? What else was out there?"
     ].join("\n" )
   });
 
@@ -75,7 +75,7 @@ alone.addToInitArray( function(){
     lookPosition: new THREE.Vector3(  1000 , 100 , 500 ),
     transitionTime: 3000,
     textChunk:[
-      "He moved further and further into the darkness, until the soft seabed where he awoke was just a glimmer in the distance. He thought for a moment of turning back, but the unknown lay in front of him, and he was excited to discover it."
+      "He moved further and further into the darkness, until the soft seabed where he awoke was a glimmer in the distance. He thought for a moment of turning back, but the unknown lay in front of him, and he was excited to discover it."
     ].join("\n" )
   });
 

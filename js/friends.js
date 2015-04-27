@@ -30,7 +30,7 @@ this.sectionParams.push({
     textChunk:[
       "As Sol and Mani swam onwards, two more creatures joined them!",
       "","",
-      "They greeted Mani and Sol with their own songs, together they danced.",
+      "They greeted Mani and Sol with their own songs.",
     ].join("\n" ),
    start:function(){
 
@@ -139,14 +139,9 @@ this.sectionParams.push({
       for( var i = 0; i < this.furryTails.length; i++ ){
 
         var fT = this.furryTails[i];
-        console.log('FT');
-        console.log( fT );
 
         for( var j = 0; j < fT.brethren.length; j++ ){
 
-          console.log('adds ');
-
-          console.log( fT.brethren[j].position );
           fT.addSpringForce( fT.brethren[j].position , .0008 , 5000 );
         }
 

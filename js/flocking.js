@@ -15,7 +15,9 @@ flocking.addToInitArray( function(){
       "Mani could not believe that he had lost his friends. It was too much to bear. Too much to remember the love that he felt for them, that he felt for Sol.",
       "","",
       "Around him small ribbons flocked, and though he found their movement soothing, it could not overcome his heartbreak."
-    ].join("\n" ), 
+    ].join("\n" ),
+    
+   fish: true 
   });
 
   this.sectionParams.push({
@@ -23,8 +25,22 @@ flocking.addToInitArray( function(){
     textChunk:[
       "The small ribbons of light moved gently around Mani, but he could only imagine them as ghosts of his glimmering friends. As angelic as the ghosts' song seemed, it was not enough, and Mani resigned himself to the well of sorrow.",
       "","",
-      "Mani was ready for the quiet to come. For this meloncholy fantasy to finally end."
+      "Mani was ready for the quiet to come. For this melancholy fantasy to finally end."
     ].join("\n" ),
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        if( i == 1 ||  i == 3 ){
+          this.coral[i].deactivate();
+        }else{
+          this.coral[i].activate();
+        }
+
+      }
+
+    }.bind(this),
+   fish: true 
 
   });
 
@@ -46,7 +62,23 @@ flocking.addToInitArray( function(){
       G.iPlane.position.copy( this.page.position.clone().add(G.tmpV3 ));
       G.tmpV3.set( 0 , 209 , 0 )
       G.iPlane.lookAt( this.page.position.clone().add( G.tmpV3 ) )
-    }
+    },
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        if( i == 0 || i == 1 || i == 2 || i == 3 ){
+          this.coral[i].activate();
+        }else{
+          this.coral[i].deactivate();
+        }
+
+      }
+
+    }.bind(this),
+
+   fish: true 
+    
   });
 
   
@@ -59,6 +91,17 @@ flocking.addToInitArray( function(){
       "","",
       "With every ounce of remaining light in his broken soul, Mani swam onwards."
     ].join("\n" ), 
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+                this.coral[i].deactivate();
+       }
+
+    }.bind(this),
+
+   fish: true 
+    
   });
 
 
@@ -127,6 +170,9 @@ var f = 'img/matcap/';
 
   this.loadShader( 'coralFloor' , f + 'fs-coralFloor' , 'fragment' );
   this.loadShader( 'coralFloor' , f + 'vs-coralFloor' , 'vertex' );
+
+  this.loadShader( 'coralBase' , f + 'fs-coralBase' , 'fragment' );
+  this.loadShader( 'coralBase' , f + 'vs-coralBase' , 'vertex' );
 
   this.loadShader( 'coral' , f + 'fs-coral' , 'fragment' );
   this.loadShader( 'coral' , f + 'vs-coral' , 'vertex' );
@@ -215,19 +261,26 @@ flocking.addToStartArray( function(){
     
     this.coral.push( coral );
 
-    coral.deactivate();
+    var base = new CoralBase( coral );
+    coral.base = base;
+    base.body.position.x = p.x;
+    base.body.position.z = p.z;
+    this.scene.add( base.body );
+
+    coral.activate();
+    
   }
 
 
   this.flock = new Flock( this.coral , {
     pos: this.scene.position,
-    size: 16
+    size:8
   });
 
   this.flock.activate( this.scene );
 
-  this.floor = new CoralFloor( this.coral );
-  this.scene.add( this.floor.body );
+//  this.floor = new CoralFloor( this.coral );
+ // this.scene.add( this.floor.body );
   /*var debugScene = this.flock.soul.createDebugScene();
   debugScene.scale.multiplyScalar( 20. );
   this.scene.add( debugScene );*/

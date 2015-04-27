@@ -18,7 +18,7 @@ function Flock( coral , params ){
   this.params = _.defaults( params || {} , {
 
     depth: 32,
-    joints: 8,
+    joints: 4,
     size: 32,
     sides: 6,
     time: G.dT,

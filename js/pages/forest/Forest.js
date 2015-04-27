@@ -147,14 +147,14 @@
     this.physicsRenderer.setUniform( 'maxVel' , maxVel );
     this.physicsRenderer.setUniform( 'uDampening' , dampening );
 
-    physicsGui.add( repelMultiplier , 'value' ).name( 'Repel Multiplier' );
+   /* physicsGui.add( repelMultiplier , 'value' ).name( 'Repel Multiplier' );
     physicsGui.add( flowMultiplier , 'value' ).name( 'Flow Multiplier' );
     physicsGui.add( floatForce , 'value' ).name( 'Float Force' );
     physicsGui.add( springForce , 'value' ).name( 'Spring Force' )
     physicsGui.add( springDist , 'value' ).name( 'Spring Dist' );
     physicsGui.add( maxVel , 'value' ).name( 'Max Vel' );
     physicsGui.add( dampening , 'value' ).name( 'uDampening' );
-
+*/
 
 
     this.physicsRenderer.setUniform( 'dT'     , G.dT    );

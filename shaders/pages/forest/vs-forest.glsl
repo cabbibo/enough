@@ -1,6 +1,7 @@
 
 uniform sampler2D tNormal;
 uniform sampler2D t_pos;
+uniform sampler2D t_audio;
 uniform vec3 lightPos;
 uniform float girth;
 uniform float headMultiplier;
@@ -199,9 +200,10 @@ void main(){
 
   vec3 centerPos = texture2D( t_pos , uv ).xyz;
 
- 
+  
+  float audioR = length( texture2D( t_audio , vec2( base / 16.  , 0.) ) );
 
-  float radius = girth;//(baseDown-baseUp); //( baseDown - baseUp );// * //amount;
+  float radius = girth * audioR;//(baseDown-baseUp); //( baseDown - baseUp );// * //amount;
 
   vHead = 0.;
  

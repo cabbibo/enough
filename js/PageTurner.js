@@ -42,12 +42,14 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
      If there is but it isn't loaded,
      times out again and again to check if it is loaded
 
+     TODO: Give some indication to
+           user that next page is
+           loading
+
   */
   if(this.toPage ){
 
     if( this.toPage.loaded === false ){
-
-      console.log( 'PAGE NART LOADS' );
 
       if( this.pageLoaded === true ){
         
@@ -79,7 +81,6 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   }else{
 
-    console.log( 'NO NEW PAGE' );
     G.endBook(); //TODO
 
   }

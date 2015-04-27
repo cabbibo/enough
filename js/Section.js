@@ -26,6 +26,9 @@ function Section( id , page , params ){
     transitioningIn:  function(){},
     currentUpdate:    function(){},
     activeUpdate:     function(){},
+
+    fish:             false,
+    frameShown:          true
     
   });
 
@@ -40,8 +43,12 @@ function Section( id , page , params ){
   }
 
 
-  this.frame = new Frame( this );
+  this.frame = new Frame( this , this.params.fish );
+  if( this.frameShown ){
 
+    this.page.scene.add( this.frame.body );
+
+  }
 
 }
 
@@ -55,6 +62,7 @@ Section.prototype._transitionIn = function(){
     this._start();
   }else{
     //this.frame.add();
+
     this.active = true;
     this.transitionIn();
   }
@@ -136,15 +144,20 @@ Section.prototype.createTransitionInCallback = function(){
 
     var transitionTime = this.params.transitionTime;
 
+
+    var looper = this.page.looper;
     if(  transitionTime == "endOfLoop" ){
-      
-      var percentTilEnd = 1 - this.page.looper.percentOfMeasure;
+     
+      var percentTilEnd = 1 - looper.percentOfLoop;
       
       // Making sure the transition is never toooooo quick
       if( percentTilEnd < .3 ){
         percentTilEnd += 1;
       }
-      var timeTilEnd = percentTilEnd * this.page.looper.measureLength;
+
+      var measureLength = looper.secondsPerBeat * looper.beatsPerMeasure * looper.measuresPerLoop; 
+
+      var timeTilEnd = percentTilEnd * measureLength; //looper.loopLength;
 
       transitionTime = (timeTilEnd-.01) * 1000;
 
