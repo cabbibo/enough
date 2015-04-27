@@ -315,7 +315,7 @@ LoadBar.prototype.onLoad = function( percent ){
 
 
 
-  var p = Math.floor( this.percentLoaded.value * 100 )
+  var p = Math.floor( Math.min( 1 , this.percentLoaded.value ) * 100 )
 
   this.updatePercentTexture( 
     p , 
