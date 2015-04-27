@@ -103,6 +103,7 @@ a:hover{
   top:50%;
   left:50%;
   z-index: 999;
+  font-size: 20px;
   width: 35%;
   color:#fff;
   -moz-user-select: none;

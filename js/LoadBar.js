@@ -22,7 +22,7 @@ function LoadBar(){
 		"varying float vType;",
     "varying vec2 vUv;",
 		"void main(){",
-		"	vNorm = normal;",
+		 " vNorm = ( normalMatrix * normal);",
 		"	vID = id;",
     "  vType = faceType;",
     "  vUv = uv;",
@@ -76,7 +76,52 @@ function LoadBar(){
 	this.ring = new THREE.Mesh( this.createRingGeo(100) , ringMat )
 
 
-  var centerMat = new THREE.MeshNormalMaterial({
+  var vs = [
+  //  "attribute float id;",
+  //  "attribute float faceType;",
+    "varying vec3 vNorm;",
+ //   "varying float vID;",
+//    "varying float vType;",
+ //   "varying vec2 vUv;",
+    "void main(){",
+    " vNorm = ( normalMatrix * normal);",
+  //  " vID = id;",
+  //  "  vType = faceType;",
+  //  "  vUv = uv;",
+    " gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
+    "}"
+  ].join("\n");
+
+  var fs = [
+
+    //"uniform float percentLoaded;",
+    //"uniform float time;",
+    "varying vec3 vNorm;",
+   // "varying float vID;",
+   // "varying float vType;",
+   // "varying vec2 vUv;",
+    "void main(){",
+    " vec3 col = vNorm * .5 + .5 ;",
+  /*  "  if( vType > 0.5){",
+    "    col *= sin( (( vID /80.) * 6. * 3.14195  )+ time * percentLoaded * 5.);",
+    "  }else{",
+    "    if( vUv.x < .1 || vUv.x > .9 || vUv.y < .2 || vUv.y > .8 ){",
+    "    }else{",
+    "      if( percentLoaded < vID / 40. ){",
+    "        col = vec3( 0. );",
+    "      }",
+    "    }",
+    "  }",
+    "  //if( percentLoaded * 40. < vID ){ discard; }",*/
+    " gl_FragColor = vec4( col , 1. );",
+    "}",
+
+  ].join("\n");
+
+
+  var centerMat = new THREE.ShaderMaterial({
+    vertexShader: vs,
+    fragmentShader: fs,
     side: THREE.DoubleSide,
     transparent: true
   });
