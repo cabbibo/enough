@@ -29,14 +29,7 @@ credits.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1000 ),
-    textChunk:[
-      "Who could be so lucky? ",
-      "","",
-      "Who comes to a lake for water",
-      "and sees the reflection of the moon.",
-      "","",
-      "                         - Rumi"
-      ].join("\n" ),
+    textChunk:TEXT.CREDITS[0],
     start:function(){
 
   
@@ -51,11 +44,7 @@ credits.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
-    textChunk:[
-      "THANKS:","","",
-      "Sally Visher  Joseph Cohen  Abe Cohen   Xochitl Garcia  Jaume Sanchez   Ricardo Cabello  West Langley  Ben Cerveny  Eddie Lee  Jono Brandel   Aki Rodic   Hugh Kennedy  Reza Ali  Robbie Tilton   Nicole Campos  Julia Sills  Luke Iannini  Alexandra Hay  Grant Marr   Erica Gibbons  Geoffery Logan  Leap"
-
-    ].join("\n" ),
+    textChunk:TEXT.CREDITS[1],
 
     start:function(){
      
@@ -69,43 +58,23 @@ credits.addToInitArray( function(){
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
-    textChunk:[
-      "THANKS:","","",
-      "Holly Rubek Joan Sarratt  Jeff Belcher  Barb Murray  Andrew West  Malek Moazzam-Doulat   Kristi Upson-Saia  Dale Wright  Janet Scheel  Alec Schramm  Daniel Snowden-Ifft  Dennis Eggleston  Broderick Fox  George Schmiedeschoff "
-    ].join("\n" ),
+    textChunk:TEXT.CREDITS[2],
     
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1300 ),
-    textChunk:[
-      "Songs Sampled:","","",
-      "Susanna And The Magical Orchestra - Hallelujah",
-      "Holy Other - We Over",
-      "Tielsie - Hueboy ",
-      "Susanna And The Magical Orchestra - These Days",
-      "Luke Abbot - Modern Driveway",
-      "The Rice Twins - For Penny and Alexis",
-      "Typhoon - Starting Over",
-      "Sigur Ros - All Alright",
-      "Sigur Ros - Glosoli", 
-    ].join("\n" ),
+    textChunk:TEXT.CREDITS[3],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1500 ),
-    textChunk:[
-      "Infinite thanks to all the people who let that which they create belong to others.",
-      "","",
-      "Your gifts to the world help us all grow."
-    ].join("\n" ),
+    textChunk:TEXT.CREDITS[4],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 2200 ),
-    textChunk:[
-      "Thank You."
-    ].join("\n" ),
+    textChunk:TEXT.CREDITS[5],
     transitionTime:10000,
     start:function(){
 

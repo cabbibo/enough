@@ -24,29 +24,17 @@ fireworks.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 1000 , 2000 ),
     lookPosition: new THREE.Vector3( 500 , 0 , 0 ),
-    textChunk:[
-      "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
-  "","",
-    "Like a small fire in the distance, it whispered its goodbyes, leaving Sol and Mani to circle a golden lake. Their reflections kept them company as they danced in the darkness."  
-    ].join("\n" ),
+    textChunk:TEXT.FIREWORKS[0],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 500 , 1000 , 2200 ),
-    textChunk:[
-      "In front of them glorious fireworks rose above the shimmering surface. Their golden sparkles reminded Mani of the first sparkles he had seen, coming from the crystals.",   
-     "","",
-    "He remembered his lonliness, his confusion, as well as each wonder he had discovered. Even the tree he circled was now firmly etched in his memory." 
-    ].join("\n" ),
+    textChunk:TEXT.FIREWORKS[1],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -500 , 2000 , 2200 ),
-    textChunk:[
-      "Even as the two spiraled together, Mani remembered the Golden Deity that had invited him towards the light. He thought, heart filled with meloncholy, that maybe he was mistaken. That maybe he should have learned what was True, and become one with life.",
-    "","",
-    "But next to him, Sol swam. In the distance the sparkles shimmered. The water glistened below them, and Mani realized, this was Enough." 
-    ].join("\n" ),
+    textChunk:TEXT.FIREWORKS[2],
   });
 
 

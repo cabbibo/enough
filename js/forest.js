@@ -45,23 +45,14 @@ forest.addToInitArray( function(){
     lookPosition: new THREE.Vector3( 1000 , 00 , 00 ),
     
     transitionTime:3000,    
-    textChunk:[
-      "After leaving the crystals, Mani swam through the darkness and came upon another beautiful play place.",
-   "","",
-   "Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums they created. Strong as they were, they made way for his slender form, bowing, as if he were royalty."
-
-    ].join("\n" ), 
+    textChunk:TEXT.FOREST[0], 
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 1000 , -1000 , 2500 ),
     lookPosition: new THREE.Vector3( 1000 , 500 , 00 ),
     transitionTime:3000,
-    textChunk:[
-      "Mani was mesmerized by their song.",
-      "","",
-      "Though it could not be heard by anyone but themselves, the hymn the forest proclaimed seemed valiant to Mani."
-    ].join("\n" ),
+    textChunk:TEXT.FOREST[1],
     transitionIn:function(){
     
       this.page.setMonome([
@@ -91,11 +82,7 @@ forest.addToInitArray( function(){
     lookPosition: new THREE.Vector3( 1000 , 00 , 1000 ),
 
     transitionTime:3000,    
-    textChunk:[
-      "Mani envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but they had found purpose in their shimmering sanctuary. For them, to sing, no matter if others listened, was enough.",
-      "","",
-      "For Mani it was not, so he continued onwards, yearning for more."
-    ].join("\n" ),
+    textChunk:TEXT.FOREST[2],
     transitionIn:function(){
       this.page.setMonome([
         [  1 ,  1 ], 
@@ -120,6 +107,33 @@ forest.addToInitArray( function(){
 
       this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 10000
       this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 1000       
+        
+
+    }
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 1000 , 1000 , 2500 ),
+    lookPosition: new THREE.Vector3( 1000 , -500 , 00 ),
+
+    transitionTime:3000,    
+    textChunk:TEXT.FOREST[3],
+    transitionIn:function(){
+      this.page.setMonome([
+        [  1 ,  1 ], 
+        [  1 ,  9 ], 
+        [  2 ,  8 ], 
+        [  4 ,  7 ], 
+        [  4 ,  6 ], 
+        [  8 ,  3 ], 
+        [  9 ,  9 ], 
+        [ 11 ,  5 ], 
+        [ 12 , 10 ], 
+        [ 14 ,  8 ]
+       ]);
+
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 60000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 400      
         
 
     }

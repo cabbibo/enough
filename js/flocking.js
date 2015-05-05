@@ -11,22 +11,14 @@ flocking.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  2000  , 2000 , 500 ) ,
-    textChunk:[
-      "Mani could not believe that he had lost his friends. It was too much to bear. Too much to remember the love that he felt for them, that he felt for Sol.",
-      "","",
-      "Around him small ribbons flocked, and though he found their movement soothing, it could not overcome his heartbreak."
-    ].join("\n" ),
+    textChunk:TEXT.FLOCKING[0],
     
    fish: true 
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -200 , 800 ,1400 )  ,
-    textChunk:[
-      "The small ribbons of light moved gently around Mani, but he could only imagine them as ghosts of his glimmering friends. As angelic as the ghosts' song seemed, it was not enough, and Mani resigned himself to the well of sorrow.",
-      "","",
-      "Mani was ready for the quiet to come. For this melancholy fantasy to finally end."
-    ].join("\n" ),
+    textChunk:TEXT.FLOCKING[1],
     start:function(){
 
       for( var  i = 0; i < this.coral.length; i++ ){
@@ -46,11 +38,7 @@ flocking.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 400 , 1000 ) ,
-    textChunk:[
-      "He could feel the darkness inch in around him, winding its icy grip around the deepest part of his being.",
-      "","",
-      "As he swam, filled with anguish, Mani fondly remembered the crystals, tendrils and tree. He thought of Sol and her compassionate movements, and his friends circling around him. Oh how he missed them, how he wish he had cherished his time in their presence."
-    ].join("\n" ),
+    textChunk:TEXT.FLOCKING[2],
     start:function(){
       G.tmpV3.set( 0 , 100 , 0 );
       G.iPlane.position.copy( this.page.position.clone().add(G.tmpV3 ));
@@ -81,22 +69,31 @@ flocking.addToInitArray( function(){
     
   });
 
-  
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(   1000 , 2000 , 1000 ) ,
-    textChunk:[
-      "But the quiet did not come, and Mani hoped for something more.",
-      "","",
-      "Maybe it was because he could feel some presence near, or just because he refused to believe that this sorrow was all there was, but Mani decided to keep moving.",
-      "","",
-      "With every ounce of remaining light in his broken soul, Mani swam onwards."
-    ].join("\n" ), 
+    cameraPosition: new THREE.Vector3(   500 , 1000 , 1000 ) ,
+    textChunk:TEXT.FLOCKING[3], 
     start:function(){
 
       for( var  i = 0; i < this.coral.length; i++ ){
 
-                this.coral[i].deactivate();
-       }
+        this.coral[i].deactivate();
+      }
+
+    }.bind(this),
+
+   fish: true 
+    
+  });
+  
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(   1000 , 2000 , 1000 ) ,
+    textChunk:TEXT.FLOCKING[4], 
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        this.coral[i].deactivate();
+      }
 
     }.bind(this),
 

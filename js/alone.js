@@ -27,14 +27,7 @@ alone.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  500  , 800 , 2000 ),
     lookPosition: new THREE.Vector3(  500  , 0 , -500 ),
     transitionTime: 3000,
-    textChunk:[
-      "For My Teachers",
-      "","",
-      "Who somehow always managed to put up with me.",
-      "Especially the two who had it the worst:",
-      "","",
-      "Mom & Dad."
-    ].join("\n" ),
+    textChunk:TEXT.ALONE[0]
 
   });
 
@@ -42,11 +35,7 @@ alone.addToInitArray( function(){
     
     cameraPosition: new THREE.Vector3(  0 , -50 , 1000 ),
     transitionTime: 8000,
-    textChunk:[
-      "When Mani awoke, he had no idea where he was.",
-      "","",
-      "He began to move, slowly discovering the physics of his form."
-    ].join("\n" ),
+    textChunk:TEXT.ALONE[1],
     start: function(){
 
       G.v1.copy( G.position );
@@ -63,20 +52,14 @@ alone.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 1500 ),
     transitionTime: 3000,
-    textChunk:[
-      "The world surrounding Mani was so vast, he could not tell if he even moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
-      "","",
-      "As Mani moved into the night around him, he grew more questioning. Where was he? What else was out there?"
-    ].join("\n" )
+    textChunk:TEXT.ALONE[2]
   });
 
-    this.sectionParams.push({
+  this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  1000 , 0 , 4500 ),
     lookPosition: new THREE.Vector3(  1000 , 100 , 500 ),
     transitionTime: 3000,
-    textChunk:[
-      "He moved further and further into the darkness, until the soft seabed where he awoke was a glimmer in the distance. He thought for a moment of turning back, but the unknown lay in front of him, and he was excited to discover it."
-    ].join("\n" )
+    textChunk:TEXT.ALONE[3]
   });
 
 

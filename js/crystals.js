@@ -10,11 +10,7 @@ crystals.addToInitArray( function(){
     cameraPosition:new THREE.Vector3(  2000 , 2000 , -2000 ),
     lookPosition:new THREE.Vector3(  -1000 , 00 , -500 ),
     
-    textChunk:[
-      "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
-      "","",
-      "They spewed sparkles into the world around him, and Mani’s entire being shimmered with glee. So splendid they stood, stoic yet playful, each with its own voice and melody."
-    ].join("\n" ),
+    textChunk:TEXT.CRYSTALS[0],
 
   });
 
@@ -35,11 +31,7 @@ crystals.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition:new THREE.Vector3( -100 , 1000 , 1600  ),
-    textChunk:[
-      "Their simple existence filled Mani with wonder. Why were they here? How could they sing? What were they saying?",
-      "","",
-      "He explored the crystals, dancing with delight through their glistening glitter. How could they be? What could they be?"
-    ].join("\n"),
+    textChunk:TEXT.CRYSTALS[1],
     start:function(){
       for( var i = 0; i < this.page.crystals.length; i++ ){
 
@@ -63,11 +55,24 @@ crystals.addToInitArray( function(){
     cameraPosition:new THREE.Vector3( 0 , 1000 , 1400  ),
     lookPosition:new THREE.Vector3( -300 , 00 , -600  ),
 
-    textChunk:[
-      "He felt a certain camaraderie with the crystals, the simple fact of their existence made him approach them with reverence.",
-      "","",
-      "But as Mani wondered, so he wandered, and after he determined the crystals to be thoroughly explored, he moved onwards."
-    ].join("\n"),
+    textChunk:TEXT.CRYSTALS[2],
+    start:function(){
+      for( var i = 0; i < this.page.crystals.length; i++ ){
+        var c = this.page.crystals[i];
+        //if(  i !== 3 && i !== 9 ){
+          if( !c.selected ) c.select();
+        //}else{
+        //  if( c.selected ) c.select();
+        //}
+      }
+    }
+  });
+
+  this.sectionParams.push({
+    cameraPosition:new THREE.Vector3( 0 , 2000 , 2400  ),
+    lookPosition:new THREE.Vector3( -300 , 00 , -600  ),
+
+    textChunk:TEXT.CRYSTALS[3],
     start:function(){
       for( var i = 0; i < this.page.crystals.length; i++ ){
         var c = this.page.crystals[i];

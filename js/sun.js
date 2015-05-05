@@ -17,23 +17,15 @@ sun.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  -10000 , 0 , 5000 ),
     lookPosition: new THREE.Vector3(   00 ,    0 ,   2000 ),
     
-    textChunk:[
-      "Within a single moment, all of Mani's sorrow evaporated. The pulsing orb that lay before him was the thing that was missing. It sang, so full of light that even the darkness, which lay unyielding, seemed to dance.",
-    "","",
-      "Drawn by its sheer holiness, Mani began to approach the deity, examining every inch of its movement." 
-    ].join("\n" ),
+    textChunk:TEXT.SUN[0],
     
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(   -6000 ,    0 ,   5000 ),
     lookPosition: new THREE.Vector3(   00 ,    0 ,   3000 ),
-    textChunk:[
-      "He could not understand the being's size. Every wonder he had found, he had loved. But this was more than wonder. It was more than even reverence.",
-      "","",
-      "Mani felt for a gentle moment, that he had finally found Truth. The abyss ran from the light, and Mani towards it."
-    ].join("\n" ),
-    transitionTime: 10000,
+    textChunk:TEXT.SUN[1],
+    transitionTime: 15000,
 
     transitionIn:function(){
       this.page.iPlaneDistance = 2000 ;
@@ -55,15 +47,8 @@ sun.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(   -4000 ,    0 , 4000 ),
     lookPosition:   new THREE.Vector3(   -4000 ,  0 , 0 ),
-    textChunk: [
-      "Further and further Mani swam, approaching the loving behemoth.",
-      "","",
-      "Its song now sang just for him, beckoning him inwards, welcoming him into its loving arms. Its voice told of understanding without bounds, of infinite compassion, and warmth that could not be extinguished.",
-      "","",
-      "So inwards Mani went."
-
-    ].join("\n" ),
-    transitionTime:10000,
+    textChunk: TEXT.SUN[2],
+    transitionTime:15000,
 
     transitionIn:function(){
 
@@ -130,13 +115,7 @@ sun.addToInitArray( function(){
     lookPosition:new THREE.Vector3( 500 , 0 , 100 ),
     transitionTime:30000,
     
-    textChunk:[
-    
-     "The inside of the beast was even more magnificent than its exterior. Finally Mani knew a world without darkness, and stared at the shell that shielded him from the unknown.",
-     "","",
-     "The song continued and urged Mani towards its center. A shining portal to life lay before him and he yearned to enter, experience the world and truths that lay on the other side."
-
-    ].join("\n"),
+    textChunk:TEXT.SUN[3],
     transitionIn:function(){
 
      for( var i = 0; i < this.audio.array.length; i++ ){
@@ -170,14 +149,7 @@ sun.addToInitArray( function(){
     cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
     transitionTime:4000,
 
-    textChunk:[
-      "The soul of the creature seemed to embrace Mani.",
-      "","",
-      "He gazed into the gateway, which told him of a world beyond.",
-       "","",
-       "It told him of a field, golden waves undulating in a sweet breeze, a blue sky. It told him of the wonders of taste and smell. The unadultered bliss of youth, and tender grace of aging. It sang of the overwhelming loss of heartbreak, and the sublime surrender of love.",
-       
-    ].join("\n" ), 
+    textChunk:TEXT.SUN[4],
     transitionIn:function(){
 
       this.flower.setValue( 'noiseSize' , 2 );
@@ -196,14 +168,30 @@ sun.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
-    transitionTime:4000,
+    transitionTime: 3000,
 
-    textChunk:[
-      "He swam closer and closer to the center.",
-      "","",
-      "He knew this door was meant from him and no other. He would make the journey alone into the next dimension. He marched towards the opening with all the hosts of heaven urging him on.",
-        "","",
-      "Then, at that moment, of ecstatic epiphany, of Light Infinite, Mani saw a movement." ].join("\n" ), 
+    textChunk:TEXT.SUN[5],
+    transitionIn:function(){
+
+      this.flower.setValue( 'noiseSize' , 3 );
+      this.flower.setValue( 'springLength' , .5/31 );
+      /*for( var i = 0; i < this.audio.array.length; i++ ){
+        if(i == 4 || i == 5 || i == 6 ){
+          this.audio.array[i].fadeOut( 10 );
+        }
+      }*/
+
+       this.iPlaneDistance = 900 ;
+      G.iPlaneDistance = this.iPlaneDistance;
+     }.bind( sun )
+
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1050 ),
+
+    textChunk:TEXT.SUN[6],
+    transitionTime: 3000,
     transitionIn:function(){
 
       this.flower.setValue( 'noiseSize' , 2 );
@@ -221,18 +209,15 @@ sun.addToInitArray( function(){
   });
 
 
+
+
+
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 400 ,    0 ,  2000 ),
     lookPosition: new THREE.Vector3( 400 , 0 , 0 ),
     transitionTime: 10000,
 
-    textChunk: [
-      "It was Sol!",
-      "","",
-      "She swam to him. And he towards her.",
-      "","",
-      "The being sang in the background of the world Beyond as Mani approached Sol. So sweetly she swam. Mani realized in that moment, that no golden fields of grass, no immaculate taste, could ever compare to the sight of seeing her."
-    ].join("\n" ),
+    textChunk: TEXT.SUN[7],
     transitionIn:function(){
 
       G.sol.activate();
@@ -259,51 +244,20 @@ sun.addToInitArray( function(){
 
   });
 
- /* this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,  1200 ), 
 
-    lookPosition: new THREE.Vector3( 0 , 0 , 0 ),
-    transitionTime:10000,
-    textChunk:[
-      "Mani knew he had to make a choice between the rainbow being and Sol.",
-      "","",
-      "But how could Mani choose."
-    ].join("\n" ),
-
-    transitionIn:function(){
-
-      this.flower.setValue( 'windSpeed' , .005 );
-      this.iPlaneDistance = 500 ;
-      G.iPlaneDistance = this.iPlaneDistance; 
-
-      for( var i = 0; i < this.audio.array.length; i++ ){
-        if( i == 5 || i == 6 ){
-          this.audio.array[i].fadeIn( 10 , 1 );
-        }
-      }
-
-    }.bind( sun )
-
-  });*/
 
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3( 400 , -1000 ,  1600 ), 
     lookPosition: new THREE.Vector3(  400 , -400 ,  0 ),
     transitionTime:10000,
-    textChunk:[
-      "The two circled each other, as the deity calmly continued its chorus. It knew Mani would never make the passage now that Sol was there. What Truth could it promise that was more than friendship?",
-      "","",
-      "What happiness could it bring that was more than her?",
-      "","",
-      "They realized this too, and choose to turn away from the elegant essence to continue their journey, together."
-    ].join("\n" ),
+    textChunk:TEXT.SUN[8],
 
     transitionIn:function(){
 
 
       this.flower.setValue( 'windSpeed' , .001 );
-      this.flower.setValue( 'springLength' , 3/31 );
+      this.flower.setValue( 'springLength' , 2/31 );
      // this.flower.setValue( 'dampening' , .0001 );
       
       for( var i = 0; i < this.audio.array.length; i++ ){
@@ -312,6 +266,51 @@ sun.addToInitArray( function(){
         }
       }
 
+    }.bind( sun )
+
+
+  });
+
+  this.sectionParams.push({
+    
+    cameraPosition: new THREE.Vector3( 400 , -1500 ,  1600 ), 
+    lookPosition: new THREE.Vector3(  400 , -400 ,  0 ),
+    transitionTime:3000,
+    textChunk:TEXT.SUN[9],
+
+    transitionIn:function(){
+
+
+      this.flower.setValue( 'windSpeed' , .001 );
+      this.flower.setValue( 'springLength' , 1/31 );
+     // this.flower.setValue( 'dampening' , .0001 );
+      
+      for( var i = 0; i < this.audio.array.length; i++ ){
+        if( i == 5 || i == 6 ){
+          this.audio.array[i].fadeIn( 10 , 1 );
+        }
+      }
+
+    }.bind( sun )
+
+
+  });
+
+  this.sectionParams.push({
+    
+    cameraPosition: new THREE.Vector3( 400 , -2000 ,  1600 ), 
+    lookPosition: new THREE.Vector3(  400 , -1000 ,  0 ),
+    transitionTime:3000,
+    textChunk:TEXT.SUN[10],
+
+    transitionIn:function(){
+
+
+      this.flower.setValue( 'windSpeed' , .001 );
+      this.flower.setValue( 'springLength' , .5/31 );
+     // this.flower.setValue( 'dampening' , .0001 );
+      
+   
     }.bind( sun )
 
 

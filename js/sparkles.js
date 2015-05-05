@@ -8,26 +8,16 @@ sparkles.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
-    textChunk:[
-      "Mani led his friends to a sparkling expanse of stars.",
-      "","",
-      "How glorious these shapes were. As they drifted past him, Mani examined their infinitely precise textures. 'How Sol must love these sequins!' he thought, and turned to see the sense of wonder emanating from her being."
-    ].join("\n" ),
+    textChunk:TEXT.SPARKLES[0],
     frameShown: false 
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,900 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
     transitionTime:4000,
-    textChunk:[
-      "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
-      "","",
-      "Where could they have gone? He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
-    ].join("\n" ),
+    textChunk:TEXT.SPARKLES[1],
     transitionIn:function( a ){
 
-      console.log('TANSL');
-      console.log( a );
       this.cameraPosition.copy( G.camera.position );
       this.page.cameraPos.x =  G.camera.position.x;
       this.page.cameraPos.y =  G.camera.position.y;
@@ -53,13 +43,9 @@ sparkles.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,1100 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 ,800 ),
     transitionTime:4000,
-    textChunk:[
-      "The cold mist washed over him. And he realized now what it meant to be lonely. He had felt the warmth of his friends. To be without it was too much.",
-      "","",
-      "He had to find them again! No matter what! So still he flew on, praying that the direction he traveled in would lead him again to light."
-    ].join("\n" ),
+    textChunk:TEXT.SPARKLES[2],
     transitionIn:function( ){
       
       this.cameraPosition.copy( G.camera.position );
@@ -80,6 +66,26 @@ sparkles.addToInitArray( function(){
         }
 
       }
+
+
+    },
+    frameShown: false 
+   
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
+    transitionTime:4000,
+    textChunk:TEXT.SPARKLES[3],
+    transitionIn:function( ){
+      
+      this.cameraPosition.copy( G.camera.position );
+      this.page.cameraPos.x =  G.camera.position.x;
+      this.page.cameraPos.y =  G.camera.position.y;
+      this.page.cameraPos.z =  G.camera.position.z;
+     // this.page.cameraPos.copy( G.camera.position );
+      
+      this.lookPosition.copy( this.page.position );
 
 
     },

@@ -10,12 +10,7 @@ together.addToInitArray( function(){
     cameraPosition: new THREE.Vector3( -1000 , 0 , 400 ),
     
     transitionTime: 5000,
-    textChunk:[
-      "He danced with the creature, and that moment flowered into eternity. He watched her chase the dark away with her simple radiance.",
-      "","",
-      "Her presence compelled Mani, and he could feel the sadness in his soul begin to fade.",
-
-    ].join("\n" ),
+    textChunk:TEXT.TOGETHER[0],
     
   });
 
@@ -25,11 +20,7 @@ together.addToInitArray( function(){
     lookPosition: new THREE.Vector3(  0 , 0 , 1900 ),
     
     transitionTime: 4000,
-    textChunk:[
-      "She swayed with him, in the mists of the night, and Mani felt joy.",
-      "","",
-      "There was so much to show her, and so much to learn."
-    ].join("\n" ),
+    textChunk:TEXT.TOGETHER[1],
     
   });
 
@@ -38,11 +29,7 @@ together.addToInitArray( function(){
     lookPosition: new THREE.Vector3(  0 , 0 , 1900 ),
     cameraPosition: new THREE.Vector3( -500 , 0 , 1000 ),
     transitionTime: 5000,
-    textChunk:[
-      "Sol was her name, Mani knew.",
-      "","",
-      "The way she glimmered told him of a world filled with light, a land without darkness or fear.",
-    ].join("\n" ),
+    textChunk:TEXT.TOGETHER[2],
     
   });
 
@@ -51,9 +38,7 @@ together.addToInitArray( function(){
     lookPosition: new THREE.Vector3(  0 , 0 , 900 ), 
     cameraPosition: new THREE.Vector3( -1000 , 0 , 200 ),
     transitionTime: 5000,
-    textChunk:[
-      "They continued circling each other in the twilight, until Sol motioned to Mani and together they journeyed on."
-    ].join("\n" ),
+    textChunk:TEXT.TOGETHER[3],
     
   });
 

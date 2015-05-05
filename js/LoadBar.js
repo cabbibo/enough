@@ -387,23 +387,24 @@ LoadBar.prototype.onFinishedLoad = function(){
 
 }
 
-LoadBar.prototype.onStartButtonClick = function(){
+LoadBar.prototype.onStartButtonClick = function( ){
 
+  var time = G.loadBarTransitionTime
   this.ending = true;
   window.removeEventListener( 'mousemove'   , this.onMouseMove  , false );
 
-  this.tweenToCamera();
+  this.tweenToCamera(time * 10);
 
-  $( this.loadBarInfo ).fadeOut(1000,function(){
+  $( this.loadBarInfo ).fadeOut(time,function(){
 
   }.bind( this ));
 }
 
-LoadBar.prototype.tweenToCamera = function(){
+LoadBar.prototype.tweenToCamera = function( time ){
 
   var s = { x : 0 }
   var e = { x : 1 }
-  var tween = new G.tween.Tween( s ).to( e , 10000 );
+  var tween = new G.tween.Tween( s ).to( e , time  );
   this.posDif = G.camera.position.clone();
   G.v1.set( 0 , 0 , -200 );
   G.v1.applyQuaternion( G.camera.quaternion );

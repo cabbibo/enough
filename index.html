@@ -109,6 +109,8 @@
     <script src="js/fireworks.js"></script>
     <script src="js/credits.js"></script>
 
+    <script src="js/text.js"></script>
+
 
     <script>
 
@@ -117,6 +119,7 @@
       console.log( 'G.loadBarStyarted')
       G.animate();
       console.log( 'animate stars')
+
       
 
 
@@ -132,7 +135,8 @@
       // TODO: 
       // Write shaders for hands
 
-      //G.audio.mute.gain.value = 0;
+    //  G.audio.mute.gain.value = 0;
+      G.loadBarTransitionTime = .1;
 
 
       G.loader.addLoad();

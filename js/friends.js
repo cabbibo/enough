@@ -27,11 +27,7 @@ friends.addToInitArray( function(){
 
 this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 2000 ) ,
-    textChunk:[
-      "As Sol and Mani swam onwards, two more creatures joined them!",
-      "","",
-      "They greeted Mani and Sol with their own songs.",
-    ].join("\n" ),
+    textChunk:TEXT.FRIENDS[0],
    start:function(){
 
        this.activateTail( 1 );
@@ -62,12 +58,16 @@ this.sectionParams.push({
 });
 
 this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  0 , 0 , 2100 ) ,
-    textChunk:[
-      "The four of them moved on and found another creature. It too had its own song, and Mani marveled at the serenity of the voices.",
-  "","",
-  "He watched his friends move, and marveled how different, yet elegant, their bodies were.",
-    ].join("\n" ),
+    cameraPosition: new THREE.Vector3(  0 , 0 , 1000 ) ,
+    textChunk:TEXT.FRIENDS[1],
+
+             
+     
+});
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 1300 ) ,
+    textChunk:TEXT.FRIENDS[2],
    start:function(){
              
        this.activateTail( 2 );
@@ -77,12 +77,8 @@ this.sectionParams.push({
 });
 
 this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  0 , 0 , 2200 ) ,
-    textChunk:[
-      "Two more friends entered the entourage, letting their songs join the flourishing melody.",
-      "","",
-      "What miracle was this? To simply swim in the song of one’s friend",
-    ].join("\n" ),
+    cameraPosition: new THREE.Vector3(  0 , 0 , 1600 ) ,
+    textChunk:TEXT.FRIENDS[3],
    start:function(){
        this.activateTail( 3 );
        this.activateTail( 4 );
@@ -90,14 +86,8 @@ this.sectionParams.push({
 });
 
 this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  0 , 0 , 2300 ) ,
-    textChunk:[
-      "Mani could feel his sense of self slowly receding, as he basked in the light of his iridescent friends.",
-      "","",
-      "As more creatures approached, Mani felt a force he had never felt before.",
-      "","",
-      "Something not even the forest could convey."
-    ].join("\n" ),
+    cameraPosition: new THREE.Vector3(  0 , 0 , 1900 ) ,
+    textChunk:TEXT.FRIENDS[4],
    start:function(){
 
      this.activateTail( 5 );
@@ -108,11 +98,7 @@ this.sectionParams.push({
 
 this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 3300 ) ,
-    textChunk:[
-      "There wasn’t just one more of him. There was a myriad.",
-      "","",
-      "Mani had never felt so right for being so wrong. He would never be lonely again.",
-    ].join("\n" ),
+    textChunk:TEXT.FRIENDS[5],
    start:function(){
      this.activateTail( 7 );
      this.activateTail( 8 );
@@ -120,13 +106,16 @@ this.sectionParams.push({
    }.bind(friends)
 });
 
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  0 , 0 , 3500 ) ,
+    textChunk:TEXT.FRIENDS[6],
+});
+
 
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 500 , 0 , 2500 ) ,
-    textChunk:[
-      "The creatures swam through the infinity together. It no longer mattered to Mani that he didn’t have the answers. It didn’t matter that he still surrounded by darkness. All that mattered was that he was here now, with the rest of his new found friends, finding pleasure in mysterious Eden they inhabited."
-    ].join("\n" ), 
+    textChunk:TEXT.FRIENDS[7],
 
 
    start:function(){
@@ -193,11 +182,7 @@ this.sectionParams.push({
    // lookAtPosition: new THREE.Vector3( 1000 , 0 , 0 ),
 
     
-    textChunk:[
-      "Overjoyed Mani continued swimming. The chirps of his brethren were more satisfying than any he had know. He wanted to show them the forest, the crystals and the tree. He wanted to explore the unknown with his golden community.",
-      "","",
-      "Into the distance they would go, triumphantly, marveling at ever wonder they found. Each immaculate miracle would be theirs to experience, together." 
-    ].join("\n" ),
+    textChunk:TEXT.FRIENDS[8],
 
     
     
@@ -226,6 +211,42 @@ this.sectionParams.push({
 
 
   });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 500 , 0 , 1500 ),
+    lookPosition: new THREE.Vector3( 1000 , 0 , 0 ),
+   // lookAtPosition: new THREE.Vector3( 1000 , 0 , 0 ),
+
+    
+    textChunk:TEXT.FRIENDS[9],
+
+    
+    
+    start:function(){
+      
+
+      G.iPlaneDistance = 2500;
+      /*for( var i = 0; i < this.furryTails.length; i++ ){
+
+        var fT = this.furryTails[i];
+        fT.removeAllForces();
+
+        if( i !== 0 ){
+          fT.addSpringForce( this.furryTails[i-1].position , .0004, 200 );
+        }else{
+          fT.addSpringForce( G.sol.position.relative , .0004, 200 );
+          
+        }
+
+     
+
+      }*/
+
+
+    }.bind( friends ) 
+
+  });
+
 
 
 
