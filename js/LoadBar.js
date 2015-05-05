@@ -100,6 +100,7 @@ function LoadBar(){
    // "varying float vID;",
    // "varying float vType;",
    // "varying vec2 vUv;",
+   "uniform float transparency;",
     "void main(){",
     " vec3 col = vNorm * .5 + .5 ;",
   /*  "  if( vType > 0.5){",
@@ -113,15 +114,17 @@ function LoadBar(){
     "    }",
     "  }",
     "  //if( percentLoaded * 40. < vID ){ discard; }",*/
-    " gl_FragColor = vec4( col , 1. );",
+    " gl_FragColor = vec4( col , transparency);",
     "}",
 
   ].join("\n");
 
+  this.transparency = { type:"f" , value: 1 }
 
   var centerMat = new THREE.ShaderMaterial({
     vertexShader: vs,
     fragmentShader: fs,
+    uniforms:{ transparency:this.transparency },
     side: THREE.DoubleSide,
     transparent: true
   });
@@ -467,7 +470,11 @@ LoadBar.prototype.tweenToCamera = function( time ){
 
       if( t > .8 ){
         if( !G.loaded ){ G.loaded = true }
-        this.center.material.opacity = ( 1 - t ) * 5;
+
+        //console.log(( 1 - t ) * 5 )
+
+        this.transparency.value = ( 1 - t ) * 5;
+       // this.center.material.opacity = ( 1 - t ) * 5;
       }
 
     }
