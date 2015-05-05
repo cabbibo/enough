@@ -399,7 +399,7 @@ LoadBar.prototype.onStartButtonClick = function( ){
   this.tweenToCamera(time * 10);
 
   $( this.loadBarInfo ).fadeOut(time,function(){
-
+    document.body.style.cursor = "none"
   }.bind( this ));
 }
 

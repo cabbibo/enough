@@ -77,6 +77,14 @@ function Global(){
     new THREE.MeshBasicMaterial({color:0xffffff})
   );
   this.pageTurnerOffset = new THREE.Vector3(  400 , -150 , -1000 );
+
+  this.cursor = new THREE.Mesh(
+
+    new THREE.IcosahedronGeometry( 2,2 ),
+    new THREE.MeshBasicMaterial({color:0xffffff})
+
+  )
+  this.scene.add( this.cursor );
   //G.scene.add( G.pageMarker );
 
   this.camera.position.relative = new THREE.Vector3().copy( this.camera.position );
@@ -485,6 +493,10 @@ Global.prototype.updateIntersection = function(){
 
   this.iTextPoint.relative.copy( this.iTextPoint );
   this.iTextPoint.relative.sub( this.position );
+
+
+
+  G.cursor.position.copy( this.iTextPoint );
 
 
 
