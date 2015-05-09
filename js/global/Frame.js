@@ -3,6 +3,7 @@ function Frame(section , fish ){
  // fish = true
   this.section = section;
 
+  this.isFish = fish
   this.uniforms = {
 
     opacity: { type:"f" , value:0 },
@@ -30,7 +31,45 @@ function Frame(section , fish ){
   //this.section.page.scene.add( this.body );
 
   this.body.position.copy( this.section.params.cameraPosition );
- 
+
+
+  this.body.lookAt( this.section.params.lookPosition );
+  G.v1.copy( this.section.params.cameraPosition );
+  G.v1.sub( this.section.params.lookPosition );
+  G.v1.normalize();
+  G.v1.multiplyScalar( -1000 );
+  this.body.position.add( G.v1 );
+
+  this.createFrame(this.isFish);
+
+  
+}
+
+
+Frame.prototype.update = function(){
+
+  if( this.toggleMesh ){
+    if( !this.toggleMesh.hovered ){
+      if( !this.toggleMesh.toggled ){
+        this.toggleMesh.material.opacity = this.uniforms.opacity.value / 4;
+      }else{
+        this.toggleMesh.material.opacity = 1/4;
+      }
+    }else{
+
+      this.toggleMesh.material.opacity = .7;
+    }
+  }
+  if( this.fish ){
+    this.fish.update();
+  }
+
+}
+
+
+Frame.prototype.createFrame = function(fish){
+
+
   var fov = ( G.camera.fov / 360 )  * Math.PI;
  // tan( fov ) = Y / 1000
   //this.body.scale.x = 1000 * G.camera.aspect
@@ -44,14 +83,22 @@ function Frame(section , fish ){
   this.uniforms.scale.x = this.body.scale.x;
   this.uniforms.scale.y = this.body.scale.y;
 
-  this.body.lookAt( this.section.params.lookPosition );
+  this.body.updateMatrix();
+
+ /* var bodyTmp = this.body.clone();
+  bodyTmp.position.copy( this.section.params.cameraPosition );
+
+
+  bodyTmp.lookAt( this.section.params.lookPosition );
   G.v1.copy( this.section.params.cameraPosition );
   G.v1.sub( this.section.params.lookPosition );
   G.v1.normalize();
   G.v1.multiplyScalar( -1000 );
-  this.body.position.add( G.v1 );
+  bodyTmp.position.add( G.v1 );
+  bodyTmp.updateMatrix();*/
 
-  this.body.updateMatrix();
+
+
 
   var lineGeo = new THREE.Geometry();
   var startPoints = [];
@@ -102,19 +149,93 @@ function Frame(section , fish ){
 
   }
 
+  console.log( startPoints )
+
+  var fishActive = false;
+  
+  if( this.fish ){
+    if( this.fish.simulationActive ){ fishActive = true; }
+    this.fish.deactivate( this.section.page.scene );
+  }
+
   if( fish ){
     this.fish = new FrameFish( this , startPoints , endPoints );
+    if( fishActive ){ this.fish.activate( this.section.page.scene ); }
   }
- // this.fish.activate( this.section.page.scene );
-  
+
+  this.createToggleMesh();
+
+ 
 }
 
+Frame.prototype.createToggleMesh = function(){
 
-Frame.prototype.update = function(){
 
-  if( this.fish ){
-    this.fish.update();
+  var tmpHover = false;
+  var tmpToggle = false;
+  if( this.toggleMesh ){
+    tmpHover = this.toggleMesh.hovered
+    tmpToggle = this.toggleMesh.toggled
+    this.body.remove( this.toggleMesh )
+    G.objectControls.remove( this.toggleMesh )
   }
+
+  this.toggleMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 40 , 40 ) , new THREE.MeshBasicMaterial({
+    side: THREE.DoubleSide,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    map: G.TEXTURES.toggleTexture,
+    depthWrite: false,
+    opacity: 0
+  }))
+
+
+  this.toggleMesh.position.x = -.5;
+  this.toggleMesh.position.y = .5;
+
+  this.toggleMesh.scale.x = 1 / this.body.scale.x 
+  this.toggleMesh.scale.y = 1 / this.body.scale.y 
+  this.toggleMesh.scale.z = 1 / this.body.scale.z;
+
+  this.toggleMesh.position.x += 25 / this.body.scale.x 
+  this.toggleMesh.position.y -= 25 / this.body.scale.y;
+
+  this.toggleMesh.hoverOver = function(){
+
+    this.toggleMesh.hovered = true;
+
+  }.bind( this );
+
+  this.toggleMesh.hoverOut = function(){
+
+    this.toggleMesh.hovered = false;
+    console.log( 'yup' );
+
+  }.bind( this );
+
+  this.toggleMesh.select = function(){
+
+    if( this.toggleMesh.toggled ){
+      this.uniforms.opacity.value = 1;
+      this.toggleMesh.toggled = false;
+      if( this.section.text ) this.section.text.particles.visible = true;
+      if( this.section.turnerMesh ) this.section.turnerMesh.visible = true;
+      console.log( this.section )
+    }else{
+      this.uniforms.opacity.value = 0;
+      this.toggleMesh.toggled = true;
+      if( this.section.text ) this.section.text.particles.visible = false;
+      if( this.section.turnerMesh ) this.section.turnerMesh.visible = false;
+
+    }
+  }.bind( this )
+
+  this.toggleMesh.hovered = tmpHover;
+  this.toggleMesh.toggled = tmpToggle;
+
+
+  G.objectControls.add( this.toggleMesh );
+  this.body.add( this.toggleMesh );
 
 }
 

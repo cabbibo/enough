@@ -154,8 +154,6 @@ LoadBar.prototype.onMouseMove = function( e ){
   this.lookPosition.x = 2 * e.clientX - G.w / 2
   this.lookPosition.z = 2 * ( e.clientY - (G.h / 2 ))
 
-  console.log( this.lookPosition.y )
-
   //console.log( this.lookPosition )
 
 }
@@ -274,6 +272,7 @@ LoadBar.prototype.updatePercentMesh = function(){
 
 
 }
+
 LoadBar.prototype.createPercentMesh = function(){
     
     var canvas  = document.createElement('canvas');
@@ -401,6 +400,9 @@ LoadBar.prototype.onStartButtonClick = function( ){
   $( this.loadBarInfo ).fadeOut(time,function(){
     document.body.style.cursor = "none"
   }.bind( this ));
+
+  G.fullscreenIt();
+
 }
 
 LoadBar.prototype.tweenToCamera = function( time ){

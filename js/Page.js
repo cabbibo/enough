@@ -235,6 +235,9 @@ Page.prototype.onLoad = function(){
 
 Page.prototype.start = function(){
 
+  G.currentPage = this;
+  G.nextPage = this.nextPage;
+
   if( !this.loaded  ){
     alert('PAGE NOT LOADED ' + this.name);
   }
@@ -665,5 +668,11 @@ Page.prototype.loadShader = function( name , file , type ){
 
 }
 
+
+Page.prototype.resizeFrames = function(){
+  for( var i = 0; i < this.sections.length; i++ ){
+    this.sections[i].frame.createFrame( this.sections[i].frame.isFish );
+  }
+}
 
 

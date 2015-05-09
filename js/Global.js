@@ -22,6 +22,7 @@ function Global(){
     ['matcapMetal'      , 'img/matcap/metal.jpg'            ],
 
     ['logo'             , 'img/icons/cabbibo.png'           ],
+    ['toggleTexture'    , 'img/sprite/close.png'            ],
 
   ]
 
@@ -682,6 +683,13 @@ Global.prototype.onResize = function(){
   this.camera.updateProjectionMatrix();
   this.renderer.setSize( this.w , this.h );
 
+  if( this.currentPage ){
+    this.currentPage.resizeFrames();
+    if( this.nextPage ){
+      this.nextPage.resizeFrames();
+    }
+  }
+
 }
 
 Global.prototype.onKeyDown = function( e ){
@@ -739,6 +747,21 @@ Global.prototype.loadTexture = function( name , file ){
 
 }
 
+Global.prototype.fullscreenIt = function(){
+
+  var element = document.body;
+
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+
+}
 
 var G = new Global();
 

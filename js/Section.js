@@ -89,11 +89,13 @@ Section.prototype._start = function(){
     var callback = this.nextSection.createTransitionInCallback();
 
     var mesh  = this.page.createTurnerMesh( this.offset , callback );
+    this.turnerMesh = mesh;
     this.page.scene.add( mesh );
 
   }else{
 
     if( this.page.nextPage ){
+      this.turnerMesh = this.page.endMesh;
       this.page.endMesh.add( this.page );
     }
 

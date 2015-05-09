@@ -130,8 +130,8 @@ function FrameFish( frame , startPoints , endPoints , params ){
     fragmentShader:fs,
     side: THREE.DoubleSide,
     transparent: true,
-    //depthWrite:false,
-    //blending: THREE.AdditiveBlending
+    depthWrite:false,
+    blending: THREE.AdditiveBlending
   });
 
   var geo = this.geometries.ribbon( this.params.size , this.params.joints * 8 );
