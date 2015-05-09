@@ -174,14 +174,15 @@ Frame.prototype.createFrame = function(fish){
 Frame.prototype.createToggleMesh = function(){
 
 
+  console.log('hello')
 
   this.toggleMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 40 , 40 ) , new THREE.MeshBasicMaterial({
-  //  side: THREE.DoubleSide,
+    side: THREE.BackSide,
     transparent: true,
     blending: THREE.AdditiveBlending,
     map: G.TEXTURES.toggleTexture,
     depthWrite: false,
-    opacity: 0
+    opacity: .5
   }))
 
 
@@ -227,6 +228,7 @@ Frame.prototype.createToggleMesh = function(){
 Frame.prototype.resizeToggleMesh = function(){
 
 
+
   this.toggleMesh.position.x = -.5;
   this.toggleMesh.position.y = .5;
 
@@ -234,8 +236,10 @@ Frame.prototype.resizeToggleMesh = function(){
   this.toggleMesh.scale.y = 1 / this.body.scale.y 
   this.toggleMesh.scale.z = 1 / this.body.scale.z;
 
-  this.toggleMesh.position.x += 25 / this.body.scale.x 
+  this.toggleMesh.position.x += 25 / this.body.scale.x;
   this.toggleMesh.position.y -= 25 / this.body.scale.y;
+
+  console.log( this.toggleMesh.position )
 
 }
 
@@ -265,6 +269,8 @@ Frame.prototype.add = function(){
   G.v1.normalize();
   G.v1.multiplyScalar( -1000 );
   this.body.position.add( G.v1 );
+
+  this.resizeToggleMesh();
 
 
 
