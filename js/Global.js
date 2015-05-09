@@ -53,6 +53,8 @@ function Global(){
   this.tmpV3   = new THREE.Vector3();
   this.v1      = this.tmpV3;
   this.v2      = this.v1.clone();         // for typing sake
+  this.v3      = this.v1.clone();         // for typing sake
+  this.v4      = this.v1.clone();         // for typing sake
   this.tmpV2   = new THREE.Vector2();
 
 

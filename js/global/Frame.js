@@ -40,7 +40,11 @@ function Frame(section , fish ){
   G.v1.multiplyScalar( -1000 );
   this.body.position.add( G.v1 );
 
+  this.createToggleMesh();
+
   this.createFrame(this.isFish);
+
+
 
   
 }
@@ -149,7 +153,6 @@ Frame.prototype.createFrame = function(fish){
 
   }
 
-  console.log( startPoints )
 
   var fishActive = false;
   
@@ -163,7 +166,7 @@ Frame.prototype.createFrame = function(fish){
     if( fishActive ){ this.fish.activate( this.section.page.scene ); }
   }
 
-  this.createToggleMesh();
+  this.resizeToggleMesh();
 
  
 }
@@ -171,17 +174,9 @@ Frame.prototype.createFrame = function(fish){
 Frame.prototype.createToggleMesh = function(){
 
 
-  var tmpHover = false;
-  var tmpToggle = false;
-  if( this.toggleMesh ){
-    tmpHover = this.toggleMesh.hovered
-    tmpToggle = this.toggleMesh.toggled
-    this.body.remove( this.toggleMesh )
-    G.objectControls.remove( this.toggleMesh )
-  }
 
   this.toggleMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 40 , 40 ) , new THREE.MeshBasicMaterial({
-    side: THREE.DoubleSide,
+  //  side: THREE.DoubleSide,
     transparent: true,
     blending: THREE.AdditiveBlending,
     map: G.TEXTURES.toggleTexture,
@@ -189,16 +184,6 @@ Frame.prototype.createToggleMesh = function(){
     opacity: 0
   }))
 
-
-  this.toggleMesh.position.x = -.5;
-  this.toggleMesh.position.y = .5;
-
-  this.toggleMesh.scale.x = 1 / this.body.scale.x 
-  this.toggleMesh.scale.y = 1 / this.body.scale.y 
-  this.toggleMesh.scale.z = 1 / this.body.scale.z;
-
-  this.toggleMesh.position.x += 25 / this.body.scale.x 
-  this.toggleMesh.position.y -= 25 / this.body.scale.y;
 
   this.toggleMesh.hoverOver = function(){
 
@@ -230,12 +215,27 @@ Frame.prototype.createToggleMesh = function(){
     }
   }.bind( this )
 
-  this.toggleMesh.hovered = tmpHover;
-  this.toggleMesh.toggled = tmpToggle;
+  //this.toggleMesh.hovered = tmpHover;
+  //this.toggleMesh.toggled = tmpToggle;
 
 
   G.objectControls.add( this.toggleMesh );
   this.body.add( this.toggleMesh );
+
+}
+
+Frame.prototype.resizeToggleMesh = function(){
+
+
+  this.toggleMesh.position.x = -.5;
+  this.toggleMesh.position.y = .5;
+
+  this.toggleMesh.scale.x = 1 / this.body.scale.x 
+  this.toggleMesh.scale.y = 1 / this.body.scale.y 
+  this.toggleMesh.scale.z = 1 / this.body.scale.z;
+
+  this.toggleMesh.position.x += 25 / this.body.scale.x 
+  this.toggleMesh.position.y -= 25 / this.body.scale.y;
 
 }
 

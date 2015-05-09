@@ -24,12 +24,41 @@ credits.addToInitArray( function(){
   this.text = [];
   this.textChunks = [];
 
+  this.links = []
+
+  this.links.push( new Donate( 'DONATE' , "http://girlswhocode.com/" , 200) );
+  this.links.push( new Donate( 'TWITTER' , "http://twitter.com/cabbibo" , 80));
+  this.links.push( new Donate( 'FACEBOOK' , "http://facebook.com/cabbibo", 80));
+  this.links.push( new Donate( 'MORE' , "http://cabbi.bo",80));
+
+  for( var  i = 0; i < this.links.length; i++ ){
+
+    G.v1.set( 0 , 2000 , 0 )
+    if( i == 0 ){
+
+      var pos = new THREE.Vector3( -400 ,  0  , -400 );
+      pos.add( G.v1 )
+      this.links[i].start( this.scene , pos ); 
+    
+    }else{
+
+      var pos = new THREE.Vector3( (i-.7) * 200 ,  -100  , -300 );
+      pos.add( G.v1 )
+      this.links[i].start( this.scene , pos ); 
+
+    }
+
+  }
+
+
+
 
 
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1000 ),
     textChunk:TEXT.CREDITS[0],
+    transitionTime: 1000,
     start:function(){
 
   
@@ -42,8 +71,12 @@ credits.addToInitArray( function(){
     } 
   });
 
+
+
+
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
+    transitionTime: 1000,
     textChunk:TEXT.CREDITS[1],
 
     start:function(){
@@ -58,24 +91,27 @@ credits.addToInitArray( function(){
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3( 0 , 0 , 1200 ),
+    transitionTime: 1000,
     textChunk:TEXT.CREDITS[2],
     
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1300 ),
+    transitionTime: 1000,
     textChunk:TEXT.CREDITS[3],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 1500 ),
+    transitionTime: 1000,
     textChunk:TEXT.CREDITS[4],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 , 2200 ),
     textChunk:TEXT.CREDITS[5],
-    transitionTime:10000,
+    //transitionTime:10000,
     start:function(){
 
       for( var i = 0; i < this.audio.length; i++){
@@ -105,7 +141,24 @@ credits.addToInitArray( function(){
       }
 
     }.bind( credits )  
+
+
+
   });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 2000 , 1000 ),
+    lookPosition: new THREE.Vector3( 0 , 2000 , 0 ),
+ 
+
+    textChunk:[
+      "If you liked this project, please consider donating to 'Girls Who Code' , a nonprofit working to close the gender gap in the technology and engineering sectors",
+    ].join("\n"),
+    activeUpdate:function(){
+      console.log('ss')
+    }.bind( credits)
+  });
+
 
 
 
@@ -319,6 +372,10 @@ credits.addToAllUpdateArrays( function(){
     var furryTail = this.furryTails[i];
     furryTail.updatePhysics();
 
+  }
+
+  for( var i = 0; i < this.links.length; i++ ){
+    this.links[i].update();
   }
 
 

@@ -1,77 +1,80 @@
-function LoadBar(){
-	
-	//this.ring2 = new THREE.Mesh( this.createRingGeo(1) , ringMat );
+function Donate( text , location , size ){
+  
+  this.size = size;
+  this.text = text;
+  this.location = location;
+  //this.ring2 = new THREE.Mesh( this.createRingGeo(1) , ringMat );
 
-	this.percentLoaded = { type:"f" , value: 0 }
-	this.time = { type:"f" , value: 0 }
-	this.loadRing = [];
+  this.percentLoaded = { type:"f" , value: 0 }
+  this.time = { type:"f" , value: 0 }
+  this.loadRing = [];
 
   this.lookPosition = new THREE.Vector3();
   this.ending = false;
 
 
-	// Need to hard code,
-	// so we don't have to wait for shaderloaded
-	var vs = [
-		"attribute float id;",
+  // Need to hard code,
+  // so we don't have to wait for shaderloaded
+  var vs = [
+    "attribute float id;",
     "attribute float faceType;",
-		"varying vec3 vNorm;",
+    "varying vec3 vNorm;",
     "varying float vID;",
-		"varying float vType;",
+    "varying float vType;",
     "varying vec2 vUv;",
-		"void main(){",
-		 " vNorm = ( normalMatrix * normal);",
-		"	vID = id;",
+    "void main(){",
+     " vNorm = ( normalMatrix * normal);",
+    " vID = id;",
     "  vType = faceType;",
     "  vUv = uv;",
-		"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
+    " gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
     "}"
   ].join("\n");
 
-	var fs = [
+  var fs = [
 
-		"uniform float percentLoaded;",
-		"uniform float time;",
-		"varying vec3 vNorm;",
-		"varying float vID;",
+    "uniform float percentLoaded;",
+    "uniform float time;",
+    "varying vec3 vNorm;",
+    "varying float vID;",
     "varying float vType;",
     "varying vec2 vUv;",
-		"void main(){",
-		"	vec3 col = vNorm * .5 + .5 ;",
+    "void main(){",
+    " vec3 col = vNorm * .5 + .5 ;",
     "  if( vType > 0.5){",
     "    col *= sin( (( vID /80.) * 6. * 3.14195  )+ time * percentLoaded * 5.);",
     "  }else{",
     "    if( vUv.x < .1 || vUv.x > .9 || vUv.y < .2 || vUv.y > .8 ){",
     "    }else{",
-    "      if( percentLoaded < vID / 40. ){",
+    "      if( percentLoaded-.01 < vID / 40. ){",
     "        col = vec3( 0. );",
     "      }",
     "    }",
     "  }",
     "  //if( percentLoaded * 40. < vID ){ discard; }",
-		"	gl_FragColor = vec4( col , 1. );",
-		"}",
+    " gl_FragColor = vec4( col , 1. );",
+    "}",
 
-	].join("\n");
+  ].join("\n");
 
-	var ringMat = new THREE.ShaderMaterial({
-		uniforms:{
-			percentLoaded: this.percentLoaded,
-			time: this.time
-		},
-		attributes:{
-			id:{type:"f", value:null},
+  var ringMat = new THREE.ShaderMaterial({
+    uniforms:{
+      percentLoaded: this.percentLoaded,
+      time: this.time
+    },
+    attributes:{
+      id:{type:"f", value:null},
       faceType:{type:"f", value:null},
-		},
-		vertexShader: vs,
-		fragmentShader: fs,
+    },
+    vertexShader: vs,
+    fragmentShader: fs,
     side: THREE.DoubleSide
 
 
-	});
+  });
 
 
-	this.ring = new THREE.Mesh( this.createRingGeo(100) , ringMat )
+  this.ring = new THREE.Mesh( this.createRingGeo(size) , ringMat )
 
 
   var vs = [
@@ -102,152 +105,116 @@ function LoadBar(){
     side: THREE.DoubleSide,
     transparent: true
   });
-  this.center = new THREE.Mesh( this.createCenterGeo( 50 ), centerMat );
 
-  this.percentMesh = this.createPercentMesh();
+  this.center = new THREE.Mesh( this.createCenterGeo( size / 1.8 ), centerMat );
 
+  this.donateMesh = this.createDonateMesh( size );
 
-
-  this.onMouseMove = this.onMouseMove.bind( this );
-  window.addEventListener( 'mousemove'   , this.onMouseMove  , false );
-
-
-  this.addText();
 
 
 }
 
-LoadBar.prototype.onMouseMove = function( e ){
+Donate.prototype.start = function( scene , position ){
 
-  this.lookPosition.x = 2 * e.clientX - G.w / 2
-  this.lookPosition.z = 2 * ( e.clientY - (G.h / 2 ))
-
-  //console.log( this.lookPosition )
-
-}
-
-
-LoadBar.prototype.start = function(){
-
-	G.v1.set( 0 , 0 , -400 );
-	G.v1.applyQuaternion( G.camera.quaternion );
-	G.v1.add( G.camera.position );
+  /*G.v1.set( 0 , 0 , -00 );
+  G.v1.applyQuaternion( G.camera.quaternion );
+  G.v1.add( G.camera.position );
   G.v2.set( -200 , 0 , 0 );
   G.v2.applyQuaternion( G.camera.quaternion )
-  G.v1.add( G.v2 );
+  G.v1.add( G.v2 );*/
 
-	this.ring.position.copy( G.v1 );
-	this.ring.lookAt( G.camera.position );
+  G.v1.copy( position )
+
+  this.ring.position.copy( G.v1 );
+  this.ring.lookAt( G.camera.position );
 
   this.center.position.copy( G.v1 );
   this.center.lookAt( G.camera.position );
 
-  this.percentMesh.position.copy( G.v1 );
-  this.percentMesh.lookAt( G.camera.position );
+  this.donateMesh.position.copy( G.v1 );
+  this.donateMesh.lookAt( G.camera.position );
 
-	G.scene.add( this.ring );
-  G.scene.add( this.center );
-  G.scene.add( this.percentMesh );
+  this.donateMesh.hoverOver = this.hoverOver.bind( this );
+  this.donateMesh.hoverOut  = this.hoverOut.bind( this );
+  this.donateMesh.select    = this.select.bind( this );
 
-}
+  this.ring.hoverOver = this.hoverOver.bind( this );
+  this.ring.hoverOut  = this.hoverOut.bind( this );
+  this.ring.select    = this.select.bind( this );  
 
-LoadBar.prototype.addText = function(){
+  this.center.hoverOver = this.hoverOver.bind( this );
+  this.center.hoverOut  = this.hoverOut.bind( this );
+  this.center.select    = this.select.bind( this );
 
-  this.loadBarInfo = document.createElement('div');
-  document.body.appendChild( this.loadBarInfo );
-
-  this.loadBarInfo.id = 'loadBarInfo'
-
-  this.loadInfoDiv = document.createElement('div');
-
-  var p = Math.floor( this.percentLoaded.value * 100 )
   
-
-  var forward = [
-      "If you have made it this far it means that hopefully",
-      "you are here to experience this interactive picture book.",
-      "Although I don't know if it really works as a medium, it was definitely fun to create."
-  ].join(" ");
-
-  this.loadInfoDiv.innerHTML = "<h1>Foreword</h1>"
-  this.loadInfoDiv.innerHTML += "<p>"
-  this.loadInfoDiv.innerHTML += forward
-  this.loadInfoDiv.innerHTML += "<br/>"
-  this.loadInfoDiv.innerHTML += "<br/>"
+  G.objectControls.add( this.ring )
+  G.objectControls.add( this.center )
+  G.objectControls.add( this.donateMesh )
 
 
-  this.loadInfoDiv.innerHTML += "Runtime : 20 - 30 min <br/>"
-  this.loadInfoDiv.innerHTML += "Interaction : Click Logo to switch pages <br/>"
-  this.loadInfoDiv.innerHTML += "Requirements : Headphones<br/><br/>"
-  this.loadInfoDiv.id = 'experienceInfo'
-  this.loadBarInfo.appendChild( this.loadInfoDiv );
-
-  var offset = -this.loadBarInfo.clientHeight / 2 
-
-  this.loadBarInfo.style.marginTop = offset + "px"
-  console.log( this.loadBarInfo.clientHeight )
-
-
-
-
-  //element.id = 
+  scene.add( this.ring );
+  scene.add( this.center );
+  scene.add( this.donateMesh );
 
 }
 
 
-LoadBar.prototype.removeText = function(){
+Donate.prototype.hoverOver = function(){
 
-  document.body.removeChild( this.loadBarInfo )
+  this.percentLoaded.value = 1;
+
 
 }
-LoadBar.prototype.update = function(){
 
-	this.time.value += .1
+
+Donate.prototype.hoverOut = function(){
+
+  this.percentLoaded.value = 0;
+
+
+}
+
+Donate.prototype.select = function(){
+
+  window.open( this.location )
+
+}
+Donate.prototype.update = function(){
+
+  this.time.value += .1
 
   if( !this.ending ){
 
 
-    G.v1.set( 0 , 0 , -600 );
-    G.v1.applyQuaternion( G.camera.quaternion );
-    G.v1.add( G.camera.position );
-    G.v2.set( -200 , 0 , 0 );
-    G.v2.applyQuaternion( G.camera.quaternion )
-    G.v1.add( G.v2 );
-
-    this.ring.position.copy( G.v1 );
-    this.center.position.copy( G.v1 );
-
-    G.v1.copy( this.lookPosition );
-    G.v1.add( G.camera.position )
-
+    G.v1.copy( G.iTextPoint.relative );
     this.ring.lookAt( G.v1 );
     this.center.lookAt( G.v1 );
 
-    this.updatePercentMesh();
+    this.updateDonateMesh();
 
   }
 
 }
 
-LoadBar.prototype.updatePercentMesh = function(){
+Donate.prototype.updateDonateMesh = function(){
 
-  G.v1.set( 0 , 0 , 50 );
+  G.v1.set( 0 , 0 ,this.size / 2 );
   G.v1.applyQuaternion( this.center.quaternion );
   G.v1.add( this.center.position );
-  this.percentMesh.position.copy( G.v1 );
+  this.donateMesh.position.copy( G.v1 );
 
-  G.v1.copy( this.percentMesh.position );
+  G.v1.copy( this.donateMesh.position );
   G.v2.copy(G.camera.position )
   G.v2.sub( G.v1 );
   G.v2.multiplyScalar( .1 );
   G.v1.add( G.v2 );
 
-  this.percentMesh.rotation.setFromRotationMatrix( G.camera.matrixWorld )
+  this.donateMesh.rotation.setFromRotationMatrix( G.camera.matrixWorld )
 
 
 }
 
-LoadBar.prototype.createPercentMesh = function(){
+Donate.prototype.createDonateMesh = function(size){
     
     var canvas  = document.createElement('canvas');
 
@@ -259,7 +226,7 @@ LoadBar.prototype.createPercentMesh = function(){
 
 
     ctx.font      = fullSize / 100 + "pt GeoSans";
-    var textWidth = ctx.measureText("100%").width;
+    var textWidth = ctx.measureText( this.text ).width;
 
     canvas.width  = textWidth + margin;
     canvas.height = fullSize / 100 + margin;
@@ -269,7 +236,7 @@ LoadBar.prototype.createPercentMesh = function(){
     var texture = new THREE.Texture(canvas);
 
 
-    this.updatePercentTexture( '0', canvas , ctx , texture , textWidth )
+    this.updateDonateTexture( this.text , canvas , ctx , texture , textWidth )
 
 
     var mesh = new THREE.Mesh( 
@@ -278,14 +245,14 @@ LoadBar.prototype.createPercentMesh = function(){
         map: texture,
         transparent: true,
         blending: THREE.AdditiveBlending,
-        depthwrite: false
+        depthWrite: false
 
       })
     );
 
     mesh.scale.y = canvas.height;
     mesh.scale.x = canvas.width;
-    mesh.scale.multiplyScalar( .1 );
+    mesh.scale.multiplyScalar( .1  * (size / 100));
 
     mesh.texture = texture;
     mesh.canvas = canvas;
@@ -299,9 +266,7 @@ LoadBar.prototype.createPercentMesh = function(){
 
 }
 
-LoadBar.prototype.updatePercentTexture = function( percent , canvas , ctx , texture , textWidth ){
-
-    var string = percent + "%"
+Donate.prototype.updateDonateTexture = function( string , canvas , ctx , texture , textWidth ){
 
     var fullSize = 30000;
     var margin = 10;
@@ -328,152 +293,10 @@ LoadBar.prototype.updatePercentTexture = function( percent , canvas , ctx , text
 }
 
 
-LoadBar.prototype.onLoad = function( percent ){
-
-
-	console.log( percent )
-	this.percentLoaded.value = percent
 
 
 
-  var p = Math.floor( Math.min( 1 , this.percentLoaded.value ) * 100 )
-
-  this.updatePercentTexture( 
-    p , 
-    this.percentMesh.canvas , 
-    this.percentMesh.ctx , 
-    this.percentMesh.texture , 
-    this.percentMesh.textWidth
-  );
-
-
-
-}
-
-LoadBar.prototype.onFinishedLoad = function(){
-
-  this.startButton = document.createElement('div')
-  this.startButton.id = 'startButton'
-  this.startButton.innerHTML = 'BEGIN'
-
-  this.startButton.addEventListener( 'click' , this.onStartButtonClick.bind(this) , false );
-
-  this.loadBarInfo.appendChild( this.startButton )
-
-
-}
-
-LoadBar.prototype.onStartButtonClick = function( ){
-
-  var time = G.loadBarTransitionTime
-  this.ending = true;
-  window.removeEventListener( 'mousemove'   , this.onMouseMove  , false );
-
-  this.tweenToCamera(time * 10);
-
-  this.loadBarInfo.style.display = "none"
-
-  console.log( this.loadBarInfo.style )
-  document.body.style.cursor = "none"
-/*  $( this.loadBarInfo ).fadeOut(time,function(){
-    document.body.style.cursor = "none"
-  }.bind( this ));*/
-
-  G.fullscreenIt();
-
-}
-
-LoadBar.prototype.tweenToCamera = function( time ){
-
-  var s = { x : 0 }
-  var e = { x : 1 }
-  var tween = new G.tween.Tween( s ).to( e , time  );
-  this.posDif = G.camera.position.clone();
-  G.v1.set( 0 , 0 , -200 );
-  G.v1.applyQuaternion( G.camera.quaternion );
-  this.posDif.add( G.v1 );
-
-  this.endPos =  this.posDif.clone();
-
-  this.secondTween = G.camera.position.clone();
-  this.secondTween.sub( this.endPos )
-
-
-  this.endLook=  this.posDif.clone();
-  this.endLook.add( G.v1 );
-
-
-  this.posDif.sub( this.center.position );
-
-
-  this.startPos = this.center.position.clone();
-
-
-  var tweenTime1 = .2
-  tween.onUpdate( function( t ){
-
-    if( t < tweenTime1 ){
-
-      G.v1.copy( this.startPos )
-      G.v2.copy( this.posDif );
-      G.v2.multiplyScalar( t / tweenTime1 );
-      G.v1.add( G.v2 );
-
-      this.center.position.copy( G.v1 );
-      this.ring.position.copy( G.v1 );
-    //  this.percentMesh.position.copy( G.v1 );
-
-      //console.log( this.endPos );
-      this.center.lookAt( this.endLook );
-      this.ring.lookAt( this.endLook );
-     // this.percentMesh.lookAt( this.endLook );
-    }else{
-
-
-      var t =( t - tweenTime1 ) / ( 1 - tweenTime1 );
-
-    
-      G.v1.copy(this.endPos);
-      G.v2.copy( this.secondTween );
-      G.v2.multiplyScalar( t );
-      G.v1.add( G.v2 );1
-
-     
-
-      this.center.position.copy( G.v1 );
-      this.ring.position.copy( G.v1 );
-      //this.percentMesh.position.copy( G.v1 );
-
-      this.center.lookAt( this.endLook );
-      this.ring.lookAt( this.endLook );
-      //this.percentMesh.lookAt( this.endLook );
-
-      if( t > .8 ){
-        if( !G.loaded ){ G.loaded = true }
-
-        //console.log(( 1 - t ) * 5 )
-
-        this.transparency.value = ( 1 - t ) * 5;
-       // this.center.material.opacity = ( 1 - t ) * 5;
-      }
-
-    }
-
-  }.bind( this ));
-
-  tween.onComplete( function( t ){
-    G.scene.remove( this.ring )
-    G.scene.remove( this.center )
-   
-  }.bind( this ));
-
-  G.scene.remove( this.percentMesh )
-  tween.start();
-
-}
-
-
-LoadBar.prototype.createRingGeo = function( size ){
+Donate.prototype.createRingGeo = function( size ){
 
   var innerR = size * .8;
   var outerR = size;
@@ -677,13 +500,13 @@ LoadBar.prototype.createRingGeo = function( size ){
   geo.addAttribute( 'normal'   , normA );
   geo.addAttribute( 'uv'       , uvA   );
   geo.addAttribute( 'faceType' , typeA );
-  geo.addAttribute( 'id' 	     , idA   );
+  geo.addAttribute( 'id'       , idA   );
 
   return geo;
 
 }
 
-LoadBar.prototype.createCenterGeo = function( size ){
+Donate.prototype.createCenterGeo = function( size ){
 
   var circleR = 0 ;
   var polyR = size;
@@ -842,7 +665,7 @@ LoadBar.prototype.createCenterGeo = function( size ){
 
 }
 
-LoadBar.prototype.assignBufVec3 = function( buf , index , vec ){
+Donate.prototype.assignBufVec3 = function( buf , index , vec ){
 
   buf[ index + 0 ] = vec.x;
   buf[ index + 1 ] = vec.y;
@@ -850,16 +673,15 @@ LoadBar.prototype.assignBufVec3 = function( buf , index , vec ){
 
 }
 
-LoadBar.prototype.assignBufVec2 = function( buf , index , vec ){
+Donate.prototype.assignBufVec2 = function( buf , index , vec ){
 
   buf[ index + 0 ] = vec.x;
   buf[ index + 1 ] = vec.y;
 
 }
 
-LoadBar.prototype.assignBufFloat = function( buf , index , f ){
+Donate.prototype.assignBufFloat = function( buf , index , f ){
 
   buf[ index ] = f;
 
 }
-
