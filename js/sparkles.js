@@ -9,11 +9,11 @@ sparkles.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
     textChunk:TEXT.SPARKLES[0],
-    frameShown: false 
+    //frameShown: false 
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 ,1040 ),
     transitionTime:4000,
     textChunk:TEXT.SPARKLES[1],
     transitionIn:function( a ){
@@ -37,13 +37,21 @@ sparkles.addToInitArray( function(){
       }
 
     },
-    frameShown: false 
+
+    transitioningIn: function(){
+
+      this.position.x     -= this.movementRate;
+      G.camera.position.x -= this.movementRate;
+
+          
+    }.bind( this )
+    //frameShown: false 
     
    
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,800 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 ,1060 ),
     transitionTime:4000,
     textChunk:TEXT.SPARKLES[2],
     transitionIn:function( ){
@@ -69,12 +77,20 @@ sparkles.addToInitArray( function(){
 
 
     },
-    frameShown: false 
+
+        transitioningIn: function(){
+
+      this.position.x     -= this.movementRate;
+      G.camera.position.x -= this.movementRate;
+
+          
+    }.bind( this )
+    //frameShown: false 
    
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 ,1080 ),
     transitionTime:4000,
     textChunk:TEXT.SPARKLES[3],
     transitionIn:function( ){
@@ -89,7 +105,15 @@ sparkles.addToInitArray( function(){
 
 
     },
-    frameShown: false 
+
+    transitioningIn: function(){
+
+      this.position.x     -= this.movementRate;
+      G.camera.position.x -= this.movementRate;
+
+          
+    }.bind( this )
+   // frameShown: false 
    
   });
 

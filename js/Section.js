@@ -28,7 +28,7 @@ function Section( id , page , params ){
     activeUpdate:     function(){},
 
     fish:             false,
-    frameShown:          true
+    frameShown:       true
     
   });
 
@@ -44,10 +44,10 @@ function Section( id , page , params ){
 
 
   this.frame = new Frame( this , this.params.fish );
-  if( this.frameShown ){
 
-    this.page.scene.add( this.frame.body );
-
+  this.page.scene.add( this.frame.body );
+  if( !this.frameShown ){
+    this.frame.frame.visible = false;
   }
 
 }
@@ -63,6 +63,7 @@ Section.prototype._transitionIn = function(){
   }else{
     //this.frame.add();
 
+    this.frame.turnerMesh.material.opacity = .1
     this.active = true;
     this.transitionIn();
   }
@@ -90,13 +91,17 @@ Section.prototype._start = function(){
 
     var mesh  = this.page.createTurnerMesh( this.offset , callback );
     this.turnerMesh = mesh;
-    this.page.scene.add( mesh );
+  //  this.page.scene.add( mesh );
+
+    this.frame.setTurnCallbacks( this.turnerMesh )
 
   }else{
 
     if( this.page.nextPage ){
       this.turnerMesh = this.page.endMesh;
-      this.page.endMesh.add( this.page );
+      //this.page.endMesh.add( this.page );
+
+      this.frame.setTurnCallbacks( this.turnerMesh )
     }
 
   }

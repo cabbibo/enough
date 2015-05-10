@@ -107,7 +107,7 @@ tree.addToInitArray( function(){
 
 
 this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  -3000 , -400 , 300  ),
+    cameraPosition: new THREE.Vector3(  -3000 , 100 , 300  ),
     lookPosition: new THREE.Vector3(  0 , 0 , 600  ),
     textChunk:TEXT.TREE[4], 
     start:function(){
@@ -136,7 +136,7 @@ this.sectionParams.push({
 
 
 this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  -3000 , 400 , 300  ),
+    cameraPosition: new THREE.Vector3(  -2000 , 400 , 300  ),
     lookPosition: new THREE.Vector3(  0 , 400 ,600  ),
     textChunk:TEXT.TREE[5], 
     start:function(){

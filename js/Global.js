@@ -22,7 +22,8 @@ function Global(){
     ['matcapMetal'      , 'img/matcap/metal.jpg'            ],
 
     ['logo'             , 'img/icons/cabbibo.png'           ],
-    ['toggleTexture'    , 'img/sprite/close.png'            ],
+    ['toggleOpen'       , 'img/sprite/eyeOpened.png'        ],
+    ['toggleClose'      , 'img/sprite/eyeClosed.png'        ],
 
   ]
 

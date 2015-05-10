@@ -506,14 +506,20 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
   }.bind( mesh );
 
   mesh.select = function(){
-   
-    //console.
-    G.objectControls.remove( this );
-    this.parent.remove( this );
-    callback();
 
-  }.bind( mesh );
-  mesh.position.copy( G.camera.position.relative );
+    G.objectControls.remove( this );
+
+    console.log( this )
+    this.parent.remove( this );
+    if( !this.beenClicked ){
+      callback();
+    }
+
+    this.beenClicked = true;
+
+  };//.bind( mesh );
+
+ /* mesh.position.copy( G.camera.position.relative );
 
   var forward  = new THREE.Vector3( 0 , 0 , -1 );
   forward.applyQuaternion( G.camera.quaternion );
@@ -531,9 +537,9 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
   mesh.position.add(  G.tmpV3 );
 
   G.tmpV3.copy( mesh.position );
-  mesh.lookAt( G.tmpV3.sub( forward ) );
+  mesh.lookAt( G.tmpV3.sub( forward ) );*/
 
-  G.objectControls.add( mesh );
+ // G.objectControls.add( mesh );
 
   return mesh;
 

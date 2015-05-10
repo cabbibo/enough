@@ -224,18 +224,25 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
   offset = offset || G.pageTurnerOffset;
   length = length || G.pageTransitionLength;
 
+  this.beenClicked = false;
+
   var mesh = new THREE.Mesh(
     this.markerGeometry,
     this.markerMaterial 
   );
 
   mesh.select = function(){
+    console.log( this )
 
-    this.pageTurner.parent.remove( this.pageTurner );
-    G.objectControls.remove( this.pageTurner );
-    this.nextPage( page ,  length  );
+    if( !this.beenClicked ){
+      G.objectControls.remove( this.pageTurner );
+      this.nextPage( page ,  length  );
+    }
 
-  }.bind( this );
+
+    this.beenClicked = true;
+
+  }.bind( this )
 
   mesh.hoverOver = function(){
 

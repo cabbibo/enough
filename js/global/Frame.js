@@ -26,7 +26,10 @@ function Frame(section , fish ){
     transparent: true,
   });
 
-  this.body = new THREE.Mesh( geo , mat );
+  this.frame = new THREE.Mesh( geo , mat );
+
+  this.body = new THREE.Object3D();
+  this.body.add( this.frame )
 
   //this.section.page.scene.add( this.body );
 
@@ -41,8 +44,12 @@ function Frame(section , fish ){
   this.body.position.add( G.v1 );
 
   this.createToggleMesh();
+  this.createTurnerMesh();
 
   this.createFrame(this.isFish);
+  
+
+
 
 
 
@@ -51,6 +58,10 @@ function Frame(section , fish ){
 
 
 Frame.prototype.update = function(){
+
+  if( this.section.active == true  && this.section.current == false ){
+    this.turnerMesh.material.opacity = this.uniforms.opacity.value / 8;
+  }
 
   if( this.toggleMesh ){
     if( !this.toggleMesh.hovered ){
@@ -167,8 +178,53 @@ Frame.prototype.createFrame = function(fish){
   }
 
   this.resizeToggleMesh();
+  this.resizeTurnerMesh();
 
  
+}
+
+
+Frame.prototype.setTurnCallbacks = function( mesh ){
+  console.log( 'YA')
+  console.log( this.turnerMesh )
+
+  console.log( mesh.select )
+  this.turnerMesh.select = mesh.select.bind( this.turnerMesh )
+  this.turnerMesh.select.bind( this.turnerMesh )
+  this.turnerMesh.material.opacity = .3;
+
+  this.turnerMesh.hoverOver = function(){
+    this.material.opacity = .7
+  }.bind( this.turnerMesh );
+
+  this.turnerMesh.hoverOut = function(){
+    this.material.opacity = .3
+  }.bind( this.turnerMesh );
+
+
+}
+Frame.prototype.createTurnerMesh = function(){
+
+
+  this.turnerMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 80 , 80 ) , new THREE.MeshBasicMaterial({
+    side: THREE.FrontSide,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    map: G.TEXTURES.logo,
+    depthWrite: false,
+    opacity: 0.
+  }));
+
+  this.turnerMesh.rotation.y = Math.PI
+  this.turnerMesh.aaaarandomProp = "BLAH"
+
+  //this.turnerMesh.hovered = tmpHover;
+  //this.turnerMesh.toggled = tmpToggle;
+
+
+  G.objectControls.add( this.turnerMesh );
+  this.body.add( this.turnerMesh );
+
 }
 
 Frame.prototype.createToggleMesh = function(){
@@ -180,9 +236,9 @@ Frame.prototype.createToggleMesh = function(){
     side: THREE.BackSide,
     transparent: true,
     blending: THREE.AdditiveBlending,
-    map: G.TEXTURES.toggleTexture,
+    map: G.TEXTURES.toggleClose,
     depthWrite: false,
-    opacity: .5
+    opacity: 0
   }))
 
 
@@ -202,16 +258,19 @@ Frame.prototype.createToggleMesh = function(){
   this.toggleMesh.select = function(){
 
     if( this.toggleMesh.toggled ){
-      this.uniforms.opacity.value = 1;
+
+      this.frame.visible = true;
       this.toggleMesh.toggled = false;
       if( this.section.text ) this.section.text.particles.visible = true;
-      if( this.section.turnerMesh ) this.section.turnerMesh.visible = true;
+      if( this.turnerMesh ) this.turnerMesh.visible = true;
       console.log( this.section )
+      this.toggleMesh.material.map = G.TEXTURES.toggleClose;
     }else{
-      this.uniforms.opacity.value = 0;
+      this.frame.visible = false;
       this.toggleMesh.toggled = true;
       if( this.section.text ) this.section.text.particles.visible = false;
-      if( this.section.turnerMesh ) this.section.turnerMesh.visible = false;
+      if( this.turnerMesh ) this.turnerMesh.visible = false;
+      this.toggleMesh.material.map = G.TEXTURES.toggleOpen;
 
     }
   }.bind( this )
@@ -227,8 +286,6 @@ Frame.prototype.createToggleMesh = function(){
 
 Frame.prototype.resizeToggleMesh = function(){
 
-
-
   this.toggleMesh.position.x = -.5;
   this.toggleMesh.position.y = .5;
 
@@ -236,10 +293,22 @@ Frame.prototype.resizeToggleMesh = function(){
   this.toggleMesh.scale.y = 1 / this.body.scale.y 
   this.toggleMesh.scale.z = 1 / this.body.scale.z;
 
-  this.toggleMesh.position.x += 25 / this.body.scale.x;
+  this.toggleMesh.position.x += 30 / this.body.scale.x;
   this.toggleMesh.position.y -= 25 / this.body.scale.y;
 
-  console.log( this.toggleMesh.position )
+}
+
+Frame.prototype.resizeTurnerMesh = function(){
+
+  this.turnerMesh.position.x = -.5;
+  this.turnerMesh.position.y = -.5;
+
+  this.turnerMesh.scale.x = 1 / this.body.scale.x 
+  this.turnerMesh.scale.y = 1 / this.body.scale.y 
+  this.turnerMesh.scale.z = 1 / this.body.scale.z;
+
+  this.turnerMesh.position.x += 80 / this.body.scale.x;
+  this.turnerMesh.position.y += 80 / this.body.scale.y;
 
 }
 
