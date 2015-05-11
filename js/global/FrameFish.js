@@ -29,7 +29,6 @@ function FrameFish( frame , startPoints , endPoints , params ){
     forceMultiplier:      { type: "f" , value: 8000. },
     centerPower:          { type: "f" , value: 2 },
     centerPosition:       { type: "v3", value: frame.body.position },
-   // prsdator:             { type: "v3", value: new THREE.Vector3(0 , 400 , 0) },
     predator:             { type: "v3", value: G.iTextPoint.relative },
     predatorRepelRadius:  { type: "f" , value: 300 },
     predatorRepelPower:   { type: "f" , value: .1 },
@@ -62,7 +61,7 @@ function FrameFish( frame , startPoints , endPoints , params ){
   this.bodyUniforms.predatorRepelPower   = this.soulUniforms.predatorRepelPower;
   this.bodyUniforms.predatorRepelRadius  = this.soulUniforms.predatorRepelRadius;
 
-  console.log( this.startPoints );
+ // console.log( this.startPoints );
 
 
   /*

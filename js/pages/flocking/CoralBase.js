@@ -18,7 +18,7 @@ function CoralBase( coral ){
   }
 
 
-  console.log( G.shaders.vs.coralBase );
+//  console.log( G.shaders.vs.coralBase );
   
   var mat = new THREE.ShaderMaterial({
     uniforms: this.uniforms,

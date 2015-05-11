@@ -1,6 +1,5 @@
 function Flock( coral , params ){
 
-
   this.coral = coral;
   this.coralPositions = [];
   this.coralData = [];

@@ -370,7 +370,7 @@ this.sectionParams.push({
 // Need to load at least 1 thing
 tree.addToInitArray( function(){
   
-  console.log('TREE INIT' );
+//  console.log('TREE INIT' );
 
 
   var f = 'pages/tree/';
@@ -579,7 +579,7 @@ tree.addToStartArray( function(){
 
     this.lights[i].select();
 
-    console.log( this.lights[i].name );
+    //console.log( this.lights[i].name );
     if( 
       this.lights[i].name === 'treeMurmur1'
       
@@ -704,7 +704,7 @@ tree.addToAllUpdateArrays( function(){
    // d = 1000;
     if( d < 10 ){
 
-      console.log('HIT HIT HIT HIT' );
+    //  console.log('HIT HIT HIT HIT' );
 
       this.maniAttractionLight = undefined;
 

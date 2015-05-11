@@ -32,7 +32,7 @@ sparkles.addToInitArray( function(){
 
       for( var i = 0;i < this.page.audioArray.length; i++ ){
 
-        console.log(this.page.audioArray[i]);
+        //console.log(this.page.audioArray[i]);
         var audio = G.AUDIO[  this.page.audioArray[i] ];
 
         if( i == 3 ){
@@ -242,7 +242,7 @@ sparkles.addToActivateArray( function(){
     
   for( var i = 0;i < this.audioArray.length; i++ ){
 
-    console.log(this.audioArray[i]);
+   // console.log(this.audioArray[i]);
     var audio = G.AUDIO[  this.audioArray[i] ];
     //audio.gain.gain.value = 1;
 

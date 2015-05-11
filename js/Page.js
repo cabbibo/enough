@@ -200,7 +200,7 @@ Page.prototype.update = function(){
 // Used to begin all the loading needed
 Page.prototype.init = function(){
 
-  console.log( 'PAGE INITILIZED  ' + this.name );
+  //console.log( 'PAGE INITILIZED  ' + this.name );
   this.initialized = true;
 
   for( var i = 0; i < this.initArray.length; i++ ){
@@ -520,7 +520,7 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
 
     G.objectControls.remove( this );
 
-    console.log( this )
+   // console.log( this )
     this.parent.remove( this );
     if( !this.beenClicked ){
       callback();

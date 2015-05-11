@@ -23,7 +23,7 @@ sun.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(   -6000 ,    0 ,   5000 ),
-    lookPosition: new THREE.Vector3(   00 ,    0 ,   3000 ),
+    lookPosition: new THREE.Vector3(   00 ,    0 ,   1000 ),
     textChunk:TEXT.SUN[1],
     transitionTime: 15000,
 
@@ -45,7 +45,7 @@ sun.addToInitArray( function(){
  
     
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(   -4000 ,    0 , 4000 ),
+    cameraPosition: new THREE.Vector3(   -4000 ,  0 , 4000 ),
     lookPosition:   new THREE.Vector3(   -4000 ,  0 , 0 ),
     textChunk: TEXT.SUN[2],
     transitionTime:15000,
@@ -403,7 +403,7 @@ sun.addToStartArray( function(){
      // console..lg( this.audio );
   for( var i = 0; i < this.audio.array.length; i++ ){
 
-    console.log('yes');
+   // console.log('yes');
     this.audio.array[i].fadeOut( .001 );
 
   }
@@ -469,8 +469,8 @@ sun.addToStartArray( function(){
     }
 
 
-   console.log('GES');
-   console.log( G.GEOS.sun );
+  // console.log('GES');
+  // console.log( G.GEOS.sun );
 
   var mesh = new THREE.Mesh(  G.GEOS.sun ); 
   this.gem = new RepelerMesh( 'Parameters' , mesh , this.repelers , {

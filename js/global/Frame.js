@@ -185,10 +185,10 @@ Frame.prototype.createFrame = function(fish){
 
 
 Frame.prototype.setTurnCallbacks = function( mesh ){
-  console.log( 'YA')
-  console.log( this.turnerMesh )
+  //console.log( 'YA')
+  //console.log( this.turnerMesh )
 
-  console.log( mesh.select )
+  //console.log( mesh.select )
   this.turnerMesh.select = mesh.select.bind( this.turnerMesh )
   this.turnerMesh.select.bind( this.turnerMesh )
   this.turnerMesh.material.opacity = .3;
@@ -231,7 +231,7 @@ Frame.prototype.createTurnerMesh = function(){
 Frame.prototype.createToggleMesh = function(){
 
 
-  console.log('hello')
+  //console.log('hello')
 
   this.toggleMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 40 , 40 ) , new THREE.MeshBasicMaterial({
     side: THREE.BackSide,
@@ -252,26 +252,26 @@ Frame.prototype.createToggleMesh = function(){
   this.toggleMesh.hoverOut = function(){
 
     this.toggleMesh.hovered = false;
-    console.log( 'yup' );
+    //console.log( 'yup' );
 
   }.bind( this );
 
   this.toggleMesh.select = function(){
 
-    console.log( this )
+    //console.log( this )
     if( this.toggleMesh.toggled ){
 
       this.frame.visible = true;
       this.toggleMesh.toggled = false;
       if( this.section.text ) this.section.text.particles.visible = true;
       if( this.turnerMesh ) this.turnerMesh.visible = true;
-      console.log( this.section )
+      //console.log( this.section )
       this.toggleMesh.material.map = G.TEXTURES.toggleClose;
     }else{
       this.frame.visible = false;
       this.toggleMesh.toggled = true;
       if( this.section.text ){
-        console.log( 'HAS TEXT')
+        //console.log( 'HAS TEXT')
         this.section.text.particles.visible = false;
       }
       if( this.turnerMesh ) this.turnerMesh.visible = false;

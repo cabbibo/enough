@@ -168,7 +168,7 @@ function CreateFlockingGeometry( size , depth , sides ){
     var geo = new THREE.BufferGeometry();
 
     var totalVerts =  s2 * 2 * (depth-1) * 6;
-    console.log( 'Total Verts: ' + totalVerts );
+    //console.log( 'Total Verts: ' + totalVerts );
     var aPos  = new THREE.BufferAttribute( new Float32Array( totalVerts * 3 ), 3 );
     var aUV   = new THREE.BufferAttribute( new Float32Array( totalVerts * 2 ), 2 );
     //var aInfo = new THREE.BufferAttribute( new Float32Array( totalVerts * 2 ), 2 );

@@ -151,7 +151,7 @@ Monome.prototype.select = function(){
 //  this.note.play();
 
 
-  console.log( this.id );
+  //console.log( this.id );
   if( this.selected === false ){
 
   if( this.active == true ){

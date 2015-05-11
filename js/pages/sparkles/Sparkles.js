@@ -11,8 +11,8 @@ function Sparkles( page , size ){
   this.physics.setUniform( 'dT' , G.dT );
   this.physics.setUniform( 'timer' , G.timer );
 
-  console.log('THISAPAS');
-  console.log(this.page.gui);
+  //console.log('THISAPAS');
+  //console.log(this.page.gui);
   this.gui = this.page.gui.addFolder( 'SparkleParticleParams' );
  
   this.physicsParams = {

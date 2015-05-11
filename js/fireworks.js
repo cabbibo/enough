@@ -122,15 +122,15 @@ fireworks.addToStartArray( function(){
 
   this.fireworks = [];
 
-  console.log('WAS');
-  console.log( G );
+  //console.log('WAS');
+  //console.log( G );
   for( var i = 0;i < (this.audioArray.length*2); i++ ){
  
 
     var audio = G.AUDIO[  this.audioArray[i%this.audioArray.length]  ];
     audio.reconnect( this.gain );
 
-    console.log( audio );
+    //console.log( audio );
 
 
     var t = (i / (this.audioArray.length*2) ) * 2 * Math.PI ;

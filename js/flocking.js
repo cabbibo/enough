@@ -92,7 +92,12 @@ flocking.addToInitArray( function(){
 
       for( var  i = 0; i < this.coral.length; i++ ){
 
-        this.coral[i].deactivate();
+        
+        if( i == 0 || i == 1 || i == 2 || i == 3 || i == 4 ){
+          this.coral[i].activate();
+        }else{
+          this.coral[i].deactivate();
+        }
       }
 
     }.bind(this),
@@ -252,7 +257,7 @@ flocking.addToStartArray( function(){
     var p = new THREE.Vector3( cp[0] , cp[1] , cp[2] );
     p.multiplyScalar( 50 );
 
-    console.log( p );
+    //console.log( p );
     var audio = G.AUDIO[ this.audioArray[i] ];
     var coral = new Coral( this , audio , p );  
     

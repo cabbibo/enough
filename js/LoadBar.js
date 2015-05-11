@@ -150,7 +150,7 @@ LoadBar.prototype.addText = function(){
   var offset = -this.loadBarInfo.clientHeight / 2 
 
   this.loadBarInfo.style.marginTop = offset + "px"
-  console.log( this.loadBarInfo.clientHeight )
+  //console.log( this.loadBarInfo.clientHeight )
 
 
 
@@ -306,7 +306,7 @@ LoadBar.prototype.updatePercentTexture = function( percent , canvas , ctx , text
 LoadBar.prototype.onLoad = function( percent ){
 
 
-	console.log( percent )
+	//console.log( percent )
 	this.percentLoaded.value = percent
 
 
@@ -349,7 +349,7 @@ LoadBar.prototype.onStartButtonClick = function( ){
 
   this.loadBarInfo.style.display = "none"
 
-  console.log( this.loadBarInfo.style )
+  //console.log( this.loadBarInfo.style )
   document.body.style.cursor = "none"
 /*  $( this.loadBarInfo ).fadeOut(time,function(){
     document.body.style.cursor = "none"

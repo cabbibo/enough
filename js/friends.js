@@ -36,14 +36,14 @@ this.sectionParams.push({
       for( var i = 0; i < this.furryTails.length; i++ ){
 
         var fT = this.furryTails[i];
-        console.log('FT');
-        console.log( fT );
+        //console.log('FT');
+        //console.log( fT );
 
         for( var j = 0; j < fT.brethren.length; j++ ){
 
-          console.log('adds ');
+          //console.log('adds ');
 
-          console.log( fT.brethren[j].position );
+          //console.log( fT.brethren[j].position );
           fT.addSpringForce( fT.brethren[j].position , .008 , 300 );
         }
 

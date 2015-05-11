@@ -352,9 +352,9 @@ Tree.prototype.createGeo = function( params ){
   var geometry = new THREE.BufferGeometry();
 
   geometry.totalVerts = totalVerts;
-  console.log('totalVErts');
-  console.log( this.totalVerts );
-  console.log( totalVerts );
+ // console.log('totalVErts');
+ // console.log( this.totalVerts );
+ // console.log( totalVerts );
 
   var posA = new THREE.BufferAttribute( new Float32Array( totalVerts * 3 ), 3 );
   var norA = new THREE.BufferAttribute( new Float32Array( totalVerts * 3 ), 3 ); 

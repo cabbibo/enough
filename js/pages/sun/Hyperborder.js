@@ -124,9 +124,9 @@ Hyperborder.prototype.createGeometry = function( size ){
 
     faces.push( f );
 
-    console.log( i );
-    console.log( f );
-    console.log( 'pysh' );
+   // console.log( i );
+   // console.log( f );
+   // console.log( 'pysh' );
 
   }
 
@@ -227,13 +227,13 @@ Hyperborder.prototype.createGeometry = function( size ){
 
     var type ;
     if( i < 6 ){
-      console.log('TYPE: 0');
+      //console.log('TYPE: 0');
       type = 0;
     }else if( i >= 6 && i < 12 ){
-      console.log('TYPE: 1');
+      //console.log('TYPE: 1');
       type = 1;
     }else{
-      console.log('TYPE: 2');
+      //console.log('TYPE: 2');
       type = 2;
     }
 

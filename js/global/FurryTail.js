@@ -259,7 +259,7 @@
 
   FurryTail.prototype.deactivate = function(){
 
-    console.log('HELLO');
+    //console.log('HELLO');
     this.page.scene.remove( this.physicsParticles );
     this.page.scene.remove( this.line );
     this.page.scene.remove( this.leader );

@@ -147,7 +147,7 @@ function Global(){
 
   this.loader.onStart = function(){
     
-    console.log( this.loadBar)
+    //console.log( this.loadBar)
 
     this.onResize();
     this.init();
@@ -709,7 +709,7 @@ Global.prototype.onResize = function(){
 
 Global.prototype.onKeyDown = function( e ){
 
-  console.log( e.which );
+  //console.log( e.which );
   if( e.which == 32 ){
 
     this.paused = !this.paused;

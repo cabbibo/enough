@@ -258,7 +258,7 @@ function Firework( page , params ){
   this.base.add( this.body );
 
 
-  console.log( this.audio )
+  //console.log( this.audio )
   this.audio.turnOnFilter();
   this.audio.filter.frequency.value = 200;
 
@@ -334,8 +334,8 @@ Firework.prototype.explode = function( end , timeToExplode , timeToDissolve , ca
 
   }.bind( this ));
 
-  console.log( 'TTE')
-  console.log( timeToExplode )
+  //console.log( 'TTE')
+  //console.log( timeToExplode )
   this.tweenFilter( 4000 ,  timeToExplode  )
 
   tween.onComplete( function( t ){

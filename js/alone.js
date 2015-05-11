@@ -5,7 +5,7 @@ alone.addToInitArray( function(){
   this.mani = false;
   this.sol  = false;
 
-  console.log( 'INAT');
+  //console.log( 'INAT');
   this.title = "Real Time Is Now";
 
   this.sectionParams.push({
@@ -160,8 +160,8 @@ alone.addToStartArray( function(){
   this.titleMesh.position.y = -500;
   this.titleOpacity = titleMat.uniforms.opacity;
 
-  console.log( 'OPACITY' );
-  console.log( this.titleOpacity );
+ // console.log( 'OPACITY' );
+ // console.log( this.titleOpacity );
   this.titleMesh.rotation.x = -Math.PI / 2;
   this.scene.add( this.titleMesh );
 

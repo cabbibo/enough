@@ -85,7 +85,6 @@ function Coral( page , audio , position ){
 
   this.body.add( this.emanator );
 
-
   page.scene.add( this.body );
   page.scene.updateMatrixWorld();
 

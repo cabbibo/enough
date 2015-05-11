@@ -30,7 +30,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   if( !this.toPage ){
 
-    console.log( 'NO NEW PAGE' );
+    //console.log( 'NO NEW PAGE' );
 
   }
 
@@ -232,7 +232,7 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
   );
 
   mesh.select = function(){
-    console.log( this )
+   // console.log( this )
 
     if( !this.beenClicked ){
       G.objectControls.remove( this.pageTurner );

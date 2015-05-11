@@ -38,7 +38,7 @@ crystals.addToInitArray( function(){
         var c = this.page.crystals[i];
         if( i == 0 || i == 1 || i == 2 || i == 3 || i == 5){
          
-         console.log('HELLOS') 
+         //console.log('HELLOS') 
           if( !c.selected ) c.select();
         
         }else{
@@ -216,7 +216,7 @@ crystals.addToStartArray( function(){
 
   G.tmpV3.set( -500 , 400 , 0 );
 
-  console.log('CRYSTALS STARTED' );
+ // console.log('CRYSTALS STARTED' );
 
   var globalLightPos = this.position.clone().add( G.tmpV3 );
 
