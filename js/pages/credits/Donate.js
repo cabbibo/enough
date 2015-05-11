@@ -7,106 +7,64 @@ function Donate( text , location , size ){
 
   this.percentLoaded = { type:"f" , value: 0 }
   this.time = { type:"f" , value: 0 }
+  this.transparency = { type:"f" , value: 1 }
   this.loadRing = [];
+  this.lightPos = { type:"v3" , value: new THREE.Vector3() }
 
   this.lookPosition = new THREE.Vector3();
   this.ending = false;
 
+  var u = {
+    
+    time:this.time,
+    stepDepth:{ type:"f" , value: 6. },
+    brightness:{type:"f",value: 1 },
+    oscillationSize:{ type:"f" , value: .0004 },
+    noiseSize: { type:"f" , value: 3. },
+    lightPos:{ type:"v3" , value:this.lookPosition },
+    
+    iModelMat:{ type:"m4" , value: new THREE.Matrix4() },
+    percentLoaded: this.percentLoaded,
+    transparency: this.transparency,
 
-  // Need to hard code,
-  // so we don't have to wait for shaderloaded
-  var vs = [
-    "attribute float id;",
-    "attribute float faceType;",
-    "varying vec3 vNorm;",
-    "varying float vID;",
-    "varying float vType;",
-    "varying vec2 vUv;",
-    "void main(){",
-     " vNorm = ( normalMatrix * normal);",
-    " vID = id;",
-    "  vType = faceType;",
-    "  vUv = uv;",
-    " gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
-    "}"
-  ].join("\n");
+  }
 
-  var fs = [
+  var a = {
+    faceType: { type:"f" , value:null }
+  }
 
-    "uniform float percentLoaded;",
-    "uniform float time;",
-    "varying vec3 vNorm;",
-    "varying float vID;",
-    "varying float vType;",
-    "varying vec2 vUv;",
-    "void main(){",
-    " vec3 col = vNorm * .5 + .5 ;",
-    "  if( vType > 0.5){",
-    "    col *= sin( (( vID /80.) * 6. * 3.14195  )+ time * percentLoaded * 5.);",
-    "  }else{",
-    "    if( vUv.x < .1 || vUv.x > .9 || vUv.y < .2 || vUv.y > .8 ){",
-    "    }else{",
-    "      if( percentLoaded-.01 < vID / 40. ){",
-    "        col = vec3( 0. );",
-    "      }",
-    "    }",
-    "  }",
-    "  //if( percentLoaded * 40. < vID ){ discard; }",
-    " gl_FragColor = vec4( col , 1. );",
-    "}",
 
-  ].join("\n");
 
   var ringMat = new THREE.ShaderMaterial({
-    uniforms:{
-      percentLoaded: this.percentLoaded,
-      time: this.time
-    },
+    uniforms:u,
     attributes:{
       id:{type:"f", value:null},
       faceType:{type:"f", value:null},
     },
-    vertexShader: vs,
-    fragmentShader: fs,
-    side: THREE.DoubleSide
-
-
+    vertexShader: loadBarShader.vsRing,
+    fragmentShader: loadBarShader.fsRing,
+    side: THREE.DoubleSide,
+   // blending: THREE.AdditiveBlending,
+    transparent: true,
   });
 
 
-  this.ring = new THREE.Mesh( this.createRingGeo(size) , ringMat )
+  this.ring = new THREE.Mesh( this.createRingGeo(100) , ringMat )
 
 
-  var vs = [
-    "varying vec3 vNorm;",
-    "void main(){",
-    " vNorm = ( normalMatrix * normal);",
-    " gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
-    "}"
-  ].join("\n");
 
-  var fs = [
 
-    "varying vec3 vNorm;",
-    "uniform float transparency;",
-    "void main(){",
-    " vec3 col = vNorm * .5 + .5 ;",
-    " gl_FragColor = vec4( col , transparency);",
-    "}",
-
-  ].join("\n");
-
-  this.transparency = { type:"f" , value: 1 }
 
   var centerMat = new THREE.ShaderMaterial({
-    vertexShader: vs,
-    fragmentShader: fs,
-    uniforms:{ transparency:this.transparency },
+    vertexShader: loadBarShader.vs,
+    fragmentShader: loadBarShader.fs,
+    uniforms: u,
+    attributes: a,
     side: THREE.DoubleSide,
-    transparent: true
+    transparent: true,
+   // blending: THREE.AdditiveBlending,
   });
-
-  this.center = new THREE.Mesh( this.createCenterGeo( size / 1.8 ), centerMat );
+  this.center = new THREE.Mesh( this.createCenterGeo( 50 ), centerMat );
 
   this.donateMesh = this.createDonateMesh( size );
 
@@ -192,8 +150,15 @@ Donate.prototype.update = function(){
 
     this.updateDonateMesh();
 
+        this.center.updateMatrixWorld();
+    
+    this.center.material.uniforms.iModelMat.value.getInverse( this.center.matrixWorld );
+
+
+
   }
 
+  
 }
 
 Donate.prototype.updateDonateMesh = function(){

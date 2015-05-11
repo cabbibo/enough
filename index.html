@@ -1,3 +1,38 @@
+<!--
+
+  Hey there!
+
+  First off, it means alot that you are checking out the source! 
+  If you want to see it on Github, check out:
+
+  http://github.com/cabbibo/enough
+
+  Second off, although alot of the code I'm pretty proud of,
+  rushing to release means that there is alot of really disgusting 
+  spagetti stuff in hear. Things like the 'PageTurnerMesh' in particular
+  are foul beyond belief!
+
+
+  If you want, you can check out individual pages by adding a #pageName in the url
+
+  aka : http:/cabbi.bo/#sparkles for the sparkles page. The pages are as follows:
+
+  #alone  
+  #crystals  #forest  #tree
+  #together #friends 
+  #sparkles #flocking
+  #sun
+  #fireworks
+  #credits
+
+  If you have questions, let me know on twitter @cabbibo. I'll do my best to answer!
+
+  Huge Thanks to @mrdoob , @thespite , @hughskennedy for all the code help 
+  they provided, and @eddietree , @robbietilton , @jonobr1 , @rezasyedali for design pointers
+
+
+-->
+
 <html>
   <title> @Cabbibo </title>
   <head>
@@ -39,11 +74,19 @@
     <script src="lib/Loader.js"></script>
     
     
+    <!-- Human ReadableVersion -->
+    <!--<script src="shaders/loadBarShader.js"></script>-->
+
+    <!-- Non Human Readable Version -->
+    <script src="shaders/lbs.js"></script>
+
+
     <script src="js/PageLoader.js"></script>
     <script src="js/PageTurner.js"></script>
     <script src="js/Page.js"></script>
     
     <script src="js/Section.js"></script>
+
 
     <script src="js/LoadBar.js"></script>     
 
@@ -114,16 +157,13 @@
     <script src="js/text.js"></script>
 
 
+
+
     <script>
 
 
       G.loadBar.start();
-      console.log( 'G.loadBarStyarted')
       G.animate();
-      console.log( 'animate stars')
-
-      
-
 
 
       var startingPage = "alone";

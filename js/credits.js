@@ -52,6 +52,19 @@ credits.addToInitArray( function(){
 
 
 
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 2000 , 1000 ),
+    lookPosition: new THREE.Vector3( 0 , 2000 , 0 ),
+ 
+
+    textChunk:[
+      "If you liked this project, please consider donating to 'Girls Who Code' , a nonprofit working to close the gender gap in the technology and engineering sectors",
+    ].join("\n"),
+    activeUpdate:function(){
+      console.log('ss')
+    }.bind( credits)
+  });
+
 
 
 
@@ -146,18 +159,6 @@ credits.addToInitArray( function(){
 
   });
 
-  this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 2000 , 1000 ),
-    lookPosition: new THREE.Vector3( 0 , 2000 , 0 ),
- 
-
-    textChunk:[
-      "If you liked this project, please consider donating to 'Girls Who Code' , a nonprofit working to close the gender gap in the technology and engineering sectors",
-    ].join("\n"),
-    activeUpdate:function(){
-      console.log('ss')
-    }.bind( credits)
-  });
 
 
 

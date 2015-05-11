@@ -4,120 +4,66 @@ function LoadBar(){
 
 	this.percentLoaded = { type:"f" , value: 0 }
 	this.time = { type:"f" , value: 0 }
+
   this.lightPos = { type:"v3" , value: new THREE.Vector3() }
 	this.loadRing = [];
 
   this.lookPosition = new THREE.Vector3();
   this.ending = false;
 
+  this.transparency = { type:"f" , value: 1 }
 
-	// Need to hard code,
-	// so we don't have to wait for shaderloaded
-	var vs = [
-		"attribute float id;",
-    "attribute float faceType;",
-		"varying vec3 vNorm;",
-    "varying float vID;",
-		"varying float vType;",
-    "varying vec2 vUv;",
-    "varying vec3 vMPos;",
 
-		"void main(){",
-		 " vNorm = ( normalMatrix * normal);",
-		"	vID = id;",
-    "  vType = faceType;",
-    "  vUv = uv;",
-        " vMPos = ( modelViewMatrix * vec4( position , 1. )).xyz;",
-		"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
-    "}"
-  ].join("\n");
 
-	var fs = [
+  var u = {
+    
+    time:this.time,
+    stepDepth:{ type:"f" , value: 6. },
+    brightness:{type:"f",value: 1 },
+    oscillationSize:{ type:"f" , value: .0004 },
+    noiseSize: { type:"f" , value: 3. },
+    lightPos:{ type:"v3" , value:this.lookPosition },
+    
+    iModelMat:{ type:"m4" , value: new THREE.Matrix4() },
+    percentLoaded: this.percentLoaded,
+    transparency: this.transparency,
 
-    "uniform vec3 lightPos;",
+  }
 
-		"uniform float percentLoaded;",
-		"uniform float time;",
-		"varying vec3 vNorm;",
-		"varying float vID;",
-    "varying float vType;",
-    "varying vec2 vUv;",
-    "varying vec3 vMPos;",
-		"void main(){",
-		"	vec3 col = vNorm * .5 + .5 ;",
-    "  if( vType > 0.5){",
-    "    col *= sin( (( vID /80.) * 6. * 3.14195  )+ time * percentLoaded * 5.);",
-    "  }else{",
-    "    if( vUv.x < .1 || vUv.x > .9 || vUv.y < .2 || vUv.y > .8 ){",
-    "    }else{",
-    "      if( percentLoaded < vID / 40. ){",
-    "        col = vec3( 0. );",
-    "      }",
-    "    }",
-    "  }",
-    " float match = dot( vNorm , -normalize( vMPos - lightPos ));",
-    "  //if( percentLoaded * 40. < vID ){ discard; }",
-		"	gl_FragColor = vec4( vec3( match ) * length( col ) , 1. );",
-		"}",
+  var a = {
+    faceType: { type:"f" , value:null }
+  }
 
-	].join("\n");
+
 
 	var ringMat = new THREE.ShaderMaterial({
-		uniforms:{
-			percentLoaded: this.percentLoaded,
-			time: this.time,
-      lightPos: this.lightPos
-		},
+		uniforms:u,
 		attributes:{
 			id:{type:"f", value:null},
       faceType:{type:"f", value:null},
 		},
-		vertexShader: vs,
-		fragmentShader: fs,
-    side: THREE.DoubleSide
-
-
+		vertexShader: loadBarShader.vsRing,
+		fragmentShader: loadBarShader.fsRing,
+    side: THREE.DoubleSide,
+   // blending: THREE.AdditiveBlending,
+    transparent: true,
 	});
 
 
 	this.ring = new THREE.Mesh( this.createRingGeo(100) , ringMat )
 
 
-  var vs = [
-    "varying vec3 vNorm;",
-    "varying vec3 vMPos;",
-    "void main(){",
-    " vNorm = ( normalMatrix * normal);",
-    " vMPos = ( modelViewMatrix * vec4( position , 1. )).xyz;",
-    " gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
-    "}"
-  ].join("\n");
 
-  var fs = [
 
-    "varying vec3 vNorm;",
-    "varying vec3 vMPos;",
-    "uniform float transparency;",
-    "uniform vec3 lightPos;",
-    "void main(){",
-    " float match = dot( vNorm , -normalize( vMPos - lightPos ));",
-    " vec3 col = vNorm * .5 + .5 ;",
-    " gl_FragColor = vec4( vec3( match ) , transparency);",
-    "}",
-
-  ].join("\n");
-
-  this.transparency = { type:"f" , value: 1 }
 
   var centerMat = new THREE.ShaderMaterial({
-    vertexShader: vs,
-    fragmentShader: fs,
-    uniforms:{ 
-      transparency:this.transparency,
-      lightPos: this.lightPos 
-    },
+    vertexShader: loadBarShader.vs,
+    fragmentShader: loadBarShader.fs,
+    uniforms: u,
+    attributes: a,
     side: THREE.DoubleSide,
-    transparent: true
+    transparent: true,
+   // blending: THREE.AdditiveBlending,
   });
   this.center = new THREE.Mesh( this.createCenterGeo( 50 ), centerMat );
 
@@ -138,6 +84,7 @@ LoadBar.prototype.onMouseMove = function( e ){
 
   this.lookPosition.x = 2 * e.clientX - G.w / 2
   this.lookPosition.y = -2 * ( e.clientY - (G.h / 2 ))
+  this.lookPosition.z = 50
 
   this.lookPosition.applyQuaternion( G.camera.quaternion )
 
@@ -223,6 +170,8 @@ LoadBar.prototype.update = function(){
 	this.time.value += .1
 
 
+  
+
   if( !this.ending ){
 
 
@@ -241,6 +190,11 @@ LoadBar.prototype.update = function(){
 
     this.ring.lookAt( G.v1 );
     this.center.lookAt( G.v1 );
+
+    this.center.updateMatrixWorld();
+    
+    this.center.material.uniforms.iModelMat.value.getInverse( this.center.matrixWorld );
+
 
     this.updatePercentMesh();
 
@@ -453,6 +407,7 @@ LoadBar.prototype.tweenToCamera = function( time ){
 
 
       var t =( t - tweenTime1 ) / ( 1 - tweenTime1 );
+      var t = Math.sqrt( t );
 
     
       G.v1.copy(this.endPos);
