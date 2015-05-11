@@ -2,6 +2,8 @@
 
 function Global(){
 
+  this.postProcessingOn = false;
+
   this.pageTransitionLength = 20;
 
   this.texturesToLoad = [
@@ -581,13 +583,23 @@ Global.prototype.animate = function(){
 
   }
 
-  this.renderer.render( this.scene , this.camera );
+  if( this.postProcessingOn == false ){
+    this.renderer.render( this.scene , this.camera );
+  }else{
+
+  }
 
   //this.stats.update();
   //this.renderer.render( this.scene , this.camera );
 
   requestAnimationFrame( this.animate.bind( this ) );
   
+
+}
+
+Global.prototype.togglePostProcessing = function(){
+ 
+  this.postProcessingOn = !this.postProcessingOn;
 
 }
 
