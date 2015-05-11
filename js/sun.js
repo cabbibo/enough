@@ -593,6 +593,12 @@ sun.addToAllUpdateArrays( function(){
      Hiding some stuff before we render
 
   */
+
+  var tmpVis = [];
+  for( var  i = 0; i< this.sections.length; i++ ){
+    tmpVis.push( this.sections[i].text.particles.visible );
+  }
+
   for( var i = 0; i < this.sections.length; i++ ){
      this.sections[i].text.particles.visible = false;
      this.sections[i].frame.body.visible = false;
@@ -602,7 +608,7 @@ sun.addToAllUpdateArrays( function(){
   this.flower.visible = true;
    for( var i = 0; i < this.sections.length; i++ ){
      this.sections[i].frame.body.visible = true;
-     this.sections[i].text.particles.visible = true;
+     this.sections[i].text.particles.visible = tmpVis[i];
   }
  
 

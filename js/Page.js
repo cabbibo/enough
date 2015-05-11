@@ -459,7 +459,18 @@ Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos , 
 
   }.bind( this ));
 
+
   tween.onComplete( function(){
+
+    this.cameraPos.x = newPos.x ;
+    this.cameraPos.y = newPos.y ;
+    this.cameraPos.z = newPos.z ;
+
+    G.camera.position.copy( newPos );
+    G.objectControls.unprojectMouse();
+
+    G.lookAt.copy( lookAtPos );
+    G.camera.lookAt( G.lookAt );
 
     callback();
 

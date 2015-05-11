@@ -202,6 +202,7 @@ Frame.prototype.setTurnCallbacks = function( mesh ){
   }.bind( this.turnerMesh );
 
 
+  G.objectControls.add( this.turnerMesh );
 }
 Frame.prototype.createTurnerMesh = function(){
 
@@ -222,7 +223,7 @@ Frame.prototype.createTurnerMesh = function(){
   //this.turnerMesh.toggled = tmpToggle;
 
 
-  G.objectControls.add( this.turnerMesh );
+
   this.body.add( this.turnerMesh );
 
 }
@@ -257,6 +258,7 @@ Frame.prototype.createToggleMesh = function(){
 
   this.toggleMesh.select = function(){
 
+    console.log( this )
     if( this.toggleMesh.toggled ){
 
       this.frame.visible = true;
@@ -268,7 +270,10 @@ Frame.prototype.createToggleMesh = function(){
     }else{
       this.frame.visible = false;
       this.toggleMesh.toggled = true;
-      if( this.section.text ) this.section.text.particles.visible = false;
+      if( this.section.text ){
+        console.log( 'HAS TEXT')
+        this.section.text.particles.visible = false;
+      }
       if( this.turnerMesh ) this.turnerMesh.visible = false;
       this.toggleMesh.material.map = G.TEXTURES.toggleOpen;
 

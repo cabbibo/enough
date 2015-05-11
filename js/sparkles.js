@@ -10,13 +10,17 @@ sparkles.addToInitArray( function(){
     cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
     textChunk:TEXT.SPARKLES[0],
     //frameShown: false 
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
+    }
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,1040 ),
-    transitionTime:4000,
+    cameraPosition: new THREE.Vector3( 0 , 0 , 995 ),
+    transitionTime:500,
     textChunk:TEXT.SPARKLES[1],
     transitionIn:function( a ){
+
 
       this.cameraPosition.copy( G.camera.position );
       this.page.cameraPos.x =  G.camera.position.x;
@@ -44,15 +48,18 @@ sparkles.addToInitArray( function(){
       G.camera.position.x -= this.movementRate;
 
           
-    }.bind( this )
+    }.bind( this ),
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
+    }
     //frameShown: false 
     
    
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,1060 ),
-    transitionTime:4000,
+    cameraPosition: new THREE.Vector3( 0 , 0 ,990 ),
+    transitionTime:500,
     textChunk:TEXT.SPARKLES[2],
     transitionIn:function( ){
       
@@ -77,8 +84,11 @@ sparkles.addToInitArray( function(){
 
 
     },
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
+    },
 
-        transitioningIn: function(){
+    transitioningIn: function(){
 
       this.position.x     -= this.movementRate;
       G.camera.position.x -= this.movementRate;
@@ -90,8 +100,8 @@ sparkles.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,1080 ),
-    transitionTime:4000,
+    cameraPosition: new THREE.Vector3( 0 , 0 , 980 ),
+    transitionTime:500,
     textChunk:TEXT.SPARKLES[3],
     transitionIn:function( ){
       
@@ -104,6 +114,9 @@ sparkles.addToInitArray( function(){
       this.lookPosition.copy( this.page.position );
 
 
+    },
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
     },
 
     transitioningIn: function(){
@@ -137,6 +150,7 @@ sparkles.addToInitArray( function(){
 
 
   this.movementRate = 1.5;
+  //this.movementRate = 0;
 
 
 }.bind( sparkles ) );

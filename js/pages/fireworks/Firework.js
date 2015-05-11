@@ -30,7 +30,6 @@ function Firework( page , params ){
 
   this.size   = this.params.size;
   this.audio  = this.params.audio;
- 
 
 
   this.start = this.params.start;
@@ -259,6 +258,10 @@ function Firework( page , params ){
   this.base.add( this.body );
 
 
+  console.log( this.audio )
+  this.audio.turnOnFilter();
+  this.audio.filter.frequency.value = 200;
+
 }
 
 Firework.prototype.add = function(){
@@ -331,6 +334,10 @@ Firework.prototype.explode = function( end , timeToExplode , timeToDissolve , ca
 
   }.bind( this ));
 
+  console.log( 'TTE')
+  console.log( timeToExplode )
+  this.tweenFilter( 4000 ,  timeToExplode  )
+
   tween.onComplete( function( t ){
 
     this.uniforms.exploded.value = 1.;
@@ -339,6 +346,8 @@ Firework.prototype.explode = function( end , timeToExplode , timeToDissolve , ca
     var s = { v: 1 }
     var e = { v: 0 }
     var t2 = new TWEEN.Tween( s ).to( e , timeToDissolve );
+
+    this.tweenFilter( 200 ,   timeToDissolve )
 
     t2.onUpdate( function(t){
 
@@ -405,6 +414,31 @@ Firework.prototype.update = function(){
   }
 
 }
+
+Firework.prototype.tweenFilter = function( newValue , l ){
+
+  var s = { v : this.audio.filter.frequency.value } 
+  var e = { v : newValue }
+  var tween = new G.tween.Tween( s ).to( e , l );
+
+  this.tweenTMP = s;
+  tween.audio = this.audio
+  tween.onUpdate(function(){
+    this.audio.filter.frequency.value = this.tweenTMP.v;
+  }.bind( this));
+
+  tween.start();
+
+}
+
+Firework.prototype.filterDown = function(){
+  this.tweenFilter( 350 , 200 );
+}
+
+Firework.prototype.filterUp = function(){
+  this.tweenFilter( 3000 , 200 );
+}
+
 
 Firework.prototype.hoverOver = function(){
 
