@@ -4,6 +4,7 @@ function LoadBar(){
 
 	this.percentLoaded = { type:"f" , value: 0 }
 	this.time = { type:"f" , value: 0 }
+  this.lightPos = { type:"v3" , value: new THREE.Vector3() }
 	this.loadRing = [];
 
   this.lookPosition = new THREE.Vector3();
@@ -19,16 +20,21 @@ function LoadBar(){
     "varying float vID;",
 		"varying float vType;",
     "varying vec2 vUv;",
+    "varying vec3 vMPos;",
+
 		"void main(){",
 		 " vNorm = ( normalMatrix * normal);",
 		"	vID = id;",
     "  vType = faceType;",
     "  vUv = uv;",
+        " vMPos = ( modelViewMatrix * vec4( position , 1. )).xyz;",
 		"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
     "}"
   ].join("\n");
 
 	var fs = [
+
+    "uniform vec3 lightPos;",
 
 		"uniform float percentLoaded;",
 		"uniform float time;",
@@ -36,6 +42,7 @@ function LoadBar(){
 		"varying float vID;",
     "varying float vType;",
     "varying vec2 vUv;",
+    "varying vec3 vMPos;",
 		"void main(){",
 		"	vec3 col = vNorm * .5 + .5 ;",
     "  if( vType > 0.5){",
@@ -48,8 +55,9 @@ function LoadBar(){
     "      }",
     "    }",
     "  }",
+    " float match = dot( vNorm , -normalize( vMPos - lightPos ));",
     "  //if( percentLoaded * 40. < vID ){ discard; }",
-		"	gl_FragColor = vec4( col , 1. );",
+		"	gl_FragColor = vec4( vec3( match ) * length( col ) , 1. );",
 		"}",
 
 	].join("\n");
@@ -57,7 +65,8 @@ function LoadBar(){
 	var ringMat = new THREE.ShaderMaterial({
 		uniforms:{
 			percentLoaded: this.percentLoaded,
-			time: this.time
+			time: this.time,
+      lightPos: this.lightPos
 		},
 		attributes:{
 			id:{type:"f", value:null},
@@ -76,8 +85,10 @@ function LoadBar(){
 
   var vs = [
     "varying vec3 vNorm;",
+    "varying vec3 vMPos;",
     "void main(){",
     " vNorm = ( normalMatrix * normal);",
+    " vMPos = ( modelViewMatrix * vec4( position , 1. )).xyz;",
     " gl_Position = projectionMatrix * modelViewMatrix * vec4( position , 1. );",
     "}"
   ].join("\n");
@@ -85,10 +96,13 @@ function LoadBar(){
   var fs = [
 
     "varying vec3 vNorm;",
+    "varying vec3 vMPos;",
     "uniform float transparency;",
+    "uniform vec3 lightPos;",
     "void main(){",
+    " float match = dot( vNorm , -normalize( vMPos - lightPos ));",
     " vec3 col = vNorm * .5 + .5 ;",
-    " gl_FragColor = vec4( col , transparency);",
+    " gl_FragColor = vec4( vec3( match ) , transparency);",
     "}",
 
   ].join("\n");
@@ -98,7 +112,10 @@ function LoadBar(){
   var centerMat = new THREE.ShaderMaterial({
     vertexShader: vs,
     fragmentShader: fs,
-    uniforms:{ transparency:this.transparency },
+    uniforms:{ 
+      transparency:this.transparency,
+      lightPos: this.lightPos 
+    },
     side: THREE.DoubleSide,
     transparent: true
   });
@@ -120,9 +137,10 @@ function LoadBar(){
 LoadBar.prototype.onMouseMove = function( e ){
 
   this.lookPosition.x = 2 * e.clientX - G.w / 2
-  this.lookPosition.z = 2 * ( e.clientY - (G.h / 2 ))
+  this.lookPosition.y = -2 * ( e.clientY - (G.h / 2 ))
 
-  //console.log( this.lookPosition )
+  this.lookPosition.applyQuaternion( G.camera.quaternion )
+
 
 }
 
@@ -204,6 +222,7 @@ LoadBar.prototype.update = function(){
 
 	this.time.value += .1
 
+
   if( !this.ending ){
 
 
@@ -226,6 +245,8 @@ LoadBar.prototype.update = function(){
     this.updatePercentMesh();
 
   }
+
+  this.lightPos.value.copy( G.camera.position )
 
 }
 
@@ -335,6 +356,7 @@ LoadBar.prototype.onLoad = function( percent ){
 	this.percentLoaded.value = percent
 
 
+  G.onResize();
 
   var p = Math.floor( Math.min( 1 , this.percentLoaded.value ) * 100 )
 

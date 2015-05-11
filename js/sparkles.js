@@ -16,6 +16,7 @@ sparkles.addToInitArray( function(){
   });
 
   this.sectionParams.push({
+    
     cameraPosition: new THREE.Vector3( 0 , 0 , 995 ),
     transitionTime:500,
     textChunk:TEXT.SPARKLES[1],
