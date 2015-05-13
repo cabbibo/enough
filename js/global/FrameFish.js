@@ -191,30 +191,38 @@ FrameFish.prototype.resetPositions = function(){
 
   texture.needsUpdate = true;
 
+
   this.soul.reset( texture );
 
   for( var i =0;i< this.params.joints; i++ ){
+    G.renderer.set
     this.textureArray[i] = this.soul.output[i * this.params.jointSize];
    // console.log( this.textureArray[i] );
+   console.log( this.textureArray[i] )
+   //this.textureArray[i].needsUpdate = true;
+
   }
 
-  this.ribbon.material.uniformsNeedUpdate = true;
-
+  this.ribbon.material.needsUpdate = true;
 
 
 
 }
 
+
 FrameFish.prototype.activate = function( scene ){
 
-  scene.add( this.ribbon );
+  this.counter.value = 0;
+  this.added = false;
   this.simulationActive = true;
+  this.toAddScene = scene;
 
 }
 
 FrameFish.prototype.deactivate = function( scene ){
 
-  scene.remove( this.ribbon );
+  this.toAddScene = scene;
+  this.toAddScene.remove( this.ribbon );
   this.simulationActive = false;
 
 }
@@ -223,7 +231,12 @@ FrameFish.prototype.update = function(){
 
   this.counter.value ++;
 
+
   if( this.simulationActive ){
+    if( this.added == false && this.counter.value > 32 ){ 
+      this.added = true;
+      this.toAddScene.add( this.ribbon )
+    }
 
     this.soul.update();
     

@@ -26,6 +26,7 @@ function Global(){
     ['logo'             , 'img/icons/cabbibo.png'           ],
     ['toggleOpen'       , 'img/sprite/eyeOpened.png'        ],
     ['toggleClose'      , 'img/sprite/eyeClosed.png'        ],
+    ['postprocessingOn' , 'img/sprite/lightIcon.png'        ],
 
   ]
 
@@ -658,6 +659,7 @@ Global.prototype.animate = function(){
     //this.composer.pass( this.denoisePass ); 
     //this.composer.pass( this.vignettePass  );
 
+    this.vignette2Pass.params.reduction = 3
     this.composer.pass( this.vignette2Pass );
     this.noisePass.params.speed = 1;
     this.composer.pass( this.noisePass );

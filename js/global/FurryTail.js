@@ -1,4 +1,4 @@
-  
+
 
   function FurryTail( group , params ){
 
@@ -238,9 +238,6 @@
     this.pTexture.needsUpdate = true;
 
     this.physicsRenderer.reset( this.pTexture );
-    this.physicsRenderer.reset( this.pTexture );
-    this.physicsRenderer.reset( this.pTexture );
-    this.physicsRenderer.reset( this.pTexture );
 
     this.position.copy( position );
 
@@ -249,14 +246,22 @@
   FurryTail.prototype.activate = function( position ){
 
     if( position ){ this.transport( position ); }
+
+    this.addingTimer = 0;
+    console.log('sss')
+
+    this.active = true;
+
+  }
+
+  FurryTail.prototype.addToScene = function(){
+
     this.page.scene.add( this.leader );
     this.page.scene.add( this.physicsParticles );
     this.page.scene.add( this.line );
     this.page.scene.add( this.leader );
     this.page.scene.add( this.head.mesh );    
 
-
-    this.active = true;
 
   }
 
@@ -275,6 +280,14 @@
 
 
   FurryTail.prototype.updatePhysics = function(){
+
+    if( typeof( this.addingTimer ) == "number" ){ 
+      var o = this.addingTimer;
+      this.addingTimer ++;
+      if( o < 16 && this.addingTimer == 16 ){
+        this.addToScene();
+      }
+    }
 
 
     // attract to bait    *from group*
