@@ -1,8 +1,8 @@
 function TreeLight( page , params){
 
-  console.log( G.TEXTURES.sand );
-  console.log( params.color );
-  console.log( page.lightParams.normalScale );
+  //console.log( G.TEXTURES.sand );
+  //console.log( params.color );
+  //console.log( page.lightParams.normalScale );
 
   var mat = new THREE.ShaderMaterial({
 
@@ -43,8 +43,8 @@ function TreeLight( page , params){
   light.texture = params.loadedAudio.texture;
   light.color   = params.color;
 
-  console.log('texture');
-  console.log( light.texture );
+  //console.log('texture');
+  //console.log( light.texture );
 
   light.name = params.name;
   light.radius = params.radius;
@@ -97,7 +97,9 @@ function TreeLight( page , params){
       if( this.page.lights[i] !== this ){
 
         var f =  this.page.lights[i].audio.filter;
-        f.frequency.value = f.frequency.maxValue;
+        //console.log('MAXV')
+        //console.log( f.frequency.maxValue )
+        f.frequency.value = 40000//f.frequency.maxValue;
 
       }
 

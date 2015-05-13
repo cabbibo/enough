@@ -72,7 +72,7 @@ void main(){
   vec2 sCoord =  vec2( xF , yF );
 
   float distance = texture2D(t_text , sCoord ).a;
-  float lum = smoothstep( 0.5 - smoothing , 0.5 + smoothing , distance );
+  float lum = smoothstep( 0.4 - smoothing , 0.4 + smoothing , distance );
   float alpha = lum; //1. - lum;
 
   float simplex = vLookup.w; //abs(vLookup.w);
@@ -81,23 +81,39 @@ void main(){
   gl_FragColor = vec4( vec3( 1. , 1. , 1. )*mult, alpha * opacity );
 
 
+  vec3 col = vec3( 1. );
+  if( distance < .6 ){
+
+    col = vec3( 0. , 0. , 0. );
+    discard;
+  }
+
+
   if( gl_PointCoord.x < xP + wOPercent ){
     alpha = 0.; //discard;
+    discard;
+
   }
 
 
   if( gl_PointCoord.x > xP + wP + wOPercent){
     alpha = 0.; //discard;
+    discard;
+
   }
 
   if( (1.-gl_PointCoord.y) > yP + belowP  ){
     alpha = 0.; //discard;
+    discard;
+
   }
 
   float lowerBound = (yO - h + glyphBelow)/totalSize;
   
   if( (1.-gl_PointCoord.y) < lowerBound  ){
     alpha = 0.; //discard;
+    discard;
+
   }
 
 
@@ -106,7 +122,8 @@ void main(){
   float b = abs( sin( simplex * 1. ));
   vec3 red  = vec3( r , g , b);
   vec3 blue = vec3( 0. , -.2 , .4 ) * gl_PointCoord.y;
-   gl_FragColor = vec4(vec3( 1.)*mult , alpha * opacity );
+   
+  gl_FragColor = vec4(col, alpha * opacity );
 
 /*
   

@@ -7,29 +7,38 @@ crystals.addToInitArray( function(){
   this.sol  = false;
 
   this.sectionParams.push({
-    cameraPosition:new THREE.Vector3(  500 , 1000 , 1400 ),
-    textChunk:[
-      "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
-      "","",
-      "They spewed sparkles into the world around him."
-    ].join("\n" ),
+    cameraPosition:new THREE.Vector3(  2000 , 2000 , -2000 ),
+    lookPosition:new THREE.Vector3(  -1000 , 00 , -500 ),
+    
+    textChunk:TEXT.CRYSTALS[0],
 
   });
 
+  /*this.sectionParams.push({
+    cameraPosition:new THREE.Vector3(  00 , 500 , 1000 ),
+    lookPosition:new THREE.Vector3(  -500 , 00 , 0 ),
+    
+    textChunk:[
+      "After an eternity of drifting through the ether, Mani discovered a land of crystals.",
+      "","",
+      "They spewed sparkles into the world around him, and Mani’s entire being shimmered with glee. So splendid they stood, stoic yet playful, each with its own voice and melody."
+    ].join("\n" ),
+
+  });*/
+
+
+
 
   this.sectionParams.push({
-    cameraPosition:new THREE.Vector3( -500 , 1000 , 3600  ),
-    textChunk:[
-      "Their simple existence filled Mani with wonder. Why were they here? How could they sing? What were they saying?",
-      "","",
-      "He explored the crystals, dancing with delight through their glistening glitter. How could they be? What could they be?"
-    ].join("\n"),
+    cameraPosition:new THREE.Vector3( -100 , 1000 , 1600  ),
+    textChunk:TEXT.CRYSTALS[1],
     start:function(){
       for( var i = 0; i < this.page.crystals.length; i++ ){
 
         var c = this.page.crystals[i];
-        if( i !== 0 && i !== 1 && i !== 2 && i !== 3 && i !== 9){
-          
+        if( i == 0 || i == 1 || i == 2 || i == 3 || i == 5){
+         
+         //console.log('HELLOS') 
           if( !c.selected ) c.select();
         
         }else{
@@ -43,25 +52,40 @@ crystals.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition:new THREE.Vector3( 2500 , 1000 , -400  ),
-    textChunk:[
-      "He felt a certain camaraderie with the crystals, the simple fact that they were not the darkness made him approach them with a sense of reverence.",
-      "","",
-      "But as Mani wondered, so he wandered, and after he determined the crystals to be thoroughly explored, he moved onwards."
-    ].join("\n"),
+    cameraPosition:new THREE.Vector3( 0 , 1000 , 1400  ),
+    lookPosition:new THREE.Vector3( -300 , 00 , -600  ),
+
+    textChunk:TEXT.CRYSTALS[2],
     start:function(){
       for( var i = 0; i < this.page.crystals.length; i++ ){
         var c = this.page.crystals[i];
-        if(  i !== 3 && i !== 9 ){
+        //if(  i !== 3 && i !== 9 ){
           if( !c.selected ) c.select();
-        }else{
-          if( c.selected ) c.select();
-        }
+        //}else{
+        //  if( c.selected ) c.select();
+        //}
       }
     }
   });
 
-  this.position.set(  500 , -2000 , 1400 );
+  this.sectionParams.push({
+    cameraPosition:new THREE.Vector3( 0 , 2000 , 2400  ),
+    lookPosition:new THREE.Vector3( -300 , 00 , -600  ),
+
+    textChunk:TEXT.CRYSTALS[3],
+    start:function(){
+      for( var i = 0; i < this.page.crystals.length; i++ ){
+        var c = this.page.crystals[i];
+        //if(  i !== 3 && i !== 9 ){
+          if( !c.selected ) c.select();
+        //}else{
+        //  if( c.selected ) c.select();
+        //}
+      }
+    }
+  });
+
+  this.position.set(  -2500 , -2000 , 3400 );
   
   this.iPlaneDistance = 1200;
 
@@ -70,28 +94,28 @@ crystals.addToInitArray( function(){
    
    {
     
-      note:'heavyBeat',
-      height:150
+      note:'plipPlop1',
+      height:350
 
     },
 
     {
     
-      note:'tooth',
-      height:200
+      note:'bass',
+      height:400
 
     },
 
     {
     
-      note:'sniperShivers',
-      height:150
+      note:'plipPlop2',
+      height:350
 
     },
     {
       
-      note:'darkFast',
-      height:200,
+      note:'shuffle',
+      height:600,
       //color1: new THREE.Color( 
 
     },
@@ -105,61 +129,24 @@ crystals.addToInitArray( function(){
 
     {
     
-      note:'sniperGlory1',
-      height:100
+      note:'heartbeat',
+      height:600
 
     },
 
     {
     
-      note:'shuffleClick',
-      height:100
+      note:'atmosphere',
+      height:600
 
     },
 
     {
     
-      note:'sniperDetail2',
-      height:150
+      note:'burial',
+      height:600
 
     },
-
-    /* {
-    
-      note:'sniperGlory1',
-      height:200
-
-    },*/
-
-    {
-    
-      note:'sniperGlory2',
-      height:300
-
-    },
-
-    {
-    
-      note:'sniperDetail1',
-      height:350
-
-    },
-
-    {
-    
-      note:'sniperSnare',
-      height:300
-
-    },
-
-    /*{
-    
-      note:'tooth',
-      height:300
-
-    },*/
-
-
 
 
 
@@ -177,7 +164,7 @@ crystals.addToInitArray( function(){
 
 crystals.addToInitArray( function(){
   
-  var f = 'audio/pages/crystals/'
+  var f = 'audio/global/friends/'
 
   for( var i = 0; i < this.crystalParams.length; i++ ){
     
@@ -213,6 +200,11 @@ crystals.addToStartArray( function(){
 
   G.iPlaneDistance = 1200;
 
+  //this.lightRays = new LightRays();
+  //this.lightRays.body.scale.multiplyScalar( 2000 );
+  //this.scene.add( this.lightRays);
+
+
 
 
   //G.iPlane.visible = true;
@@ -224,7 +216,7 @@ crystals.addToStartArray( function(){
 
   G.tmpV3.set( -500 , 400 , 0 );
 
-  console.log('CRYSTALS STARTED' );
+ // console.log('CRYSTALS STARTED' );
 
   var globalLightPos = this.position.clone().add( G.tmpV3 );
 
@@ -419,7 +411,7 @@ crystals.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 88,
+    beatsPerMinute: 96,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
@@ -449,8 +441,11 @@ crystals.addToStartArray( function(){
 
     var crystal = new Crystal( this , this.crystalParams[i] );
 
-    crystal.scene.position.x = (1-i) * 50;
-    crystal.scene.rotation.z = (i-1)/2;
+    //crystal.scene.position.x = (1-i) * 50;
+    //crystal.scene.rotation.z = (i-1)/2;
+    //
+    crystal.scene.position.z = 200;
+    crystal.scene.position.x = (i -1) * 200
     this.crystals.push( crystal );
 
     crystal.activate( centerCrystals ); 
@@ -470,7 +465,7 @@ crystals.addToStartArray( function(){
     var crystal = new Crystal( this , this.crystalParams[i] );
 
 
-    var t = 2 * Math.PI * x;
+    var t =  Math.PI * (x +1);
 
     var rX = 400 * Math.cos( t );
     var rY = 400 * Math.sin( t );
@@ -492,8 +487,8 @@ crystals.addToStartArray( function(){
 
   }
 
-  this.crystals[5].select();
-  this.crystals[4].select();
+  this.crystals[0].select();
+  this.crystals[2].select();
 
  
 }.bind( crystals ) );
@@ -503,7 +498,6 @@ crystals.addToStartArray( function(){
   this.looper.start();
 
 }.bind( crystals ) );
-
 
 crystals.addToActivateArray( function(){
 
@@ -523,7 +517,7 @@ crystals.addToAllUpdateArrays( function(){
   for( var i = 0; i < this.crystals.length; i++ ){
     this.crystals[i].update();
   }
-  
+
 }.bind( crystals ));
 
 crystals.addToEndArray( function(){

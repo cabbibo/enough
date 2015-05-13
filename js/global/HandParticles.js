@@ -63,7 +63,7 @@ function HandParticles( hand , size ){
 //  this.physics.createDebugScene();
 //  this.physics.addDebugScene( G.scene );
 
-  console.log( 'HELLO' );
+  //console.log( 'HELLO' );
 
 }
 
@@ -89,7 +89,7 @@ HandParticles.prototype.update = function(){
 
 HandParticles.prototype.activate = function(){
 
-  console.log('ASDASASBAS');
+ // console.log('ASDASASBAS');
   G.scene.add( this.particles );
   this.active = true;
 

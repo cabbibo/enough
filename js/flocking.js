@@ -10,29 +10,35 @@ flocking.addToInitArray( function(){
 
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  100 , 2000 , 100 ) ,
-    textChunk:[
-      "Mani could not believe that he had been distracted by the sparkles. It was too much to bear. Too much to remember the love that he felt for his friends, that he felt for Sol. Around him the cold ribbons flocked, and though he found movement was soothing, he still felt an ultimate dispair."
-    ].join("\n" ), 
+    cameraPosition: new THREE.Vector3(  2000  , 2000 , 500 ) ,
+    textChunk:TEXT.FLOCKING[0],
+    
+   fish: true 
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -200 , 800 ,1400 )  ,
-    textChunk:[
-      "The small ribbons of light moved gently around Mani, but he could only imagine them as ghosts of his golden friends. As angelic as their song seemed, it was not enough, and Mani resigned himself to a well of sorrow",
-      "","",
-      "As Mani came to the realization that he would never find what he was missing, would never fill that void in his soul, he settled down on the floor beneath the fish, ready for the quiet to come, and waited."
-    ].join("\n" ),
+    textChunk:TEXT.FLOCKING[1],
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        if( i == 1 ||  i == 3 ){
+          this.coral[i].deactivate();
+        }else{
+          this.coral[i].activate();
+        }
+
+      }
+
+    }.bind(this),
+   fish: true 
 
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 400 , 1000 ) ,
-    textChunk:[
-      "Mani could feel the darkness inch in around him, winding its icy grip around the deepest part of his being, and he lay, paralyzed with heartache.",
-      "","",
-      "In his final moments, Mani remembered fondly the crystals , tendrils and tree. He thought of Sol and her compassionate movements and  of his friends circling the glowing planets.  The ground found him and he sank slowly into a dreamless sleep."
-    ].join("\n" ),
+    textChunk:TEXT.FLOCKING[2],
     start:function(){
       G.tmpV3.set( 0 , 100 , 0 );
       G.iPlane.position.copy( this.page.position.clone().add(G.tmpV3 ));
@@ -44,17 +50,60 @@ flocking.addToInitArray( function(){
       G.iPlane.position.copy( this.page.position.clone().add(G.tmpV3 ));
       G.tmpV3.set( 0 , 209 , 0 )
       G.iPlane.lookAt( this.page.position.clone().add( G.tmpV3 ) )
-    }
+    },
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        if( i == 0 || i == 1 || i == 2 || i == 3 ){
+          this.coral[i].activate();
+        }else{
+          this.coral[i].deactivate();
+        }
+
+      }
+
+    }.bind(this),
+
+   fish: true 
+    
   });
 
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(   500 , 1000 , 1000 ) ,
+    textChunk:TEXT.FLOCKING[3], 
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        this.coral[i].deactivate();
+      }
+
+    }.bind(this),
+
+   fish: true 
+    
+  });
   
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(   0 , 1000 , 100 ) ,
-    textChunk:[
-      "Then, as he began his descent into nothingness, Mani saw a sparkle.",
-      "","",
-      "At first he thought of it with disdain. It was sparkles distracted him, that had made him lose his first and only friends, but as more and more fell upon his melancholy form, he felt compelled to rise and follow."
-    ].join("\n" ), 
+    cameraPosition: new THREE.Vector3(   1000 , 2000 , 1000 ) ,
+    textChunk:TEXT.FLOCKING[4], 
+    start:function(){
+
+      for( var  i = 0; i < this.coral.length; i++ ){
+
+        
+        if( i == 0 || i == 1 || i == 2 || i == 3 || i == 4 ){
+          this.coral[i].activate();
+        }else{
+          this.coral[i].deactivate();
+        }
+      }
+
+    }.bind(this),
+
+   fish: true 
+    
   });
 
 
@@ -123,6 +172,9 @@ var f = 'img/matcap/';
 
   this.loadShader( 'coralFloor' , f + 'fs-coralFloor' , 'fragment' );
   this.loadShader( 'coralFloor' , f + 'vs-coralFloor' , 'vertex' );
+
+  this.loadShader( 'coralBase' , f + 'fs-coralBase' , 'fragment' );
+  this.loadShader( 'coralBase' , f + 'vs-coralBase' , 'vertex' );
 
   this.loadShader( 'coral' , f + 'fs-coral' , 'fragment' );
   this.loadShader( 'coral' , f + 'vs-coral' , 'vertex' );
@@ -205,24 +257,32 @@ flocking.addToStartArray( function(){
     var p = new THREE.Vector3( cp[0] , cp[1] , cp[2] );
     p.multiplyScalar( 50 );
 
-    console.log( p );
+    //console.log( p );
     var audio = G.AUDIO[ this.audioArray[i] ];
     var coral = new Coral( this , audio , p );  
     
     this.coral.push( coral );
 
-    coral.deactivate();
+    var base = new CoralBase( coral );
+    coral.base = base;
+    base.body.position.x = p.x;
+    base.body.position.z = p.z;
+    this.scene.add( base.body );
+
+    coral.activate();
+    
   }
 
 
   this.flock = new Flock( this.coral , {
-    size: 16
+    pos: this.scene.position,
+    size:8
   });
 
   this.flock.activate( this.scene );
 
-  this.floor = new CoralFloor( this.coral );
-  this.scene.add( this.floor.body );
+//  this.floor = new CoralFloor( this.coral );
+ // this.scene.add( this.floor.body );
   /*var debugScene = this.flock.soul.createDebugScene();
   debugScene.scale.multiplyScalar( 20. );
   this.scene.add( debugScene );*/

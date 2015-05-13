@@ -8,21 +8,9 @@ tree.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 2000 , 1000 , 3000 ),
-    textChunk:[
-      "By now Mani was growing tired. He had been traveling forever, but still did not know where he was, who he was, why he was. The crystals were majestic, and the forest filled with dignity, but still the darkness was overwhelming, and the hole in his heart reminded.",
-      "","",
-      "Mani was alone."
+    lookPosition: new THREE.Vector3( 1000, 00 , 00 ),
 
-    ].join("\n" ), 
-  });
-
-  this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 1000 , 1200 , 2000 ),
-    textChunk:[
-      "The haunting tree that stood before him mirrored the sadness Mani felt. How could he be part of this world without a purpose. Crystals hummed and the trees murmured. They knew their task and performed it with a quiet nobility.",
-      "","",
-      "But Mani could not tell what his truth was."
-    ].join("\n" ),
+    textChunk:TEXT.TREE[0], 
     start:function(){
       for( var i =0 ; i < this.page.lights.length; i++ ){
 
@@ -31,13 +19,35 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          this.page.lights[i].name === 'snare' ||
-          //this.page.lights[i].name === 'startingOver' ||
-          this.page.lights[i].name === 'lup' ||
-         // this.page.lights[i].name === 'glo' ||
-          this.page.lights[i].name === 'allRight' //||
-          //this.page.lights[i].name === 'tongue' //||
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' 
+
+        ){
+          this.page.lights[i].select();
+        }
+
+      }
+    }
+
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 1000 , 1200 , 2000 ),
+    lookPosition: new THREE.Vector3( 1000, 00 , -1000 ),
+
+    textChunk:TEXT.TREE[1], 
+    start:function(){
+      for( var i =0 ; i < this.page.lights.length; i++ ){
+
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
+        }
+
+        if( 
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeChant1'  || 
+          this.page.lights[i].name === 'treeChant2'  
         ){
           this.page.lights[i].select();
         }
@@ -48,9 +58,9 @@ tree.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -1000 , 200 , 2000 ),
-    textChunk:[
-      "He dejectedly chased the lights that moved around the tree, hoping their shininess would make him forget his loneliness. But even they could not quell the feeling that maybe the tree and the crystals would be the only friends he would have.",
-    ].join("\n" ),
+    lookPosition: new THREE.Vector3( 1000, 200 , -300 ),
+    
+    textChunk:TEXT.TREE[2], 
     start:function(){
       for( var i =0 ; i < this.page.lights.length; i++ ){
 
@@ -59,12 +69,13 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          //this.page.lights[i].name === 'snare' ||
-         // this.page.lights[i].name === 'startingOver' ||
-          this.page.lights[i].name === 'lup' ||
-          this.page.lights[i].name === 'glo' ||
-          this.page.lights[i].name === 'tongue' //||
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeChant1'  || 
+          this.page.lights[i].name === 'treeChant2'  ||
+          this.page.lights[i].name === 'treeHalleBounce'  ||
+          this.page.lights[i].name === 'treeVoices'  
+
         ){
           this.page.lights[i].select();
         }
@@ -74,13 +85,8 @@ tree.addToInitArray( function(){
   });
     
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  -3000 , 0 , 100  ),
-    textChunk:[
-      "Mani was ready to give up. What was the point of his existence if it was to be spent, alone in the dark that would eventually consume him.",
-    "","",
-    "Mani approached the tree, ready to curl around its base and rest until the pain, the storm in his soul, had passed. He would lie there forever, until he was one with the dark, if need be.",
-
-    ].join("\n" ),
+    cameraPosition: new THREE.Vector3(  -4000 , 0 , 100  ),
+    textChunk:TEXT.TREE[3], 
     start:function(){
       for( var i =0 ; i < this.page.lights.length; i++ ){
 
@@ -89,13 +95,8 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          //this.page.lights[i].name === 'snare' ||
-         // this.page.lights[i].name === 'startingOver' ||
-          //this.page.lights[i].name === 'lup' ||
-          this.page.lights[i].name === 'glo'// ||
-          //this.page.lights[i].name === 'tongue' //||
-
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeVoices'  
         ){
           this.page.lights[i].select();
         }
@@ -104,13 +105,100 @@ tree.addToInitArray( function(){
     }
   });
 
-   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3(  -3000 , 0 , -300  ),
-    textChunk:[
-      "Then, Mani heard a melody more sweet than he could imagine. A color more vibrant than he could comprehend. At first he didn’t understand, was this just another sparkling object, coming to remind him of his loneliness? Another frail attempt to extinguish the lonliness which consumed him?",
-    "","",
-    "Or was it a creature, like him? Another friend, lost in the darkness, yearning for truth?"
-    ].join("\n" ),
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  -3000 , 100 , 300  ),
+    lookPosition: new THREE.Vector3(  0 , 0 , 600  ),
+    textChunk:TEXT.TREE[4], 
+    start:function(){
+
+      
+      for( var i =0 ; i < this.page.lights.length; i++ ){
+
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
+        }
+
+        if( 
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeVoices'  
+
+
+        ){
+          this.page.lights[i].select();
+        }
+
+      }
+    }
+
+  });
+
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  -2000 , 400 , 300  ),
+    lookPosition: new THREE.Vector3(  0 , 400 ,600  ),
+    textChunk:TEXT.TREE[5], 
+    start:function(){
+
+      
+      for( var i =0 ; i < this.page.lights.length; i++ ){
+
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
+        }
+
+        if( 
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeChant1'  || 
+          this.page.lights[i].name === 'treeChant2'  ||
+          this.page.lights[i].name === 'treeVoices'  
+
+
+        ){
+          this.page.lights[i].select();
+        }
+
+      }
+    }
+
+  });
+
+
+this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  -1000 , 0 , 0  ),
+    lookPosition: new THREE.Vector3(  0 , 400 ,600  ),
+    textChunk:TEXT.TREE[6], 
+    start:function(){
+
+      
+      for( var i =0 ; i < this.page.lights.length; i++ ){
+
+        if( this.page.lights[i].playing ){
+          this.page.lights[i].select();
+        }
+
+        if( 
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+
+          this.page.lights[i].name === 'treeMelody'  ||
+          this.page.lights[i].name === 'treeVoices'  
+
+        ){
+          this.page.lights[i].select();
+        }
+
+      }
+    }
+
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  -2000 , -400 , -300  ),
+    lookPosition: new THREE.Vector3(  0 , 400 ,600  ),
+    textChunk:TEXT.TREE[7], 
     start:function(){
       G.sol.activate();
 
@@ -124,23 +212,22 @@ tree.addToInitArray( function(){
         }
 
         if( 
-          this.page.lights[i].name === 'snare' ||
-          //this.page.lights[i].name === 'startingOver' ||
-          this.page.lights[i].name === 'lup' ||
-          this.page.lights[i].name === 'glo' ||
-          //this.page.lights[i].name === 'allRight' ||
-          this.page.lights[i].name === 'game' ||
-          this.page.lights[i].name === 'tongue' //||
-          
-          //this.page.lights[i].name === 'startingOver' ||
+          this.page.lights[i].name === 'treeMurmur1' ||
+          this.page.lights[i].name === 'treeMurmur2' ||
+          this.page.lights[i].name === 'treeChant1'  || 
+          this.page.lights[i].name === 'treeChant2'  ||
+          this.page.lights[i].name === 'treeHalleBounce'  ||
+          this.page.lights[i].name === 'treeVoices'  ||
+          this.page.lights[i].name === 'treeMelody'  ||
+          this.page.lights[i].name === 'treeBounce'  
+
         ){
           this.page.lights[i].select();
         }
 
       }
-
-
     }
+
   });
 
 
@@ -158,14 +245,14 @@ tree.addToInitArray( function(){
   this.lightParamArray = [
       
     {
-      audio:"lup",
+      audio:"treeHalleBounce",
       color: new THREE.Vector3( .2  , 0. , .9 ),
       position: new THREE.Vector3(),
       early: true
     },
 
     { 
-      audio:"snare",
+      audio:"treeVoices",
       color: new THREE.Vector3( 0. , .4 , .8 ),
       position: new THREE.Vector3(),
       early: true
@@ -173,7 +260,7 @@ tree.addToInitArray( function(){
     },
 
     { 
-      audio:"glo",
+      audio:"treeMurmur1",
       color: new THREE.Vector3( .2 , .3 , .9 ),
       position: new THREE.Vector3(),
       early: true
@@ -181,33 +268,43 @@ tree.addToInitArray( function(){
     },
 
     { 
-      audio:"allRight",
+      audio:"treeMurmur2",
       color: new THREE.Vector3( .3 , .5 , 1 ),
       position: new THREE.Vector3(),
       early: true
     },
 
     { 
-      audio:"startingOver",
+      audio:"treeChant1",
       color: new THREE.Vector3( .4 , .5 , .8 ),
       position: new THREE.Vector3(),
       early: true
     },
 
     { 
-      audio:"tongue",
+      audio:"treeChant2",
       color: new THREE.Vector3( .1 , .4 , .9  ),
       position: new THREE.Vector3(),
       early: true 
     },
 
      { 
-      audio:"game",
+      audio:"treeBounce",
+      color: new THREE.Vector3( .1 , .5 , .8 ),
+      position: new THREE.Vector3(),
+      early:true 
+
+    },
+
+    { 
+    
+      audio:"treeMelody",
       color: new THREE.Vector3( 1. , .4 , .1 ),
       position: new THREE.Vector3(),
       early: false
 
     },
+
 
   ]
 
@@ -273,7 +370,7 @@ tree.addToInitArray( function(){
 // Need to load at least 1 thing
 tree.addToInitArray( function(){
   
-  console.log('TREE INIT' );
+//  console.log('TREE INIT' );
 
 
   var f = 'pages/tree/';
@@ -422,9 +519,9 @@ tree.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 120,
+    beatsPerMinute:  85,
     beatsPerMeasure: 4,
-    measuresPerLoop: 8
+    measuresPerLoop: 4
 
   });
 
@@ -482,13 +579,10 @@ tree.addToStartArray( function(){
 
     this.lights[i].select();
 
-    console.log( this.lights[i].name );
+    //console.log( this.lights[i].name );
     if( 
-      this.lights[i].name === 'snare'       ||
-      this.lights[i].name === 'glo'         ||
-      this.lights[i].name === 'allRight'    ||
-      this.lights[i].name === 'startingOver'  
-
+      this.lights[i].name === 'treeMurmur1'
+      
     ){
 
       this.lights[i].select();
@@ -610,7 +704,7 @@ tree.addToAllUpdateArrays( function(){
    // d = 1000;
     if( d < 10 ){
 
-      console.log('HIT HIT HIT HIT' );
+    //  console.log('HIT HIT HIT HIT' );
 
       this.maniAttractionLight = undefined;
 

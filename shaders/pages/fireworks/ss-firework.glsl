@@ -2,6 +2,7 @@ uniform sampler2D t_oPos;
 uniform sampler2D t_pos;
 uniform sampler2D t_start;
 uniform float dT;
+uniform float time;
 
 uniform float exploded;
 uniform float alive;
@@ -29,6 +30,7 @@ void main(){
   vec3 vel  = pos.xyz - oPos.xyz;
   vec3 p    = pos.xyz;
 
+
   float life = pos.w;
   
   vec3 f = vec3( 0. , 0. , 0. );
@@ -45,27 +47,17 @@ void main(){
  
   if( exploded > .5 ){
     
-    vec3 curl = curlNoise( pos.xyz * .02 );
-    f += curl* .005;
-    f += vec3(0. , -.007 ,0.);
+    //vec3 curl = curlNoise( pos.xyz * .1 );
+    //f += curl* .05;
+    f += vec3(0. , -.03 ,0.);
  
   }
  
- /* vec3 curl = curlNoise( pos.xyz * .002 );
-  f+= curl* .5;
-*/
-
 
 
   vel += f;
   vel *= .99;//dampening;
 
-
-  /*if( length(vel) > 5. ){
-
-    vel = normalize( vel ) * 5.;
-
-  }*/
 
 
   if( life > 10. ){
@@ -79,7 +71,7 @@ void main(){
 
   if( life == 0. ){
  
-    p = texture2D( t_start , vUv ).xyz * 10. + target.xyz;
+    p = texture2D( t_start , vUv ).xyz * 1.2 + target.xyz;
 
     vel = direction;
    // vel *= 0.;
@@ -87,84 +79,57 @@ void main(){
   }
 
 
+  
+  // We get 1 frame of explosion
   if( explosion > .1 ){
      
-
-    //p = texture2D( t_start , vUv ).xyz + target.xyz;
-    //vel = direction * 
-    
-   // vel = direction* .0;
-    vec3 curl = curlNoise( pos.xyz * .01 * sin(vUv.y) * cos(vUv.x));
-    //vel += curl * 6.;  
-
-    // pastry:
-   // vec3 esp = vec3(sin(vUv.y* 100.) , cos( vUv.y*100. ) , sin( vUv.x * vUv.y * 100. ) )  * 5.;  
+    float type = abs(sin(sin( vUv.y * 75.89 + time ) * 1816. + 8962. * sin( vUv.x * 51.35 * time )));
 
     vec3 esp = direction;
 
-    if( explosionType < .3 ){
-      esp += vec3( 1. * floor( vUv.x * 6. ) +sin(vUv.y* 100.)*.3  , 1. ,  1. * floor( vUv.y * 6. )+sin(vUv.x* 100.)*.3   );
-
-      esp *= 2.;
-
-    }else if( explosionType > .3 && explosionType < .6 ){
-
-      esp += vec3(sin(vUv.y* 100.) , cos( vUv.y*100. ) , sin( vUv.x * vUv.y * 100. ) )  * 5.;  
-
-
-    }else if( explosionType > .6 && explosionType < .9 ){
-
-      esp += 4. * curlNoise( pos.xyz * .01 * sin(vUv.y) * cos(vUv.x));
-
-    }else if( explosionType > .9 && explosionType < .91 ){
-
-
-      esp +=  floor( vUv.y * vUv.x * 100. ) * direction * .1; //4. * curlNoise( pos.xyz * .01 * sin(vUv.y) * cos(vUv.x));
+    vec3 curl = curlNoise( pos.xyz * .01 * sin(vUv.y) * cos(vUv.x));
      
-      float t =vUv.x * 3.14159 * 2.;
-    
-      vec3 x = vec3(0.);
+    vec3 di = vec3( 0. );
+    float c = floor( vUv.y * 6. );
 
-      x.x += sin( t ) * 4.;
-      x.z += cos( t ) * 4.;
+    if( c < 1. ){
+      di = vec3( 1. , 0. , 0. );
+    }else if( c < 2. && c >= 1. ){
+      di = vec3( -1. , 0. , 0. );
+    }else if( c < 3. && c >= 2. ){
+      di = vec3( 0. , 1. , 0. );
+    }else if( c < 4. && c >= 3. ){
+      di = vec3( 0. , -1. , 0. );
+    }else if( c < 5. && c >= 4. ){
+      di = vec3( 0. , 0. , 1. );
+    }else{
+      di = vec3( 0. , 0. , -1. );
+    }
 
-      esp += x;
+  
 
+    float v = 1. / 6.;
+    if( explosionType < v ){ 
+      vel += esp * 2. + di * 4.;
+    }else if( explosionType >= v * 1. && explosionType < v * 2. ){ 
+      vel += esp * 2. + vec3( vUv.x -.5, vUv.y-.5 , length( vUv )-1. ) * 5.;
+    }else if( explosionType >= v * 2. && explosionType < v * 3. ){ 
+      vel += esp * 2. + curl * 2.;
+    }else if( explosionType >= v * 3. && explosionType < v * 4. ){ 
+      vel += esp * 2. + 1. * vec3( sin( vUv.x * 20. ) , vUv.x * 10. , cos( vUv.x * 20. ) ) ;
+    }else if( explosionType >= v * 4. && explosionType < v * 5. ){ 
+      vel += esp * 3.;
+    }else if( explosionType >= v * 5. && explosionType < v * 6. ){ 
+      vel += esp * 2. + di * 4.;
     }else{
 
-      vec3 di = vec3( 0. );
-      float c = floor( vUv.y * 20. );
-
-      if( c < 1. ){
-        di = vec3( 1. , 0. , 0. );
-      }else if( c < 2. && c >= 1. ){
-        di = vec3( -1. , 0. , 0. );
-      }else if( c < 3. && c >= 2. ){
-        di = vec3( 0. , 1. , 0. );
-      }else if( c < 4. && c >= 3. ){
-        di = vec3( 0. , -1. , 0. );
-      }else if( c < 5. && c >= 4. ){
-        di = vec3( 0. , 0. , 1. );
-      }else{
-        di = vec3( 0. , 0. , -1. );
-      }
-
-
-      esp +=  di * 1.; //4. * curlNoise( pos.xyz * .01 * sin(vUv.y) * cos(vUv.x));
-     
 
     }
 
-
-    //wha:
-    //vec3( vUv.x , vUv.y , length( vUv ) );
-
-
-    vel += esp; //+ direction;//vec3( vUv.x -.5, vUv.y-.5 , length( vUv )-1. ) * 3.;
-  
+   
  
-    life = .1;
-   // vel += vec3( 0. , 10. , 0. );
+    life = 1.;
+   // vel += vec3( 0. , 1. , 0. );
   }
   
   p += vel * 1.;//speed;
@@ -179,12 +144,17 @@ void main(){
 
   if( exploded < .5 ){
 
-    p = texture2D( t_start , vUv ).xyz * 10. + target.xyz;
+    p = texture2D( t_start , vUv ).xyz + target.xyz;
     
    // p = texture2D( t_start , vUv ).xyz + target.xyz;
 
   }
 
+  float esp = life;
+
+  life += exploded * .1;
+  life = clamp( life , 0. , 2. );
+  
   gl_FragColor = vec4( p , life  );
 
 }

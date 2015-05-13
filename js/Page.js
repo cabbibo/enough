@@ -119,6 +119,8 @@ Page.prototype.update = function(){
 
     this.frame ++;
 
+    this.motes.update();
+
     if( this.addingStartArray === true ){
 
 
@@ -193,18 +195,21 @@ Page.prototype.update = function(){
 
   }
 
-
 }
 
 // Used to begin all the loading needed
 Page.prototype.init = function(){
 
-  console.log( 'PAGE INITILIZED  ' + this.name );
+  //console.log( 'PAGE INITILIZED  ' + this.name );
   this.initialized = true;
 
   for( var i = 0; i < this.initArray.length; i++ ){
     this.initArray[i]( this );
   }
+
+  
+  this.motes = new DustMotes();
+  this.scene.add( this.motes.body );
 
   this.createSections( this.sectionParams );
   this.assignSections();
@@ -229,6 +234,9 @@ Page.prototype.onLoad = function(){
 }
 
 Page.prototype.start = function(){
+
+  G.currentPage = this;
+  G.nextPage = this.nextPage;
 
   if( !this.loaded  ){
     alert('PAGE NOT LOADED ' + this.name);
@@ -260,6 +268,11 @@ Page.prototype.start = function(){
 
   G.scene.add( this.scene );
 
+  if( this.sections[0].frame.fish ){
+    this.sections[0].frame.fish.activate( this.scene );
+  }
+  this.sections[0].active = true;
+  
 
 }
 
@@ -446,7 +459,18 @@ Page.prototype.tweenCamera = function( newPos , length , callback , lookAtPos , 
 
   }.bind( this ));
 
+
   tween.onComplete( function(){
+
+    this.cameraPos.x = newPos.x ;
+    this.cameraPos.y = newPos.y ;
+    this.cameraPos.z = newPos.z ;
+
+    G.camera.position.copy( newPos );
+    G.objectControls.unprojectMouse();
+
+    G.lookAt.copy( lookAtPos );
+    G.camera.lookAt( G.lookAt );
 
     callback();
 
@@ -493,14 +517,20 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
   }.bind( mesh );
 
   mesh.select = function(){
-   
-    //console.
-    G.objectControls.remove( this );
-    this.parent.remove( this );
-    callback();
 
-  }.bind( mesh );
-  mesh.position.copy( G.camera.position.relative );
+    G.objectControls.remove( this );
+
+   // console.log( this )
+    this.parent.remove( this );
+    if( !this.beenClicked ){
+      callback();
+    }
+
+    this.beenClicked = true;
+
+  };//.bind( mesh );
+
+ /* mesh.position.copy( G.camera.position.relative );
 
   var forward  = new THREE.Vector3( 0 , 0 , -1 );
   forward.applyQuaternion( G.camera.quaternion );
@@ -518,9 +548,9 @@ Page.prototype.createTurnerMesh = function( offset , callback ){
   mesh.position.add(  G.tmpV3 );
 
   G.tmpV3.copy( mesh.position );
-  mesh.lookAt( G.tmpV3.sub( forward ) );
+  mesh.lookAt( G.tmpV3.sub( forward ) );*/
 
-  G.objectControls.add( mesh );
+ // G.objectControls.add( mesh );
 
   return mesh;
 
@@ -655,5 +685,11 @@ Page.prototype.loadShader = function( name , file , type ){
 
 }
 
+
+Page.prototype.resizeFrames = function(){
+  for( var i = 0; i < this.sections.length; i++ ){
+    this.sections[i].frame.createFrame( this.sections[i].frame.isFish );
+  }
+}
 
 

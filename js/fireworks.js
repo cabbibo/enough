@@ -23,28 +23,18 @@ fireworks.addToInitArray( function(){
   
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 1000 , 2000 ),
-    textChunk:[
-      "Mani and Sol slowly swam away from the creature. It sang to them as they retreated again into the darkness, lamenting its loss.",
-  "","",
-    "Like a small fire in the distance, it whispered its goodbyes, leaving Sol and Mani to circle a seemingly lonesome lake. Their reflections kept them company, and they danced in the darkness, as they had danced in the light." 
-    ].join("\n" ),
+    lookPosition: new THREE.Vector3( 500 , 0 , 0 ),
+    textChunk:TEXT.FIREWORKS[0],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 500 , 1000 , 2200 ),
-    textChunk:[
-      "In front of them glorious fireworks rose above the shimmering surface. They're golden sparkles reminded Mani of the first sparkles he had seen, coming from the crystals.",    "","",
-    "He remembered his lonliness, his confusion, as well as each wonder he had discovered. Even the lonely tree he circled was now firmly etched into his memory." 
-    ].join("\n" ),
+    textChunk:TEXT.FIREWORKS[1],
   });
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( -500 , 2000 , 2200 ),
-    textChunk:[
-      "Even as the two spiraled together, Mani remembered the Golden Diety that had invited him towards the light. He thought, heart filled with meloncholy, that maybe he was mistaken. That maybe he should have learned what was True, and become one with life.",
-    "","",
-    "But next to him, Sol swam. In the distance the sparkles shimmered. The water glistened below them, and Mani realized, this was Enough." 
-    ].join("\n" ),
+    textChunk:TEXT.FIREWORKS[2],
   });
 
 
@@ -63,6 +53,9 @@ fireworks.addToInitArray( function(){
   this.loadShader( 'firework' , f + 'ss-firework' , 'simulation' );
   this.loadShader( 'firework' , f + 'vs-firework' , 'vertex'     );
   this.loadShader( 'firework' , f + 'fs-firework' , 'fragment'   );
+
+  this.loadShader( 'fireworkLine' , f + 'vs-fireworkLine' , 'vertex'     );
+  this.loadShader( 'fireworkLine' , f + 'fs-fireworkLine' , 'fragment'   );
 
   this.loadShader( 'water' , f + 'vs-water' , 'vertex'     );
   this.loadShader( 'water' , f + 'fs-water' , 'fragment'   );
@@ -129,15 +122,15 @@ fireworks.addToStartArray( function(){
 
   this.fireworks = [];
 
-  console.log('WAS');
-  console.log( G );
+  //console.log('WAS');
+  //console.log( G );
   for( var i = 0;i < (this.audioArray.length*2); i++ ){
  
 
     var audio = G.AUDIO[  this.audioArray[i%this.audioArray.length]  ];
     audio.reconnect( this.gain );
 
-    console.log( audio );
+    //console.log( audio );
 
 
     var t = (i / (this.audioArray.length*2) ) * 2 * Math.PI ;
@@ -152,11 +145,8 @@ fireworks.addToStartArray( function(){
 
     var firework = new Firework( this ,{
       looper: this.looper,
-      size: 64,
+      size: 32,
       audio: audio,
-      vs: G.shaders.vs.firework,
-      fs: G.shaders.fs.firework,
-      ss: G.shaders.ss.firework,
       start: start,
     });
 
@@ -184,6 +174,27 @@ fireworks.addToStartArray( function(){
 
 
 
+ 
+  for( var i = 0; i < this.fireworks.length; i++ ){
+
+    this.fireworks[i].add();
+    //this.scene.add( this.fireworks[i].base );
+//    this.fireworks[i].randomExplosion();
+
+  }
+
+ // this.fireworks[0].randomExplosion();
+  //this.fireworks.activate();
+    
+  for( var i = 0; i < this.audioArray.length; i++ ){
+
+    //console.log(this.audioArray[i]);
+    var audio = G.AUDIO[  this.audioArray[i] ];
+    audio.gain.gain.value = 1;
+
+  }
+
+ // this.endMesh.add( this );
 
 }.bind( fireworks ) );
 
@@ -204,30 +215,15 @@ fireworks.addToActivateArray( function(){
 fireworks.addToActivateArray( function(){
 
 
-  for( var i = 0; i < this.fireworks.length; i++ ){
-
-    this.fireworks[i].add();
-    //this.scene.add( this.fireworks[i].base );
-//    this.fireworks[i].randomExplosion();
-
-  }
-
-  this.fireworks[0].randomExplosion();
-  //this.fireworks.activate();
-    
-  for( var i = 0; i < this.audioArray.length; i++ ){
-
-    //console.log(this.audioArray[i]);
-    var audio = G.AUDIO[  this.audioArray[i] ];
-    audio.gain.gain.value = 1;
-
-  }
-
- // this.endMesh.add( this );
-
 }.bind( fireworks ));
 
 
+fireworks.addToAllUpdateArrays( function(){
+
+    this.water.render();
+
+
+}.bind( fireworks ));
 fireworks.addToActiveArray( function(){
 
   for( var i=0; i < this.fireworks.length; i++ ){
@@ -236,7 +232,6 @@ fireworks.addToActiveArray( function(){
 
   }
   
-  this.water.render();
 
   /*(this.position.x += this.movementRate;
   G.camera.position.x += this.movementRate;

@@ -5,7 +5,7 @@ alone.addToInitArray( function(){
   this.mani = false;
   this.sol  = false;
 
-  console.log( 'INAT');
+  //console.log( 'INAT');
   this.title = "Real Time Is Now";
 
   this.sectionParams.push({
@@ -27,28 +27,15 @@ alone.addToInitArray( function(){
     cameraPosition: new THREE.Vector3(  500  , 800 , 2000 ),
     lookPosition: new THREE.Vector3(  500  , 0 , -500 ),
     transitionTime: 3000,
-    textChunk:[
-      "For My Teachers",
-      "","",
-      "Who somehow always managed to put up with me.",
-      "Especially the two who had it the worst:",
-      "","",
-      "Mom & Dad."
-    ].join("\n" ),
+    textChunk:TEXT.ALONE[0]
 
   });
 
   this.sectionParams.push({
     
     cameraPosition: new THREE.Vector3(  0 , -50 , 1000 ),
-    transitionTime: 3000,
-    textChunk:[
-      "When Mani awoke, he had no idea where he was.",
-      "","",
-      "He was surrounded by a darkness that reached farther than he could see, an abyss greater than he could comprehend.",
-      "","",
-      "He began to move, slowly discovering the physics of his form."
-    ].join("\n" ),
+    transitionTime: 8000,
+    textChunk:TEXT.ALONE[1],
     start: function(){
 
       G.v1.copy( G.position );
@@ -65,12 +52,16 @@ alone.addToInitArray( function(){
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3(  0 , 0 , 1500 ),
     transitionTime: 3000,
-    textChunk:[
-      "The nothing was so complete, Mani could not tell if he moved. Still he swam onwards, delighting at the soft swish of his tail, the gentle movement of his spine.",
-      "","",
-      "Mani was curious, and though he was scared, decided that he would explore, even if the conquest ended in darkness"
-    ].join("\n" )
+    textChunk:TEXT.ALONE[2]
   });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3(  1000 , 0 , 4500 ),
+    lookPosition: new THREE.Vector3(  1000 , 100 , 500 ),
+    transitionTime: 3000,
+    textChunk:TEXT.ALONE[3]
+  });
+
 
  
   this.position.set(  0 , 0 , 0 );
@@ -169,8 +160,8 @@ alone.addToStartArray( function(){
   this.titleMesh.position.y = -500;
   this.titleOpacity = titleMat.uniforms.opacity;
 
-  console.log( 'OPACITY' );
-  console.log( this.titleOpacity );
+ // console.log( 'OPACITY' );
+ // console.log( this.titleOpacity );
   this.titleMesh.rotation.x = -Math.PI / 2;
   this.scene.add( this.titleMesh );
 

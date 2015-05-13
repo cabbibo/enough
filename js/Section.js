@@ -1,7 +1,5 @@
 function Section( id , page , params ){
 
-  console.log('PARAMS');
-  console.log( params );
   this.page = page;
   this.id = id;
 
@@ -20,14 +18,17 @@ function Section( id , page , params ){
     cameraPosition:   G.position.relative,
     lookPosition:     new THREE.Vector3(),
 
-    transitionIn:     function(){ console.log( 'tranIn'   );},
-    start:            function(){ console.log( 'start'    );},
-    transitionOut:    function(){ console.log( 'tranOut'  );},
-    end:              function(){ console.log( 'end'      );},
+    transitionIn:     function(){},
+    start:            function(){},
+    transitionOut:    function(){},
+    end:              function(){},
     transitioningOut: function(){},
     transitioningIn:  function(){},
     currentUpdate:    function(){},
     activeUpdate:     function(){},
+
+    fish:             false,
+    frameShown:       true
     
   });
 
@@ -41,6 +42,14 @@ function Section( id , page , params ){
     this.text = new PhysicsText( this.textChunk );
   }
 
+
+  this.frame = new Frame( this , this.params.fish );
+
+  this.page.scene.add( this.frame.body );
+  if( !this.frameShown ){
+    this.frame.frame.visible = false;
+  }
+
 }
 
 
@@ -49,10 +58,18 @@ Section.prototype._transitionIn = function(){
 
   if( !this.prevSection ){
     this.active = true;
+    //this.frame.add();
     this._start();
   }else{
+    //this.frame.add();
+
+    this.frame.turnerMesh.material.opacity = .1
     this.active = true;
     this.transitionIn();
+  }
+
+  if( this.frame.fish ){
+    this.frame.fish.activate( this.page.scene );
   }
 
 }
@@ -62,7 +79,7 @@ Section.prototype._start = function(){
   this.start();
 
   if( this.text ){
-    console.log('ACTIVATINGS');
+   //console.log('ACTIVATINGS');
     this.text.activate();
   }
 
@@ -73,11 +90,19 @@ Section.prototype._start = function(){
     var callback = this.nextSection.createTransitionInCallback();
 
     var mesh  = this.page.createTurnerMesh( this.offset , callback );
-    this.page.scene.add( mesh );
+    this.turnerMesh = mesh;
+  //  this.page.scene.add( mesh );
+
+    this.frame.setTurnCallbacks( this.turnerMesh )
 
   }else{
 
-    this.page.endMesh.add( this.page );
+    if( this.page.nextPage ){
+      this.turnerMesh = this.page.endMesh;
+      //this.page.endMesh.add( this.page );
+
+      this.frame.setTurnCallbacks( this.turnerMesh )
+    }
 
   }
 
@@ -92,6 +117,23 @@ Section.prototype._transitionOut = function(){
   this.transitionOut();
 
 }
+
+
+Section.prototype._transitioningOut = function(t){
+  
+  this.frame.uniforms.opacity.value = 1-t;
+  this.transitioningOut();
+
+}
+
+Section.prototype._transitioningIn = function(t){
+  
+  this.frame.uniforms.opacity.value = t;
+  this.transitioningIn();
+
+}
+
+
 Section.prototype._end = function(){
 
   this.active = false;
@@ -109,15 +151,20 @@ Section.prototype.createTransitionInCallback = function(){
 
     var transitionTime = this.params.transitionTime;
 
+
+    var looper = this.page.looper;
     if(  transitionTime == "endOfLoop" ){
-      
-      var percentTilEnd = 1 - this.page.looper.percentOfMeasure;
+     
+      var percentTilEnd = 1 - looper.percentOfLoop;
       
       // Making sure the transition is never toooooo quick
       if( percentTilEnd < .3 ){
         percentTilEnd += 1;
       }
-      var timeTilEnd = percentTilEnd * this.page.looper.measureLength;
+
+      var measureLength = looper.secondsPerBeat * looper.beatsPerMeasure * looper.measuresPerLoop; 
+
+      var timeTilEnd = percentTilEnd * measureLength; //looper.loopLength;
 
       transitionTime = (timeTilEnd-.01) * 1000;
 
@@ -133,8 +180,8 @@ Section.prototype.createTransitionInCallback = function(){
     this.lookPosition,
     function( t ){
       
-      this.transitioningIn( t );
-      this.prevSection.transitioningOut( t );
+      this._transitioningIn( t );
+      this.prevSection._transitioningOut( t );
       
     }.bind( this ));
     
@@ -154,6 +201,7 @@ Section.prototype._update = function(){
   
   if( this.active ){
     this.activeUpdate();
+    this.frame.update();
   }
 
   if( this.current ){

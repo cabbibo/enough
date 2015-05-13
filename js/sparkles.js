@@ -8,46 +8,103 @@ sparkles.addToInitArray( function(){
 
   this.sectionParams.push({
     cameraPosition: new THREE.Vector3( 0 , 0 ,1000 ),
-    textChunk:[
-      "How glorious these shapes were. As they stoically drifted past him, Mani examined their infinitely precise textures. How Sol must love these objects! he thought, and turned to see the sense of wonder emanating from her being."
-    ].join("\n" ), 
+    textChunk:TEXT.SPARKLES[0],
+    //frameShown: false 
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
+    }
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,900 ),
-    transitionTime:1000,
-    textChunk:[
-      "But Sol was not behind him, and his other friends were not behind her. There was just the floating hexagons, him, and the darkness.",
-      "","",
-      "Mani felt a sense of dread he never before imagined. Where could they have gone. He was sure that they had followed him, but here in the field of stars, they were no where to be seen."
-    ].join("\n" ),
-    transitionIn:function(){
+    
+    cameraPosition: new THREE.Vector3( 0 , 0 , 995 ),
+    transitionTime:500,
+    textChunk:TEXT.SPARKLES[1],
+    transitionIn:function( a ){
 
-      console.log('TANSL');
+
       this.cameraPosition.copy( G.camera.position );
       this.page.cameraPos.x =  G.camera.position.x;
       this.page.cameraPos.y =  G.camera.position.y;
       this.page.cameraPos.z =  G.camera.position.z
       this.lookPosition.copy( this.page.position );
-      //G.lookAt.copy( this.page.position );
-     // G.camera.position.copy( this.page.position );
-      //G.v1.set( 0 , 0 , 900 );
-      //this.cameraPosition.add( G.v1 );
 
+
+      for( var i = 0;i < this.page.audioArray.length; i++ ){
+
+        //console.log(this.page.audioArray[i]);
+        var audio = G.AUDIO[  this.page.audioArray[i] ];
+
+        if( i == 3 ){
+          audio.fadeIn( 5 , 1 );
+        }
+
+      }
+
+    },
+
+    transitioningIn: function(){
+
+      this.position.x     -= this.movementRate;
+      G.camera.position.x -= this.movementRate;
+
+          
+    }.bind( this ),
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
     }
+    //frameShown: false 
+    
+   
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 ,1100 ),
-    transitionTime:1000,
-    textChunk:[
-      "The devastating weight of the abyss returned. Crashing over him like a wave of silence. He could have never comprehended this loneliness. Now that he had seen the beauty of his friends, to have lost them was too much.",
-      "","",
-      "He had to find them again! No matter what! So he flew onwards, praying that the direction he traveled in would lead him again to the warmth."
-    ].join("\n" ),
-    transitionIn:function(){
+    cameraPosition: new THREE.Vector3( 0 , 0 ,990 ),
+    transitionTime:500,
+    textChunk:TEXT.SPARKLES[2],
+    transitionIn:function( ){
+      
+      this.cameraPosition.copy( G.camera.position );
+      this.page.cameraPos.x =  G.camera.position.x;
+      this.page.cameraPos.y =  G.camera.position.y;
+      this.page.cameraPos.z =  G.camera.position.z;
+     // this.page.cameraPos.copy( G.camera.position );
+      
+      this.lookPosition.copy( this.page.position );
 
-      console.log('TANSL2');
+      for( var i = 0;i < this.page.audioArray.length; i++ ){
+
+        console.log(this.page.audioArray[i]);
+        var audio = G.AUDIO[  this.page.audioArray[i] ];
+
+        if( i == 4 ){
+          audio.fadeIn( 4 , 1 );
+        }
+
+      }
+
+
+    },
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
+    },
+
+    transitioningIn: function(){
+
+      this.position.x     -= this.movementRate;
+      G.camera.position.x -= this.movementRate;
+
+          
+    }.bind( this )
+    //frameShown: false 
+   
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 980 ),
+    transitionTime:500,
+    textChunk:TEXT.SPARKLES[3],
+    transitionIn:function( ){
       
       this.cameraPosition.copy( G.camera.position );
       this.page.cameraPos.x =  G.camera.position.x;
@@ -58,7 +115,20 @@ sparkles.addToInitArray( function(){
       this.lookPosition.copy( this.page.position );
 
 
-    }
+    },
+    transitionOut:function(){
+      G.objectControls.remove( this.frame.toggleMesh );
+    },
+
+    transitioningIn: function(){
+
+      this.position.x     -= this.movementRate;
+      G.camera.position.x -= this.movementRate;
+
+          
+    }.bind( this )
+   // frameShown: false 
+   
   });
 
   this.position.set(  1000 , 2000 , 1000 );
@@ -72,15 +142,16 @@ sparkles.addToInitArray( function(){
 
 
   this.audioArray = [
-    'hueBoy',
-    'hueSparkles',
-    'hueAngel',
-    'hueHum',
-    'hueMids'
+    'ohoh',
+    'sparkleMelody1',
+    'sparkleMelody2',
+    'dolak',
+    'penny',
   ];
 
 
   this.movementRate = 1.5;
+  //this.movementRate = 0;
 
 
 }.bind( sparkles ) );
@@ -99,7 +170,7 @@ sparkles.addToInitArray( function(){
   this.loadShader( 'sparkles' , f + 'fs-sparkles' , 'fragment'   );
 
 
-  var f = 'audio/global/';
+  var f = 'audio/pages/sparkles/';
 
   for( var i = 0; i < this.audioArray.length; i++ ){
   
@@ -116,6 +187,7 @@ sparkles.addToStartArray( function(){
   G.camera.position.copy( this.cameraPos );
   G.camera.lookAt( this.position );//= 1000;*/
 
+  this.scene.remove( this.motes.body );
   G.iPlaneDistance = this.iPlaneDistance;
 
 }.bind( sparkles ));
@@ -127,7 +199,7 @@ sparkles.addToStartArray( function(){
 
   this.looper = new Looper( G.audio , G.timer , {
 
-    beatsPerMinute: 122,
+    beatsPerMinute: 91,
     beatsPerMeasure: 4,
     measuresPerLoop: 8
 
@@ -141,7 +213,7 @@ sparkles.addToStartArray( function(){
     var audio = G.AUDIO[  this.audioArray[i] ];
     audio.reconnect( this.gain );
 
-    if( i == 0 || i == 1 ){
+    if( i == 0 || i == 1 || i == 2 ){
       
       audio.gain.gain.value = 1;
 
@@ -170,9 +242,9 @@ sparkles.addToActivateArray( function(){
     
   for( var i = 0;i < this.audioArray.length; i++ ){
 
-    console.log(this.audioArray[i]);
+   // console.log(this.audioArray[i]);
     var audio = G.AUDIO[  this.audioArray[i] ];
-    audio.gain.gain.value = 1;
+    //audio.gain.gain.value = 1;
 
   }
 

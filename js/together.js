@@ -3,37 +3,47 @@ var together = new Page( 'together' );
 together.addToInitArray( function(){
 
   this.mani = true;
-  this.sol  = false;
+  this.sol  = true;
 
   this.sectionParams.push({
     
-    cameraPosition: new THREE.Vector3( 0 , 0 , 3000 ),
-    transitionTime: 3000,
-    textChunk:[
-      "Mani now knew joy.",
-      "","",
-      "He danced with the creature, and that moment flowered into eternity. He watched her chase the dark away with her simple radiance. Her presence compelled Mani, and he could feel even the night in soul his begin to fade.",
-      "","",
-      "She swayed with him, in the mists of the night, and Mani knew Truth."
-    ].join("\n" ),
+    cameraPosition: new THREE.Vector3( -1000 , 0 , 400 ),
+    
+    transitionTime: 5000,
+    textChunk:TEXT.TOGETHER[0],
     
   });
 
   this.sectionParams.push({
     
-    cameraPosition: new THREE.Vector3( 0 , 0 , 1000 ),
-    transitionTime: 3000,
-    textChunk:[
-      "Sol was her name, Mani knew. The way she shown  told him of a world filled with light, of a land without darkness or fear.",
-    "","",
-    "They continued circling each other in the twilight, until Sol motioned to Mani, and together they journeyed on."
-    ].join("\n" ),
+    cameraPosition: new THREE.Vector3( -500 , 0 , 400 ),
+    lookPosition: new THREE.Vector3(  0 , 0 , 1900 ),
+    
+    transitionTime: 4000,
+    textChunk:TEXT.TOGETHER[1],
+    
+  });
+
+  this.sectionParams.push({
+    
+    lookPosition: new THREE.Vector3(  0 , 0 , 1900 ),
+    cameraPosition: new THREE.Vector3( -500 , 0 , 1000 ),
+    transitionTime: 5000,
+    textChunk:TEXT.TOGETHER[2],
+    
+  });
+
+    this.sectionParams.push({
+   
+    lookPosition: new THREE.Vector3(  0 , 0 , 900 ), 
+    cameraPosition: new THREE.Vector3( -1000 , 0 , 200 ),
+    transitionTime: 5000,
+    textChunk:TEXT.TOGETHER[3],
     
   });
 
 
-
-  this.position.set(  0 , 4000 , 0 );
+  this.position.set(  0 , 2000 , 0 );
 
   this.iPlaneDistance = 1000;
 

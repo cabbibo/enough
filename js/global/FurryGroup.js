@@ -32,7 +32,25 @@
       color3: new THREE.Vector3( 240/255 , 80/255 ,58/255 ),    
       color4: new THREE.Vector3( 37/255 , 1 , 178/255 ),
       iriLookup: null,// THREE.ImageUtils.loadTexture('img/iri/rainbow.png'), 
-      particleSize:3
+      particleSize:3,
+
+      dist_spineAttract     : .9,
+      force_spineAttract    : .1 ,
+      dist_bundleAttract    : 21.1,
+      force_bundleAttract   : .1,
+      dist_bundleRepel      : 100,
+      force_bundleRepel     : .018,
+      dist_subAttract       : 58.1,
+      force_subAttract      : .5,
+      dist_subRepel         : 88.1,
+      force_subRepel        : .3,
+      dist_subSubAttract    : 12.1,
+      force_subSubAttract   : .5,
+      dist_subSubRepel      : 100,
+      force_subSubRepel     : .2,
+
+      audioAmount           :.2,
+      audioPower            :1
 
     });
 
@@ -88,30 +106,30 @@
     */
 
       
-    var audioAmount = { type:"f" , value: .2 };
-    var audioPower = { type:"f" , value: 1 };
+    var audioAmount = { type:"f" , value:this.params.audioAmount };
+    var audioPower = { type:"f" , value:this.params.audioPower };
 
 
-    var d_spA = { type:"f" , value: .9 }
-    var f_spA = { type:"f" , value: .1  }
+    var d_spA = { type:"f" , value:this.params.dist_spineAttract  }
+    var f_spA = { type:"f" , value:this.params.force_spineAttract  }
 
-    var d_bA = { type:"f" , value: 21.1 }
-    var f_bA = { type:"f" , value: .1  }
+    var d_bA =  { type:"f" , value:this.params.dist_bundleAttract }
+    var f_bA =  { type:"f" , value:this.params.force_bundleAttract }
   
-    var d_bR = { type:"f" , value: 100.1 }
-    var f_bR = { type:"f" , value: .018  }
+    var d_bR =  { type:"f" , value:this.params.dist_bundleRepel }
+    var f_bR =  { type:"f" , value:this.params.force_bundleRepel }
     
-    var d_sA = { type:"f" , value: 58.1 }
-    var f_sA = { type:"f" , value: .5  }
+    var d_sA =  { type:"f" , value:this.params.dist_subAttract }
+    var f_sA =  { type:"f" , value:this.params.force_subAttract }
     
-    var d_sR = { type:"f" , value: 88.1 }
-    var f_sR = { type:"f" , value: .3  }
+    var d_sR =  { type:"f" , value:this.params.dist_subRepel }
+    var f_sR =  { type:"f" , value:this.params.force_subRepel }
     
-    var d_sSA = { type:"f" , value: 12.1 }
-    var f_sSA = { type:"f" , value: .5  }
+    var d_sSA = { type:"f" , value:this.params.dist_subSubAttract }
+    var f_sSA = { type:"f" , value:this.params.force_subSubAttract }
     
-    var d_sSR = { type:"f" , value: 100.1 }
-    var f_sSR = { type:"f" , value: .2  }
+    var d_sSR = { type:"f" , value:this.params.dist_subSubRepel }
+    var f_sSR = { type:"f" , value:this.params.force_subSubRepel }
 
 
     var allUniforms = {

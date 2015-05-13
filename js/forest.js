@@ -1,55 +1,141 @@
 var forest = new Page( 'forest' );
 
+forest.selectBase = function( x , y ){
+  var i = x + y * 16
+  if( this.forest.bases[i].selected == false ){
+    this.forest.bases[ x + y * 16].select();
+  }
+}
+
+forest.deselectBase = function( x , y ){
+  var i = x + y * 16;
+  if( this.forest.bases[i].selected ){
+    this.forest.bases[ x + y * 16].select();
+  }
+}
+
+
+forest.setMonome = function( array ){
+
+  for( var x = 0; x < 16; x++ ){
+    for( var y = 0; y < 16; y++ ){
+
+      this.deselectBase( x , y );
+  
+    }
+  }
+
+  for( var i = 0; i < array.length; i++ ){
+
+    var x = array[i][0]; var y = array[i][1];
+    this.selectBase( x ,y );
+
+  }
+
+}
+
+
 forest.addToInitArray( function(){
   
   this.mani = true;
   this.sol  = false;
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 , 3500 ),
+    cameraPosition: new THREE.Vector3( 0 , -400 , 3500 ),
+    lookPosition: new THREE.Vector3( 1000 , 00 , 00 ),
+    
     transitionTime:3000,    
-    textChunk:[
-      "After leaving the crystals, Mani swam through the darkness and came upon another beautiful play place. Here he found a soft garden full of metallic tendrils. As he swam through their flowing stalks, he listened to the soft plinks and hums that they created. Powerful as they were, they made way for his slender form, bowing out of his way as if he were royalty."
-    ].join("\n" ), 
+    textChunk:TEXT.FOREST[0], 
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 1000 , 1000 , 2500 ),
+    cameraPosition: new THREE.Vector3( 1000 , -1000 , 2500 ),
+    lookPosition: new THREE.Vector3( 1000 , 500 , 00 ),
     transitionTime:3000,
-    textChunk:[
-      "Mani was mesmerized by their song. It felt old and wise, full of love and sadness. He tried to comprehend, and by doing so recognized his own loneliness. He loved the forest, and how it proclaimed its hymn to the darkness, but knew it could not fill the void he was beginning to feel in his heart."
-    ].join("\n" ),
+    textChunk:TEXT.FOREST[1],
     transitionIn:function(){
-      this.page.forest.bases[73].select();
-      this.page.forest.bases[93].select();
-      this.page.forest.bases[2].select();
-      this.page.forest.bases[13].select();
+    
+      this.page.setMonome([
+        [  1 ,  1 ], 
+        [  1 ,  9 ], 
+        [  2 ,  8 ], 
+        [  4 ,  7 ], 
+        [  4 ,  6 ], 
+        [  8 ,  3 ], 
+        [  9 ,  9 ], 
+        [ 11 ,  5 ], 
+        [ 12 , 10 ], 
+        [ 14 ,  8 ]
+       ]);
+
+
+  
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 60000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 400       
+  
     }
   });
 
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( -1000 , -1000 , 2500 ),
+    cameraPosition: new THREE.Vector3( -2000 , -500 , 3500 ),
+    lookPosition: new THREE.Vector3( 1000 , 00 , 1000 ),
+
     transitionTime:3000,    
-    textChunk:[
-      "Mani almost envied the stalks that surrounded him.  They could not move like he could, and would never know the delight of the crystals, but still it seemed as though they had found some sort of purpose in they shimmering sanctuary. For them, to sing, no matter if others were listening, was enough.",
-      "","",
-      "For Mani it was not, so he continued onwards, yearning for more."
-    ].join("\n" ),
+    textChunk:TEXT.FOREST[2],
     transitionIn:function(){
-      this.page.forest.bases[179].select();
-      this.page.forest.bases[201].select();
-      this.page.forest.bases[249].select();
-      this.page.forest.bases[236].select();
-      this.page.forest.bases[255].select();
-      this.page.forest.bases[208].select();
+      this.page.setMonome([
+        [  1 ,  1 ], 
+        [  1 ,  7 ], 
+        [  1 ,  9 ], 
+        [  1 , 10 ], 
+        [  2 ,  8 ], 
+        [  3 , 11 ], 
+        [  4 ,  7 ], 
+        [  4 ,  6 ], 
+        [  5 ,  4 ], 
+        [  8 ,  3 ], 
+        [  9 ,  9 ], 
+        [ 11 ,  0 ], 
+        [ 11 ,  5 ], 
+        [ 11 ,  8 ], 
+        [ 11 , 10 ], 
+        [ 12 , 10 ], 
+        [ 13 , 12 ], 
+        [ 14 ,  8 ]
+       ]);
 
-      this.page.forest.bases[32].select();
-      this.page.forest.bases[59].select();
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 10000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 1000       
+        
 
-      this.page.forest.bases[84].select();
-      this.page.forest.bases[98].select();
-      this.page.forest.bases[106].select();
+    }
+  });
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 1000 , 1000 , 2500 ),
+    lookPosition: new THREE.Vector3( 1000 , -500 , 00 ),
+
+    transitionTime:3000,    
+    textChunk:TEXT.FOREST[3],
+    transitionIn:function(){
+      this.page.setMonome([
+        [  1 ,  1 ], 
+        [  1 ,  9 ], 
+        [  2 ,  8 ], 
+        [  4 ,  7 ], 
+        [  4 ,  6 ], 
+        [  8 ,  3 ], 
+        [  9 ,  9 ], 
+        [ 11 ,  5 ], 
+        [ 12 , 10 ], 
+        [ 14 ,  8 ]
+       ]);
+
+      this.page.forest.physicsRenderer.simulationUniforms.uFloatForce.value = 60000
+      this.page.forest.physicsRenderer.simulationUniforms.uFlowMultiplier.value = 400      
+        
+
     }
   });
 
@@ -64,32 +150,17 @@ forest.addToInitArray( function(){
 
 
   this.audioArray = [
-    'bolloning1',
-    'bolloning2',
-    'bolloning3',
     
-    'wait1',
-    'wait2',
-    'wait3',
-    'wait4',
+    'bolloning1', 'bolloning2', 'bolloning3',
     
-    'drumz1',
-    //'drumz2',
-    //'drumz3',
-    'drumz4',
-    //'drumz5',
-    //'drumz6',
-    //'drumz7',
-    //'drumz8',
-    'drumz9',
-    'drumz10',
-    'synth1',
-    'synth2',
-    'synth3',
-    'synth4',
-    'synth5'
+    'wait1', 'wait2', 'wait3', 'wait4', 
+    
+    'drumz1', 'drumz4', 'drumz9', 'drumz10',
+
+    'synth1', 'synth2', 'synth3', 'synth4', 'synth5'
     //'weStand5',
   ]
+
 
   this.audio = {};
   this.audio.array = [];
@@ -177,10 +248,10 @@ forest.addToStartArray( function(){
 
   repelPositions.push( G.mani.position.relative );
   repelVelocities.push( G.mani.velocity );
-  repelRadii.push( 300 );
+  repelRadii.push( 500 );
 
 
-  repelPositions.push( G.iPoint.relative );
+ /* repelPositions.push( G.iPoint.relative );
   repelVelocities.push( new THREE.Vector3() );
   repelRadii.push( 500 );
 
@@ -191,7 +262,7 @@ forest.addToStartArray( function(){
 
   repelPositions.push( G.rHand.relative  );
   repelVelocities.push( new THREE.Vector3()  );
-  repelRadii.push( 500 );
+  repelRadii.push( 500 );*/
 
 
   this.forest = new Forest(
@@ -239,39 +310,21 @@ forest.addToStartArray( function(){
 
  // this.text = new PhysicsText( this.textChunk );
 
+
+  this.setMonome([ 
+    [ 1  ,  1 ], 
+    [ 1  ,  7 ], 
+    [ 1  , 10 ], 
+
+    [ 5  ,  4 ], 
+    [ 8  ,  3 ],
+    [ 11 ,  0 ], 
+    [ 11 , 10 ], 
+    [ 12 , 10 ]
+  ]);
+  //this.selectBase( 15 , 2 ); 
   
 
-  this.forest.bases[144].select();
-  this.forest.bases[154].select();
-  this.forest.bases[147].select();
- 
-  this.forest.bases[123].select();
-  this.forest.bases[119].select();
-  this.forest.bases[116].select();
-  this.forest.bases[112].select();
-  this.forest.bases[127].select();
-  
-  this.forest.bases[128].select();
-  this.forest.bases[130].select();
-  this.forest.bases[133].select();
-  this.forest.bases[138].select();
-  this.forest.bases[142].select();
-  
-  
-  /*this.forest.bases[179].select();
-  this.forest.bases[201].select();
-  this.forest.bases[249].select();
-  this.forest.bases[236].select();
-  this.forest.bases[255].select();
-  this.forest.bases[208].select();
-
-  this.forest.bases[73].select();
-  this.forest.bases[93].select();
-  this.forest.bases[2].select();
-  this.forest.bases[13].select();
-  this.forest.bases[84].select();
-  this.forest.bases[98].select();
-  this.forest.bases[106].select();*/
 
 
 

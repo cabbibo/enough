@@ -30,7 +30,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   if( !this.toPage ){
 
-    console.log( 'NO NEW PAGE' );
+    //console.log( 'NO NEW PAGE' );
 
   }
 
@@ -42,12 +42,14 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
      If there is but it isn't loaded,
      times out again and again to check if it is loaded
 
+     TODO: Give some indication to
+           user that next page is
+           loading
+
   */
   if(this.toPage ){
 
     if( this.toPage.loaded === false ){
-
-      console.log( 'PAGE NART LOADS' );
 
       if( this.pageLoaded === true ){
         
@@ -79,7 +81,6 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   }else{
 
-    console.log( 'NO NEW PAGE' );
     G.endBook(); //TODO
 
   }
@@ -101,12 +102,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
     page.nextPage.sections[i].lookPosition.add( page.nextPage.position );
 
   }
-  console.log('OLD POS' );
-
-  console.log( page.nextPage.cameraPos );
   page.nextPage.cameraPos.copy( page.nextPage.sections[0].cameraPosition ); //page.nextPage.position );
-
-  console.log( page.nextPage.cameraPos );
 
   this.camEndPos     = page.nextPage.sections[0].cameraPosition;
 
@@ -129,6 +125,9 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
     G.objectControls.unprojectMouse();
 
+    // Calling transition in and out from next page section
+    this.fromPage.sections[ this.fromPage.sections.length -1 ]._transitioningOut( t );
+    this.toPage.sections[ 0 ]._transitioningIn( t );
 
   }.bind( this ));
 
@@ -150,8 +149,7 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
     G.position.y = this.sceneStartPos.y;
     G.position.z = this.sceneStartPos.z;
     
-    G.lookAt.copy( G.position );
-    G.camera.lookAt( G.lookAt );
+
 
   }.bind( this ));
 
@@ -171,10 +169,25 @@ PageTurner.prototype.nextPage = function( page ,  length  ){
 
   }.bind( this ));
 
+  this.lookStart = G.lookAt.clone();
+  this.lookEnd = this.sceneEndPos.clone();
+  if( page.nextPage.sections[0].lookPosition ){
+    this.lookEnd.copy( page.nextPage.sections[0].lookPosition);
+  }
+
+  tween3 = new G.tween.Tween( this.lookStart ).to( this.lookEnd  , l );
+
+  tween3.onUpdate( function( t ){
+    
+    G.lookAt.copy( this.lookStart);
+    G.camera.lookAt( G.lookAt );
+
+  }.bind( this ));
 
   tween.start();
   tween1.start();
   tween2.start();
+  tween3.start();
 
 
 }
@@ -211,18 +224,25 @@ PageTurner.prototype.createMarker = function( page , offset , length ){
   offset = offset || G.pageTurnerOffset;
   length = length || G.pageTransitionLength;
 
+  this.beenClicked = false;
+
   var mesh = new THREE.Mesh(
     this.markerGeometry,
     this.markerMaterial 
   );
 
   mesh.select = function(){
+   // console.log( this )
 
-    this.pageTurner.parent.remove( this.pageTurner );
-    G.objectControls.remove( this.pageTurner );
-    this.nextPage( page ,  length  );
+    if( !this.beenClicked ){
+      G.objectControls.remove( this.pageTurner );
+      this.nextPage( page ,  length  );
+    }
 
-  }.bind( this );
+
+    this.beenClicked = true;
+
+  }.bind( this )
 
   mesh.hoverOver = function(){
 

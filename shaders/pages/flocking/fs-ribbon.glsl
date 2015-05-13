@@ -99,14 +99,9 @@ void main(){
 
 
   }
-  //gl_FragColor = nCol;
-  gl_FragColor = min( 3.5 , coralPower ) * semCol * vec4(aColor.xyz, 1.);  //gl_FragColor = vec4( lambert * lambert * lambert , spec * spec * spec * spec , lightDist / 100., 1. );
 
- // gl_FragColor =   vec4( uv.x , .3 , uv.y , 1. );
-  //gl_FragColor =   vec4( offset.x , .3 , offset.y , 1. );
+  gl_FragColor = (semCol + vec4(aColor.xyz, 1.)) * vec4( vec3( 1. ) , .3 );
 
-  //gl_FragColor =ribbon * vec4( aColor.xyz  * 2., 1. ) * pow( dot( vNormal , normalize(vEye) ) , 2. ); ;// vec4( col ,  1. );//* vec4( vRibbonUV.x , vRibbonUV.y , 1. , 1. );
-  //gl_FragColor =ribbon * vec4( aColor.xyz  * 2., 1. ) * pow( dot( vNormal , normalize(vEye) ) , 2. ); ;// vec4( col ,  1. );//* vec4( vRibbonUV.x , vRibbonUV.y , 1. , 1. );
- // gl_FragColor = vec4( 1.,.3,0.,1. )* vDepth + vec4( 0. , .3 , 1. , 1. ) * ( 1. - vDepth );
+ // gl_FragColor = vec4( 1. );
 
 }
