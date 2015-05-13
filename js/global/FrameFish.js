@@ -95,7 +95,7 @@ function FrameFish( frame , startPoints , endPoints , params ){
   this.soul.setUniform( 'time' , G.timer  );
  
  
-  this.resetPositions();
+
 
 
 
@@ -136,6 +136,18 @@ function FrameFish( frame , startPoints , endPoints , params ){
   var geo = this.geometries.ribbon( this.params.size , this.params.joints * 8 );
   this.ribbon = new THREE.Mesh( geo , ribbonMat );
   this.ribbon.frustumCulled = false;
+
+
+
+  /*console.log( frame )
+  this.soul.debugScene = this.soul.createDebugScene();
+  console.log( )
+  this.soul.addDebugScene( frame.body )
+  this.soul.debugScene.scale.y = 20 / frame.body.scale.y
+  this.soul.debugScene.scale.x = 20 / frame.body.scale.x
+  console.log( this.soul.debugScene )*/
+
+    this.resetPositions();
 
 
 }
@@ -180,9 +192,16 @@ FrameFish.prototype.resetPositions = function(){
   texture.needsUpdate = true;
 
   this.soul.reset( texture );
-  this.soul.reset( texture );
-  this.soul.reset( texture );
- 
+
+  for( var i =0;i< this.params.joints; i++ ){
+    this.textureArray[i] = this.soul.output[i * this.params.jointSize];
+   // console.log( this.textureArray[i] );
+  }
+
+  this.ribbon.material.uniformsNeedUpdate = true;
+
+
+
 
 }
 

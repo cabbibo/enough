@@ -238,6 +238,9 @@
     this.pTexture.needsUpdate = true;
 
     this.physicsRenderer.reset( this.pTexture );
+    this.physicsRenderer.reset( this.pTexture );
+    this.physicsRenderer.reset( this.pTexture );
+    this.physicsRenderer.reset( this.pTexture );
 
     this.position.copy( position );
 
