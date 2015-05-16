@@ -661,8 +661,10 @@ Global.prototype.animate = function(){
 
     this.vignette2Pass.params.reduction = 3
     this.composer.pass( this.vignette2Pass );
+    this.composer.pass( this.fxaaPass );
     this.noisePass.params.speed = 1;
     this.composer.pass( this.noisePass );
+    this.composer.pass( this.dirtPass )
     
     
     /*this.composer.pass( this.CGAPass ); 

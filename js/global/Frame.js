@@ -279,7 +279,7 @@ Frame.prototype.createToggleMesh = function(){
       this.toggleMesh.toggled = false;
       if( this.section.text ) this.section.text.particles.visible = true;
       if( this.turnerMesh ) this.turnerMesh.visible = true;
-      if( this.postprocessingMesh ) this.postprocessingMesh.visible = true;
+    //  if( this.postprocessingMesh ) this.postprocessingMesh.visible = true;
       //console.log( this.section )
       this.toggleMesh.material.map = G.TEXTURES.toggleClose;
     }else{
@@ -290,7 +290,7 @@ Frame.prototype.createToggleMesh = function(){
         this.section.text.particles.visible = false;
       }
       if( this.turnerMesh ) this.turnerMesh.visible = false;
-      if( this.postprocessingMesh ) this.postprocessingMesh.visible = false;
+    //  if( this.postprocessingMesh ) this.postprocessingMesh.visible = false;
       this.toggleMesh.material.map = G.TEXTURES.toggleOpen;
 
     }
@@ -345,8 +345,8 @@ Frame.prototype.createPostprocessingMesh = function(){
   //this.postprocessingMesh.postprocessingd = tmppostprocessing;
 
 
-  G.objectControls.add( this.postprocessingMesh );
-  this.body.add( this.postprocessingMesh );
+  //G.objectControls.add( this.postprocessingMesh );
+  //this.body.add( this.postprocessingMesh );
 
 }
 

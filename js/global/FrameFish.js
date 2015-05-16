@@ -195,15 +195,19 @@ FrameFish.prototype.resetPositions = function(){
   this.soul.reset( texture );
 
   for( var i =0;i< this.params.joints; i++ ){
-    G.renderer.set
+
     this.textureArray[i] = this.soul.output[i * this.params.jointSize];
    // console.log( this.textureArray[i] );
-   console.log( this.textureArray[i] )
+
+   //console.log( this.textureArray[i].__webglTexture )
+
+   //G.renderer.uploadTexture( this.textureArray[i]  )
+
    //this.textureArray[i].needsUpdate = true;
 
   }
 
-  this.ribbon.material.needsUpdate = true;
+  //this.ribbon.material.needsUpdate = true;
 
 
 
