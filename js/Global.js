@@ -384,9 +384,9 @@ Global.prototype.init = function(){
   this.text = new TextParticles({
     vertexShader:   this.shaders.vs.text,
     fragmentShader: this.shaders.fs.text,
-    lineLength:     60,
-    //letterWidth:    40,
-    //lineHeight:     40
+    lineLength:     45,
+    letterWidth:    15,
+    lineHeight:     20
   });
 
   this.textCreator = new TextCreator( 300 );
