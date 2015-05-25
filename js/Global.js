@@ -384,9 +384,9 @@ Global.prototype.init = function(){
   this.text = new TextParticles({
     vertexShader:   this.shaders.vs.text,
     fragmentShader: this.shaders.fs.text,
-    lineLength:     60,
-    //letterWidth:    40,
-    //lineHeight:     40
+    lineLength:     45,
+    letterWidth:    15,
+    lineHeight:     20
   });
 
   this.textCreator = new TextCreator( 300 );
@@ -611,6 +611,17 @@ Global.prototype.animate = function(){
       this.camera.position.relative.copy( this.camera.position );
       this.camera.position.relative.sub( this.position );
 
+
+      this.updateAttractor();
+
+      for( var propt  in this.pages ){
+
+        this.pages[ propt ].update();
+
+      }
+
+      this.stats.update();
+
       if( this.mani.active == true ){
         this.mani.updateTail();
         this.mani.updatePhysics();
@@ -627,15 +638,6 @@ Global.prototype.animate = function(){
       }
 
 
-      this.updateAttractor();
-
-      for( var propt  in this.pages ){
-
-        this.pages[ propt ].update();
-
-      }
-
-      this.stats.update();
      
 
     }
@@ -653,7 +655,7 @@ Global.prototype.animate = function(){
     //  this.composer.pass( this.sepiaPass );
 
     // this.multiPassBloomPass.params.applyZoomBlur = true;
-    this.composer.pass( this.multiPassBloomPass ); 
+   /* this.composer.pass( this.multiPassBloomPass ); 
     
 
     //this.composer.pass( this.denoisePass ); 
@@ -664,7 +666,11 @@ Global.prototype.animate = function(){
     this.composer.pass( this.fxaaPass );
     this.noisePass.params.speed = 1;
     this.composer.pass( this.noisePass );
-    this.composer.pass( this.dirtPass )
+    this.composer.pass( this.dirtPass );*/
+
+
+
+    this.composer.pass( this.fxaaPass );
     
     
     /*this.composer.pass( this.CGAPass ); 

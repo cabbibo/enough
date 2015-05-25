@@ -27,6 +27,69 @@ function CrystalGeo( height , width , numOf , extraHeight ){
 
   var directionPower = [0,0,0,0,0,0];
 
+  function assignAttributes( index , a_p , a_uv , a_e , id ){
+
+      var indexID = index / 3;
+
+      ids[ indexID + 0 ] = id;
+      ids[ indexID + 1 ] = id;
+      ids[ indexID + 2 ] = id;
+      
+      edges[ indexID + 0 ] = a_e[0];
+      edges[ indexID + 1 ] = a_e[1];
+      edges[ indexID + 2 ] = a_e[2];
+
+      var indexUV = ( index / 3 ) * 2;
+
+      uvs[ indexUV + 0 ] = a_uv[0].x;
+      uvs[ indexUV + 1 ] = a_uv[0].y;
+      
+      uvs[ indexUV + 2 ] = a_uv[1].x;
+      uvs[ indexUV + 3 ] = a_uv[1].y;
+      
+      uvs[ indexUV + 4 ] = a_uv[2].x;
+      uvs[ indexUV + 5 ] = a_uv[2].y;
+
+
+      //ids[ indexID + 0 ] = Math.random();
+      //ids[ indexID + 1 ] = Math.random();
+      //ids[ indexID + 2 ] = Math.random();
+
+      positions[ index + 0  ] = a_p[0].x  
+      positions[ index + 1  ] = a_p[0].y 
+      positions[ index + 2  ] = a_p[0].z 
+      
+      positions[ index + 3  ] = a_p[1].x 
+      positions[ index + 4  ] = a_p[1].y 
+      positions[ index + 5  ] = a_p[1].z 
+
+      positions[ index + 6  ] = a_p[2].x 
+      positions[ index + 7  ] = a_p[2].y 
+      positions[ index + 8  ] = a_p[2].z 
+
+
+      a_p[1].sub( a_p[0] );
+      a_p[2].sub( a_p[0] );
+
+      a_p[0].crossVectors( a_p[1] , a_p[2] );
+      a_p[0].normalize();
+
+
+      //console.log( p2 );
+
+      normals[ index + 0  ] = a_p[0].x; 
+      normals[ index + 1  ] = a_p[0].y;
+      normals[ index + 2  ] = a_p[0].z;
+      
+      normals[ index + 3  ] = a_p[0].x;
+      normals[ index + 4  ] = a_p[0].y;
+      normals[ index + 5  ] = a_p[0].z;
+
+      normals[ index + 6  ] = a_p[0].x;
+      normals[ index + 7  ] = a_p[0].y; 
+      normals[ index + 8  ] = a_p[0].z; 
+
+    }
   
   var baseArray = [];
   
@@ -190,69 +253,7 @@ function CrystalGeo( height , width , numOf , extraHeight ){
     }
 
 
-    function assignAttributes( index , a_p , a_uv , a_e , id ){
-
-      var indexID = index / 3;
-
-      ids[ indexID + 0 ] = id;
-      ids[ indexID + 1 ] = id;
-      ids[ indexID + 2 ] = id;
-      
-      edges[ indexID + 0 ] = a_e[0];
-      edges[ indexID + 1 ] = a_e[1];
-      edges[ indexID + 2 ] = a_e[2];
-
-      var indexUV = ( index / 3 ) * 2;
-
-      uvs[ indexUV + 0 ] = a_uv[0].x;
-      uvs[ indexUV + 1 ] = a_uv[0].y;
-      
-      uvs[ indexUV + 2 ] = a_uv[1].x;
-      uvs[ indexUV + 3 ] = a_uv[1].y;
-      
-      uvs[ indexUV + 4 ] = a_uv[2].x;
-      uvs[ indexUV + 5 ] = a_uv[2].y;
-
-
-      //ids[ indexID + 0 ] = Math.random();
-      //ids[ indexID + 1 ] = Math.random();
-      //ids[ indexID + 2 ] = Math.random();
-
-      positions[ index + 0  ] = a_p[0].x  
-      positions[ index + 1  ] = a_p[0].y 
-      positions[ index + 2  ] = a_p[0].z 
-      
-      positions[ index + 3  ] = a_p[1].x 
-      positions[ index + 4  ] = a_p[1].y 
-      positions[ index + 5  ] = a_p[1].z 
-
-      positions[ index + 6  ] = a_p[2].x 
-      positions[ index + 7  ] = a_p[2].y 
-      positions[ index + 8  ] = a_p[2].z 
-
-
-      a_p[1].sub( a_p[0] );
-      a_p[2].sub( a_p[0] );
-
-      a_p[0].crossVectors( a_p[1] , a_p[2] );
-      a_p[0].normalize();
-
-
-      //console.log( p2 );
-
-      normals[ index + 0  ] = a_p[0].x; 
-      normals[ index + 1  ] = a_p[0].y;
-      normals[ index + 2  ] = a_p[0].z;
-      
-      normals[ index + 3  ] = a_p[0].x;
-      normals[ index + 4  ] = a_p[0].y;
-      normals[ index + 5  ] = a_p[0].z;
-
-      normals[ index + 6  ] = a_p[0].x;
-      normals[ index + 7  ] = a_p[0].y; 
-      normals[ index + 8  ] = a_p[0].z; 
-
-    }
+  
 
 
   }

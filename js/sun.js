@@ -298,7 +298,7 @@ sun.addToInitArray( function(){
 
   this.sectionParams.push({
     
-    cameraPosition: new THREE.Vector3( 400 , -2000 ,  1600 ), 
+    cameraPosition: new THREE.Vector3( 400 , -1500 ,  1600 ), 
     lookPosition: new THREE.Vector3(  400 , -1000 ,  0 ),
     transitionTime:3000,
     textChunk:TEXT.SUN[10],
