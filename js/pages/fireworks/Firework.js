@@ -257,8 +257,8 @@ function Firework( page , params ){
   this.base.add( this.lines ); 
   this.base.add( this.body );
 
-
-  //console.log( this.audio )
+  console.log('hello')
+  console.log( this.audio )
   this.audio.turnOnFilter();
   this.audio.filter.frequency.value = 200;
 
