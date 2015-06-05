@@ -385,7 +385,7 @@ Global.prototype.init = function(){
     vertexShader:   this.shaders.vs.text,
     fragmentShader: this.shaders.fs.text,
     lineLength:     45,
-    letterWidth:    15,
+    letterWidth:    13,
     lineHeight:     20
   });
 
