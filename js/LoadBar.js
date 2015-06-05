@@ -129,7 +129,7 @@ LoadBar.prototype.addText = function(){
   
 
   var forward = [
-      "<p>It’s difficult to describe the joy that I found from picking up a picture book and reading it cover to cover. They let me explore galaxies, ride dinosaurs, slay dragons. They let me dig deep down into my own being as I wished upon a magic pebble, danced in the night with wild beasts or drew with a purple crayon.</p>",
+      "<p>It’s difficult to describe the joy that I found from picking up a picture book and reading it cover to cover. They let me explore galaxies, ride dinosaurs, slay dragons. They let me dig deep down into my own being as I wished upon a magic pebble, boarded a train bound for the north, or soared through the sky on a plane made from dough.</p>",
       "<p>I know I can never recreate the splendor, magnificence, or beauty that I found in these majestic works, but I hope that this project will still remind you of the wonder you found in these moments. Those times when you could be anything, go anywhere, and find magic in the most fragile of places.</p>"
   ].join("\n");
 
