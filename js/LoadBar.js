@@ -145,6 +145,8 @@ LoadBar.prototype.addText = function(){
   this.loadInfoDiv.innerHTML += "Requirements : Headphones<br/><br/>"
   this.loadInfoDiv.id = 'experienceInfo'
   this.loadBarInfo.appendChild( this.loadInfoDiv );
+  var dpr = window.devicePixelRatio || 1;
+  this.loadInfoDiv.style.fontSize = ( window.innerWidth * dpr ) / 160
 
   var offset = -this.loadBarInfo.clientHeight / 2 
 
