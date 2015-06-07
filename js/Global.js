@@ -91,7 +91,7 @@ function Global(){
     new THREE.MeshBasicMaterial({color:0xffffff})
 
   )
-  this.scene.add( this.cursor );
+
   //G.scene.add( G.pageMarker );
 
   this.camera.position.relative = new THREE.Vector3().copy( this.camera.position );
@@ -373,7 +373,7 @@ Global.prototype.init = function(){
   this.rHand.particles = new HandParticles( this.rHand.hand , 64 );
 
   //this.lHand.particles.activate();
-  this.rHand.particles.activate();
+  
 
   /*
   
@@ -385,7 +385,7 @@ Global.prototype.init = function(){
     vertexShader:   this.shaders.vs.text,
     fragmentShader: this.shaders.fs.text,
     lineLength:     45,
-    letterWidth:    15,
+    letterWidth:    13,
     lineHeight:     20
   });
 

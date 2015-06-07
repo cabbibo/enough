@@ -26,7 +26,7 @@ credits.addToInitArray( function(){
 
   this.links = []
 
-  this.links.push( new Donate( 'DONATE' , "http://girlswhocode.com/" , 230) );
+  this.links.push( new Donate( 'DONATE' , "http://www.blackgirlscode.com/" , 230) );
   this.links.push( new Donate( 'TWITTER' , "http://twitter.com/cabbibo" , 80));
   this.links.push( new Donate( 'FACEBOOK' , "http://facebook.com/cabbibo", 80));
   this.links.push( new Donate( 'MORE' , "http://cabbi.bo",80));
@@ -42,7 +42,7 @@ credits.addToInitArray( function(){
     
     }else{
 
-      var pos = new THREE.Vector3( (i-.7) * 200 ,  -100  , -500 );
+      var pos = new THREE.Vector3( (i-.6) * 200 ,  -200  , -500 );
       pos.add( G.v1 )
       this.links[i].start( this.scene , pos ); 
 
@@ -109,10 +109,30 @@ credits.addToInitArray( function(){
     textChunk:TEXT.CREDITS[4],
   });
 
+
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 , 2200 ),
+    cameraPosition: new THREE.Vector3( 0 , 2000 , 1000 ),
+    lookPosition: new THREE.Vector3( 0 , 2000 , 0 ),
+ 
+
+    textChunk:[
+      "If you liked this project, please consider donating to 'Black Girls Code' , a nonprofit working to increase the number of women of color in the digital space by empowering girls of color ages 7 to 17 to become innovators in STEM fields, leaders in their communities, and builders of their own futures through exposure to computer science and technology."
+    ].join("\n"),
+    activeUpdate:function(){
+      //console.log('ss')
+    }.bind( credits)
+  });
+
+
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 1000 , 1200 ),
+    lookPosition: new THREE.Vector3( 0 , 500 , 0 ),
     textChunk:TEXT.CREDITS[5],
     //transitionTime:10000,
+    transitionIn:function(){
+      this.sections[6].frame.body.remove( this.sections[6].frame.turnerMesh );
+    }.bind( credits ),
     start:function(){
 
       for( var i = 0; i < this.audio.length; i++){
@@ -146,23 +166,6 @@ credits.addToInitArray( function(){
 
 
   });
-
-
-
-
-  this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 2000 , 1000 ),
-    lookPosition: new THREE.Vector3( 0 , 2000 , 0 ),
- 
-
-    textChunk:[
-      "If you liked this project, please consider donating to 'Girls Who Code' , a nonprofit working to close the gender gap in the technology and engineering sectors",
-    ].join("\n"),
-    activeUpdate:function(){
-      //console.log('ss')
-    }.bind( credits)
-  });
-
 
 
 

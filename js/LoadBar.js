@@ -129,10 +129,9 @@ LoadBar.prototype.addText = function(){
   
 
   var forward = [
-      "If you have made it this far it means that hopefully",
-      "you are here to experience this interactive picture book.",
-      "Although I don't know if it really works as a medium, it was definitely fun to create."
-  ].join(" ");
+      "<p>It’s difficult to describe the joy that I found from picking up a picture book and reading it cover to cover. They let me explore galaxies, ride dinosaurs, slay dragons. They let me dig deep down into my own being as I wished upon a magic pebble, boarded a train bound for the north, or soared through the sky on a plane made from dough.</p>",
+      "<p>I know I can never recreate the splendor, magnificence, or beauty that I found in these majestic works, but I hope that this project will still remind you of the wonder you found in these moments. Those times when you could be anything, go anywhere, and find magic in the most fragile of places.</p>"
+  ].join("\n");
 
   this.loadInfoDiv.innerHTML = "<h1>Foreword</h1>"
   this.loadInfoDiv.innerHTML += "<p>"
@@ -345,17 +344,34 @@ LoadBar.prototype.onStartButtonClick = function( ){
   this.ending = true;
   window.removeEventListener( 'mousemove'   , this.onMouseMove  , false );
 
-  this.tweenToCamera(time * 10);
+  //this.tweenToCamera(time * 10);
 
   this.loadBarInfo.style.display = "none"
 
   //console.log( this.loadBarInfo.style )
   document.body.style.cursor = "none"
+
+  G.scene.remove( this.ring )
+  G.scene.remove( this.center )
+  G.scene.remove( this.percentMesh )
 /*  $( this.loadBarInfo ).fadeOut(time,function(){
     document.body.style.cursor = "none"
   }.bind( this ));*/
+   G.fullscreenIt();
 
-  G.fullscreenIt();
+  window.setTimeout( function(){
+   
+    if( !G.loaded ){ G.loaded = true }
+    G.scene.add( G.cursor );
+    //G.rHand.particles.resetRand( 1000 );
+    G.rHand.particles.activate();
+    G.onResize();
+    G.onResize();
+
+
+
+  },2000);
+
 
 }
 

@@ -188,9 +188,31 @@ sun.addToInitArray( function(){
   });
 
   this.sectionParams.push({
-    cameraPosition: new THREE.Vector3( 0 , 0 , 1050 ),
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1100 ),
+    transitionTime: 10,
 
     textChunk:TEXT.SUN[6],
+    transitionIn:function(){
+
+      this.flower.setValue( 'noiseSize' , 3 );
+      this.flower.setValue( 'springLength' , .5/31 );
+      /*for( var i = 0; i < this.audio.array.length; i++ ){
+        if(i == 4 || i == 5 || i == 6 ){
+          this.audio.array[i].fadeOut( 10 );
+        }
+      }*/
+
+       this.iPlaneDistance = 900 ;
+      G.iPlaneDistance = this.iPlaneDistance;
+     }.bind( sun )
+
+  });
+
+
+  this.sectionParams.push({
+    cameraPosition: new THREE.Vector3( 0 , 0 , 1050 ),
+
+    textChunk:TEXT.SUN[7],
     transitionTime: 3000,
     transitionIn:function(){
 
@@ -217,7 +239,7 @@ sun.addToInitArray( function(){
     lookPosition: new THREE.Vector3( 400 , 0 , 0 ),
     transitionTime: 10000,
 
-    textChunk: TEXT.SUN[7],
+    textChunk: TEXT.SUN[8],
     transitionIn:function(){
 
       G.sol.activate();
@@ -251,7 +273,7 @@ sun.addToInitArray( function(){
     cameraPosition: new THREE.Vector3( 400 , -1000 ,  1600 ), 
     lookPosition: new THREE.Vector3(  400 , -400 ,  0 ),
     transitionTime:10000,
-    textChunk:TEXT.SUN[8],
+    textChunk:TEXT.SUN[9],
 
     transitionIn:function(){
 
@@ -276,7 +298,7 @@ sun.addToInitArray( function(){
     cameraPosition: new THREE.Vector3( 400 , -1500 ,  1600 ), 
     lookPosition: new THREE.Vector3(  400 , -400 ,  0 ),
     transitionTime:3000,
-    textChunk:TEXT.SUN[9],
+    textChunk:TEXT.SUN[10],
 
     transitionIn:function(){
 
@@ -301,7 +323,7 @@ sun.addToInitArray( function(){
     cameraPosition: new THREE.Vector3( 400 , -1500 ,  1600 ), 
     lookPosition: new THREE.Vector3(  400 , -1000 ,  0 ),
     transitionTime:3000,
-    textChunk:TEXT.SUN[10],
+    textChunk:TEXT.SUN[11],
 
     transitionIn:function(){
 
