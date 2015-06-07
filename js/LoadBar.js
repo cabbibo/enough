@@ -137,7 +137,7 @@ LoadBar.prototype.addText = function(){
   this.loadInfoDiv.innerHTML += "<p>"
   this.loadInfoDiv.innerHTML += forward
   this.loadInfoDiv.innerHTML += "<br/>"
-  this.loadInfoDiv.innerHTML += "<br/>"
+ // this.loadInfoDiv.innerHTML += ""
 
 
   this.loadInfoDiv.innerHTML += "Runtime : 20 - 30 min <br/>"
