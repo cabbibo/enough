@@ -146,7 +146,7 @@ LoadBar.prototype.addText = function(){
   this.loadInfoDiv.id = 'experienceInfo'
   this.loadBarInfo.appendChild( this.loadInfoDiv );
   var dpr = window.devicePixelRatio || 1;
-  this.loadInfoDiv.style.fontSize = ( window.innerWidth / dpr ) / 80
+  this.loadInfoDiv.style.fontSize = ( window.innerWidths) / 80
 
   var offset = -this.loadBarInfo.clientHeight / 2 
 

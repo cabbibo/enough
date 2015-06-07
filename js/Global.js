@@ -766,7 +766,7 @@ Global.prototype.onResize = function(){
 
   var div = document.getElementById( "experienceInfo")
   var dpr = window.devicePixelRatio || 1;
-  div.style.fontSize = ( window.innerWidth / dpr ) / 80
+  div.style.fontSize = ( window.innerWidth ) / 80
 
 }
 
