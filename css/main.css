@@ -101,8 +101,8 @@ a:hover{
   top:50%;
   left:50%;
   z-index: 999;
-  font-size: 20px;
-  width: 35%;
+  font-size: 1em;
+  width: 45%;
   color:#fff;
   -moz-user-select: none;
   -webkit-user-select: none;
