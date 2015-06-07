@@ -353,7 +353,7 @@ Global.prototype.init = function(){
   this.text = new TextParticles({
     vertexShader:   this.shaders.vs.text,
     fragmentShader: this.shaders.fs.text,
-    lineLength:     45,
+    lineLength:     48,
     letterWidth:    13,
     lineHeight:     20
   });
