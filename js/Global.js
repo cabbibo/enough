@@ -243,45 +243,14 @@ Global.prototype.init = function(){
 
   */
 
-	this.invertPass = new WAGNER.InvertPass();
-	this.sepiaPass = new WAGNER.SepiaPass();
-	this.noisePass = new WAGNER.NoisePass();
-	this.boxBlurPass = new WAGNER.BoxBlurPass();
-	this.fullBoxBlurPass = new WAGNER.FullBoxBlurPass();
-	this.zoomBlurPass = new WAGNER.ZoomBlurPass();
-	this.multiPassBloomPass = new WAGNER.MultiPassBloomPass();
-	this.denoisePass = new WAGNER.DenoisePass();
-	this.noisePass = new WAGNER.NoisePass();
-	this.vignettePass = new WAGNER.VignettePass();
-	this.vignette2Pass = new WAGNER.Vignette2Pass();
-	this.CGAPass = new WAGNER.CGAPass();
-	this.sobelEdgeDetectionPass = new WAGNER.SobelEdgeDetectionPass();
-	this.dirtPass = new WAGNER.DirtPass();
-	this.blendPass = new WAGNER.BlendPass();
-	this.guidedBoxPass = new WAGNER.GuidedBoxBlurPass();
-	this.guidedFullBoxBlurPass = new WAGNER.GuidedFullBoxBlurPass();
-	this.pixelatePass = new WAGNER.PixelatePass();
-	this.rgbSplitPass = new WAGNER.RGBSplitPass();
-	this.chromaticAberrationPass = new WAGNER.ChromaticAberrationPass();
-	this.barrelBlurPass = new WAGNER.BarrelBlurPass();
-	this.oldVideoPass = new WAGNER.OldVideoPass();
-	this.dotScreenPass = new WAGNER.DotScreenPass();
-	this.circularBlur = new WAGNER.CircularBlurPass();
-	this.poissonDiscBlur = new WAGNER.PoissonDiscBlurPass();
-	this.freiChenEdgeDetectionPass = new WAGNER.FreiChenEdgeDetectionPass();
-	this.toonPass = new WAGNER.ToonPass();
-	this.fxaaPass = new WAGNER.FXAAPass();
-	this.highPassPass = new WAGNER.HighPassPass();
-	this.grayscalePass = new WAGNER.GrayscalePass();
-	this.asciiPass = new WAGNER.ASCIIPass();
-	this.ledPass = new WAGNER.LEDPass();
-	this.halftonePass = new WAGNER.HalftonePass();
-	
-  this.ssaoPass = new WAGNER.SSAOPass();
+	this.noisePass           = new WAGNER.NoisePass();
+	this.multiPassBloomPass  = new WAGNER.MultiPassBloomPass();
+	this.vignette2Pass       = new WAGNER.Vignette2Pass();
+	this.dirtPass            = new WAGNER.DirtPass();
+	this.blendPass           = new WAGNER.BlendPass();
+	this.fxaaPass            = new WAGNER.FXAAPass();
 
 	this.multiPassBloomPass.params.blurAmount = .5;
-	this.guidedFullBoxBlurPass.params.amount = 20;
-  this.guidedFullBoxBlurPass.params.invertBiasMap = true;
 
 
 
@@ -655,46 +624,15 @@ Global.prototype.animate = function(){
     //  this.composer.pass( this.sepiaPass );
 
     // this.multiPassBloomPass.params.applyZoomBlur = true;
-   /* this.composer.pass( this.multiPassBloomPass ); 
+    this.composer.pass( this.multiPassBloomPass ); 
     
-
-    //this.composer.pass( this.denoisePass ); 
-    //this.composer.pass( this.vignettePass  );
-
     this.vignette2Pass.params.reduction = 3
     this.composer.pass( this.vignette2Pass );
     this.composer.pass( this.fxaaPass );
     this.noisePass.params.speed = 1;
     this.composer.pass( this.noisePass );
-    this.composer.pass( this.dirtPass );*/
+    this.composer.pass( this.dirtPass );
 
-
-
-    this.composer.pass( this.fxaaPass );
-    
-    
-    /*this.composer.pass( this.CGAPass ); 
-    this.composer.pass( this.sobelEdgeDetectionPass ); 
-    this.composer.pass( this.dirtPass ); 
-    this.composer.pass( this.blendPass ); 
-    this.composer.pass( this.guidedBoxPass ); 
-    this.composer.pass( this.guidedFullBoxBlurPass ); 
-    this.composer.pass( this.pixelatePass ); 
-    this.composer.pass( this.rgbSplitPass ); 
-    this.composer.pass( this.chromaticAberrationPass ); 
-    this.composer.pass( this.barrelBlurPass ); 
-    this.composer.pass( this.oldVideoPass ); 
-    this.composer.pass( this.dotScreenPass ); 
-    this.composer.pass( this.circularBlur ); 
-    this.composer.pass( this.poissonDiscBlur ); 
-    this.composer.pass( this.freiChenEdgeDetectionPass ); 
-    this.composer.pass( this.toonPass ); 
-    this.composer.pass( this.fxaaPass ); 
-    this.composer.pass( this.highPassPass ); 
-    this.composer.pass( this.grayscalePass ); 
-    this.composer.pass( this.asciiPass ); 
-    this.composer.pass( this.ledPass ); 
-    this.composer.pass( this.halftonePass );*/
     this.composer.toScreen();
 
   }
@@ -826,6 +764,9 @@ Global.prototype.onResize = function(){
     }
   }
 
+  var div = document.getElementById( "experienceInfo")
+  var dpr = window.devicePixelRatio || 1;
+  div.style.fontSize = ( window.innerWidth / dpr ) / 80
 
 }
 
