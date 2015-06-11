@@ -27,8 +27,8 @@ credits.addToInitArray( function(){
   this.links = []
 
   this.links.push( new Donate( 'DONATE' , "http://www.blackgirlscode.com/" , 230) );
-  this.links.push( new Donate( 'TWITTER' , "http://twitter.com/cabbibo" , 80));
-  this.links.push( new Donate( 'FACEBOOK' , "http://facebook.com/cabbibo", 80));
+  this.links.push( new Donate( 'TWITTER' , "http://twitter.com/share?text='ENOUGH'%20by%20%40cabbibo%20:%20An%20interactive%20audio/visual%20odyssey%20in%20the%20guise%20of%20a%20picture%20book%20&url=http://cabbi.bo/enough" , 80));
+  this.links.push( new Donate( 'FACEBOOK' , "http://www.facebook.com/sharer.php?u=http://cabbi.bo/enough", 80));
   this.links.push( new Donate( 'MORE' , "http://cabbi.bo",80));
 
   for( var  i = 0; i < this.links.length; i++ ){

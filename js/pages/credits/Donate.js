@@ -136,6 +136,14 @@ Donate.prototype.select = function(){
 
   window.open( this.location )
 
+
+  // Making it so that object gets hovered out, so interrstections
+  // dont break
+  G.v1.set( 1 , 0 , 0 );
+  G.v1.applyQuaternion( G.camera.quaternion );
+  G.v1.add( G.camera.position );
+  G.objectControls.checkForIntersections( G.v1 )
+
 }
 Donate.prototype.update = function(){
 
