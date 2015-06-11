@@ -35,6 +35,7 @@ sun.addToInitArray( function(){
   
       for( var i = 0; i < this.audio.array.length; i++ ){
         if( i == 5 ){
+          console.log( this.audio.array[i] )
           this.audio.array[i].fadeIn( 10 , 1 );
         }
       }
@@ -399,8 +400,8 @@ sun.addToInitArray( function(){
 
     this.audio[ name ] = this.loadAudio( name , f + name + '.mp3' );
  
-    this.audio[ name ].updateAnalyser = true;
-    this.audio[ name ].updateTexture = true;
+    //this.audio[ name ].updateAnalyser = true;
+    //this.audio[ name ].updateTexture = true;
 
     this.audio.array.push( this.audio[ name ] );
 
@@ -423,10 +424,12 @@ sun.addToStartArray( function(){
 
    //console.log('HELLLOAAA');
      // console..lg( this.audio );
+
+
   for( var i = 0; i < this.audio.array.length; i++ ){
 
    // console.log('yes');
-    this.audio.array[i].fadeOut( .001 );
+    this.audio.array[i].gain.gain.value = 0;
 
   }
 
