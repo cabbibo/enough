@@ -155,7 +155,8 @@ LoadBar.prototype.addText = function(){
 
   this.frenchButton = document.createElement('div')
   this.frenchButton.id = 'frenchButton'
-  this.frenchButton.innerHTML = 'FRANCAIS'
+
+  this.frenchButton.innerHTML = 'FRANÇAIS'
 
   this.frenchButton.addEventListener( 'click' , function(){ window.location = 'http://cabbi.bo/enough-francais/'} , false );
 
