@@ -153,6 +153,14 @@ LoadBar.prototype.addText = function(){
   this.loadBarInfo.style.marginTop = offset + "px"
   //console.log( this.loadBarInfo.clientHeight )
 
+  this.frenchButton = document.createElement('div')
+  this.frenchButton.id = 'frenchButton'
+  this.frenchButton.innerHTML = 'FRANCAIS'
+
+  this.frenchButton.addEventListener( 'click' , function(){ window.location = 'http://cabbi.bo/enough-francais/'} , false );
+
+  this.loadBarInfo.appendChild( this.frenchButton )
+
 
 
 
