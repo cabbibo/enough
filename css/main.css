@@ -341,3 +341,23 @@ display:none;
   color:#fff;
   border: 1px solid white;
 }
+
+#germanButton{
+
+  
+  color:#aaa;
+  position:absolute;
+  //top:-80px;
+  //height:80px;
+  left: 285px;
+  background:#000;
+  margin-left:-0px;
+  font-size:30px;
+  border: 1px solid #888;
+  padding: 10px;
+
+}
+#germanButton:hover{
+  color:#fff;
+  border: 1px solid white;
+}

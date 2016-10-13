@@ -163,6 +163,16 @@ LoadBar.prototype.addText = function(){
   this.loadBarInfo.appendChild( this.frenchButton )
 
 
+  this.germanButton = document.createElement('div')
+  this.germanButton.id = 'germanButton'
+
+  this.germanButton.innerHTML = 'DEUTSCH'
+
+  this.germanButton.addEventListener( 'click' , function(){ window.location = 'http://cabbi.bo/enough-deutsch/'} , false );
+
+  this.loadBarInfo.appendChild( this.germanButton )
+
+
 
 
   //element.id = 
